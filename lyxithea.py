@@ -6,6 +6,8 @@ import os.path
 import subprocess
 import bibtexparser
 from bibtexparser.bibdatabase import BibDatabase
+import __builtins__ as bi
+import tempfile
 
 def get_pname(id):
     p = subprocess.Popen(["ps -o cmd= {}".format(id)], stdout=subprocess.PIPE, shell=True)
@@ -105,13 +107,16 @@ class bib(object):
                 bibtex_str = bibtexparser.dumps(bibdb)
                 from subprocess import Popen, PIPE
                 import shlex
-                with open('temp.bib', 'w') as f:
-                    f.write(bibtex_str)
-                system_str = 'bibtex2html -nokeys -o - -s plain -nodoc -q temp.bib'
+                f = tempfile.NamedTemporaryFile(suffix=".bib", delete=False)
+                f.write(bibtex_str)
+                f.close()
+                system_str = 'bibtex2html -nokeys -o - -s plain -nodoc -q {fname}'.format(fname=f.name)
                 args = shlex.split(system_str)
                 proc = Popen(args, stdout=PIPE, stderr=PIPE)
                 out, err = proc.communicate()
                 exitcode = proc.returncode
+                f.close()
+                os.remove(f.name)
                 result = out.replace("""<!-- This document was automatically generated with bibtex2html 1.98
      (see http://www.lri.fr/~filliatr/bibtex2html/),
      with the following command:
@@ -132,6 +137,13 @@ class bib(object):
 def figures():
     print bi.__tables__
     print bi.__figures__
+    print bi.__labels__
+
+def label(label):
+    if run_from_ipython and not need_latex():
+        if 'fig:' not in label and 'tab:' not in label:
+            number = bi.__label__
+
 
 def cref(label):
     if run_from_ipython and not need_latex():
