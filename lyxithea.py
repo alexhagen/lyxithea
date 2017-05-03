@@ -28,6 +28,8 @@ def need_latex():
         ip = IPython.core.getipython.get_ipython()
         ip.display_formatter.formatters['text/latex'].enabled = True
         return True
+    elif os.path.exists('/tmp/need_latex'):
+        return True
     else:
         return False
 
@@ -72,7 +74,8 @@ class bib(object):
         self.bib_dict = {}
         self.style = style
         self.cited_labels = []
-        self.add_bib(os.path.expanduser('~/') + filename)
+        self.full_filename = os.path.expanduser('~/') + filename
+        self.add_bib(self.full_filename)
 
     def add_bib(self, filename):
         self.bib_fname = filename
@@ -96,6 +99,8 @@ class bib(object):
             pcitestr += '</a>'
             pcitestr += ')'
             return display(HTML(pcitestr))
+        elif run_from_ipython() and need_latex():
+            return Latex(r'\cite{%s}' % label)
 
     def bibliography(self, header_level=2):
         if run_from_ipython() and not need_latex():
@@ -132,6 +137,8 @@ class bib(object):
             htmlstr += '</ol>\n'
 
             return display(HTML(htmlstr))
+        elif run_from_ipython() and need_latex():
+            return display(Latex(r'\bibliographystyle{%s} \bibliography{"%s"}' % (self.style, self.full_filename)))
 
 
 def figures():
