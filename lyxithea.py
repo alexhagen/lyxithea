@@ -65,9 +65,6 @@ def lipsum():
     html_str += '</p>'
     return display(HTML(html_str))
 
-def cite(label):
-    if run_from_ipython() and not need_latex():
-        return '[1]'
 class bib(object):
     def __init__(self, filename='bibs/dissertation.bib', style='unsrt'):
         self.bib_dict = {}
