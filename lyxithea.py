@@ -1,12 +1,12 @@
 from tabulate import tabulate
-from IPython.display import SVG, display, Latex, HTML, display_latex
+from IPython.display import SVG, display, Latex, HTML, Javascript
 import sys
 import os
 import os.path
 import subprocess
 import bibtexparser
 from bibtexparser.bibdatabase import BibDatabase
-import __builtins__ as bi
+import __builtin__ as bi
 import tempfile
 
 def get_pname(id):
@@ -28,10 +28,8 @@ def need_latex():
         ip = IPython.core.getipython.get_ipython()
         ip.display_formatter.formatters['text/latex'].enabled = True
         return True
-    elif os.path.exists('/tmp/need_latex'):
-        return True
     else:
-        return False
+        return os.path.isfile('/tmp/need_latex')
 
 def table(array, caption='', label=None, headers=None, floatfmt=".2f"):
     if label is None:
@@ -61,6 +59,70 @@ def table(array, caption='', label=None, headers=None, floatfmt=".2f"):
             \label{tab:%s}
         \end{table}""" % (table, caption, label)
         display(Latex(strlatex))
+
+def to_pdf():
+    if 'jupyter-nbconvert' not in get_pname(os.getpid()) + get_pname(os.getppid()):
+        with open('/tmp/need_latex', 'w') as f:
+            f.write('True')
+        f.close()
+        os.chdir(os.getcwd())
+        subprocess.cwd = os.getcwd()
+        if False:
+            # first lets remove all of the cell metadata
+            display(Javascript("""
+                var ncells = IPython.notebook.ncells();
+                var cells = IPython.notebook.get_cells();
+                for (var i = 0; i < ncells; i++) {
+                    var cell = cells[i];
+                    if (cell.metadata.hasOwnProperty('variables')) {
+                        delete cell.metadata.variables;
+                    }
+                }
+                """))
+            # and, lets run all of the cells, but this should include latex stuff
+            display(Javascript("""
+                require(['base/js/namespace',
+                        'jquery',
+                        'notebook/js/cell',
+                        'base/js/security',
+                        'components/marked/lib/marked',
+                        'base/js/events'],
+                function(jupyter, $, events) {
+                    "use strict";
+                    var runall = function() {
+                        console.log("Auto-running all cells above...");
+                        events.on("rendered.MarkdownCell", function (event, data) {
+                            var element = data.cell.element.find('div.text_cell_render');
+                            console.log('editing a cell');
+                            var text = execute_python(data.cell, element[0].innerHTML);
+                            if (text !== undefined) {
+                                element[0].innerHTML = text;
+                                MathJax.Hub.Queue(["Typeset",MathJax.Hub,element[0]]);
+                            }
+                        });
+                        jupyter.actions.call('jupyter-notebook:run-all-cells-above');
+                        jupyter.actions.call('jupyter-notebook:save-notebook');
+                    };
+                    return {
+                        runall : runall
+                    };
+                });
+            """))
+        # now lets actually convert it
+        cmd = 'jupyter nbconvert --to latex stored_energy_fingerprints.ipynb'
+        p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+        out, err = p.communicate()
+        if os.path.exists("/tmp/need_latex"):
+            os.remove("/tmp/need_latex")
+        if False:
+            display(Javascript("""
+                require(['base/js/namespace', 'jquery'],
+                function(jupyter, $) {
+                    console.log("Auto-running all cells-below...");
+                    jupyter.actions.call('jupyter-notebook:run-all-cells-above');
+                    jupyter.actions.call('jupyter-notebook:save-notebook');
+                });
+            """))
 
 def lipsum():
     html_str = '<p>'
