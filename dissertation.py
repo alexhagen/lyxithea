@@ -37,6 +37,39 @@ class dissertation(document):
     def campus(self, campus):
         self._campus = campus
 
+    def dedication(self, dedication):
+        self._dedication = dedication
+
+    def acknowledgements(self, ack):
+        self._acknowledgements = ack
+
+    def preface(self, preface):
+        self._preface = preface
+
+    def toc(self):
+        pass
+
+    def lot(self):
+        pass
+
+    def lof(self):
+        pass
+
+    def nom(self):
+        pass
+
+    def abstract(self, abstract):
+        self._abstract = abstract
+
+    def chapter(self, filename):
+        pass
+
+    def appendix(self, filename):
+        pass
+
+    def bibliography(self):
+        self.bib.bibliography()
+
     def peek(self):
         html_str = """<h1>{title}</h1>
         <h2>{author}</h2>
