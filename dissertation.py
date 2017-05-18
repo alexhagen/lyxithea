@@ -24,7 +24,8 @@ def stdoutIO(stdout=None):
 
 
 
-js = "IPython.CodeCell.config_defaults.highlight_modes['magic_markdown'] = {'reg':[/^%%dis/]};"
+js = "IPython.CodeCell.config_defaults.highlight_modes['magic_markdown'] = {'reg':[/^%%dis/]}; \n"
+js += "IPython.Cell.options_default.cm_config.lineWrapping = true;"
 display_javascript(js, raw=True)
 
 def cdis():
