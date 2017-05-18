@@ -52,7 +52,7 @@ class dissertation(document):
         self._chapter_paths = []
         self._data_paths = []
         bi.__cdis__ = self
-        self.current_chapter = ''
+        self._current_chapter = ''
         super(dissertation, self).__init__()
 
     @staticmethod
