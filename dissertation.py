@@ -1,5 +1,5 @@
 import datetime
-from IPython.display import display, HTML
+from IPython.display import display, HTML, Markdown, Javascript
 from IPython.core.magic import (Magics, magics_class, line_magic,
                                 cell_magic, line_cell_magic)
 import __builtin__ as bi
@@ -77,14 +77,17 @@ class dissertation(document):
 
     def dedication(self, dedication):
         self._dedication = self.process_markdown(dedication)
+        display(Markdown(self._dedication))
         return self
 
     def acknowledgements(self, ack):
         self._acknowledgements = self.process_markdown(ack)
+        display(Markdown(self._acknowledgements))
         return self
 
     def preface(self, preface):
         self._preface = self.process_markdown(preface)
+        display(Markdown(self._preface))
         return self
 
     def toc(self):
@@ -105,6 +108,7 @@ class dissertation(document):
 
     def abstract(self, abstract):
         self._abstract = self.process_markdown(abstract)
+        display(Markdown(self._abstract))
         return self
 
     def chapter(self, filename):
@@ -139,7 +143,6 @@ class dissertation_magics(Magics):
         cdis = bi.__cdis__
         cmd_str = "cdis.{method}(\"\"\"{arg}\"\"\")" \
             .format(method=line, arg=cell)
-        print cmd_str
         exec(cmd_str)
 
 ip.register_magics(dissertation_magics)
