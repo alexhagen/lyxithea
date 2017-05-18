@@ -68,7 +68,7 @@ class dissertation(document):
         pass
 
     def bibliography(self):
-        self.bib.bibliography()
+        self._bib.bibliography()
 
     def peek(self):
         html_str = """<h1>{title}</h1>
