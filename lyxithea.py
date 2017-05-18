@@ -6,7 +6,7 @@ import os.path
 import subprocess
 import bibtexparser
 from bibtexparser.bibdatabase import BibDatabase
-import __builtin__ as bi
+import __builtins__ as bi
 import tempfile
 
 def get_pname(id):
@@ -31,6 +31,15 @@ def need_latex():
     else:
         return os.path.isfile('/tmp/need_latex')
 
+def need_markdown():
+    return os.path.isfile('/tmp/need_markdown')
+
+def markdown(i=True):
+    if i:
+        os.system('touch /tmp/need_markdown')
+    else:
+        os.system('rm /tmp/need_markdown')
+
 def table(array, caption='', label=None, headers=None, floatfmt=".2f"):
     if label is None:
         label = caption
@@ -46,7 +55,10 @@ def table(array, caption='', label=None, headers=None, floatfmt=".2f"):
         """ % (label, bi.__tabcount__, caption, table)
         bi.__tables__[label] = bi.__tabcount__
         bi.__tabcount__ += 1
-        display(HTML(fig_html))
+        if need_markdown():
+            return fig_html
+        else:
+            return display(HTML(fig_html))
     elif run_from_ipython() and need_latex():
         table = tabulate(array, headers=headers, tablefmt='latex',
                          numalign='center', stralign='center',
@@ -129,7 +141,10 @@ def nom(abbr, extended, kind='abbr'):
         bi.__nom__[kind][abbr] = extended
     if run_from_ipython() and not need_latex():
         html_str = "<span>{abbr}</span>".format(abbr=abbr)
-        return display(HTML(html_str))
+        if need_markdown():
+            return html_str
+        else:
+            return display(HTML(html_str))
     elif run_from_ipython() and need_latex():
         pass
 
@@ -169,7 +184,10 @@ class bib(object):
             pcitestr += ' ' + d['year']
             pcitestr += '</a>'
             pcitestr += ')'
-            return display(HTML(pcitestr))
+            if need_markdown():
+                return pcitestr
+            else:
+                return display(HTML(pcitestr))
         elif run_from_ipython() and need_latex():
             return Latex(r'\cite{%s}' % label)
 
@@ -206,8 +224,10 @@ class bib(object):
                 #print out, err, exitcode
                 htmlstr += '<li name="{name}">{citation}</li>\n'.format(name=label, citation=result)
             htmlstr += '</ol>\n'
-
-            return display(HTML(htmlstr))
+            if need_markdown():
+                return htmlstr
+            else:
+                return display(HTML(htmlstr))
         elif run_from_ipython() and need_latex():
             return display(Latex(r'\bibliographystyle{%s} \bibliography{"%s"}' % (self.style, self.full_filename)))
 
@@ -220,8 +240,7 @@ def figures():
 def label(label):
     if run_from_ipython and not need_latex():
         if 'fig:' not in label and 'tab:' not in label:
-            number = bi.__label__
-
+            number = bi.__labels__
 
 def cref(label):
     if run_from_ipython and not need_latex():
@@ -235,6 +254,9 @@ def cref(label):
             text = 'ref'
             number = 0
         html_str = '<a href="#%s">%s %d</a>' % (label, text, number)
-        return display(HTML(html_str))
+        if need_markdown():
+            return html_str
+        else:
+            return display(HTML(html_str))
     elif run_from_ipython and need_latex():
         return display(Latex('\[fig:%s\]' % label))

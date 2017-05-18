@@ -2,7 +2,6 @@ import datetime
 from IPython.display import display, HTML, Markdown, Javascript, display_javascript
 from IPython.core.magic import (Magics, magics_class, line_magic,
                                 cell_magic, line_cell_magic)
-import __builtin__ as bi
 import os.path
 import re
 import sys
@@ -10,6 +9,7 @@ import StringIO
 import contextlib
 import inspect
 import lyxithea as lyx
+import __builtins__ as bi
 
 ip = get_ipython()
 
@@ -22,7 +22,7 @@ def stdoutIO(stdout=None):
     yield stdout
     sys.stdout = old
 
-__regex__ = r"{% ([\s\w\d\(\)\'\"\{\}\.\%\\]*?) %}"
+
 
 js = "IPython.CodeCell.config_defaults.highlight_modes['magic_markdown'] = {'reg':[/^%%dis/]};"
 display_javascript(js, raw=True)
@@ -74,17 +74,23 @@ class dissertation(document):
         """ looks for python parameter notation in a markdown string
 
         :todo: Make this into a Jinja2 class for more flexibility.
+        :todo: make a context manager for the markdown so I can use ``with``
+            syntax
         """
-        matches = re.finditer(__regex__, markdown)
+        matches = re.finditer(bi.__regex__, markdown)
 
         for matchNum, match in enumerate(matches):
             with stdoutIO() as s:
+                lyx.markdown()
                 exec(match.group(1), self.get_locals())
+                lyx.markdown(False)
             rep_string = s.getvalue()
             if len(rep_string) < 1:
                 cmd = "print {oldcmd}".format(oldcmd=match.group(1))
                 with stdoutIO() as s:
+                    lyx.markdown()
                     exec(cmd, self.get_locals())
+                    lyx.markdown(False)
                 rep_string = s.getvalue()
             markdown = markdown.replace(match.group(), rep_string)
         return markdown
@@ -198,8 +204,9 @@ class dissertation(document):
         return self
 
     def add_to_cchap(self, string):
-        self._current_chapter += self.process_markdown(string)
-        display(Markdown(string))
+        processed_string = self.process_markdown(string)
+        self._current_chapter += processed_string
+        display(Markdown(processed_string))
         return self
 
 @magics_class
