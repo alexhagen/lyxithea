@@ -43,7 +43,7 @@ class dissertation(document):
     """ A dissertation class """
     def __init__(self, bib=None):
         if bib is None:
-            bib = lyx.bib('bibs/dissertation.bib')
+            self._bib = lyx.bib('bibs/dissertation.bib')
         else:
             self._bib = bib
         now = datetime.datetime.now()
