@@ -52,6 +52,7 @@ class dissertation(document):
         self._chapter_paths = []
         self._data_paths = []
         bi.__cdis__ = self
+        self.current_chapter = ''
         super(dissertation, self).__init__()
 
     @staticmethod
@@ -174,6 +175,7 @@ class dissertation(document):
                         return os.path.join(root, _fname)
 
     def chapter(self, filename):
+        self._current_chapter = ''
         filename = self.find_first(filename)
         print filename
         return self
@@ -193,6 +195,11 @@ class dissertation(document):
         """.format(title=self._title, author=self._author, month=self._month,
                    year=self._year)
         display(HTML(html_str))
+        return self
+
+    def add_to_cchap(self, string):
+        self._current_chapter += self.process_markdown(string)
+        display(Markdown(string))
         return self
 
 @magics_class
