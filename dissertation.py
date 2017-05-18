@@ -144,7 +144,7 @@ class dissertation_magics(Magics):
     def dis(self, line, cell):
         """ call function of dissertation from a line magic """
         cdis = bi.__cdis__
-        cmd_str = "cdis.{method}(\"\"\"{arg}\"\"\")" \
+        cmd_str = "cdis.{method}(r\"\"\"{arg}\"\"\")" \
             .format(method=line, arg=cell)
         exec(cmd_str)
 
