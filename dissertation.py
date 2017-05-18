@@ -77,6 +77,7 @@ class dissertation(document):
         :todo: make a context manager for the markdown so I can use ``with``
             syntax
         """
+        markdown = re.sub(u"(\u2018|\u2019)", "'", markdown)
         matches = re.finditer(bi.__regex__, markdown)
 
         for matchNum, match in enumerate(matches):
