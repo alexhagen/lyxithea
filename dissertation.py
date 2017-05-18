@@ -4,6 +4,24 @@ from IPython.core.magic import (Magics, magics_class, line_magic,
                                 cell_magic, line_cell_magic)
 import __builtin__ as bi
 import os.path
+import re
+import sys
+import StringIO
+import contextlib
+import inspect
+
+ip = get_ipython()
+
+@contextlib.contextmanager
+def stdoutIO(stdout=None):
+    old = sys.stdout
+    if stdout is None:
+        stdout = StringIO.StringIO()
+    sys.stdout = stdout
+    yield stdout
+    sys.stdout = old
+
+__regex__ = r"{% ([\s\w\d\(\)\'\"\{\}\.\%\\]*?) %}"
 
 js = "IPython.CodeCell.config_defaults.highlight_modes['magic_markdown'] = {'reg':[/^%%dis/]};"
 display_javascript(js, raw=True)
@@ -37,8 +55,22 @@ class dissertation(document):
         return os.path.isdir(path)
 
     @staticmethod
-    def process_markdown(markdown):
-        """ looks for python parameter notation in a markdown string """
+    def get_locals():
+        lcls = ip.user_module.__dict__
+        return lcls
+
+    def process_markdown(self, markdown):
+        """ looks for python parameter notation in a markdown string
+
+        :todo: Make this into a Jinja2 class for more flexibility.
+        """
+        matches = re.finditer(__regex__, markdown)
+
+        for matchNum, match in enumerate(matches):
+            with stdoutIO() as s:
+                exec(match.group(1), self.get_locals())
+            rep_string = s.getvalue()
+            markdown = markdown.replace(match.group(), rep_string)
         return markdown
 
     def chapter_paths(self, paths):
@@ -148,8 +180,6 @@ class dissertation(document):
         display(HTML(html_str))
         return self
 
-ip = get_ipython()
-
 @magics_class
 class dissertation_magics(Magics):
 
@@ -157,7 +187,7 @@ class dissertation_magics(Magics):
     def dis(self, line, cell):
         """ call function of dissertation from a line magic """
         cdis = bi.__cdis__
-        cmd_str = "cdis.{method}(r\"\"\"{arg}\"\"\")" \
+        cmd_str = "cdis.{method}(r\'\'\'{arg}\'\'\')" \
             .format(method=line, arg=cell)
         exec(cmd_str)
 
