@@ -1,4 +1,5 @@
 import datetime
+from IPython.display import display, HTML
 
 class document(object):
     """ A document class """
@@ -42,3 +43,4 @@ class dissertation(document):
         <p>{month}, {year}</p>
         """.format(title=self._title, author=self._author, month=self._month,
                    year=self._year)
+        display(HTML(html_str))
