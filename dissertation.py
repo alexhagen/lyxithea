@@ -9,6 +9,7 @@ import sys
 import StringIO
 import contextlib
 import inspect
+import lyxithea as lyx
 
 ip = get_ipython()
 
@@ -26,6 +27,12 @@ __regex__ = r"{% ([\s\w\d\(\)\'\"\{\}\.\%\\]*?) %}"
 js = "IPython.CodeCell.config_defaults.highlight_modes['magic_markdown'] = {'reg':[/^%%dis/]};"
 display_javascript(js, raw=True)
 
+def cdis():
+    if bi.__cdis__ is not None:
+        return bi.__cdis__
+    else:
+        return dissertation()
+
 class document(object):
     """ A document class """
     def __init__(self):
@@ -34,8 +41,11 @@ class document(object):
 
 class dissertation(document):
     """ A dissertation class """
-    def __init__(self, bib):
-        self._bib = bib
+    def __init__(self, bib=None):
+        if bib is None:
+            bib = lyx.bib('bibs/dissertation.bib')
+        else:
+            self._bib = bib
         now = datetime.datetime.now()
         self._month = now.strftime("%B")
         self._year = now.strftime("%Y")
