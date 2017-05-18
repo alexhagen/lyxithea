@@ -1,8 +1,11 @@
 import datetime
-from IPython.display import display, HTML, Markdown, Javascript
+from IPython.display import display, HTML, Markdown, Javascript, display_javascript
 from IPython.core.magic import (Magics, magics_class, line_magic,
                                 cell_magic, line_cell_magic)
 import __builtin__ as bi
+
+js = "IPython.CodeCell.config_defaults.highlight_modes['magic_markdown'] = {'reg':[/^%%dis/]};"
+display_javascript(js, raw=True)
 
 class document(object):
     """ A document class """
