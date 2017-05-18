@@ -172,6 +172,13 @@ class bib(object):
                     self.bib_dict[entry['ID']] = entry
 
     def pcite(self, label):
+        if label not in self.bib_dict:
+            pcitestr = '(??)'
+            todo('fix {citation} citation'.format(citation=label))
+            if need_markdown():
+                return pcitestr
+            else:
+                return display(HTML(pcitestr))
         if run_from_ipython() and not need_latex():
             d = self.bib_dict[label]
             if label not in self.cited_labels:
@@ -236,6 +243,25 @@ def figures():
     print bi.__tables__
     print bi.__figures__
     print bi.__labels__
+
+def todo(task):
+    if task not in bi.__todos__:
+        bi.__todos__.extend([task])
+    if run_from_ipython and not need_latex():
+        if need_markdown():
+            return ''
+        else:
+            return display(HTML(''))
+
+def print_todos():
+    if run_from_ipython and not need_latex():
+        html_str = ''
+        for task in bi.__todos__:
+            html_str += "<li>{task}</li>\n".format(task=task)
+        if need_markdown():
+            return html_str
+        else:
+            return display(HTML(html_str))
 
 def label(label):
     if run_from_ipython and not need_latex():
