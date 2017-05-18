@@ -3,6 +3,7 @@ from IPython.display import display, HTML, Markdown, Javascript, display_javascr
 from IPython.core.magic import (Magics, magics_class, line_magic,
                                 cell_magic, line_cell_magic)
 import __builtin__ as bi
+import os.path
 
 js = "IPython.CodeCell.config_defaults.highlight_modes['magic_markdown'] = {'reg':[/^%%dis/]};"
 display_javascript(js, raw=True)
@@ -32,7 +33,8 @@ class dissertation(document):
         :param path: the path to the folder to be added
         :returns: boolean if the path is good or not
         """
-        return true
+        path = path.replace('~', os.path.expanduser('~'))
+        return os.path.isdir(path)
 
     @staticmethod
     def process_markdown(markdown):
@@ -47,6 +49,7 @@ class dissertation(document):
         """
         for path in paths:
             if self.check_chapter_path(path):
+                path = path.replace('~', os.path.expanduser('~'))
                 self._chapter_paths.extend([path])
         return self
 
@@ -114,8 +117,18 @@ class dissertation(document):
         display(Markdown(self._abstract))
         return self
 
+    def find_first(self, filename):
+        for path in self._chapter_paths:
+            for root, dirs, files in os.walk(path):
+                for extension in ["ipynb", "lyx"]:
+                    _fname = "{fname}.{ext}".format(fname=filename,
+                                                    ext=extension)
+                    if _fname in files:
+                        return os.path.join(root, _fname)
+
     def chapter(self, filename):
-        pass
+        filename = self.find_first(filename)
+        print filename
         return self
 
     def appendix(self, filename):
