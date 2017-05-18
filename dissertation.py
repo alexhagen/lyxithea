@@ -70,6 +70,11 @@ class dissertation(document):
             with stdoutIO() as s:
                 exec(match.group(1), self.get_locals())
             rep_string = s.getvalue()
+            if len(rep_string) < 1:
+                cmd = "print {oldcmd}".format(oldcmd=match.group(1))
+                with stdoutIO() as s:
+                    exec(cmd, self.get_locals())
+                rep_string = s.getvalue()
             markdown = markdown.replace(match.group(), rep_string)
         return markdown
 
