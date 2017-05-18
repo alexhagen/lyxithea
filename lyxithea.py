@@ -140,7 +140,19 @@ def nom(abbr, extended, kind='abbr'):
     if abbr not in bi.__nom__[kind].keys():
         bi.__nom__[kind][abbr] = extended
     if run_from_ipython() and not need_latex():
-        html_str = "<span>{abbr}</span>".format(abbr=abbr)
+
+        html_str = "<style>\n"
+        html_str += "a.def {\n"
+        html_str += "    display: none;\n"
+        html_str += "}\n"
+        html_str += ".abbr:hover + .def {\n"
+        html_str += "    display: inline;\n"
+        html_str += "    color: #777;\n"
+        html_str += "    padding-left: 1em;\n"
+        html_str += "}\n"
+        html_str += "</style>\n"
+        html_str += "<span class='abbr'>{abbr}</span>".format(abbr=abbr)
+        html_str += "<a class='def'>{extd}</a>".format(extd=extended)
         if need_markdown():
             return html_str
         else:
