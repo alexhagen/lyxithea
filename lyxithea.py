@@ -142,6 +142,7 @@ def nom(abbr, extended, kind='abbr'):
     if run_from_ipython() and not need_latex():
 
         html_str = "<style>\n"
+        html_str += ".abbr { color: #777; }\n"
         html_str += "a.def {\n"
         html_str += "    display: none;\n"
         html_str += "}\n"
