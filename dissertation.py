@@ -2,14 +2,23 @@ import datetime
 from IPython.display import display, HTML, Markdown, Javascript, display_javascript
 from IPython.core.magic import (Magics, magics_class, line_magic,
                                 cell_magic, line_cell_magic)
+from IPython.display import FileLink, JSON, DisplayObject
 import os.path
+import os
 import re
 import sys
 import StringIO
 import contextlib
 import inspect
+import nbformat
+from nbconvert import HTMLExporter
+from IPython.display import display, HTML
+from traitlets.config import Config
+from jinja2 import DictLoader
+from IPython.core.magics.code import CodeMagics
 import lyxithea as lyx
 import __builtins__ as bi
+import __init__ as init
 
 ip = get_ipython()
 
@@ -21,8 +30,6 @@ def stdoutIO(stdout=None):
     sys.stdout = stdout
     yield stdout
     sys.stdout = old
-
-
 
 js = "IPython.CodeCell.config_defaults.highlight_modes['magic_markdown'] = {'reg':[/^%%dis/]}; \n"
 js += "IPython.Cell.options_default.cm_config.lineWrapping = true;"
@@ -54,6 +61,7 @@ class dissertation(document):
         self._data_paths = []
         bi.__cdis__ = self
         self._current_chapter = ''
+        self._chapters = []
         super(dissertation, self).__init__()
 
     @staticmethod
@@ -182,10 +190,40 @@ class dissertation(document):
                         return os.path.join(root, _fname)
 
     def chapter(self, filename):
-        self._current_chapter = ''
-        filename = self.find_first(filename)
-        print filename
-        return self
+        nb = nbformat.read(filename, as_version=4)
+        nb2 = nbformat.read('test_export.ipynb', as_version=4)
+        print nb.cells
+        for cell in nb.cells:
+            nb2.new_code_cell(cell.source)
+        #if False: #not os.path.isfile('/tmp/convertingjupyter'):
+        #ip.magic("load " + filename)
+        #else:
+        #return display(JSON(nbformat.read(filename, as_version=4)))
+
+    def export(self, filename):
+        if not os.path.isfile('/tmp/convertingjupyter'):
+            os.system('touch /tmp/convertingjupyter')
+            with open('./' + filename + '.ipynb', 'r') as f:
+                string = f.read()
+            nb = nbformat.reads(string, as_version=4)
+            c = Config()
+            c.HTMLExporter.preprocessors = \
+                ['nbconvert.preprocessors.ExecutePreprocessor']
+            tmplt = r"""
+                {%- extends 'full.tpl' -%}
+
+                {% block input_group %}
+                {% endblock input_group %}"""
+            with open('noinputhtmlfull.tpl', 'w') as f:
+                f.write(tmplt)
+            html_exporter = HTMLExporter(config=c, template_file='noinputhtmlfull.tpl')
+            (body, resources) = html_exporter.from_notebook_node(nb)
+            with open('./' + filename + '.html', 'w') as f:
+                f.write(body)
+            display(FileLink('./' + filename + '.html'))
+        else:
+            os.system('rm /tmp/convertingjupyter')
+
 
     def appendix(self, filename):
         pass

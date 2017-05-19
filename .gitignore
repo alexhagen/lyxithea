@@ -1,4 +1,8 @@
 temp.bib
+noinputhtml.tpl
+noinputhtmlfull.tpl
+test_export.html
+.DS_Store
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
