@@ -142,7 +142,7 @@ def nom(abbr, extended, kind='abbr'):
     if run_from_ipython() and not need_latex():
 
         #html_str = '<link rel="stylesheet" href="https://cdn.rawgit.com/tiaanduplessis/wenk/master/dist/wenk.css">'
-        html_str = "<span class='abbr' data-wenk={extd}>{abbr}</span>".format(abbr=abbr,extd=extended)
+        html_str = "<span class='abbr' data-wenk='{extd}'>{abbr}</span>".format(abbr=abbr,extd=extended)
         if need_markdown():
             return html_str
         else:

@@ -36,3 +36,4 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
 """))
 
 display(HTML('<link rel="stylesheet" href="https://cdn.rawgit.com/tiaanduplessis/wenk/master/dist/wenk.css">'))
+display(HTML('<style> span.abbr{ color: #555; } </style>'))
