@@ -1,4 +1,4 @@
-from IPython.display import display, Javascript
+from IPython.display import display, Javascript, HTML
 
 display(Javascript("""
 MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
@@ -34,3 +34,5 @@ MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
     });
 });
 """))
+
+display(HTML('<link rel="stylesheet" href="https://cdn.rawgit.com/tiaanduplessis/wenk/master/dist/wenk.css">'))
