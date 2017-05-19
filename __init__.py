@@ -27,4 +27,5 @@ display(HTML(r'$\newcommand{\unit}[1]{\mathrm{#1}}$'))
 display(HTML(r'$\newcommand{\ce}[1]{\mathrm{#1}}$'))
 
 display(HTML('<link rel="stylesheet" href="https://cdn.rawgit.com/tiaanduplessis/wenk/master/dist/wenk.css">'))
-display(HTML('<style> span.abbr{ color: #555; } </style>'))
+display(HTML('<style> span.abbr{ color: #999; } </style>'))
+display(HTML('<style> [data-wenk]:after { z-index: 1000000000; } </style>'))
