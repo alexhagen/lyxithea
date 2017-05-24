@@ -246,6 +246,36 @@ class dissertation(document):
         processed_string = self.process_markdown(string)
         self._current_chapter += processed_string
         display(Markdown(processed_string))
+        javascript_str = """
+        function code_toggle()
+        {
+            var code_shown = $(this).attr('value') == 'true';
+            if (code_shown)
+            {
+                console.log("code shown")
+                $(this).children('.input').show('500');
+            }
+            else
+            {
+                console.log("code not shown")
+                $(this).children('.input').hide('500');
+            }
+
+            code_shown = !code_shown;
+            $(this).attr('value', code_shown);
+        }
+        $('.code_cell').each(function() {
+            if(!$(this)[0].hasAttribute("value")){
+                $(this).attr('value', 'true');
+            }
+        });
+        $('.code_cell').each(function() {
+            var ev = $._data($(this), 'events');
+            if (!(ev && ev.dblclick)) {
+                $(this).dblclick(code_toggle);
+            }
+        });"""
+        display(Javascript(javascript_str))
         return self
 
 @magics_class
