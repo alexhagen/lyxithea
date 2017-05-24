@@ -270,10 +270,7 @@ class dissertation(document):
             }
         });
         $('.code_cell').each(function() {
-            var ev = $._data($(this), 'events');
-            if (!(ev && ev.dblclick)) {
-                $(this).dblclick(code_toggle);
-            }
+            $(this).unbind("dblclick").dblclick(code_toggle);
         });"""
         display(Javascript(javascript_str))
         return self
