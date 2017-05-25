@@ -3,7 +3,7 @@ __tabcount__ = 1
 __tables__ = {}
 __figures__ = {}
 __figcount__ = 1
-__nom__ = {'abbr': {}, 'unit': {}, 'supsub': {}, 'defs': {}}
+__nom__ = {'abbr': {}, 'symb': {}, 'unit': {}, 'supsub': {}, 'defs': {}}
 __todos__ = []
 
 __cdis__ = None
