@@ -137,7 +137,8 @@ def to_pdf():
             """))
 
 def nom(abbr, extended, kind='abbr'):
-    if abbr not in bi.__nom__[kind].keys():
+    if abbr not in bi.__nom__.keys():
+        bi.__nom__[kind] = {}
         bi.__nom__[kind][abbr] = extended
     if run_from_ipython() and not need_latex():
 
