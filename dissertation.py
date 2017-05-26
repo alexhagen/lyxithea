@@ -17,6 +17,8 @@ from traitlets.config import Config
 from jinja2 import DictLoader
 from IPython.core.magics.code import CodeMagics
 import lyxithea as lyx
+import nbformat
+import re
 import __builtins__ as bi
 import __init__ as init
 
@@ -190,40 +192,59 @@ class dissertation(document):
                         return os.path.join(root, _fname)
 
     def chapter(self, filename):
-        nb = nbformat.read(filename, as_version=4)
-        nb2 = nbformat.read('test_export.ipynb', as_version=4)
-        print nb.cells
-        for cell in nb.cells:
-            nb2.new_code_cell(cell.source)
-        #if False: #not os.path.isfile('/tmp/convertingjupyter'):
-        #ip.magic("load " + filename)
-        #else:
-        #return display(JSON(nbformat.read(filename, as_version=4)))
+        pass
+        return self
 
     def export(self, filename):
-        if not os.path.isfile('/tmp/convertingjupyter'):
-            os.system('touch /tmp/convertingjupyter')
-            with open('./' + filename + '.ipynb', 'r') as f:
-                string = f.read()
-            nb = nbformat.reads(string, as_version=4)
-            c = Config()
-            c.HTMLExporter.preprocessors = \
-                ['nbconvert.preprocessors.ExecutePreprocessor']
-            tmplt = r"""
-                {%- extends 'full.tpl' -%}
+        nb = nbformat.v4.new_notebook()
 
-                {% block input_group %}
-                {% endblock input_group %}"""
-            with open('noinputhtmlfull.tpl', 'w') as f:
-                f.write(tmplt)
-            html_exporter = HTMLExporter(config=c, template_file='noinputhtmlfull.tpl')
-            (body, resources) = html_exporter.from_notebook_node(nb)
-            with open('./' + filename + '.html', 'w') as f:
-                f.write(body)
-            display(FileLink('./' + filename + '.html'))
-        else:
-            os.system('rm /tmp/convertingjupyter')
+        def append_notebook(filename, cells):
+            _nb = nbformat.read(filename, 4)
+            for cell in _nb.cells:
+                if cell['cell_type'] == 'code':
+                    if re.match('dis\.chapter\([\'\"](.*)[\'\"]\)', cell['source']) is None \
+                        and re.match('dis\.appendix\([\'\"](.*)[\'\"]\)', cell['source']) is None \
+                        and cell['source'] is not '' \
+                        and re.match('lyx\.print_todos\(\)', cell['source']) is None \
+                        and re.match('dis\.export\([\'\"](.*)[\'\"]\)', cell['source']) is None:
+                        cell_to_add = nbformat.v4.new_code_cell(cell['source'])
+                        cells.extend([cell_to_add])
+                    elif re.match('dis\.chapter\([\'\"](.*)[\'\"]\)', cell['source']) is not None:
+                        # find the argument of 'dischapter('
+                        matches = re.match('dis\.chapter\([\'\"](.*)[\'\"]\)', cell['source'])
+                        import_filename = matches.group(1)
+                        append_notebook(import_filename, cells)
+                    elif re.match('dis\.appendix\([\'\"](.*)[\'\"]\)', cell['source']) is not None:
+                        # find the argument of 'disappendix('
+                        matches = re.match('dis\.appendix\([\'\"](.*)[\'\"]\)', cell['source'])
+                        import_filename = matches.group(1)
+                        append_notebook(import_filename, cells)
+            return cells
 
+        cells = append_notebook('test_export.ipynb', [])
+
+        nb['cells'] = cells
+
+        nbformat.write(nb, 'temp_notebook.ipynb', 4)
+
+        # now do the nb_convert to latex by executing
+        nb = nbformat.read('temp_notebook.ipynb', 4)
+        c = Config()
+        c.HTMLExporter.preprocessors = \
+            ['nbconvert.preprocessors.ExecutePreprocessor']
+        tmplt = r"""
+            {%- extends 'full.tpl' -%}
+
+            {% block input_group %}
+            {% endblock input_group %}"""
+        with open('noinputhtmlfull.tpl', 'w') as f:
+            f.write(tmplt)
+        html_exporter = HTMLExporter(config=c, template_file='noinputhtmlfull.tpl')
+        (body, resources) = html_exporter.from_notebook_node(nb)
+        with open('./' + filename + '.html', 'w') as f:
+            f.write(body)
+        display(FileLink('./' + filename + '.html'))
+        os.remove('temp_notebook.ipynb')
 
     def appendix(self, filename):
         pass

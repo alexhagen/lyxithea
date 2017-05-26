@@ -8,6 +8,7 @@ import bibtexparser
 from bibtexparser.bibdatabase import BibDatabase
 import __builtins__ as bi
 import tempfile
+import nbformat
 
 def get_pname(id):
     p = subprocess.Popen(["ps -o cmd= {}".format(id)], stdout=subprocess.PIPE, shell=True)
