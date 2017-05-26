@@ -199,7 +199,7 @@ class dissertation(document):
         nb = nbformat.v4.new_notebook()
 
         def append_notebook(filename, cells):
-            _nb = nbformat.read(filename, 4)
+            _nb = nbformat.read(self.find_first(filename), 4)
             for cell in _nb.cells:
                 if cell['cell_type'] == 'code':
                     if re.match('dis\.chapter\([\'\"](.*)[\'\"]\)', cell['source']) is None \
@@ -218,10 +218,10 @@ class dissertation(document):
                         # find the argument of 'disappendix('
                         matches = re.match('dis\.appendix\([\'\"](.*)[\'\"]\)', cell['source'])
                         import_filename = matches.group(1)
-                        append_notebook(self.find_first(import_filename), cells)
+                        append_notebook(import_filename, cells)
             return cells
 
-        cells = append_notebook(self.find_first(filename), [])
+        cells = append_notebook(filename, [])
 
         nb['cells'] = cells
 
