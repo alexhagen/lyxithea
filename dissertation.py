@@ -221,7 +221,7 @@ class dissertation(document):
                         append_notebook(import_filename, cells)
             return cells
 
-        cells = append_notebook('test_export.ipynb', [])
+        cells = append_notebook(self.find_first(filename) + '.ipynb', [])
 
         nb['cells'] = cells
 
