@@ -237,13 +237,65 @@ class dissertation(document):
 
             {% block input_group %}
             {% endblock input_group %}"""
-        with open('noinputhtmlfull.tpl', 'w') as f:
+        tmplt = r"""
+            ((*- extends 'article.tplx' -*))
+
+            ((* block input_group *))
+                ((*- if cell.metadata.get('nbconvert', {}).get('show_code', False) -*))
+                    ((( super() )))
+                ((*- endif -*))
+            ((* endblock input_group *))
+
+            ((* block data_latex -*))
+                ((( output.data['text/latex'] | strip_files_prefix )))
+            ((* endblock data_latex *))
+
+            ((* block packages *))
+            ((( super() )))
+            \usepackage{abntcite}
+            \usepackage{tikz}
+            ((* endblock packages *))
+
+            % Author and Title from metadata
+            ((* block maketitle *))
+
+            ((*- if nb.metadata["latex_metadata"]: -*))
+            ((*- if nb.metadata["latex_metadata"]["author"]: -*))
+                \author{((( nb.metadata["latex_metadata"]["author"] )))}
+            ((*- endif *))
+            ((*- else -*))
+                \author{Alex Hagen}
+            ((*- endif *))
+
+            ((*- if nb.metadata["latex_metadata"]: -*))
+            ((*- if nb.metadata["latex_metadata"]["affiliation"]: -*))
+                \affiliation{((( nb.metadata["latex_metadata"]["affiliation"] )))}
+            ((*- endif *))
+            ((*- endif *))
+
+            ((*- if nb.metadata["latex_metadata"]: -*))
+            ((*- if nb.metadata["latex_metadata"]["title"]: -*))
+                \title{((( nb.metadata["latex_metadata"]["title"] )))}
+            ((*- endif *))
+            ((*- else -*))
+                \title{((( resources.metadata.name )))}
+            ((*- endif *))
+
+            \date{\today}
+            \maketitle
+            ((* endblock maketitle *))"""
+        with open('noinputlatexfull.tpl', 'w') as f:
             f.write(tmplt)
-        html_exporter = HTMLExporter(config=c, template_file='noinputhtmlfull.tpl')
-        (body, resources) = html_exporter.from_notebook_node(nb)
-        with open('./' + filename + '.html', 'w') as f:
+        #html_exporter = HTMLExporter(config=c, template_file='noinputhtmlfull.tpl')
+        #(body, resources) = html_exporter.from_notebook_node(nb)
+        latex_exporter =LatexExporter(config=c, template_file='noinputlatexfull.tpl')
+        (body, resources) = latex_exporter.from_notebook_node(nb)
+        with open('./' + filename + '.tex', 'w') as f:
             f.write(body)
-        display(FileLink('./' + filename + '.html'))
+        os.system('pdflatex ./' + filename + '.tex')
+        os.system('pdflatex ./' + filename + '.tex')
+        os.system('pdflatex ./' + filename + '.tex')
+        display(FileLink('./' + filename + '.pdf'))
         os.remove('temp_notebook.ipynb')
 
     def appendix(self, filename):
