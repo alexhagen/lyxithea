@@ -2,7 +2,7 @@ import datetime
 from IPython.display import display, HTML, Markdown, Javascript, display_javascript
 from IPython.core.magic import (Magics, magics_class, line_magic,
                                 cell_magic, line_cell_magic)
-from IPython.display import FileLink, JSON, DisplayObject
+from IPython.display import FileLink, JSON, DisplayObject, Latex
 import os.path
 import os
 import re
@@ -19,7 +19,7 @@ from IPython.core.magics.code import CodeMagics
 import lyxithea as lyx
 import nbformat
 import re
-import __builtins__ as bi
+import __builtin__
 import __init__ as init
 
 ip = get_ipython()
@@ -116,71 +116,55 @@ class dissertation(document):
             if self.check_chapter_path(path):
                 path = path.replace('~', os.path.expanduser('~'))
                 self._chapter_paths.extend([path])
-        return self
 
     def title(self, title):
         self._title = title
-        return self
 
     def author(self, author):
         self._author = author
-        return self
 
     def author_backwards(self, author):
         self._author_backwards = author
-        return self
 
     def degree(self, degree):
         self._degree = degree
-        return self
 
     def dgr(self, dgr):
         self._dgr = dgr
-        return self
 
     def major_prof(self, major_prof):
         self._major_prof = major_prof
-        return self
 
     def campus(self, campus):
         self._campus = campus
-        return self
 
     def dedication(self, dedication):
         self._dedication = self.process_markdown(dedication)
-        display(Markdown(self._dedication))
-        return self
+        return bi.__formatter__(self._dedication)
 
     def acknowledgements(self, ack):
         self._acknowledgements = self.process_markdown(ack)
-        display(Markdown(self._acknowledgements))
-        return self
+        return bi.__formatter__(self._acknowledgements)
 
     def preface(self, preface):
         self._preface = self.process_markdown(preface)
-        display(Markdown(self._preface))
-        return self
+        return display(bi.__formatter__(self._preface))
 
     def toc(self):
         pass
-        return self
 
     def lot(self):
         pass
-        return self
 
     def lof(self):
         pass
-        return self
 
     def nom(self):
         pass
-        return self
 
     def abstract(self, abstract):
         self._abstract = self.process_markdown(abstract)
-        display(Markdown(self._abstract))
-        return self
+        return display(bi.__formatter__(self._abstract))
 
     def find_first(self, filename):
         for path in self._chapter_paths:
@@ -193,7 +177,6 @@ class dissertation(document):
 
     def chapter(self, filename):
         pass
-        return self
 
     def export(self, filename):
         nb = nbformat.v4.new_notebook()
@@ -220,9 +203,7 @@ class dissertation(document):
                         import_filename = matches.group(1)
                         append_notebook(import_filename, cells)
             return cells
-
         cells = append_notebook(filename, [])
-
         nb['cells'] = cells
 
         nbformat.write(nb, 'temp_notebook.ipynb', 4)
@@ -231,6 +212,8 @@ class dissertation(document):
         nb = nbformat.read('temp_notebook.ipynb', 4)
         c = Config()
         c.HTMLExporter.preprocessors = \
+            ['nbconvert.preprocessors.ExecutePreprocessor']
+        c.LatexExporter.preprocessors = \
             ['nbconvert.preprocessors.ExecutePreprocessor']
         tmplt = r"""
             {%- extends 'full.tpl' -%}
@@ -252,8 +235,9 @@ class dissertation(document):
 
             ((* block packages *))
             ((( super() )))
-            \usepackage{abntcite}
             \usepackage{tikz}
+            \newcommand{\unit}[1]{\mathrm{#1}}
+            \newcommand{\ce}[1]{\mathrm{#1}}
             ((* endblock packages *))
 
             % Author and Title from metadata
@@ -284,28 +268,29 @@ class dissertation(document):
             \date{\today}
             \maketitle
             ((* endblock maketitle *))"""
-        with open('noinputlatexfull.tpl', 'w') as f:
+        with open('noinputlatexfull.tplx', 'w') as f:
             f.write(tmplt)
         #html_exporter = HTMLExporter(config=c, template_file='noinputhtmlfull.tpl')
         #(body, resources) = html_exporter.from_notebook_node(nb)
-        latex_exporter =LatexExporter(config=c, template_file='noinputlatexfull.tpl')
+        bi.__formatter__ = Latex
+        __need_latex__ = True
+        latex_exporter = LatexExporter(config=c, template_file='noinputlatexfull.tplx')
         (body, resources) = latex_exporter.from_notebook_node(nb)
         with open('./' + filename + '.tex', 'w') as f:
             f.write(body)
         os.system('pdflatex ./' + filename + '.tex')
+        os.system('bibtex ./' + filename)
         os.system('pdflatex ./' + filename + '.tex')
         os.system('pdflatex ./' + filename + '.tex')
         display(FileLink('./' + filename + '.pdf'))
         display(FileLink('./' + filename + '.tex'))
-        os.remove('temp_notebook.ipynb')
+        #os.remove('temp_notebook.ipynb')
 
     def appendix(self, filename):
         pass
-        return self
 
     def bibliography(self):
-        self._bib.bibliography()
-        return self
+        return self._bib.bibliography()
 
     def peek(self):
         html_str = """<h1>{title}</h1>
@@ -313,13 +298,9 @@ class dissertation(document):
         <p>{month}, {year}</p>
         """.format(title=self._title, author=self._author, month=self._month,
                    year=self._year)
-        display(HTML(html_str))
-        return self
+        return bi.__formatter__(html_str)
 
-    def add_to_cchap(self, string):
-        processed_string = self.process_markdown(string)
-        self._current_chapter += processed_string
-        display(Markdown(processed_string))
+    def set_hide_dblclick(self, string):
         javascript_str = """
         function code_toggle()
         {
@@ -346,8 +327,12 @@ class dissertation(document):
         $('.code_cell').each(function() {
             $(this).unbind("dblclick").dblclick(code_toggle);
         });"""
-        display(Javascript(javascript_str))
-        return self
+        return display(Javascript(javascript_str))
+
+    def add_to_cchap(self, string):
+        processed_string = self.process_markdown(string)
+        self._current_chapter += processed_string
+        return display(bi.__formatter__(processed_string))
 
 @magics_class
 class dissertation_magics(Magics):
