@@ -296,6 +296,7 @@ class dissertation(document):
         os.system('pdflatex ./' + filename + '.tex')
         os.system('pdflatex ./' + filename + '.tex')
         display(FileLink('./' + filename + '.pdf'))
+        display(FileLink('./' + filename + '.tex'))
         os.remove('temp_notebook.ipynb')
 
     def appendix(self, filename):
