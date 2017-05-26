@@ -218,7 +218,7 @@ class dissertation(document):
                         # find the argument of 'disappendix('
                         matches = re.match('dis\.appendix\([\'\"](.*)[\'\"]\)', cell['source'])
                         import_filename = matches.group(1)
-                        append_notebook(import_filename, cells)
+                        append_notebook(self.find_first(import_filename), cells)
             return cells
 
         cells = append_notebook(self.find_first(filename), [])
