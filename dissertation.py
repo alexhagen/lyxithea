@@ -11,7 +11,7 @@ import StringIO
 import contextlib
 import inspect
 import nbformat
-from nbconvert import HTMLExporter
+from nbconvert import HTMLExporter, LatexExporter
 from IPython.display import display, HTML
 from traitlets.config import Config
 from jinja2 import DictLoader
