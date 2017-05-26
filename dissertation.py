@@ -19,7 +19,7 @@ from IPython.core.magics.code import CodeMagics
 import lyxithea as lyx
 import nbformat
 import re
-import __builtin__
+import __builtins__ as bi
 import __init__ as init
 
 ip = get_ipython()
@@ -92,16 +92,20 @@ class dissertation(document):
 
         for matchNum, match in enumerate(matches):
             with stdoutIO() as s:
-                lyx.markdown()
+                #lyx.markdown()
+                lyx.latex()
                 exec(match.group(1), self.get_locals())
-                lyx.markdown(False)
+                lyx.latex(False)
+                #lyx.markdown(False)
             rep_string = s.getvalue()
             if len(rep_string) < 1:
                 cmd = "print {oldcmd}".format(oldcmd=match.group(1))
                 with stdoutIO() as s:
-                    lyx.markdown()
+                    #lyx.markdown()
+                    lyx.latex()
                     exec(cmd, self.get_locals())
-                    lyx.markdown(False)
+                    lyx.latex(False)
+                    #lyx.markdown(False)
                 rep_string = s.getvalue()
             markdown = markdown.replace(match.group(), rep_string)
         return markdown
@@ -178,32 +182,36 @@ class dissertation(document):
     def chapter(self, filename):
         pass
 
+    def append_notebook(self, filename, cells, child=True):
+        _nb = nbformat.read(self.find_first(filename), 4)
+        for cell in _nb.cells:
+            if cell['cell_type'] == 'code':
+                if re.match('dis\.chapter\([\'\"](.*)[\'\"]\)', cell['source']) is None \
+                    and re.match('dis\.appendix\([\'\"](.*)[\'\"]\)', cell['source']) is None \
+                    and cell['source'] is not '' \
+                    and re.match('dis\.export\([\'\"](.*)[\'\"]\)', cell['source']) is None:
+                        if child:
+                            source = cell['source'].replace('lyx.print_todos()', '')
+                        else:
+                            source = cell['source']
+                        cell_to_add = nbformat.v4.new_code_cell(source)
+                        cells.extend([cell_to_add])
+                elif re.match('dis\.chapter\([\'\"](.*)[\'\"]\)', cell['source']) is not None:
+                    # find the argument of 'dischapter('
+                    matches = re.match('dis\.chapter\([\'\"](.*)[\'\"]\)', cell['source'])
+                    import_filename = matches.group(1)
+                    self.append_notebook(import_filename, cells)
+                elif re.match('dis\.appendix\([\'\"](.*)[\'\"]\)', cell['source']) is not None:
+                    # find the argument of 'disappendix('
+                    matches = re.match('dis\.appendix\([\'\"](.*)[\'\"]\)', cell['source'])
+                    import_filename = matches.group(1)
+                    self.append_notebook(import_filename, cells)
+        return cells
+
     def export(self, filename):
         nb = nbformat.v4.new_notebook()
 
-        def append_notebook(filename, cells):
-            _nb = nbformat.read(self.find_first(filename), 4)
-            for cell in _nb.cells:
-                if cell['cell_type'] == 'code':
-                    if re.match('dis\.chapter\([\'\"](.*)[\'\"]\)', cell['source']) is None \
-                        and re.match('dis\.appendix\([\'\"](.*)[\'\"]\)', cell['source']) is None \
-                        and cell['source'] is not '' \
-                        and re.match('lyx\.print_todos\(\)', cell['source']) is None \
-                        and re.match('dis\.export\([\'\"](.*)[\'\"]\)', cell['source']) is None:
-                        cell_to_add = nbformat.v4.new_code_cell(cell['source'])
-                        cells.extend([cell_to_add])
-                    elif re.match('dis\.chapter\([\'\"](.*)[\'\"]\)', cell['source']) is not None:
-                        # find the argument of 'dischapter('
-                        matches = re.match('dis\.chapter\([\'\"](.*)[\'\"]\)', cell['source'])
-                        import_filename = matches.group(1)
-                        append_notebook(import_filename, cells)
-                    elif re.match('dis\.appendix\([\'\"](.*)[\'\"]\)', cell['source']) is not None:
-                        # find the argument of 'disappendix('
-                        matches = re.match('dis\.appendix\([\'\"](.*)[\'\"]\)', cell['source'])
-                        import_filename = matches.group(1)
-                        append_notebook(import_filename, cells)
-            return cells
-        cells = append_notebook(filename, [])
+        cells = self.append_notebook(filename, [], child=False)
         nb['cells'] = cells
 
         nbformat.write(nb, 'temp_notebook.ipynb', 4)
@@ -220,60 +228,12 @@ class dissertation(document):
 
             {% block input_group %}
             {% endblock input_group %}"""
-        tmplt = r"""
-            ((*- extends 'article.tplx' -*))
-
-            ((* block input_group *))
-                ((*- if cell.metadata.get('nbconvert', {}).get('show_code', False) -*))
-                    ((( super() )))
-                ((*- endif -*))
-            ((* endblock input_group *))
-
-            ((* block data_latex -*))
-                ((( output.data['text/latex'] | strip_files_prefix )))
-            ((* endblock data_latex *))
-
-            ((* block packages *))
-            ((( super() )))
-            \usepackage{tikz}
-            \newcommand{\unit}[1]{\mathrm{#1}}
-            \newcommand{\ce}[1]{\mathrm{#1}}
-            ((* endblock packages *))
-
-            % Author and Title from metadata
-            ((* block maketitle *))
-
-            ((*- if nb.metadata["latex_metadata"]: -*))
-            ((*- if nb.metadata["latex_metadata"]["author"]: -*))
-                \author{((( nb.metadata["latex_metadata"]["author"] )))}
-            ((*- endif *))
-            ((*- else -*))
-                \author{Alex Hagen}
-            ((*- endif *))
-
-            ((*- if nb.metadata["latex_metadata"]: -*))
-            ((*- if nb.metadata["latex_metadata"]["affiliation"]: -*))
-                \affiliation{((( nb.metadata["latex_metadata"]["affiliation"] )))}
-            ((*- endif *))
-            ((*- endif *))
-
-            ((*- if nb.metadata["latex_metadata"]: -*))
-            ((*- if nb.metadata["latex_metadata"]["title"]: -*))
-                \title{((( nb.metadata["latex_metadata"]["title"] )))}
-            ((*- endif *))
-            ((*- else -*))
-                \title{((( resources.metadata.name )))}
-            ((*- endif *))
-
-            \date{\today}
-            \maketitle
-            ((* endblock maketitle *))"""
-        with open('noinputlatexfull.tplx', 'w') as f:
-            f.write(tmplt)
+        lyx.latex()
+        lyx.markdown(False)
         #html_exporter = HTMLExporter(config=c, template_file='noinputhtmlfull.tpl')
         #(body, resources) = html_exporter.from_notebook_node(nb)
         bi.__formatter__ = Latex
-        __need_latex__ = True
+        bi.__need_latex__ = True
         latex_exporter = LatexExporter(config=c, template_file='noinputlatexfull.tplx')
         (body, resources) = latex_exporter.from_notebook_node(nb)
         with open('./' + filename + '.tex', 'w') as f:
@@ -284,6 +244,7 @@ class dissertation(document):
         os.system('pdflatex ./' + filename + '.tex')
         display(FileLink('./' + filename + '.pdf'))
         display(FileLink('./' + filename + '.tex'))
+        lyx.latex(False)
         #os.remove('temp_notebook.ipynb')
 
     def appendix(self, filename):
@@ -343,6 +304,7 @@ class dissertation_magics(Magics):
         cdis = bi.__cdis__
         # sanitize the inputs
         arg = re.sub(u"(\u2018|\u2019)", "'", cell)
+        arg = arg.replace("\'\'\'", "\"\"\"")
         cmd_str = "cdis.{method}(r\'\'\'{arg}\'\'\')" \
             .format(method=line, arg=arg)
         exec(cmd_str)

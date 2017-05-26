@@ -1,0 +1,50 @@
+
+            ((*- extends 'article.tplx' -*))
+
+            ((* block input_group *))
+                ((*- if cell.metadata.get('nbconvert', {}).get('show_code', False) -*))
+                    ((( super() )))
+                ((*- endif -*))
+            ((* endblock input_group *))
+
+            ((* block data_latex -*))
+                ((( output.data['text/latex'] | strip_files_prefix )))
+            ((* endblock data_latex *))
+
+            ((* set cell_style = 'style_bw_python.tplx' *))
+
+            ((* block packages *))
+            ((( super() )))
+            \usepackage{tikz}
+            \newcommand{\unit}[1]{\mathrm{#1}}
+            \newcommand{\ce}[1]{\mathrm{#1}}
+            ((* endblock packages *))
+
+            % Author and Title from metadata
+            ((* block maketitle *))
+
+            ((*- if nb.metadata["latex_metadata"]: -*))
+            ((*- if nb.metadata["latex_metadata"]["author"]: -*))
+                \author{((( nb.metadata["latex_metadata"]["author"] )))}
+            ((*- endif *))
+            ((*- else -*))
+                \author{Alex Hagen}
+            ((*- endif *))
+
+            ((*- if nb.metadata["latex_metadata"]: -*))
+            ((*- if nb.metadata["latex_metadata"]["affiliation"]: -*))
+                \affiliation{((( nb.metadata["latex_metadata"]["affiliation"] )))}
+            ((*- endif *))
+            ((*- endif *))
+
+            ((*- if nb.metadata["latex_metadata"]: -*))
+            ((*- if nb.metadata["latex_metadata"]["title"]: -*))
+                \title{((( nb.metadata["latex_metadata"]["title"] )))}
+            ((*- endif *))
+            ((*- else -*))
+                \title{((( resources.metadata.name )))}
+            ((*- endif *))
+
+            \date{\today}
+            \maketitle
+            ((* endblock maketitle *))
