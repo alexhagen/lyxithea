@@ -39,13 +39,13 @@ def latex(i=True):
     if i:
         os.system('touch /tmp/need_latex')
     else:
-        os.system('rm /tmp/need_latex')
+        os.system('rm -f /tmp/need_latex')
 
 def markdown(i=True):
     if i:
         os.system('touch /tmp/need_markdown')
     else:
-        os.system('rm /tmp/need_markdown')
+        os.system('rm -f /tmp/need_markdown')
 
 def table(array, caption='', label=None, headers=None, floatfmt=".2f"):
     if label is None:

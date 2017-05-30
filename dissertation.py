@@ -95,7 +95,7 @@ class dissertation(document):
                 #lyx.markdown()
                 lyx.latex()
                 exec(match.group(1), self.get_locals())
-                lyx.latex(False)
+                #lyx.latex(False)
                 #lyx.markdown(False)
             rep_string = s.getvalue()
             if len(rep_string) < 1:
@@ -104,7 +104,7 @@ class dissertation(document):
                     #lyx.markdown()
                     lyx.latex()
                     exec(cmd, self.get_locals())
-                    lyx.latex(False)
+                    #lyx.latex(False)
                     #lyx.markdown(False)
                 rep_string = s.getvalue()
             markdown = markdown.replace(match.group(), rep_string)
@@ -182,8 +182,25 @@ class dissertation(document):
     def chapter(self, filename):
         pass
 
+    def replace_rel_paths(self, string, filename):
+        print filename
+        print os.path.split(filename)
+        # find all paths in the string with a regex
+        matches = re.compile(r"(([/]|\.\.|\./)([^.]*[\.][\w][\w][\w][\w]?|$))", flags=0) \
+            .findall(string)
+        print matches
+        # for each path
+        for match in matches:
+            print match[0]
+            rep_str = os.path.relpath(os.path.join(os.path.split(filename)[0], match[0]))
+            print rep_str
+            string.replace(match[0], rep_str)
+        return string
+
     def append_notebook(self, filename, cells, child=True):
         _nb = nbformat.read(self.find_first(filename), 4)
+        fpath = os.path.abspath(os.path.dirname(self.find_first(filename)))
+        cells.extend([nbformat.v4.new_code_cell("import os; os.chdir(\'%s\')" % fpath)])
         for cell in _nb.cells:
             if cell['cell_type'] == 'code':
                 if re.match('dis\.chapter\([\'\"](.*)[\'\"]\)', cell['source']) is None \
@@ -191,9 +208,19 @@ class dissertation(document):
                     and cell['source'] is not '' \
                     and re.match('dis\.export\([\'\"](.*)[\'\"]\)', cell['source']) is None:
                         if child:
-                            source = cell['source'].replace('lyx.print_todos()', '')
+                            source = cell['source'].replace('lyx.print_todos()', '')\
+                                .replace(".export(\'../img", ".export(\'%s/img" % self.cwd)\
+                                .replace(".export(\"../img", ".export(\"%s/img" % self.cwd)\
+                                .replace(".svg_show(\'../img", ".svg_show(\'%s/img" % self.cwd)\
+                                .replace(".svg_show(\"../img", ".svg_show(\"%s/img" % self.cwd)
+                            #source = self.replace_rel_paths(source, self.find_first(filename))
                         else:
-                            source = cell['source']
+                            source = cell['source']\
+                                .replace(".export(\'../img", ".export(\'%s/img" % self.cwd)\
+                                .replace(".export(\"../img", ".export(\"%s/img" % self.cwd)\
+                                .replace(".svg_show(\'../img", ".svg_show(\'%s/img" % self.cwd)\
+                                .replace(".svg_show(\"../img", ".svg_show(\"%s/img" % self.cwd)
+                            #source = self.replace_rel_paths(source, self.find_first(filename))
                         cell_to_add = nbformat.v4.new_code_cell(source)
                         cells.extend([cell_to_add])
                 elif re.match('dis\.chapter\([\'\"](.*)[\'\"]\)', cell['source']) is not None:
@@ -206,11 +233,15 @@ class dissertation(document):
                     matches = re.match('dis\.appendix\([\'\"](.*)[\'\"]\)', cell['source'])
                     import_filename = matches.group(1)
                     self.append_notebook(import_filename, cells)
+        #cells.extend([nbformat.v4.new_code_cell("os.chdir(\'%s\')" % self.cwd)])
         return cells
 
     def export(self, filename):
+        #for path in self._chapter_paths[-1:0:-1]:
+        #    os.system('cp -f {path}../img/*.svg img/'.format(path=path))
+        #    os.system('cp -f {path}../img/*.svg img/'.format(path=path))
         nb = nbformat.v4.new_notebook()
-
+        self.cwd = os.path.abspath(os.getcwd())
         cells = self.append_notebook(filename, [], child=False)
         nb['cells'] = cells
 
@@ -234,7 +265,9 @@ class dissertation(document):
         #(body, resources) = html_exporter.from_notebook_node(nb)
         bi.__formatter__ = Latex
         bi.__need_latex__ = True
-        latex_exporter = LatexExporter(config=c, template_file='noinputlatexfull.tplx')
+        with open('nilf.tplx', 'w') as f:
+            f.write(bi.__latex_template__)
+        latex_exporter = LatexExporter(config=c, template_file='nilf.tplx')
         (body, resources) = latex_exporter.from_notebook_node(nb)
         with open('./' + filename + '.tex', 'w') as f:
             f.write(body)
@@ -244,8 +277,13 @@ class dissertation(document):
         os.system('pdflatex ./' + filename + '.tex')
         display(FileLink('./' + filename + '.pdf'))
         display(FileLink('./' + filename + '.tex'))
-        lyx.latex(False)
-        #os.remove('temp_notebook.ipynb')
+        #lyx.latex(False)
+        os.remove('temp_notebook.ipynb')
+        os.remove(filename + '.out')
+        os.remove(filename + '.log')
+        os.remove(filename + '.bbl')
+        os.remove(filename + '.aux')
+        os.remove(filename + '.blg')
 
     def appendix(self, filename):
         pass
