@@ -149,9 +149,9 @@ class dissertation(document):
 
     def acknowledgements(self, ack):
         self._acknowledgements = self.process_markdown(ack)
-        return display(bi.__formatter__('\\begin{acknowledgements}\n' +
+        return bi.__formatter__('\\begin{acknowledgements}\n' +
                                 self._acknowledgements +
-                                '\\end{acknowledgements}\n'))
+                                '\\end{acknowledgements}\n')
 
     def preface(self, preface):
         self._preface = self.process_markdown(preface)
@@ -284,8 +284,8 @@ class dissertation(document):
         display(FileLink('./' + filename + '.tex'))
         #lyx.latex(False)
         os.remove('temp_notebook.ipynb')
-        os.remove(filename + '.out')
-        os.remove(filename + '.log')
+        #os.remove(filename + '.out')
+        #os.remove(filename + '.log')
         os.remove(filename + '.bbl')
         os.remove(filename + '.aux')
         os.remove(filename + '.blg')
@@ -294,7 +294,10 @@ class dissertation(document):
         pass
 
     def bibliography(self):
-        return self._bib.bibliography() + '\n \\appendices'
+        return self._bib.bibliography()
+
+    def appendices(self):
+        return Latex('\n \\appendices')
 
     def peek(self):
         html_str = """<h1>{title}</h1>
