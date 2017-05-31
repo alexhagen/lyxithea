@@ -102,3 +102,256 @@ __latex_template__ = r"""
 \maketitle
 ((* endblock maketitle *))
 """
+
+__dissertation_template__ = r"""
+((*- extends 'report.tplx' -*))
+
+((* block input_group *))
+    ((*- if cell.metadata.get('nbconvert', {}).get('show_code', False) -*))
+        ((( super() )))
+    ((*- endif -*))
+((* endblock input_group *))
+
+((* block data_latex -*))
+    ((( output.data['text/latex'] | strip_files_prefix )))
+((* endblock data_latex *))
+
+((* set cell_style = 'style_bw_python.tplx' *))
+
+((* block docclass *))
+\documentclass[english, ne, thesis]{puthesis}
+((* endblock docclass *))
+
+((* block margins *))
+((* endblock margins *))
+((* block packages *))
+    \usepackage[T1]{fontenc}
+    \usepackage[latin9]{inputenc}
+    \setcounter{secnumdepth}{3}
+    \setcounter{tocdepth}{1}
+    \usepackage[english]{babel}
+    \usepackage{array}
+    \usepackage{varioref}
+    \usepackage{refstyle}
+    \usepackage{rotfloat}
+    \usepackage{units}
+    \usepackage{multirow}
+    \usepackage{amsmath}
+    \usepackage{graphicx}
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \PassOptionsToPackage{version=3}{mhchem}
+    \usepackage{mhchem}
+    \usepackage[numbers]{natbib}
+    \usepackage{nomencl}
+    % the following is useful when we have the old nomencl.sty package
+    \providecommand{\printnomenclature}{\printglossary}
+    \providecommand{\makenomenclature}{\makeglossary}
+    \makenomenclature
+    \usepackage[unicode=true,pdfusetitle,
+     bookmarks=true,bookmarksnumbered=false,bookmarksopen=false,
+     breaklinks=false,pdfborder={0 0 0},pdfborderstyle={},backref=page,colorlinks=false]
+     {hyperref}
+    \usepackage{breakurl}
+
+    \makeatletter
+
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LyX specific LaTeX commands.
+
+    \AtBeginDocument{\providecommand\figref[1]{\ref{fig:#1}}}
+    \AtBeginDocument{\providecommand\chapref[1]{\ref{chap:#1}}}
+    \AtBeginDocument{\providecommand\secref[1]{\ref{sec:#1}}}
+    \AtBeginDocument{\providecommand\subsecref[1]{\ref{subsec:#1}}}
+    \newcommand{\noun}[1]{\textsc{#1}}
+    %% Because html converters don't know tabularnewline
+    \providecommand{\tabularnewline}{\\}
+    \RS@ifundefined{subsecref}
+      {\newref{subsec}{name = \RSsectxt}}
+      {}
+    \RS@ifundefined{thmref}
+      {\def\RSthmtxt{theorem~}\newref{thm}{name = \RSthmtxt}}
+      {}
+    \RS@ifundefined{lemref}
+      {\def\RSlemtxt{lemma~}\newref{lem}{name = \RSlemtxt}}
+      {}
+
+
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
+    \campus{West Lafayette}
+
+    % Automatically number all display equations
+    \renewcommand\[{\begin{equation}}
+    \renewcommand\]{\end{equation}}
+
+    % For flower symbol
+    \usepackage{bbding}
+    \usepackage{graphicx}
+    \usepackage{color}
+    \usepackage{import}
+    \usepackage{mhchem}
+    \usepackage{algorithm}
+    \usepackage{algorithmic}
+    \usepackage{algolyx}
+    \usepackage{listings}
+
+    % HYPERREF AND APPENDICES?
+    % OVERWRITES appendix command?
+    %\usepackage{appendix}
+
+    % TODO: Check if this is allowed
+    \usepackage{setspace}
+    %\singlespacing
+    \onehalfspacing % my prefered.
+    %\doublespacing
+    %\setstretch{1.1}
+
+    % Be bold when it comes to quotes...
+    \makeatletter
+    \renewenvironment{verse} % from quote env.
+                   {\list{}
+    {\rightmargin\leftmargin}%
+                    \item\setlength{\itemsep}{0pt}%\relax
+      \setlength{\topsep}{0pt}
+      \setlength{\parskip}{0pt}
+      \setlength{\parsep}{0pt}}
+                   {\endlist}
+    \makeatother
+    %\renewenvironment{verse}
+      %             {\let\\\@centercr
+        %            \list{}{\itemsep      \z@
+          %                  \itemindent   -1.5em%
+    %                        \listparindent\itemindent
+    %                        \rightmargin  \leftmargin
+    %                        \advance\leftmargin 1.5em}%
+    %                \item\relax}
+    %               {\endlist}
+    %\makeatother
+
+    % all-caps chapters in TOC
+    \makeatletter \def\@chapter[#1]#2{%
+    \ifnum \c@secnumdepth >\m@ne \refstepcounter{chapter}%
+     \typeout{\@chapapp\space\thechapter.}%
+     \addcontentsline{toc}{chapter}{\protect\numberline{\thechapter}\uppercase{#1}} \fi \chaptermark{#1}%
+     \@makechapterhead{#2} \@afterheading \ifthen{\not \boolean{@@inchapters}} { \pagenumbering{arabic}%
+     \@@inchapterstrue } }
+  \floatstyle{ruled}
+    \newfloat{alg}{tbp}{lop}[chapter]
+    \floatname{alg}{Algorithm}
+
+    \definecolor{405C}{RGB}{116,108,102}
+
+    %Add header for confidentiality
+    \def\@@evenhead{\hfil\textrm{DRAFT - CONFIDENTIAL - NOT FOR DISSEMINATION}\hfil\textrm{\thepage}}
+    \def\@@oddhead{\hfil\textrm{DRAFT - CONFIDENTIAL - NOT FOR DISSEMINATION}\hfil\textrm{\thepage}}
+
+    %Make list of symbols, etc.
+    \renewcommand{\nomname}{}
+    \RequirePackage{ifthen}
+    \newcommand{\abbrtitle}{\item[] \centering{ABBREVIATIONS} %
+    \item[] \raggedright \addcontentsline{toc}{chapter}{ABBREVIATIONS}}
+    \newcommand{\symtitle}{\clearpage \item[] \parbox[b][0.5 in][t]{\textwidth}{\hfill} \item[] \centering SYMBOLS%
+    \item[] \raggedright \addcontentsline{toc}{chapter}{SYMBOLS}}
+    \newcommand{\substitle}{\clearpage \item[] \parbox[b][0.5 in][t]{\textwidth}{\hfill} \item[] \centering SUBSCRIPTS AND SUPERSCRIPTS%
+    \item[] \raggedright \addcontentsline{toc}{chapter}{SUBSCRIPTS AND SUPERSCRIPTS}}
+    \newcommand{\unitstitle}{\item[] \centering{UNITS} %
+    \item[] \raggedright \addcontentsline{toc}{chapter}{UNITS}}
+
+    \renewcommand{\nomgroup}[1]{%
+    \ifthenelse{\equal{#1}{A}}{\abbrtitle}{%
+    \ifthenelse{\equal{#1}{S}}{\symtitle}{
+    \ifthenelse{\equal{#1}{Z}}{\substitle}{
+    \ifthenelse{\equal{#1}{U}}{\unitstitle}{}}}}}
+
+    \newcommand{\nomunit}[1]{%
+     \renewcommand{\nomentryend}{\hspace*{\fill}$\mathrm{#1}$}}
+
+    \usepackage{xcolor}
+
+    \definecolor{grey60}{HTML}{746C66}
+    \definecolor{grey40}{HTML}{A7A9AC}
+
+    \usepackage{pgf}
+
+    %\usepackage{bibentry}
+
+    \usepackage{pgf}
+    \usepackage{tikz}
+    \usepackage{listings}
+    \usepackage{tikz}
+
+    \usepackage{pgfplots}
+    \usetikzlibrary{shapes,arrows,calc,shadings,positioning,fit, trees, decorations.pathreplacing,}
+
+    % argument #1: any options
+    \newenvironment{customlegend}[1][]{%
+        \begingroup
+        % inits/clears the lists (which might be populated from previous
+        % axes):
+        \csname pgfplots@init@cleared@structures\endcsname
+        \pgfplotsset{#1}%
+    }{%
+        % draws the legend:
+        \csname pgfplots@createlegend\endcsname
+        \endgroup
+    }%
+
+    \def\addlegendimage{\csname pgfplots@addlegendimage\endcsname}
+    \usepackage{threeparttable}
+    \usepackage{gensymb}
+    \usepackage{cleveref}
+
+    \usepackage{newunicodechar}
+    \newunicodechar{FFFD}{HEREIAM}
+
+    \@ifundefined{showcaptionsetup}{}{%
+     \PassOptionsToPackage{caption=false}{subfig}}
+    \usepackage{subfig}
+    \AtBeginDocument{
+      \def\labelitemi{\(\Rightarrow\)}
+      \def\labelitemii{\(\rightarrow\)}
+    }
+
+    \makeatother
+  \usepackage{nicefrac}
+  \usepackage{gensymb}
+  \usepackage{import}
+  \providecommand{\unit}[1]{\mathrm{#1}}
+  \providecommand{\ce}[1]{\mathrm{#1}}
+  \providecommand{\cc}{\unit{cm^{2}}}
+  %\newcommand\inputpgf[2]{{
+    %\let\pgfimageWithoutPath\pgfimage
+    %\renewcommand{\pgfimage}[2][]{\pgfimageWithoutPath[##1]{#1/##2}}
+    %\input{#1/#2}
+    %}}
+((* endblock packages *))
+
+((* block error *))
+((* endblock error *))
+
+((* block stream *))
+((* endblock stream *))
+
+((* block markdowncell scoped *))
+    ((( cell.source | citation2latex | strip_files_prefix | convert_pandoc('markdown', 'json', extra_args=['--chapters']) | resolve_references | convert_pandoc('json', 'latex', extra_args=['--chapters']) )))
+((* endblock markdowncell *))
+
+((* block data_markdown *))
+    ((( output.data['text/markdown'] | citation2latex | strip_files_prefix | convert_pandoc('markdown', 'json', extra_args=['--chapters']) | resolve_references | convert_pandoc('json', 'latex', extra_args=['--chapters']) )))
+((* endblock data_markdown *))
+
+% Author and Title from metadata
+((* block maketitle *))
+\pudegree{Doctorate of Philosophy in Nuclear Engineering}{Ph.D.N.E.}{December}{2017}
+
+\majorprof{Rusi P. Taleyarkhan}
+
+\campus{West Lafayette}
+
+\author{Alexander R. Hagen}{Hagen, Alexander R.}
+
+\title{Detection and Interdiction of Shielded and Unshielded Special Nuclear
+Material using Tensioned Metastable Fluid Detectors}
+
+\date{\today}
+\maketitle
+((* endblock maketitle *))
+"""

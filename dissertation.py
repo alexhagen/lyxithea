@@ -144,31 +144,36 @@ class dissertation(document):
 
     def dedication(self, dedication):
         self._dedication = self.process_markdown(dedication)
-        return bi.__formatter__(self._dedication)
+        return display(bi.__formatter__('\\begin{dedication}\n' + self._dedication +
+                                '\\end{dedication}\n'))
 
     def acknowledgements(self, ack):
         self._acknowledgements = self.process_markdown(ack)
-        return bi.__formatter__(self._acknowledgements)
+        return display(bi.__formatter__('\\begin{acknowledgements}\n' +
+                                self._acknowledgements +
+                                '\\end{acknowledgements}\n'))
 
     def preface(self, preface):
         self._preface = self.process_markdown(preface)
-        return display(bi.__formatter__(self._preface))
+        return display(bi.__formatter__('\\begin{preface}\n' + self._preface +
+                                '\\end{preface}\n'))
 
     def toc(self):
-        pass
+        return display(bi.__formatter__(r'\pdfbookmark{TABLE OF CONTENTS}{TABLE OF CONTENTS}\tableofcontents{}'))
 
     def lot(self):
-        pass
+        return display(bi.__formatter__(r'\listoftables'))
 
     def lof(self):
-        pass
+        return display(bi.__formatter__(r'\listoffigures'))
 
     def nom(self):
-        pass
+        return display(bi.__formatter__(r'\printnomenclature{}'))
 
     def abstract(self, abstract):
         self._abstract = self.process_markdown(abstract)
-        return display(bi.__formatter__(self._abstract))
+        return display(bi.__formatter__('\\begin{abstract}\n' + self._abstract +
+                                        '\\end{abstract}'))
 
     def find_first(self, filename):
         for path in self._chapter_paths:
@@ -266,7 +271,7 @@ class dissertation(document):
         bi.__formatter__ = Latex
         bi.__need_latex__ = True
         with open('nilf.tplx', 'w') as f:
-            f.write(bi.__latex_template__)
+            f.write(bi.__dissertation_template__)
         latex_exporter = LatexExporter(config=c, template_file='nilf.tplx')
         (body, resources) = latex_exporter.from_notebook_node(nb)
         with open('./' + filename + '.tex', 'w') as f:
@@ -289,7 +294,7 @@ class dissertation(document):
         pass
 
     def bibliography(self):
-        return self._bib.bibliography()
+        return self._bib.bibliography() + '\n \\appendices'
 
     def peek(self):
         html_str = """<h1>{title}</h1>
