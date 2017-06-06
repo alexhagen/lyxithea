@@ -203,10 +203,13 @@ def _rst_escape_first_column(rows, headers):
             return ".."
         else:
             return val
-    new_headers = list(headers)
+    new_headers = []
     new_rows = []
-    if headers:
-        new_headers[0] = escape_empty(headers[0])
+    for header in headers:
+        new_header = list(header)
+        if new_header:
+            new_header[0] = escape_empty(header[0])
+        new_headers.append(new_header)
     for row in rows:
         new_row = list(row)
         if new_row:
@@ -1156,7 +1159,7 @@ def tabulate(tabular_data, headers=(), tablefmt="simple",
 
     # optimization: look for ANSI control codes once,
     # enable smart width functions only if a control code is found
-    plain_text = '\n'.join(['\t'.join(map(_text_type, headers))] + \
+    plain_text = '\n'.join(['\t'.join(map(_text_type, header)) for header in headers] + \
                             ['\t'.join(map(_text_type, row)) for row in list_of_lists])
 
     has_invisible = re.search(_invisible_codes, plain_text)

@@ -1,5 +1,5 @@
 import datetime
-from IPython.display import display, HTML, Markdown, Javascript, display_javascript
+from IPython.display import display, HTML, Markdown, Javascript, display_javascript, display_html
 from IPython.core.magic import (Magics, magics_class, line_magic,
                                 cell_magic, line_cell_magic)
 from IPython.display import FileLink, JSON, DisplayObject, Latex
@@ -46,6 +46,12 @@ js += "          if (cell.cell_type == 'code'){ cell.auto_highlight(); } }) ;\n"
 js += "      });\n"
 js += "   });\n"
 display_javascript(js, raw=True)
+
+html_str = '<span>$\\newcommand{\\unit}[1]{\\mathrm{\; #1}}$</span>\n'
+html_str += '<span>$\\newcommand{\\ce}[1]{\\mathrm{#1}}$</span>\n'
+html_str += '<link rel="stylesheet" href="https://cdn.rawgit.com/tiaanduplessis/wenk/master/dist/wenk.css">\n'
+html_str += '<style> span.abbr{ color: #999; } </style>\n<style> [data-wenk]:after { z-index: 1000000000; } </style>\n'
+display_html(html_str, raw=True)
 
 def cdis():
     if bi.__cdis__ is not None:

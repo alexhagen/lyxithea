@@ -72,7 +72,7 @@ def table(array, caption='', label=None, headers=None, floatfmt=".2f"):
         else:
             return display(HTML(fig_html))
     elif run_from_ipython() and need_latex():
-        table = tabulate(array, headers=headers, tablefmt='latex',
+        table = tabulate.tabulate(array, headers=headers, tablefmt='latex',
                          numalign='center', stralign='center',
                          floatfmt=floatfmt)
         strlatex = r"""
@@ -82,7 +82,7 @@ def table(array, caption='', label=None, headers=None, floatfmt=".2f"):
             \caption{%s}
             \label{tab:%s}
         \end{table}""" % (table, caption, label)
-        return Latex(strlatex)
+        return display(Latex(strlatex))
 
 def to_pdf():
     if 'jupyter-nbconvert' not in get_pname(os.getpid()) + get_pname(os.getppid()):
