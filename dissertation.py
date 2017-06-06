@@ -33,8 +33,18 @@ def stdoutIO(stdout=None):
     yield stdout
     sys.stdout = old
 
-js = "IPython.CodeCell.config_defaults.highlight_modes['magic_markdown'] = {'reg':[/^%%dis/]}; \n"
-js += "IPython.Cell.options_default.cm_config.lineWrapping = true;"
+
+js = "require(\"notebook/js/cell\").Cell.options_default.cm_config.lineWrapping = true;\n"
+#js += "require(\"notebook/js/cell\").CodeCell.options_default.cm_config.lineWrapping = true;\n"
+#js += "require(\"notebook/js/cell\").MarkdownCell.options_default.cm_config.lineWrapping = true;\n"
+#js = "console.log(Object.getOwnPropertyNames(require(\"notebook/js/cell\").CodeCell));\n"
+js += "require(['notebook/js/codecell'], function(codecell) {\n"
+js += "    codecell.CodeCell.options_default.highlight_modes['magic_markdown'] = {'reg':[/^%%dis/]}; \n"
+js += "    Jupyter.notebook.events.one('kernel_ready.Kernel', function(){\n"
+js += "      Jupyter.notebook.get_cells().map(function(cell){\n"
+js += "          if (cell.cell_type == 'code'){ cell.auto_highlight(); } }) ;\n"
+js += "      });\n"
+js += "   });\n"
 display_javascript(js, raw=True)
 
 def cdis():

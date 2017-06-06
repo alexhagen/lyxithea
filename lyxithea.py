@@ -1,5 +1,5 @@
-from tabulate import tabulate
-from IPython.display import SVG, display, Latex, HTML, Javascript
+from .tabulate import tabulate
+from IPython.display import SVG, display, Latex, HTML, Javascript, FileLink
 import sys
 import os
 import os.path
@@ -9,6 +9,14 @@ from bibtexparser.bibdatabase import BibDatabase
 import __builtins__ as bi
 import tempfile
 import nbformat
+import psgv.psgv as psgv
+
+todos = psgv.psgv('__todos__')
+todos.val = []
+__needs_latex__ = psgv.psgv('__needs_latex__')
+__needs_latex__.val = False
+__needs_markdown__ = psgv.psgv('__needs_markdown__')
+__needs_markdown__.val = True
 
 def get_pname(id):
     p = subprocess.Popen(["ps -o cmd= {}".format(id)], stdout=subprocess.PIPE, shell=True)
@@ -22,6 +30,8 @@ def run_from_ipython():
         return False
 
 def need_latex():
+    return __needs_latex__.val
+    '''
     cmds = get_pname(os.getpid())
     cmds += get_pname(os.getppid())
     if 'jupyter-nbconvert' in cmds and ('to pdf' in cmds or 'to latex' in cmds):
@@ -31,27 +41,22 @@ def need_latex():
         return True
     else:
         return os.path.isfile('/tmp/need_latex')
+    '''
 
 def need_markdown():
-    return os.path.isfile('/tmp/need_markdown')
+    return __needs_markdown__.val
 
 def latex(i=True):
-    if i:
-        os.system('touch /tmp/need_latex')
-    else:
-        os.system('rm -f /tmp/need_latex')
+    __needs_latex__.val = i
 
 def markdown(i=True):
-    if i:
-        os.system('touch /tmp/need_markdown')
-    else:
-        os.system('rm -f /tmp/need_markdown')
+    __needs_markdown__.val = i
 
 def table(array, caption='', label=None, headers=None, floatfmt=".2f"):
     if label is None:
         label = caption
-    if run_from_ipython() and not (need_latex() or bi.__need_latex__):
-        table = tabulate(array, headers=headers, tablefmt='html',
+    if run_from_ipython() and not need_latex():
+        table = tabulate.tabulate(array, headers=headers, tablefmt='html',
                          numalign='center', stralign='center',
                          floatfmt=floatfmt)
         fig_html = r"""
@@ -63,10 +68,10 @@ def table(array, caption='', label=None, headers=None, floatfmt=".2f"):
         bi.__tables__[label] = bi.__tabcount__
         bi.__tabcount__ += 1
         if need_markdown():
-            return fig_html
+            return display(HTML(fig_html))
         else:
             return display(HTML(fig_html))
-    elif run_from_ipython() and (need_latex() or bi.__need_latex__):
+    elif run_from_ipython() and need_latex():
         table = tabulate(array, headers=headers, tablefmt='latex',
                          numalign='center', stralign='center',
                          floatfmt=floatfmt)
@@ -147,7 +152,7 @@ def nom(abbr, extended, kind='abbr'):
     if abbr not in bi.__nom__.keys():
         bi.__nom__[kind] = {}
         bi.__nom__[kind][abbr] = extended
-    if run_from_ipython() and not (need_latex() or bi.__need_latex__):
+    if run_from_ipython() and not need_latex():
 
         #html_str = '<link rel="stylesheet" href="https://cdn.rawgit.com/tiaanduplessis/wenk/master/dist/wenk.css">'
         html_str = "<span class='abbr' data-wenk='{extd}'>{abbr}</span>".format(abbr=abbr,extd=extended)
@@ -155,7 +160,7 @@ def nom(abbr, extended, kind='abbr'):
             return html_str
         else:
             return display(HTML(html_str))
-    elif run_from_ipython() and (need_latex() or bi.__need_latex__):
+    elif run_from_ipython() and need_latex():
         pass
 
 def lipsum():
@@ -173,25 +178,35 @@ class bib(object):
         self.full_filename = os.path.expanduser('~/') + filename
         self.add_bib(self.full_filename)
 
+    def __eq__(self, other):
+        eq = True
+        for key, val in self.__dict__.iteritems():
+            if other.__dict__[key] != val and not hasattr(other.__dict__[key], '__dict__'):
+                print val, other.__dict__[key]
+                return False
+            else:
+                print val, other.__dict__[key]
+        return isinstance(other, type(self)) and self.__dict__ == other.__dict__
+
     def add_bib(self, filename):
         self.bib_fname = filename
-        if run_from_ipython() and not (need_latex() or bi.__need_latex__):
+        if run_from_ipython():
             with open(self.bib_fname, 'r') as bib_file:
                 self.bib_db = bibtexparser.load(bib_file)
                 for entry in self.bib_db.entries:
                     self.bib_dict[entry['ID']] = entry
 
     def pcite(self, label):
-        if label not in self.bib_dict:
+        if label not in self.bib_dict.keys():
             pcitestr = '(??)'
             todo('fix {citation} citation'.format(citation=label))
             if need_markdown():
                 return pcitestr
-            elif (need_latex() or bi.__need_latex__):
+            elif need_latex():
                 return r'\cite{%s}' % label
             else:
                 return display(HTML(pcitestr))
-        if not (need_latex() or bi.__need_latex__):
+        if not need_latex():
             d = self.bib_dict[label]
             if label not in self.cited_labels:
                 self.cited_labels.extend([label])
@@ -207,11 +222,11 @@ class bib(object):
                 return pcitestr
             else:
                 return display(HTML(pcitestr))
-        elif (need_latex() or bi.__need_latex__):
+        elif need_latex():
             return r'\cite{%s}' % label
 
     def bibliography(self, header_level=2):
-        if run_from_ipython() and not (need_latex() or bi.__need_latex__):
+        if run_from_ipython() and not need_latex():
             htmlstr = '<h{hl}>Bibliography</h{hl}>\n'.format(hl=header_level)
             htmlstr += '<ol>\n'
             for label in self.cited_labels:
@@ -244,12 +259,12 @@ class bib(object):
                 htmlstr += '<li name="{name}">{citation}</li>\n'.format(name=label, citation=result)
             htmlstr += '</ol>\n'
             if need_markdown():
-                return htmlstr
-            elif (need_latex() or bi.__need_latex__):
+                return display(HTML(htmlstr))
+            elif need_latex():
                 return r'\bibliographystyle{%s} \bibliography{%s}' % (self.style, self.full_filename)
             else:
                 return display(HTML(htmlstr))
-        elif (need_latex() or bi.__need_latex__):
+        elif need_latex():
             return Latex(r'\bibliographystyle{%s} \bibliography{%s}' % (self.style, self.full_filename))
 
 
@@ -259,12 +274,12 @@ def figures():
     print bi.__labels__
 
 def todo(task):
-    if task not in bi.__todos__:
-        bi.__todos__.extend([task])
-    if run_from_ipython() and not (need_latex() or bi.__need_latex__):
+    if task not in todos.val:
+        todos.val.extend([task])
+    if run_from_ipython() and not need_latex():
         if need_markdown():
             return ''
-        elif (need_latex() or bi.__need_latex__):
+        elif need_latex():
             return ''
         else:
             return display(HTML(''))
@@ -272,34 +287,34 @@ def todo(task):
 def export_todos():
     with open('todos.md', 'w') as f:
         f.write('# Todos \n')
-        for task in bi.__todos__:
+        for task in todos.val:
             f.write('- [ ] {task}\n'.format(task=task))
     os.system('pandoc todos.md -t latex -o todos.pdf')
 
 def print_todos():
-    if not (need_latex() or bi.__need_latex__):
+    if not need_latex():
         html_str = ''
         for task in bi.__todos__:
             html_str += "<li>{task}</li>\n".format(task=task)
         if need_markdown():
             return html_str
-        elif (need_latex() or bi.__need_latex__):
+        elif need_latex():
             # we should write to another file here!
             # export_todos()
             return display(FileLink('todos.pdf'))
-    elif (need_latex() or bi.__need_latex__):
+    elif need_latex():
         export_todos()
-        return ''
+        return display(FileLink('todos.pdf'))
 
 def label(label):
-    if run_from_ipython() and not (need_latex() or bi.__need_latex__):
+    if run_from_ipython() and not need_latex():
         if 'fig:' not in label and 'tab:' not in label:
             number = bi.__labels__
-    elif (need_latex() or bi.__need_latex__):
+    elif need_latex():
         return r'\label{%s}' % label
 
 def cref(label):
-    if run_from_ipython() and not (need_latex() or bi.__need_latex__):
+    if run_from_ipython() and not need_latex():
         if label in bi.__tables__.keys():
             number = bi.__tables__[label]
             text = 'table'
@@ -312,9 +327,9 @@ def cref(label):
         html_str = '<a href="#%s">%s %d</a>' % (label, text, number)
         if need_markdown():
             return html_str
-        elif (need_latex() or bi.__need_latex__):
+        elif need_latex():
             return r'\ref{%s}' % label
         else:
             return display(HTML(html_str))
-    elif run_from_ipython() and (need_latex() or bi.__need_latex__):
+    elif run_from_ipython() and need_latex():
         return r'\ref{%s}' % label
