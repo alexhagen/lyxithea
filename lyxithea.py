@@ -161,7 +161,8 @@ def nom(abbr, extended, kind='abbr'):
         else:
             return display(HTML(html_str))
     elif run_from_ipython() and need_latex():
-        pass
+        latex_str = "\\nomenclature{%s}{%s:%s}\n" % (abbr, kind, extended)
+        return display(Latex(latex_str))
 
 def lipsum():
     html_str = '<p>'
