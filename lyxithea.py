@@ -87,6 +87,8 @@ def table(array, caption='', label=None, headers=None, floatfmt=".2f"):
     if label is None:
         label = __tabcount__.val
         #print __tabcount__
+    if not all(isinstance(el, list) for el in headers):
+        headers = [headers]
     if run_from_ipython() and not need_latex():
         table = tabulate.tabulate(array, headers=headers, tablefmt='html',
                          numalign='center', stralign='center',
