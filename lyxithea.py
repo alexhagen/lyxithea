@@ -85,18 +85,19 @@ def tex_escape(text):
 
 def table(array, caption='', label=None, headers=None, floatfmt=".2f"):
     if label is None:
-        label = caption
+        label = __tabcount__.val
+        #print __tabcount__
     if run_from_ipython() and not need_latex():
         table = tabulate.tabulate(array, headers=headers, tablefmt='html',
                          numalign='center', stralign='center',
                          floatfmt=floatfmt)
+        __tables__.val[label] = __tabcount__.val
         fig_html = r"""
             <div class='table' style='align: center; margin-left: auto; margin-right: auto;'>
                 <div style='margin: auto; text-align: center;' class='tablecaption' name='%s'><b>Table %d:</b> %s</div>
                 %s
             </div>
         """ % (label, __tabcount__.val, caption, table)
-        __tables__.val[label] = __tabcount__.val
         __tabcount__.val += 1
         if need_markdown():
             return display(HTML(fig_html))

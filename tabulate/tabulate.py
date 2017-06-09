@@ -843,8 +843,10 @@ def _normalize_tabular_data(tabular_data, headers, showindex="default"):
             headers = rows[0]
         headers = list(map(_text_type, headers)) # headers should be strings
         rows = rows[1:]
-
-    headers = list(map(_text_type,headers))
+    if isinstance(headers[0], list):
+        headers = list(map(list, headers))
+    else:
+        headers = list(map(_text_type,headers))
     rows = list(map(list,rows))
 
     # add or remove an index column
@@ -862,11 +864,13 @@ def _normalize_tabular_data(tabular_data, headers, showindex="default"):
 
     # pad with empty headers for initial columns if necessary
     if headers and len(rows) > 0:
-       nhs = len(headers)
+       if isinstance(headers[0], list):
+           nhs = len(headers[0])
+       else:
+           nhs = len(headers)
        ncols = len(rows[0])
        if nhs < ncols:
            headers = [""]*(ncols - nhs) + headers
-
     return rows, headers
 
 
@@ -1193,17 +1197,34 @@ def tabulate(tabular_data, headers=(), tablefmt="simple",
 
     # align columns
     aligns = [numalign if ct in [int,float] else stralign for ct in coltypes]
-    minwidths = [width_fn(h) + MIN_PADDING for h in headers] if headers else [0]*len(cols)
+    if headers:
+        if isinstance(headers[0], list):
+            minwidths = [len(h) + MIN_PADDING for h in headers[0]]
+        else:
+            minwidths = [len(h) + MIN_PADDING for h in headers]
+    else:
+        [0]*len(cols)
     cols = [_align_column(c, a, minw, has_invisible)
             for c, a, minw in zip(cols, aligns, minwidths)]
 
     if headers:
+        #print ('in tabulate')
+        #print(headers)
         # align headers and add headers
-        t_cols = cols or [['']] * len(headers)
-        t_aligns = aligns or [stralign] * len(headers)
+        if isinstance(headers[0], list):
+            t_cols = cols or [['']] * len(headers[0])
+            t_aligns = aligns or [stralign] * len(headers[0])
+        else:
+            t_cols = cols or [['']] * len(headers)
+            t_aligns = aligns or [stralign] * len(headers)
         minwidths = [max(minw, width_fn(c[0])) for minw, c in zip(minwidths, t_cols)]
-        headers = [_align_header(h, a, minw, width_fn(h))
-                   for h, a, minw in zip(headers, t_aligns, minwidths)]
+        if isinstance(headers[0], list):
+            headers = [[_align_header(h, a, minw, width_fn(h))
+                       for h, a, minw in zip(headerrow, t_aligns, minwidths)] for headerrow in headers]
+        else:
+            headers = [_align_header(h, a, minw, width_fn(h))
+                       for h, a, minw in zip(headers, t_aligns, minwidths)]
+        #print(headers)
         rows = list(zip(*cols))
     else:
         minwidths = [width_fn(c[0]) for c in cols]
@@ -1275,16 +1296,23 @@ def _format_table(fmt, headers, rows, colwidths, colaligns):
     hidden = fmt.with_header_hide if (headers and fmt.with_header_hide) else []
     pad = fmt.padding
     headerrow = fmt.headerrow
-
+    #print(headers)
+    #headers = map(list, zip(*headers))
+    #print(headers)
     padded_widths = [(w + 2*pad) for w in colwidths]
-    padded_headers = _pad_row(headers, pad)
+    padded_headers = [_pad_row(header, pad) for header in headers]
     padded_rows = [_pad_row(row, pad) for row in rows]
 
     if fmt.lineabove and "lineabove" not in hidden:
         lines.append(_build_line(padded_widths, colaligns, fmt.lineabove))
 
     if padded_headers:
-        lines.append(_build_row(padded_headers, padded_widths, colaligns, headerrow))
+        # initial rows with a line below
+        #print(padded_headers)
+        for row in padded_headers[:-1]:
+            lines.append(_build_row(row, padded_widths, colaligns, headerrow))
+        # the last row without a line below
+        lines.append(_build_row(padded_headers[-1], padded_widths, colaligns, headerrow))
         if fmt.linebelowheader and "linebelowheader" not in hidden:
             lines.append(_build_line(padded_widths, colaligns, fmt.linebelowheader))
 
