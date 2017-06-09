@@ -110,9 +110,10 @@ def table(array, caption='', label=None, headers=None, floatfmt=".2f"):
         \begin{table}
             \centering
             %s
-            \caption{%s}
-            \label{tab:%s}
+            \caption{%s\label{tab:%s}}
         \end{table}""" % (table, caption, label)
+        __tables__.val[label] = __tabcount__.val
+        __tabcount__.val += 1
         return display(Latex(strlatex))
 
 def to_pdf():
@@ -377,10 +378,13 @@ def cref(label):
         if label in __tables__.val.keys():
             number = __tables__.val[label]
             text = 'tab:'
+            name = 'table '
         elif label in __figures__.val.keys():
             number = __figures__.val[label]
             text = 'fig:'
+            name = 'figure '
         else:
             text = ''
+            name = ''
             number = 0
-        return r'\ref{%s%s}' % (text, label)
+        return r'%s\ref{%s%s}' % (name, text, label)
