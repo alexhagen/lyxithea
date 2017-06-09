@@ -18,6 +18,14 @@ __needs_latex__ = psgv.psgv('__needs_latex__')
 __needs_latex__.val = False
 __needs_markdown__ = psgv.psgv('__needs_markdown__')
 __needs_markdown__.val = True
+__labels__ = psgv.psgv('__lyxlabels__')
+__labels__.val = {}
+__tabcount__ = psgv.psgv('__lyxtabcount__')
+__tabcount__.val = 1
+__tables__ = psgv.psgv('__lyxtables__')
+__tables__.val = {}
+__figures__ = psgv.psgv('__lyxfigures__')
+__figures__.val = {}
 
 def get_pname(id):
     p = subprocess.Popen(["ps -o cmd= {}".format(id)], stdout=subprocess.PIPE, shell=True)
@@ -87,9 +95,9 @@ def table(array, caption='', label=None, headers=None, floatfmt=".2f"):
                 <div style='margin: auto; text-align: center;' class='tablecaption' name='%s'><b>Table %d:</b> %s</div>
                 %s
             </div>
-        """ % (label, bi.__tabcount__, caption, table)
-        bi.__tables__[label] = bi.__tabcount__
-        bi.__tabcount__ += 1
+        """ % (label, __tabcount__.val, caption, table)
+        __tables__.val[label] = __tabcount__.val
+        __tabcount__.val += 1
         if need_markdown():
             return display(HTML(fig_html))
         else:
@@ -294,9 +302,9 @@ class bib(object):
 
 
 def figures():
-    print bi.__tables__
-    print bi.__figures__
-    print bi.__labels__
+    print __tables__.val
+    print __figures__.val
+    print __labels__.val
 
 def todo(task):
     if task not in todos.val:
@@ -334,17 +342,17 @@ def print_todos():
 def label(label):
     if run_from_ipython() and not need_latex():
         if 'fig:' not in label and 'tab:' not in label:
-            number = bi.__labels__
+            number = __labels__.val
     elif need_latex():
         return r'\label{%s}' % label
 
 def cref(label):
     if run_from_ipython() and not need_latex():
-        if label in bi.__tables__.keys():
-            number = bi.__tables__[label]
+        if label in __tables__.val.keys():
+            number = __tables__.val[label]
             text = 'table'
-        elif label in bi.__figures__.keys():
-            number = bi.__figures__[label]
+        elif label in __figures__.val.keys():
+            number = __figures__.val[label]
             text = 'figure'
         else:
             text = 'ref'
@@ -353,11 +361,11 @@ def cref(label):
         if need_markdown():
             return html_str
         elif need_latex():
-            if label in bi.__tables__.keys():
-                number = bi.__tables__[label]
+            if label in __tables__.val.keys():
+                number = __tables__.val[label]
                 text = 'tab:'
-            elif label in bi.__figures__.keys():
-                number = bi.__figures__[label]
+            elif label in __figures__.val.keys():
+                number = __figures__.val[label]
                 text = 'fig:'
             else:
                 text = ''
@@ -366,11 +374,11 @@ def cref(label):
         else:
             return display(HTML(html_str))
     elif run_from_ipython() and need_latex():
-        if label in bi.__tables__.keys():
-            number = bi.__tables__[label]
+        if label in __tables__.val.keys():
+            number = __tables__.val[label]
             text = 'tab:'
-        elif label in bi.__figures__.keys():
-            number = bi.__figures__[label]
+        elif label in __figures__.val.keys():
+            number = __figures__.val[label]
             text = 'fig:'
         else:
             text = ''
