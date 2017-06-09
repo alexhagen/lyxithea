@@ -147,6 +147,7 @@ __dissertation_template__ = r"""
      breaklinks=false,pdfborder={0 0 0},pdfborderstyle={},backref=page,colorlinks=false]
      {hyperref}
     \usepackage{breakurl}
+    \usepackage{threeparttable}
 
     \makeatletter
 

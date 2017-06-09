@@ -83,6 +83,39 @@ def tex_escape(text):
     regex = re.compile('|'.join(re.escape(unicode(key)) for key in sorted(conv.keys(), key = lambda item: - len(item))))
     return regex.sub(lambda match: conv[match.group()], text)
 
+def table_no_caption(array, headers=None, floatfmt=".2f"):
+    if run_from_ipython() and not need_latex():
+        table = tabulate.tabulate(array, headers=headers, tablefmt='html',
+                         numalign='center', stralign='center',
+                         floatfmt=floatfmt)
+        return str(table)
+    elif run_from_ipython() and need_latex():
+        table = tabulate.tabulate(array, headers=headers, tablefmt='latex_raw',
+                         numalign='center', stralign='center',
+                         floatfmt=floatfmt)
+        return str(table)
+
+def threeparttable(array, headers=None, label=None, caption='', floatfmt=".2f",
+                   after):
+    if run_from_ipython() and need_latex():
+        table = tabulate.tabulate(array, headers=headers, tablefmt='latex_raw',
+                         numalign='center', stralign='center',
+                         floatfmt=floatfmt)
+        strlatex = r"""
+        \begin{table}
+            \begin{threeparttable}
+            \centering
+                \caption{%s\label{tab:%s}}
+                %s
+                \begin{tablenotes}
+                %s
+                \end{tablenotes}
+            \end{threeparttable}
+        \end{table}""" % (caption, label, table, after)
+        __tables__.val[label] = __tabcount__.val
+        __tabcount__.val += 1
+        return display(Latex(strlatex))
+
 def table(array, caption='', label=None, headers=None, floatfmt=".2f"):
     if label is None:
         label = __tabcount__.val
@@ -112,9 +145,9 @@ def table(array, caption='', label=None, headers=None, floatfmt=".2f"):
         strlatex = r"""
         \begin{table}
             \centering
-            %s
             \caption{%s\label{tab:%s}}
-        \end{table}""" % (table, caption, label)
+            %s
+        \end{table}""" % (caption, label, table)
         __tables__.val[label] = __tabcount__.val
         __tabcount__.val += 1
         return display(Latex(strlatex))
