@@ -314,6 +314,7 @@ __dissertation_template__ = r"""
   \usepackage{nicefrac}
   \usepackage{gensymb}
   \usepackage{import}
+  \usepackage{amsfonts}
   \providecommand{\unit}[1]{\mathrm{#1}}
   \providecommand{\ce}[1]{\mathrm{#1}}
   \providecommand{\cc}{\unit{cm^{2}}}
