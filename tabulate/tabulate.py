@@ -190,7 +190,7 @@ LATEX_ESCAPE_RULES = {r"&": r"\&", r"%": r"\%", r"$": r"\$", r"#": r"\#",
                       r"~": r"\textasciitilde{}", "\\": r"\textbackslash{}",
                       r"<": r"\ensuremath{<}", r">": r"\ensuremath{>}"}
 
-def _latex_row(cell_values, colwidths, colaligns):#, escrules=LATEX_ESCAPE_RULES):
+def _latex_row(cell_values, colwidths, colaligns, escrules={}):#, escrules=LATEX_ESCAPE_RULES):
     def escape_char(c):
         return escrules.get(c, c)
     escaped_values = ["".join(map(escape_char, cell)) for cell in cell_values]
