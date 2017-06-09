@@ -103,8 +103,8 @@ def threeparttable(array, headers=None, label=None, caption='', floatfmt=".2f",
                          floatfmt=floatfmt)
         strlatex = r"""
         \begin{table}
-            \begin{threeparttable}
             \centering
+            \begin{threeparttable}
                 \caption{%s\label{tab:%s}}
                 %s
                 \begin{tablenotes}
