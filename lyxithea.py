@@ -96,7 +96,7 @@ def table_no_caption(array, headers=None, floatfmt=".2f"):
         return str(table)
 
 def threeparttable(array, headers=None, label=None, caption='', floatfmt=".2f",
-                   after):
+                   after=''):
     if run_from_ipython() and need_latex():
         table = tabulate.tabulate(array, headers=headers, tablefmt='latex_raw',
                          numalign='center', stralign='center',
