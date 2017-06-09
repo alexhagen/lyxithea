@@ -184,7 +184,8 @@ class dissertation(document):
         return display(bi.__formatter__(r'\listoffigures'))
 
     def nom(self):
-        return display(bi.__formatter__(r'\printnomenclature{}'))
+        lyx.todo('fix nomenclature output')
+        return display(bi.__formatter__(r'\@@nonchapter{odd}{NOMENCLATURE}{n}{0pt}'))
 
     def abstract(self, abstract):
         self._abstract = self.process_markdown(abstract)

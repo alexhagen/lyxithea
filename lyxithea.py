@@ -10,6 +10,7 @@ import __builtins__ as bi
 import tempfile
 import nbformat
 import psgv.psgv as psgv
+import re
 
 todos = psgv.psgv('__todos__')
 todos.val = []
@@ -51,6 +52,28 @@ def latex(i=True):
 
 def markdown(i=True):
     __needs_markdown__.val = i
+
+def tex_escape(text):
+    """
+        :param text: a plain text message
+        :return: the message escaped to appear correctly in LaTeX
+    """
+    conv = {
+        '&': r'\&',
+        '%': r'\%',
+        '$': r'\$',
+        '#': r'\#',
+        '_': r'\_',
+        '{': r'\{',
+        '}': r'\}',
+        '~': r'\textasciitilde{}',
+        '^': r'\^{}',
+        '\\': r'\textbackslash{}',
+        '<': r'\textless',
+        '>': r'\textgreater',
+    }
+    regex = re.compile('|'.join(re.escape(unicode(key)) for key in sorted(conv.keys(), key = lambda item: - len(item))))
+    return regex.sub(lambda match: conv[match.group()], text)
 
 def table(array, caption='', label=None, headers=None, floatfmt=".2f"):
     if label is None:
@@ -153,7 +176,6 @@ def nom(abbr, extended, kind='abbr'):
         bi.__nom__[kind] = {}
         bi.__nom__[kind][abbr] = extended
     if run_from_ipython() and not need_latex():
-
         #html_str = '<link rel="stylesheet" href="https://cdn.rawgit.com/tiaanduplessis/wenk/master/dist/wenk.css">'
         html_str = "<span class='abbr' data-wenk='{extd}'>{abbr}</span>".format(abbr=abbr,extd=extended)
         if need_markdown():
@@ -161,8 +183,10 @@ def nom(abbr, extended, kind='abbr'):
         else:
             return display(HTML(html_str))
     elif run_from_ipython() and need_latex():
-        latex_str = "\\nomenclature{%s:%s}{%s}\n" % (kind, abbr, extended)
-        return display(Latex(latex_str))
+        latex_str = r"%s\nomenclature[%s%s]{%s}{%s}" % \
+            (abbr, kind.upper(), abbr.replace('$', '').replace('\\', ''), abbr.replace('$', '').replace('\\', ''),
+             extended)
+        return latex_str
 
 def lipsum():
     html_str = '<p>'
@@ -329,8 +353,26 @@ def cref(label):
         if need_markdown():
             return html_str
         elif need_latex():
-            return r'\ref{%s}' % label
+            if label in bi.__tables__.keys():
+                number = bi.__tables__[label]
+                text = 'tab:'
+            elif label in bi.__figures__.keys():
+                number = bi.__figures__[label]
+                text = 'fig:'
+            else:
+                text = ''
+                number = 0
+            return r'\ref{%s%s}' % (text, label)
         else:
             return display(HTML(html_str))
     elif run_from_ipython() and need_latex():
-        return r'\ref{%s}' % label
+        if label in bi.__tables__.keys():
+            number = bi.__tables__[label]
+            text = 'tab:'
+        elif label in bi.__figures__.keys():
+            number = bi.__figures__[label]
+            text = 'fig:'
+        else:
+            text = ''
+            number = 0
+        return r'\ref{%s%s}' % (text, label)
