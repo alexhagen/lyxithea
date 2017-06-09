@@ -276,6 +276,8 @@ class dissertation(document):
             ['nbconvert.preprocessors.ExecutePreprocessor']
         c.LatexExporter.preprocessors = \
             ['nbconvert.preprocessors.ExecutePreprocessor']
+        c.ExecutePreprocessor.interrupt_on_timeout = True
+        c.ExecutePreprocessor.timeout = 600
         tmplt = r"""
             {%- extends 'full.tpl' -%}
 
