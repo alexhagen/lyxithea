@@ -103,7 +103,7 @@ def table(array, caption='', label=None, headers=None, floatfmt=".2f"):
         else:
             return display(HTML(fig_html))
     elif run_from_ipython() and need_latex():
-        table = tabulate.tabulate(array, headers=headers, tablefmt='latex',
+        table = tabulate.tabulate(array, headers=headers, tablefmt='latex_raw',
                          numalign='center', stralign='center',
                          floatfmt=floatfmt)
         strlatex = r"""
