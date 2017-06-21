@@ -61,7 +61,7 @@ def cdis():
 
 class document(object):
     """ A document class """
-    def __init__(self):
+    def __init__(self, bib=None):
         pass
 
 
@@ -160,14 +160,15 @@ class dissertation(document):
 
     def dedication(self, dedication):
         self._dedication = self.process_markdown(dedication)
-        return display(bi.__formatter__('\\begin{dedication}\n' + self._dedication +
-                                '\\end{dedication}\n'))
+        return display(bi.__formatter__('\\begin{dedication}\n' +
+                                        self._dedication +
+                                        '\\end{dedication}\n'))
 
     def acknowledgements(self, ack):
         self._acknowledgements = self.process_markdown(ack)
-        return bi.__formatter__('\\begin{acknowledgements}\n' +
-                                self._acknowledgements +
-                                '\\end{acknowledgements}\n')
+        return display(bi.__formatter__('\\begin{acknowledgements}\n' +
+                                        self._acknowledgements +
+                                        '\\end{acknowledgements}\n'))
 
     def preface(self, preface):
         self._preface = self.process_markdown(preface)
@@ -185,7 +186,8 @@ class dissertation(document):
 
     def nom(self):
         lyx.todo('fix nomenclature output')
-        return display(bi.__formatter__(r'\@@nonchapter{odd}{NOMENCLATURE}{n}{0pt}'))
+        latex_str = r''#r'\printnomenclature'
+        return display(bi.__formatter__(latex_str))
 
     def abstract(self, abstract):
         self._abstract = self.process_markdown(abstract)
@@ -299,6 +301,10 @@ class dissertation(document):
         os.system('bibtex ./' + filename)
         os.system('pdflatex ./' + filename + '.tex')
         os.system('pdflatex ./' + filename + '.tex')
+        #os.system('makeindex')
+        #os.system('pdflatex ./' + filename + '.tex')
+        #os.system('makeindex -s nomencl.ist -o ./{fname}.nls ./{fname}.nlo'.format(fname=filename))
+        #os.system('pdflatex ./' + filename + '.tex')
         display(FileLink('./' + filename + '.pdf'))
         display(FileLink('./' + filename + '.tex'))
         #lyx.latex(False)

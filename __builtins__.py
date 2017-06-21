@@ -188,6 +188,13 @@ __dissertation_template__ = r"""
     \usepackage{algorithmic}
     \usepackage{algolyx}
     \usepackage{listings}
+    \usepackage{adjustbox}
+    \makeatletter
+    \newcommand{\invis}[1]{%
+      \@bsphack
+      \@esphack
+    }
+    \makeatother
 
     % HYPERREF AND APPENDICES?
     % OVERWRITES appendix command?
@@ -250,15 +257,18 @@ __dissertation_template__ = r"""
     \item[] \raggedright \addcontentsline{toc}{chapter}{SUBSCRIPTS AND SUPERSCRIPTS}}
     \newcommand{\unitstitle}{\item[] \centering{UNITS} %
     \item[] \raggedright \addcontentsline{toc}{chapter}{UNITS}}
+    \newcommand{\defstitle}{\item[] \centering{DEFINITIONS} %
+    \item[] \raggedright \addcontentsline{toc}{chapter}{DEFINITIONS}}
 
     \renewcommand{\nomgroup}[1]{%
-    \ifthenelse{\equal{#1}{A}}{\abbrtitle}{%
-    \ifthenelse{\equal{#1}{S}}{\symtitle}{
-    \ifthenelse{\equal{#1}{Z}}{\substitle}{
-    \ifthenelse{\equal{#1}{U}}{\unitstitle}{}}}}}
+    \ifthenelse{\equal{#1}{ABBR}}{\abbrtitle}{%
+    \ifthenelse{\equal{#1}{SYMB}}{\symtitle}{
+    \ifthenelse{\equal{#1}{SUPSUB}}{\substitle}{
+    \ifthenelse{\equal{#1}{UNITS}}{\unitstitle}{
+    \ifthenelse{\equal{#1}{DEFS}{\defstitle}{}}}}}}}
 
-    \newcommand{\nomunit}[1]{%
-     \renewcommand{\nomentryend}{\hspace*{\fill}$\mathrm{#1}$}}
+    %\newcommand{\nomunit}[1]{%
+    % \renewcommand{\nomentryend}{\hspace*{\fill}$\mathrm{#1}$}}
 
     \usepackage{xcolor}
 

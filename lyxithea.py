@@ -106,7 +106,9 @@ def threeparttable(array, headers=None, label=None, caption='', floatfmt=".2f",
             \centering
             \begin{threeparttable}
                 \caption{%s\label{tab:%s}}
-                %s
+                %%\begin{adjustbox}{max width=\textwidth}
+                    %s
+                %%\end{adjustbox}
                 \begin{tablenotes}
                 %s
                 \end{tablenotes}
@@ -146,7 +148,9 @@ def table(array, caption='', label=None, headers=None, floatfmt=".2f"):
         \begin{table}
             \centering
             \caption{%s\label{tab:%s}}
-            %s
+            %%\begin{adjustbox}{max width=\textwidth}
+                %s
+            %%\end{adjustbox}
         \end{table}""" % (caption, label, table)
         __tables__.val[label] = __tabcount__.val
         __tabcount__.val += 1
@@ -228,8 +232,8 @@ def nom(abbr, extended, kind='abbr'):
         else:
             return display(HTML(html_str))
     elif run_from_ipython() and need_latex():
-        latex_str = r"%s\nomenclature[%s%s]{%s}{%s}" % \
-            (abbr, kind.upper(), abbr.replace('$', '').replace('\\', ''), abbr.replace('$', '').replace('\\', ''),
+        latex_str = r"%s\nomenclature[%s]{%s}{%s}" % \
+            (abbr, kind.upper(), abbr.replace('$', '').replace('\\', ''),
              extended)
         return latex_str
 
@@ -268,12 +272,12 @@ class bib(object):
 
     def pcite(self, label):
         if label not in self.bib_dict.keys():
-            pcitestr = '(??)'
+            pcitestr = '\[%s\]' % label
             todo('fix {citation} citation'.format(citation=label))
             if need_markdown():
                 return pcitestr
             elif need_latex():
-                return r'\cite{%s}' % label
+                return pcitestr# r'\cite{%s}' % label
             else:
                 return display(HTML(pcitestr))
         if not need_latex():
@@ -290,6 +294,8 @@ class bib(object):
             pcitestr += ')'
             if need_markdown():
                 return pcitestr
+            elif need_latex():
+                return display(Latex('\[%s\]' % label))
             else:
                 return display(HTML(pcitestr))
         elif need_latex():
@@ -350,9 +356,11 @@ def todo(task):
         if need_markdown():
             return ''
         elif need_latex():
-            return ''
+            return '\invis{%s}' % task
         else:
             return display(HTML(''))
+    else:
+        return display(Latex('\invis{%s}' % task))
 
 def export_todos():
     with open('todos.md', 'w') as f:
