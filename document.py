@@ -181,7 +181,7 @@ class document(object):
                 if re.match('dis\.chapter\([\'\"](.*)[\'\"]\)', cell['source']) is None \
                     and re.match('dis\.appendix\([\'\"](.*)[\'\"]\)', cell['source']) is None \
                     and cell['source'] is not '' \
-                    and re.match('dis\.export\([\'\"](.*)[\'\"]\)', cell['source']) is None:
+                    and re.match('dis\.export\([\'\"](.*)[\'\"]\)', cell['source']) is None and re.match('slides\.export\([\'\"](.*)[\'\"]\)', cell['source']) is None:
                         if child:
                             source = cell['source'].replace('lyx.print_todos()', '')\
                                 .replace(".export(\'../img", ".export(\'%s/img" % self.cwd)\
@@ -233,7 +233,7 @@ class document(object):
         self._current_chapter += processed_string
         return display(bi.__formatter__(processed_string))
 
-    def export(self, filename, fmt='latex', template="article"):
+    def export(self, filename, fmt='latex', engine='pdflatex', template="article"):
         """ exports the current document - into latex for now """
         # open the notebook as version four, get its path and all its cells
         self.nb = nbformat.v4.new_notebook()
@@ -249,11 +249,11 @@ class document(object):
         self.c.ExecutePreprocessor.timeout = 600
         self.template = bi.__templates__[template]
         if fmt == 'latex':
-            self.export_latex(filename)
+            self.export_latex(filename, engine=engine)
         elif fmt == 'html':
             self.export_html(filename)
 
-    def export_latex(self, filename):
+    def export_latex(self, filename, engine='pdflatex'):
         """ exports to latex """
         lyx.latex()
         lyx.markdown(False)
@@ -267,10 +267,10 @@ class document(object):
         (body, resources) = latex_exporter.from_notebook_node(self.nb)
         with open('./' + filename + '.tex', 'w') as f:
             f.write(body)
-        os.system('pdflatex ./' + filename + '.tex')
+        os.system('{engine} ./'.format(engine=engine) + filename + '.tex')
         os.system('bibtex ./' + filename)
-        os.system('pdflatex ./' + filename + '.tex')
-        os.system('pdflatex ./' + filename + '.tex')
+        os.system('{engine} ./'.format(engine=engine) + filename + '.tex')
+        os.system('{engine} ./'.format(engine=engine) + filename + '.tex')
         #os.system('makeindex')
         #os.system('pdflatex ./' + filename + '.tex')
         #os.system('makeindex -s nomencl.ist -o ./{fname}.nls ./{fname}.nlo'.format(fname=filename))

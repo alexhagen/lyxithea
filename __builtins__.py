@@ -5,6 +5,7 @@ __formatter__ = Markdown
 __need_latex__ = True
 
 __cdis__ = None
+__cslides__ = None
 __regex__ = r"{% ([\s\w\d\(\)\'\"\{\}\.\%\\\-\,\;\:\$]*?) %}"
 
 __latex_template__ = r"""
@@ -363,5 +364,143 @@ Material using Tensioned Metastable Fluid Detectors}
 ((* endblock maketitle *))
 """
 
+
+__puslides_template__ = r"""((*- extends 'article.tplx' -*))
+
+((* block input_group *))
+    ((*- if cell.metadata.get('nbconvert', {}).get('show_code', False) -*))
+        ((( super() )))
+    ((*- endif -*))
+((* endblock input_group *))
+
+((* block data_latex -*))
+    ((( output.data['text/latex'] | strip_files_prefix )))
+((* endblock data_latex *))
+
+((* set cell_style = 'style_bw_python.tplx' *))
+
+((* block docclass *))
+\documentclass[english,20pt]{puslides}
+((* endblock docclass *))
+
+((* block margins *))
+((* endblock margins *))
+
+
+((* block packages *))
+\usepackage{amstext}
+\usepackage{fontspec}
+\usepackage[landscape,paperwidth=7in,paperheight=9in]{geometry}
+\geometry{verbose,tmargin=0cm,bmargin=0cm,lmargin=0cm,rmargin=0cm,headheight=0cm,headsep=0cm,footskip=0cm}
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+\usepackage{float}
+\usepackage{units}
+\usepackage{graphicx}
+\PassOptionsToPackage{version=3}{mhchem}
+\usepackage{mhchem}
+\usepackage[numbers]{natbib}
+
+\makeatletter
+
+\subtitle{(1) Purdue University\enskip{}\rule[0.5ex]{2em}{1pt}\enskip{}(2)
+Sagamore Adams Laboratories, LLC\enskip{}\rule[0.5ex]{2em}{1pt}\enskip{}{*}
+Corresponding Author\\
+\pucite{Sponsorship from U.S. DoE, DoD, DHS, NSF, Sagamore Adams Laboratories
+and Purdue University}}
+\venue{ANS Winter Meeting 2016}
+\city{Las Vegas, Nevada}
+%% Because html converters don't know tabularnewline
+\providecommand{\tabularnewline}{\\}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
+\usepackage{pgf}
+\usepackage{xcolor}
+\usepackage{color}
+\usepackage{xparse}
+\usepackage{soul}
+\definecolor{green}{HTML}{5C8727}
+\definecolor{yellow}{HTML}{E3AE24}
+\makeatletter
+\NewDocumentCommand{\sotwo}{O{red}O{black}+m}
+    {%
+        \begingroup
+        \setulcolor{#1}%
+        \setul{-.6ex}{2pt}%
+        \def\SOUL@uleverysyllable{%
+            \rlap{%
+                \color{#2}\the\SOUL@syllable
+                \SOUL@setkern\SOUL@charkern}%
+            \SOUL@ulunderline{%
+                \phantom{\the\SOUL@syllable}}%
+        }%
+        \ul{#3}%
+        \endgroup
+    }
+\makeatother
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows,calc,positioning}
+\vfuzz = 500pt
+
+\usepackage{pdfpages}
+\definecolor{grey20}{RGB}{209,211,212}
+\definecolor{grey40}{RGB}{167,169,172}
+\definecolor{grey60}{RGB}{116,108,102}
+\definecolor{oldgold}{RGB}{163,121,44}
+\definecolor{newgold}{RGB}{227,174,36}
+\definecolor{652C}{RGB}{114,153,198}
+\definecolor{1675C}{RGB}{185,89,21}
+\definecolor{puteal}{RGB}{46,175,164}
+
+\usepackage{float}
+\floatname{algorithm}{Source Code}
+\newcommand{\algorithmname}{Source Code}
+\date{November 8th, 2016}
+\usepackage{tikz}
+
+\AtBeginDocument{
+  \def\labelitemi{\(\Rightarrow\)}
+  \def\labelitemii{\(\rightarrow\)}
+  \def\labelitemiii{\(\rightarrow\)}
+}
+
+\makeatother
+
+\usepackage{xunicode}
+\usepackage{polyglossia}
+\setdefaultlanguage[variant=american]{english}
+((* endblock packages *))
+
+((* block definitions *))
+((* endblock definitions *))
+
+((* block commands *))
+((* endblock commands *))
+
+((* block maketitle *))
+\title{Threshold Energy Based Active Special Nuclear Material Interrogation}
+
+\author{Alex Hagen\textsuperscript{(1)}}
+\date{\today}
+\maketitle
+\def\theauthorsforbottom{A. Hagen}
+((* endblock maketitle *))
+
+((* block error *))
+((* endblock error *))
+
+((* block stream *))
+((* endblock stream *))
+
+((* block markdowncell scoped *))
+    ((( cell.source | citation2latex | strip_files_prefix | convert_pandoc('markdown', 'json', extra_args=['--chapters']) | resolve_references | convert_pandoc('json', 'latex', extra_args=['--chapters']) )))
+((* endblock markdowncell *))
+
+((* block data_markdown *))
+    ((( output.data['text/markdown'] | citation2latex | strip_files_prefix | convert_pandoc('markdown', 'json', extra_args=['--chapters']) | resolve_references | convert_pandoc('json', 'latex', extra_args=['--chapters']) )))
+((* endblock data_markdown *))
+"""
+
 __templates__ = {'dissertation': __dissertation_template__,
-                 'article': __latex_template__}
+                 'article': __latex_template__,
+                 'puslides': __puslides_template__}
