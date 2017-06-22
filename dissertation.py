@@ -101,8 +101,9 @@ class dissertation(lyxdoc.document):
                    year=self._year)
         return bi.__formatter__(html_str)
 
-    def export(self):
-        super(dissertation, self).export(fmt='latex', template='dissertation')
+    def export(self, filename):
+        super(dissertation, self).export(filename=filename, fmt='latex',
+                                         template='dissertation')
 
 
 @magics_class

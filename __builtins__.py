@@ -362,3 +362,6 @@ Material using Tensioned Metastable Fluid Detectors}
 \maketitle
 ((* endblock maketitle *))
 """
+
+__templates__ = {'dissertation': __dissertation_template__,
+                 'article': __latex_template__}

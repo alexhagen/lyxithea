@@ -239,7 +239,7 @@ class document(object):
         self.nb = nbformat.v4.new_notebook()
         self.cwd = os.path.abspath(os.getcwd())
         cells = self.append_notebook(filename, [], child=False)
-        nb['cells'] = cells
+        self.nb['cells'] = cells
         # write it to a temp file
         nbformat.write(self.nb, 'temp_notebook.ipynb', 4)
         # now do the nb_convert to latex by executing
@@ -249,11 +249,11 @@ class document(object):
         self.c.ExecutePreprocessor.timeout = 600
         self.template = bi.__templates__[template]
         if fmt == 'latex':
-            self.export_latex()
+            self.export_latex(filename)
         elif fmt == 'html':
-            self.export_html()
+            self.export_html(filename)
 
-    def export_latex(self):
+    def export_latex(self, filename):
         """ exports to latex """
         lyx.latex()
         lyx.markdown(False)
@@ -262,7 +262,7 @@ class document(object):
         self.c.LatexExporter.preprocessors = \
             ['nbconvert.preprocessors.ExecutePreprocessor']
         with open('nilf.tplx', 'w') as f:
-            f.write(self.templates)
+            f.write(self.template)
         latex_exporter = LatexExporter(config=self.c, template_file='nilf.tplx')
         (body, resources) = latex_exporter.from_notebook_node(self.nb)
         with open('./' + filename + '.tex', 'w') as f:
