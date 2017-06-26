@@ -233,6 +233,11 @@ class document(object):
         self._current_chapter += processed_string
         return display(bi.__formatter__(processed_string))
 
+    def add(self, string):
+        processed_string = self.process_markdown(string)
+        self._current_chapter += processed_string
+        return display(bi.__formatter__(processed_string))
+
     def export(self, filename, fmt='latex', engine='pdflatex', template="article"):
         """ exports the current document - into latex for now """
         # open the notebook as version four, get its path and all its cells
