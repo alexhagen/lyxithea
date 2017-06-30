@@ -232,7 +232,8 @@ def nom(abbr, extended, kind='abbr'):
         else:
             return display(HTML(html_str))
     elif run_from_ipython() and need_latex():
-        kinds = {'abbr': 'A', 'symb': 'Y', 'subsup': 'S', 'unit': 'U',
+        kinds = {'abbr': 'A', 'symb': 'Y', 'subsup': 'S',
+                 'unit': 'U', 'units': 'U',
                  'def': 'D', 'defs': 'D'}
         latex_str = r"%s\nomenclature[%s]{%s}{%s}" % \
             (abbr, kinds[kind], abbr,
