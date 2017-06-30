@@ -57,8 +57,8 @@ __latex_template__ = r"""
   \usepackage{tikz}
   \usepackage{nicefrac}
   \usepackage{gensymb}
-  \usepackage{nomencl}
-  \makenomenclature
+  %\usepackage{nomencl}
+  %\makenomenclature
   \usepackage{import}
   \usepackage[english]{babel}
   \newcommand{\unit}[1]{\mathrm{#1}}
@@ -144,7 +144,17 @@ __dissertation_template__ = r"""
     % the following is useful when we have the old nomencl.sty package
     \providecommand{\printnomenclature}{\printglossary}
     \providecommand{\makenomenclature}{\makeglossary}
+    \def\@@@nomenclature[#1]#2#3{%
+        \def\@tempa{#2}\def\@tempb{#3}%
+        \protected@write\@nomenclaturefile{}%
+        {\string\nomenclatureentry{#1\nom@verb\@tempa @{\nom@verb\@tempa}&%
+        \begingroup\nom@verb\@tempb\protect\nomeqref{\theequation}%
+        |nompageref}{\thepage}}%
+        \endgroup
+        \@esphack}
     \makenomenclature
+    %\usepackage{glossaries}
+    %\makeglossaries
     \usepackage[unicode=true,pdfusetitle,
      bookmarks=true,bookmarksnumbered=false,bookmarksopen=false,
      breaklinks=false,pdfborder={0 0 0},pdfborderstyle={},backref=page,colorlinks=false]
@@ -264,11 +274,11 @@ __dissertation_template__ = r"""
     \item[] \raggedright \addcontentsline{toc}{chapter}{DEFINITIONS}}
 
     \renewcommand{\nomgroup}[1]{%
-    \ifthenelse{\equal{#1}{ABBR}}{\abbrtitle}{%
-    \ifthenelse{\equal{#1}{SYMB}}{\symtitle}{
-    \ifthenelse{\equal{#1}{SUPSUB}}{\substitle}{
-    \ifthenelse{\equal{#1}{UNITS}}{\unitstitle}{
-    \ifthenelse{\equal{#1}{DEFS}{\defstitle}{}}}}}}}
+    \ifthenelse{\equal{#1}{A}}{\abbrtitle}{%
+    \ifthenelse{\equal{#1}{Y}}{\symtitle}{%
+    \ifthenelse{\equal{#1}{S}}{\substitle}{%
+    \ifthenelse{\equal{#1}{U}}{\unitstitle}{%
+    \ifthenelse{\equal{#1}{D}}{\defstitle}{}}}}}}
 
     %\newcommand{\nomunit}[1]{%
     % \renewcommand{\nomentryend}{\hspace*{\fill}$\mathrm{#1}$}}

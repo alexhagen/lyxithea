@@ -1,5 +1,5 @@
 %
-%  puthesis.cls  2012-07-30  Mark Senn  http://engineering.purdue.edu/~mark
+%  puthesis.cls  2017-04-15  Mark Senn  http://engineering.purdue.edu/~mark
 %
 %  INDEX: Purdue University thesis document class
 %
@@ -13,14 +13,14 @@
 %
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{puthesis}[2012/07/30 Purdue thesis class]
+\ProvidesClass{puthesis}[2017/03/06 Purdue thesis class, version 1.9.23]
 \usepackage{ifthen}
 \newcommand{\ifthen}[2]{\ifthenelse{#1}{#2}{}}
 \usepackage{endnotes}
 \usepackage{pulongtable}
 \usepackage{rotating}
 \usepackage{lscape}
-\usepackage{fancyhdr}
+\usepackage[letterpaper]{geometry}
 
 \makeatletter
 
@@ -81,6 +81,7 @@
 \DeclareOption{ece}{\set@@dept{ece}}
 \DeclareOption{hsci}{\set@@dept{hsci}}
 \DeclareOption{ie}{\set@@dept{ie}}
+\DeclareOption{ling}{\set@@dept{ling}}
 \DeclareOption{mgmt}{\set@@dept{mgmt}}
 \DeclareOption{mse}{\set@@dept{mse}}
 \DeclareOption{me}{\set@@dept{me}}
@@ -117,6 +118,7 @@
 \newboolean{@@unset}
 \newcommand{\@@optionbibstyle}{}
 \newcommand{\set@@optionbibstyle}[1]{\renewcommand{\@@optionbibstyle}{#1}\addtocounter{@@tcount}{1}}
+\DeclareOption{abbrv}{\set@@optionbibstyle{abbrv}}
 \DeclareOption{abbrvnat}{\set@@optionbibstyle{abbrvnat}}
 \DeclareOption{aer}{\set@@optionbibstyle{aer}}
 \DeclareOption{agsm}{\set@@optionbibstyle{agsm}}
@@ -128,10 +130,11 @@
 \DeclareOption{astron}{\set@@optionbibstyle{astron}}
 \DeclareOption{chicago}{\set@@optionbibstyle{chicago}}
 \DeclareOption{ieee}{\set@@optionbibstyle{ieee}}
-\DeclareOption{ieeetr}{\set@@optionbibstyle{ieeetr}}
+\DeclareOption{IEEEtran}{\set@@optionbibstyle{IEEEtran}}
 \DeclareOption{jfm}{\set@@optionbibstyle{jfm}}
 \DeclareOption{jfm2}{\set@@optionbibstyle{jfm2}}
 \DeclareOption{kluwer}{\set@@optionbibstyle{kluwer}}
+\DeclareOption{phaip}{\set@@optionbibstyle{phaip}}
 \DeclareOption{plain}{\set@@optionbibstyle{plain}}
 \DeclareOption{plainnat}{\set@@optionbibstyle{plainnat}}
 \DeclareOption{unsrt}{\set@@optionbibstyle{unsrt}}
@@ -177,7 +180,7 @@
 \DeclareOption{nonumberallvolumes}{\setboolean{number@@all@@volumes}{false}}
 
 %\DeclareOptions*(\PassOptionsToClass{\CurrentOption}{report}}
-  % Used to count number of citation/bibliography styles used.
+% Used to count number of citation/bibliography styles used.
 \setcounter{@@tcount}{0}
 \ProcessOptions
 \newcommand{\IW}[1]{\immediate\write16{#1}}
@@ -212,6 +215,7 @@
   \ifnum\value{@@tcount}>1
     \IW{}
     \IW{You may specify only one citation/bibliography style from the below list:}
+    \IW{++++abbrv}
     \IW{++++abbrvnat}
     \IW{++++agsm}
     \IW{++++aip}
@@ -222,10 +226,11 @@
     \IW{++++astron}
     \IW{++++chicago}
     \IW{++++ieee}
-    \IW{++++ieeetr}
+    \IW{++++IEEEtran}
     \IW{++++jfm}
     \IW{++++jfm2}
     \IW{++++kluwer}
+    \IW{++++phaip}
     \IW{++++plain}
     \IW{++++plainnat}
     \IW{++++unsrt}
@@ -260,12 +265,12 @@
 %    \IW{                                    \string\\||//}
 %    \IW{                                     \string\\//}
 %    \IW{+----------------------------------------------------------------------------+}
-%    \IW{| This document is using the 2012/07/30 version of puthesis.cls.  It was     |}
+%    \IW{| This document is using the 2017/03/06 version of puthesis.cls.  It was     |}
 %    \IW{| probably read in because you used \string\documentclass[...]{puthesis}.           |}
 %    \IW{|                                                                            |}
 %    \IW{| Only the latest version of this file available from                        |}
 %    \IW{|     http://engineering.purdue.edu/\string~mark/puthesis                               |}
-%    \IW{| is supported.   Put it in the same subdirectory as your thesis.            |}
+%    \IW{| is supported.  Put it in the same subdirectory as your thesis.             |}
 %    \IW{|                                                                            |}
 %    \IW{| This file may be being read from your thesis directory or somewhere else.  |}
 %    \IW{| To find out which is being used search for ``puthesis.cls'' near the       |}
@@ -285,7 +290,7 @@
 
 \def\AppendixFigure{\relax}
 \def\AppendixTable{\relax}
-\def\@@bibname{LIST OF REFERENCES}
+\def\@@bibname{REFERENCES}
 \def\@@deptbibstyle{unsrt}
 \def\@@coversheetspace{\vfill}
 \def\@@evenfoot{}
@@ -402,7 +407,7 @@
   }
 \ifthen{\equal{ece}{\@@dept}}
   {
-    \def\@@deptbibstyle{ieeetr}
+    \def\@@deptbibstyle{IEEEtran}
     \renewcommand*\l@section{\@dottedtocline{1}{\bigtocskip}{1.5em}{2.3em}}
     \renewcommand*\l@subsection{\@dottedtocline{2}{\bigtocskip}{3.8em}{3.2em}}
     \renewcommand*\l@subsubsection{\@dottedtocline{3}{\bigtocskip}{7.0em}{4.1em}}
@@ -443,6 +448,23 @@
     \def\@@makeschapterheadspaceb{\vspace*{0.5\baselineskip}}
     \nochapterblankpages
   }
+\ifthen{\equal{ling}{\@@dept}}
+{
+    \def\@@deptbibstyle{unified}
+    \renewcommand*\l@section{\@dottedtocline{1}{\bigtocskip}{1.5em}{2.3em}}
+    \renewcommand*\l@subsection{\@dottedtocline{2}{\bigtocskip}{3.8em}{3.2em}}
+    \renewcommand*\l@subsubsection{\@dottedtocline{3}{\bigtocskip}{7.0em}{4.1em}}
+    \renewcommand*\l@paragraph{\@dottedtocline{4}{\bigtocskip}{10em}{5em}}
+    \renewcommand*\l@subparagraph{\@dottedtocline{5}{\bigtocskip}{12em}{6em}}
+    \renewcommand*\l@figure{\@dottedtocline{1}{\bigtocskip}{1.5em}{2.3em}}
+    \def\@@makechapterhead#1{{\thechapter. \uppercase{#1}}}
+    \def\@@makechapterheadspacea{\vspace*{0.6truein}}  % by trial and error
+    \def\@@makechapterheadspaceb{\vspace{0.5\baselineskip}}
+    \def\@@makeschapterhead#1{{\uppercase{#1}}}
+    \def\@@makeschapterheadspacea{\vspace*{0.6truein}}  % by trial and error
+    \def\@@makeschapterheadspaceb{\vspace*{0.5\baselineskip}}
+    \nochapterblankpages
+}
 \ifthen{\equal{mgmt}{\@@dept}}
   {
     \def\@@makechapterhead#1{\large\bf\thechapter. #1}
@@ -496,7 +518,6 @@
         {\large\bf APPENDIX \thechapter\\\uppercase{#1}}
         {\large\bf\thechapter. \uppercase{#1}}
     }
-    \def\@@deptbibstyle{ieeetr}
     \def\@@makechapterheadspacea{\vspace*{0.6truein}}  % by trial and error
     \def\@@makechapterheadspaceb{\vspace{0.5\baselineskip}}
     \def\@@makeschapterheadspacea{\vspace*{0.6truein}}  % by trial and error
@@ -505,27 +526,27 @@
   }
 \ifthen{\equal{chem}{\@@dept}}
   {
-      % The vertical spacing between floats appearing either at the
-      % top or at the bottom of a page for double column floats in
-      % two-column page format.
+    % The vertical spacing between floats appearing either at the
+    % top or at the bottom of a page for double column floats in
+    % two-column page format.
     \setlength{\dblfloatsep}{36pt}
-      % The vertical spacing between floats and text, for both top
-      % and bottom floats for double column floats in two-column page
-      % format.
+    % The vertical spacing between floats and text, for both top
+    % and bottom floats for double column floats in two-column page
+    % format.
     \setlength{\dbltextfloatsep}{36pt}
-      % The vertical spacing between floats appearing either at the
-      % top or at the bottom of a page.
+    % The vertical spacing between floats appearing either at the
+    % top or at the bottom of a page.
     \setlength{\floatsep}{36pt}
-      % The vertical spacing above and below a float that appears in
-      % the middle of a text page with the h placement argument.
+    % The vertical spacing above and below a float that appears in
+    % the middle of a text page with the h placement argument.
     \setlength{\intextsep}{36pt}
     \def\@@makechapterhead#1{\thechapter. #1}
     \def\@@makechapterheadspacea{\vspace*{0.7truein}}
     \def\@@makechapterheadspaceb{\vspace*{36pt}}
     \def\@@makeschapterheadspacea{\vspace*{0.7truein}}
     \def\@@makeschapterheadspaceb{\vspace*{36pt}}
-      % The vertical spacing between floats and text, for both top
-      % and bottom floats.
+    % The vertical spacing between floats and text, for both top
+    % and bottom floats.
     \setlength{\textfloatsep}{36pt}
   }
 \ifthen{\equal{cs}{\@@dept}}
@@ -669,12 +690,6 @@
 \renewcommand*{\title}[1]{\renewcommand*{\@@Title}{#1}}
 \renewcommand*{\maketitle}
   {
-  \fancypagestyle{firststyle}
-    {
-    \fancyhf{}
-    %\fancyhead[C]{DRAFT - CONFIDENTIAL - NOT FOR DISSEMINATION}
-    }
-    \renewcommand{\headrulewidth}{0pt}
     \ifthen{\equal{\@@Campus@Input}{}}
       {
         \IW{You must specify which campus your degree is from, for example,}
@@ -702,7 +717,6 @@
       \renewcommand*{\baselinestretch}{2} \reset@font
       \setcounter{save@@page}{\value{page}}
       \begin{titlepage}
-        \thispagestyle{firststyle}
         \mbox{}
         \vfil
         \vfil
@@ -751,6 +765,36 @@
         {\setcounter{page}{2}}
     }
   }
+\newenvironment{statement}%
+  {%
+    \newpage
+    \chapter*%
+    {%
+      THE PURDUE UNIVERSITY GRADUATE SCHOOL\\
+      STATEMENT OF
+      \ifthen{\equal{bypass}{\@@type}}{MASTER'S BYPASS}%
+      \ifthen{\equal{dissertation}{\@@type}}{DISSERTATION}%
+      \ifthen{\equal{prelim}{\@@type}}{PRELIMINARY REPORT}%
+      \ifthen{\equal{thesis}{\@@type}}{THESIS}%
+      ~APPROVAL%
+    }
+    \def\entry##1##2%
+    {%
+      \noindent##1\par
+      \noindent\hspace*{0.5in}##2\par
+    }
+    \def\approvedby##1##2%
+    {%
+      \mbox{}\par
+      \noindent{\bfseries Approved by:}\par
+      \noindent\hspace*{0.5in}##1\par
+      \noindent\hspace*{1in}##2\par
+    }
+    \mbox{}\par
+  }
+  {%
+  }
+
 \newenvironment{dedication}%
   {%
     \newpage
@@ -866,9 +910,9 @@
       #5\nobreak
       \leaders\hbox{$\m@th \mkern \@dotsep mu.\mkern \@dotsep mu$}\hfill
       \nobreak
-      \renewcommand{\@pnumwidth}{1.55em}
-      \setlength{\@@tlength}{\@pnumwidth}
-      \settowidth{\@@ulength}{\reset@font \rm #6}
+      \renewcommand{\@pnumwidth}{1em}%
+      \setlength{\@@tlength}{\@pnumwidth}%
+      \settowidth{\@@ulength}{\reset@font \rm #6}%
       \ifdim \@@ulength>\@@tlength
         \hbox to\@@ulength{\hfil\reset@font \rm #6}\par
       \else
@@ -951,44 +995,6 @@
     \@starttoc{lof}
   }
 }
-\newcommand{\listofalgs}{
-  \@@nonchapter{next}{LIST OF ALGORITHMS}{y}{0pt}
-  {\leftskip=0pt \noindent\hbox to\textwidth{Algorithm\hfil Page}\par}
-  {%
-    \output={
-      \let \par \@@par
-      \ifnum \outputpenalty<-\@M
-        \@specialoutput
-      \else
-        \@makecol
-        \@opcol
-        \@startcolumn
-        \@whilesw \if@fcolmade \fi
-          {%
-           \@opcol\@startcolumn}%
-      \fi
-      \ifnum \outputpenalty>-\@Miv
-        \ifdim \@colroom<1.5\baselineskip
-          \ifdim \@colroom<\textheight
-            \@latex@warning@no@line{Text page \thepage\space
-              contains only floats}%
-            \@emptycol
-          \else
-            \global \vsize \@colroom
-          \fi
-        \else
-          \global \vsize \@colroom
-        \fi
-      \else
-        \global \vsize \maxdimen
-      \fi
-      {\leftskip=0pt \noindent\hbox to\textwidth{Algorithm\hfil Page}\par}
-    }
-    \renewcommand{\baselinestretch}{1}\reset@font
-    \listof{algorithm}{ }
-    %%\@starttoc{loa}
-  }
-}
 \newcommand{\@@startlist}[1]{
   \@@nonchapter{odd}{#1}{y}{0pt}%
   \setlength{\LTleft}{\parindent}%
@@ -1007,12 +1013,6 @@
   %% ! \showthe\stuff
   %% ! \addtolength{\@@tlength}{-?}
 }
-\newenvironment{algs}%
-  {%
-    \@@startlist{LIST OF ALGORITHMS}
-    \begin{longtable}{lp{\@@tlength}}%
-  }
-  {\end{longtable}}
 \newenvironment{symbols}%
   {%
     \@@startlist{SYMBOLS}
@@ -1027,16 +1027,17 @@
   {\end{longtable}}
 \newenvironment{nomenclature}
   {
-    \@@startlist{NOMENCLATURE}
-    \begin{longtable}{lp{\@@tlength}}%
+    %\@@startlist{NOMENCLATURE}
+    %\begin{longtable}{lp{\@@tlength}}%
   }
-  {\end{longtable}}
+  {%\end{longtable}
+  }
 \renewenvironment{glossary}
   {
     \@@startlist{GLOSSARY}
-    \begin{longtable}{lp{\@@tlength}}%
+    %\begin{longtable}{lp{\@@tlength}}%
   }
-  {\end{longtable}}
+  {}%\end{longtable}}
 \renewenvironment{abstract}%
   {%
     \@@nonchapter{next}{ABSTRACT}{y}{0pt}
@@ -1053,7 +1054,9 @@
           \renewcommand*{\\}{}%
           \@@Title.
         }
-        \@@MajorProf\ifthen{\equal{me}{\@@dept}}{, School of Mechanical Engineering}.
+        \ifthenelse{\isundefined{\@@OverrideMajorProf}}
+          {\@@MajorProf\ifthen{\equal{me}{\@@dept}}{, School of Mechanical Engineering}.}
+          {\@@OverrideMajorProf}
       }
       \vspace*{\baselineskip}
       \par
@@ -1232,7 +1235,7 @@
       \refstepcounter{subsubsection}
       \vspace{36truept}
       \subsubsectionmark{#1}
-      \noindent \undertext{\thesubsubsection. #1}\newline\nopagebreak
+      \noindent \undertext{\thesubsubsection\ #1}\newline\nopagebreak
       \addcontentsline{toc}{subsubsection}{\protect\numberline{\csname thesubsubsection\endcsname}#1}
       \nopagebreak
     }
@@ -1303,7 +1306,7 @@
 \ifthen{\equal{ece}{\@@dept}\or \equal{hsci}{\@@dept}}
   {\renewcommand{\figurename}{Fig.}}
 \renewcommand{\fnum@figure}{\figurename~\thefigure.}
-\renewcommand{\fnum@table}{\tablename~\thetable}
+\renewcommand{\fnum@table}{\tablename~\thetable.}
 \newboolean{@@centercaption}
 \renewcommand{\caption}{%
   \setboolean{@@centercaption}{true}
@@ -1369,10 +1372,16 @@
   {\newcommand{\@@bibstyle}{\@@deptbibstyle}}
   {\newcommand{\@@bibstyle}{\@@optionbibstyle}}
 
+\ifthen{\equal{abbrv}{\@@bibstyle}}
+  {
+    \renewcommand{\bibname}{{\normalsize\rm REFERENCES}}
+    \bibliographystyle{abbrv}
+  }
+
 \ifthen{\equal{abbrvnat}{\@@bibstyle}}
   {
     \usepackage[sort]{natbib}
-    \renewcommand{\bibname}{{\normalsize\rm LIST OF REFERENCES}}
+    \renewcommand{\bibname}{{\normalsize\rm REFERENCES}}
     \bibliographystyle{abbrvnat}
   }
 
@@ -1394,7 +1403,7 @@
   {
     \usepackage{cite}
     \usepackage{revtex}
-    \renewcommand{\bibname}{{\normalsize\rm LIST OF REFERENCES}}
+    \renewcommand{\bibname}{{\normalsize\rm REFERENCES}}
     \bibliographystyle{aip}
   }
 
@@ -1440,10 +1449,10 @@
     \bibliographystyle{ieee}
   }
 
-\ifthen{\equal{ieeetr}{\@@bibstyle}}
+\ifthen{\equal{IEEEtran}{\@@bibstyle}}
   {
     \usepackage{cite}
-    %\bibliographystyle{ieeetr}
+    \bibliographystyle{IEEEtran}
   }
 
 \ifthen{\equal{jfm}{\@@bibstyle}}
@@ -1464,6 +1473,11 @@
     \bibliographystyle{kluwer}
   }
 
+\ifthen{\equal{phaip}{\@@bibstyle}}
+  {
+    \bibliographystyle{phaip}
+  }
+
 \ifthen{\equal{pumeunsrt}{\@@bibstyle}}
   {
     \usepackage{cite}
@@ -1479,9 +1493,17 @@
 \ifthen{\equal{plainnat}{\@@bibstyle}}
   {
     \usepackage{natbib}
-    \renewcommand{\bibname}{{\normalsize\rm LIST OF REFERENCES}}
+    \renewcommand{\bibname}{{\normalsize\rm REFERENCES}}
     \bibliographystyle{plainnat}
   }
+
+\ifthen{\equal{unified}{\@@bibstyle}}
+{
+    \usepackage{natbib}
+    \bibliographystyle{unified}
+    \def\@@bibname{{\normalsize\rm REFERENCES}}
+    \nochapterblankpages
+}
 
 \ifthen{\equal{unsrt}{\@@bibstyle}}
   {
@@ -1492,7 +1514,7 @@
 \ifthen{\equal{unsrtnat}{\@@bibstyle}}
   {
     \usepackage{natbib}
-    \renewcommand{\bibname}{{\normalsize\rm LIST OF REFERENCES}}
+    \renewcommand{\bibname}{{\normalsize\rm REFERENCES}}
     \bibliographystyle{unsrtnat}
   }
 
@@ -1562,8 +1584,6 @@
     \global\@nobreakfalse
   \endgroup
 }
-\newcommand{\num}[1]{\ensuremath{#1}}
-\newcommand{\ten}[1]{\ensuremath{{}\cdot 10^{#1}}}
 
 \setcounter{topnumber}{10}
 \renewcommand{\topfraction}{1}

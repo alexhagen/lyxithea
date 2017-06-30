@@ -278,7 +278,7 @@ class document(object):
         os.system('{engine} ./'.format(engine=engine) + filename + '.tex')
         os.system('makeindex')
         os.system('pdflatex ./' + filename + '.tex')
-        os.system('makeindex -s nomencl.ist -o ./{fname}.nls ./{fname}.nlo'.format(fname=filename))
+        os.system('makeindex ./{fname}.nlo -s nomencl.ist -o {fname}.nls'.format(fname=filename))
         os.system('pdflatex ./' + filename + '.tex')
         display(FileLink('./' + filename + '.pdf'))
         display(FileLink('./' + filename + '.tex'))
@@ -286,9 +286,9 @@ class document(object):
         os.remove('temp_notebook.ipynb')
         #os.remove(filename + '.out')
         #os.remove(filename + '.log')
-        os.remove(filename + '.bbl')
-        os.remove(filename + '.aux')
-        os.remove(filename + '.blg')
+        #os.remove(filename + '.bbl')
+        #os.remove(filename + '.aux')
+        #os.remove(filename + '.blg')
 
     def export_html(self):
         """ exports to html """

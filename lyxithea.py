@@ -1,4 +1,4 @@
-from .tabulate import tabulate
+from tabulate import tabulate
 from IPython.display import SVG, display, Latex, HTML, Javascript, FileLink
 import sys
 import os
@@ -232,8 +232,9 @@ def nom(abbr, extended, kind='abbr'):
         else:
             return display(HTML(html_str))
     elif run_from_ipython() and need_latex():
+        kinds = {'abbr': 'A', 'symb': 'Y', 'subsup': 'S', 'unit': 'U', 'def': 'D'}
         latex_str = r"%s\nomenclature[%s]{%s}{%s}" % \
-            (abbr, kind.upper(), abbr.replace('$', '').replace('\\', ''),
+            (abbr, kinds[kind], abbr,
              extended)
         return latex_str
 
