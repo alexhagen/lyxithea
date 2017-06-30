@@ -150,8 +150,7 @@ class document(object):
                 self._chapter_paths.extend([path])
 
     def nom(self):
-        lyx.todo('fix nomenclature output')
-        latex_str = r''#r'\printnomenclature'
+        latex_str = r'\printnomenclature'
         return display(bi.__formatter__(latex_str))
 
     def chapter(self, filename):
@@ -277,9 +276,9 @@ class document(object):
         os.system('{engine} ./'.format(engine=engine) + filename + '.tex')
         os.system('{engine} ./'.format(engine=engine) + filename + '.tex')
         os.system('makeindex')
-        os.system('pdflatex ./' + filename + '.tex')
+        os.system('{engine} ./'.format(engine=engine) + filename + '.tex')
         os.system('makeindex ./{fname}.nlo -s nomencl.ist -o {fname}.nls'.format(fname=filename))
-        os.system('pdflatex ./' + filename + '.tex')
+        os.system('{engine} ./'.format(engine=engine) + filename + '.tex')
         display(FileLink('./' + filename + '.pdf'))
         display(FileLink('./' + filename + '.tex'))
         #lyx.latex(False)
