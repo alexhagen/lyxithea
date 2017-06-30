@@ -117,8 +117,27 @@ class document(object):
             syntax
         """
         matches = re.finditer(bi.__regex__, markdown)
+        matches2 = re.finditer(bi.__regex2__, markdown)
 
         for matchNum, match in enumerate(matches):
+            with stdoutIO() as s:
+                #lyx.markdown()
+                lyx.latex()
+                exec(match.group(1), self.get_locals())
+                #lyx.latex(False)
+                #lyx.markdown(False)
+            rep_string = s.getvalue()
+            if len(rep_string) < 1:
+                cmd = "print {oldcmd}".format(oldcmd=match.group(1))
+                with stdoutIO() as s:
+                    #lyx.markdown()
+                    lyx.latex()
+                    exec(cmd, self.get_locals())
+                    #lyx.latex(False)
+                    #lyx.markdown(False)
+                rep_string = s.getvalue()
+            markdown = markdown.replace(match.group(), rep_string)
+        for matchNum, match in enumerate(matches2):
             with stdoutIO() as s:
                 #lyx.markdown()
                 lyx.latex()

@@ -7,6 +7,7 @@ __need_latex__ = True
 __cdis__ = None
 __cslides__ = None
 __regex__ = r"{% ([\s\w\d\(\)\'\"\{\}\.\%\\\-\,\;\:\$]*?) %}"
+__regex2__ = r"\(\(\. ([\s\w\d\(\)\'\"\{\}\.\%\\\-\,\;\:\$]*?) \.\)\)"
 
 __latex_template__ = r"""
 ((*- extends 'article.tplx' -*))
