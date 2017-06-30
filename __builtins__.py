@@ -57,6 +57,8 @@ __latex_template__ = r"""
   \usepackage{tikz}
   \usepackage{nicefrac}
   \usepackage{gensymb}
+  \usepackage{nomencl}
+  \makenomenclature
   \usepackage{import}
   \usepackage[english]{babel}
   \newcommand{\unit}[1]{\mathrm{#1}}
