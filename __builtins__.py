@@ -415,6 +415,7 @@ __puslides_template__ = r"""((*- extends 'article.tplx' -*))
 \PassOptionsToPackage{version=3}{mhchem}
 \usepackage{mhchem}
 \usepackage[numbers]{natbib}
+\usepackage{luatex85}
 
 \makeatletter
 
@@ -459,6 +460,9 @@ __puslides_template__ = r"""((*- extends 'article.tplx' -*))
 \definecolor{652C}{RGB}{114,153,198}
 \definecolor{1675C}{RGB}{185,89,21}
 \definecolor{puteal}{RGB}{46,175,164}
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 
 \usepackage{float}
 \floatname{algorithm}{Source Code}
@@ -519,6 +523,7 @@ __puslides_template__ = r"""((*- extends 'article.tplx' -*))
 ((*- endif *))
 
 \maketitle
+
 
 ((*- if nb.metadata["author"]: -*))
     \def\theauthorsforbottom{((( nb.metadata["author"] )))}

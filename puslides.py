@@ -10,6 +10,7 @@ import document as lyxdoc
 import os.path as osp
 import shutil
 from pyg import twod as pyg2d
+import pypandoc
 
 ip = get_ipython()
 
@@ -26,6 +27,7 @@ class puslides(lyxdoc.document):
         self.modulepath = osp.dirname(__file__)
         self.content_one = None
         self.content_two = None
+        self.content = [None, None, None, None, None, None, None]
         super(puslides, self).__init__(bib=bib)
         bi.__cslides__ = self
 
@@ -73,69 +75,143 @@ class puslides(lyxdoc.document):
         latex_str = r'\def\nameofchapter{%s}' % content
         return display(Latex(latex_str))
 
+    def clear_slide(self):
+        self.slide_title = None
+        self.content = [None for x in self.content]
+
     def bibliography(self):
         return super(puslides, self).bibliography(header_level=3, force_string=True)
 
-    def onecolumntitle(self, content):
-        self.slide_title = content
-
-    def process_content(self, content, filename=None, **kwargs):
+    def process_content(self, content, index, filename=None, **kwargs):
         if isinstance(content, str):
-            self.content_one = self.process_markdown(content)
-            latex_str = self.content_one
-            return Latex(latex_str)
+            self.content[index] = \
+                pypandoc.convert_text(self.process_markdown(content), 'latex',
+                                      format='md')
+            latex_str = self.content[index]
+            return latex_str
         elif isinstance(content, pyg2d.pyg2d):
             content.export(filename, sizes=['cs'], customsize=(7.5, 5.25))
             return content.show(**kwargs)
 
+    def onecolumntitle(self, content):
+        self.slide_title = content
 
     def onecolumn(self, content, **kwargs):
-        display(Latex(r'''\onecolumnslide{%
-            \begin{content}%'''))
-        display(self.process_content(content, **kwargs))
-        display(Latex(r'''\end{content}}%%
-        {%s}%%''' % self.slide_title))
-        self.slide_title = None
-        self.content_one = None
+        self.process_content(content, 0, **kwargs)
+        display(Latex(r'\onecolumnslide{\begin{content}%s \end{content}}{%s}' % (self.content[0], self.slide_title)))
+        self.clear_slide()
 
     def twocolumntitle(self, content):
         self.slide_title = content
 
     def twocolumnleft(self, content, **kwargs):
-        self.content_one = self.process_content(content, **kwargs)
+        self.process_content(content, 0, **kwargs)
 
     def twocolumnright(self, content, **kwargs):
-        self.content_two = self.process_content(content, **kwargs)
-        if self.content_one is not None and self.content_two is not None:
-            display(Latex(r'''\twocolumnslide{%
-                \begin{content}%'''))
-            display(self.process_content(self.content_one, **kwargs))
-            display(Latex(r'''\end{content}}%'''))
-            display(Latex(r'''{%
-                \begin{content}%'''))
-            display(self.process_content(self.content_two, **kwargs))
-            display(Latex(r'''\end{content}}%%
-            {%s}%%''' % self.slide_title))
+        self.process_content(content, 1, **kwargs)
+        if self.content[0] is not None and self.content[1] is not None:
+            latex_str = (r'\twocolumnslide{\begin{content}%s \end{content}}' + \
+                r'{\begin{content}%s \end{content}}' + \
+                r'{%s}') % \
+                (self.content[0], self.content[1], self.slide_title)
+            display(Latex(latex_str))
+            self.clear_slide()
 
     def twocolumnshiftlefttitle(self, content):
         self.slide_title = content
 
     def twocolumnshiftleftleft(self, content, **kwargs):
-        self.content_one = self.process_content(content, **kwargs)
+        self.process_content(content, 0, **kwargs)
 
     def twocolumnshiftleftright(self, content, **kwargs):
-        self.content_two = self.process_content(content, **kwargs)
-        if self.content_one is not None and self.content_two is not None:
-            display(Latex(r'''\twocolumnshiftleft{%
-                \begin{content}%'''))
-            display(self.process_content(self.content_one, **kwargs))
-            display(Latex(r'''\end{content}}%'''))
-            display(Latex(r'''{%
-                \begin{content}%'''))
-            display(self.process_content(self.content_two, **kwargs))
-            display(Latex(r'''\end{content}}%%
-            {%s}%%''' % self.slide_title))
-        return self.content_two
+        self.process_content(content, 1, **kwargs)
+        if self.content[0] is not None and self.content[1] is not None:
+            latex_str = (r'\twocolumnshiftleft{\begin{content}%s \end{content}}' + \
+                r'{\begin{content}%s \end{content}}' + \
+                r'{%s}') % \
+                (self.content[0], self.content[1], self.slide_title)
+            display(Latex(latex_str))
+            self.clear_slide()
+
+    def twocolumnshiftrighttitle(self, content):
+        self.slide_title = content
+
+    def twocolumnshiftrightleft(self, content, **kwargs):
+        self.process_content(content, 0, **kwargs)
+
+    def twocolumnshiftrightright(self, content, **kwargs):
+        self.process_content(content, 1, **kwargs)
+        if self.content[0] is not None and self.content[1] is not None:
+            latex_str = (r'\twocolumnshiftright{\begin{content}%s \end{content}}' + \
+                r'{\begin{content}%s \end{content}}' + \
+                r'{%s}') % \
+                (self.content[0], self.content[1], self.slide_title)
+            display(Latex(latex_str))
+            self.clear_slide()
+
+    def tworowtitle(self, content):
+        self.slide_title = content
+
+    def tworowtop(self, content, **kwargs):
+        self.process_content(content, 0, **kwargs)
+
+    def tworowbottom(self, content, **kwargs):
+        self.process_content(content, 1, **kwargs)
+        if self.content[0] is not None and self.content[1] is not None:
+            latex_str = (r'\tworow{\begin{content}%s \end{content}}' + \
+                r'{\begin{content}%s \end{content}}' + \
+                r'{%s}') % \
+                (self.content[0], self.content[1], self.slide_title)
+            display(Latex(latex_str))
+            self.clear_slide()
+
+    def tworowpushdowntitle(self, content):
+        self.slide_title = content
+
+    def tworowpushdowntop(self, content, **kwargs):
+        self.process_content(content, 0, **kwargs)
+
+    def tworowpushdownbottom(self, content, **kwargs):
+        self.process_content(content, 1, **kwargs)
+        if self.content[0] is not None and self.content[1] is not None:
+            latex_str = (r'\tworowpushdown{\begin{content}%s \end{content}}' + \
+                r'{\begin{content}%s \end{content}}' + \
+                r'{%s}') % \
+                (self.content[0], self.content[1], self.slide_title)
+            display(Latex(latex_str))
+            self.clear_slide()
+
+    def tworowpushuptitle(self, content):
+        self.slide_title = content
+
+    def tworowpushuptop(self, content, **kwargs):
+        self.process_content(content, 0, **kwargs)
+
+    def tworowpushupbottom(self, content, **kwargs):
+        self.process_content(content, 1, **kwargs)
+        if self.content[0] is not None and self.content[1] is not None:
+            latex_str = (r'\tworowpushup{\begin{content}%s \end{content}}' + \
+                r'{\begin{content}%s \end{content}}' + \
+                r'{%s}') % \
+                (self.content[0], self.content[1], self.slide_title)
+            display(Latex(latex_str))
+            self.clear_slide()
+
+    def tworowtoptwocolumntitle(self, content):
+        self.slide_title = content
+
+    def tworowtoptwocolumntop(self, content, **kwargs):
+        self.process_content(content, 0, **kwargs)
+
+    def tworowpushipbottom(self, content, **kwargs):
+        self.process_content(content, 1, **kwargs)
+        if self.content[0] is not None and self.content[1] is not None:
+            latex_str = (r'\tworowpushup{\begin{content}%s \end{content}}' + \
+                r'{\begin{content}%s \end{content}}' + \
+                r'{%s}') % \
+                (self.content[0], self.content[1], self.slide_title)
+            display(Latex(latex_str))
+            self.clear_slide()
 
 
 @magics_class
