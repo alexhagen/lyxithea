@@ -24,6 +24,12 @@ import __init__ as init
 
 ip = get_ipython()
 
+def cdoc():
+    if bi.__cdoc__ is not None:
+        return bi.__cdoc__
+    else:
+        return document()
+
 @contextlib.contextmanager
 def stdoutIO(stdout=None):
     old = sys.stdout
@@ -38,7 +44,7 @@ js = "require(\"notebook/js/cell\").Cell.options_default.cm_config.lineWrapping 
 #js += "require(\"notebook/js/cell\").MarkdownCell.options_default.cm_config.lineWrapping = true;\n"
 #js = "console.log(Object.getOwnPropertyNames(require(\"notebook/js/cell\").CodeCell));\n"
 js += "require(['notebook/js/codecell'], function(codecell) {\n"
-js += "    codecell.CodeCell.options_default.highlight_modes['magic_markdown'] = {'reg':[/^%%dis/]}; \n"
+js += "    codecell.CodeCell.options_default.highlight_modes['magic_markdown'] = {'reg':[/^%%dis|^%%doc/]}; \n"
 js += "    Jupyter.notebook.events.one('kernel_ready.Kernel', function(){\n"
 js += "      Jupyter.notebook.get_cells().map(function(cell){\n"
 js += "          if (cell.cell_type == 'code'){ cell.auto_highlight(); } }) ;\n"
@@ -64,6 +70,7 @@ class document(object):
         self._year = now.strftime("%Y")
         self._chapter_paths = []
         self._data_paths = []
+        bi.__cdoc__ = self
 
     @staticmethod
     def check_chapter_path(path):
@@ -243,12 +250,12 @@ class document(object):
                     if _fname in files:
                         return os.path.join(root, _fname)
 
-    def bibliography(self):
-        return self._bib.bibliography()
+    def bibliography(self, **kwargs):
+        return self._bib.bibliography(**kwargs)
 
     def add_to_cchap(self, string):
         processed_string = self.process_markdown(string)
-        self._current_chapter += processed_string
+        #self._current_chapter += processed_string
         return display(bi.__formatter__(processed_string))
 
     def add(self, string):
@@ -256,7 +263,8 @@ class document(object):
         self._current_chapter += processed_string
         return display(bi.__formatter__(processed_string))
 
-    def export(self, filename, fmt='latex', engine='pdflatex', template="article"):
+    def export(self, filename, fmt='latex', engine='pdflatex',
+               template="article", metadata={}):
         """ exports the current document - into latex for now """
         # open the notebook as version four, get its path and all its cells
         self.nb = nbformat.v4.new_notebook()
@@ -267,6 +275,7 @@ class document(object):
         nbformat.write(self.nb, 'temp_notebook.ipynb', 4)
         # now do the nb_convert to latex by executing
         self.nb = nbformat.read('temp_notebook.ipynb', 4)
+        self.nb.metadata += metadata
         self.c = Config()
         self.c.ExecutePreprocessor.interrupt_on_timeout = True
         self.c.ExecutePreprocessor.timeout = 600
@@ -314,3 +323,20 @@ class document(object):
             ['nbconvert.preprocessors.ExecutePreprocessor']
         #html_exporter = HTMLExporter(config=c, template_file='noinputhtmlfull.tpl')
         #(body, resources) = html_exporter.from_notebook_node(nb)
+
+
+@magics_class
+class document_magics(Magics):
+
+    @line_cell_magic
+    def doc(self, line, cell):
+        """ call function of dissertation from a line magic """
+        cdoc = bi.__cdoc__
+        # sanitize the inputs
+        arg = re.sub(u"(\u2018|\u2019)", "'", cell)
+        arg = arg.replace("\'\'\'", "\"\"\"")
+        cmd_str = "cdoc.{method}(r\'\'\'{arg}\'\'\')" \
+            .format(method=line, arg=arg)
+        exec(cmd_str)
+
+ip.register_magics(document_magics)

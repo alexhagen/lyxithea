@@ -5,6 +5,7 @@ __formatter__ = Markdown
 __need_latex__ = True
 
 __cdis__ = None
+__cdoc__ = None
 __cslides__ = None
 __regex__ = r"{% ([\s\w\d\(\)\'\"\{\}\.\%\\\-\,\;\:\$]*?) %}"
 __regex2__ = r"\(\(\. ([\s\w\d\(\)\'\"\{\}\.\%\\\-\,\;\:\$]*?) \.\)\)"
@@ -203,6 +204,7 @@ __dissertation_template__ = r"""
     \usepackage{algolyx}
     \usepackage{listings}
     \usepackage{adjustbox}
+    \usepackage{rotfloat}
     \makeatletter
     \newcommand{\invis}[1]{%
       \@bsphack
@@ -416,13 +418,6 @@ __puslides_template__ = r"""((*- extends 'article.tplx' -*))
 
 \makeatletter
 
-\subtitle{(1) Purdue University\enskip{}\rule[0.5ex]{2em}{1pt}\enskip{}(2)
-Sagamore Adams Laboratories, LLC\enskip{}\rule[0.5ex]{2em}{1pt}\enskip{}{*}
-Corresponding Author\\
-\pucite{Sponsorship from U.S. DoE, DoD, DHS, NSF, Sagamore Adams Laboratories
-and Purdue University}}
-\venue{ANS Winter Meeting 2016}
-\city{Las Vegas, Nevada}
 %% Because html converters don't know tabularnewline
 \providecommand{\tabularnewline}{\\}
 
@@ -491,12 +486,45 @@ and Purdue University}}
 ((* endblock commands *))
 
 ((* block maketitle *))
-\title{Threshold Energy Based Active Special Nuclear Material Interrogation}
+((*- if nb.metadata["title"]: -*))
+    \title{((( nb.metadata["title"] )))}
+((*- else -*))
+    \title{((( resources.metadata.name )))}
+((*- endif *))
 
-\author{Alex Hagen\textsuperscript{(1)}}
+((*- if nb.metadata["author"]: -*))
+    \author{((( nb.metadata["author"] )))}
+((*- else -*))
+    \author{Alex Hagen}
+((*- endif *))
+
 \date{\today}
+
+((*- if nb.metadata["affiliation"] and nb.metadata["subtitle"]: -*))
+    \subtitle{((( nb.metadata["affiliation"] ))) \\ ((( nb.metadata["subtitle"])))}
+((*- else -*))
+    \subtitle{}
+((*- endif *))
+
+((*- if nb.metadata["venue"]: -*))
+    \venue{((( nb.metadata["venue"] )))}
+((*- else -*))
+    \venue{}
+((*- endif *))
+
+((*- if nb.metadata["city"]: -*))
+    \city{((( nb.metadata["city"] )))}
+((*- else -*))
+    \city{}
+((*- endif *))
+
 \maketitle
-\def\theauthorsforbottom{A. Hagen}
+
+((*- if nb.metadata["author"]: -*))
+    \def\theauthorsforbottom{((( nb.metadata["author"] )))}
+((*- else -*))
+    \def\theauthorsforbottom{A. Hagen}
+((*- endif *))
 ((* endblock maketitle *))
 
 ((* block error *))

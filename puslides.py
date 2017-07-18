@@ -36,8 +36,14 @@ class puslides(lyxdoc.document):
         shutil.copytree(osp.join(self.modulepath, 'css/'), 'css/')
         # copy the fonts over
         shutil.copytree(osp.join(self.modulepath, 'fonts/'), 'fonts/')
+        metadata = {"author": self._author, "title": self._title,
+                    "affiliation": self._affiliation,
+                    "subtitle": self._subtitle,
+                    "venue": self._venue,
+                    "city": self._city}
         super(puslides, self).export(filename=filename, fmt='latex',
-                                     engine=engine, template='puslides')
+                                     engine=engine, template='puslides',
+                                     metadata=metadata)
         shutil.rmtree('fonts/')
         shutil.rmtree('css/')
 
@@ -47,6 +53,18 @@ class puslides(lyxdoc.document):
     def author(self, author):
         self._author = author
 
+    def affiliation(self, affiliation):
+        self._affiliation = affiliation
+
+    def subtitle(self, subtitle):
+        self._subtitle = subtitle
+
+    def venue(self, venue):
+        self._venue = venue
+
+    def city(self, city):
+        self._city = city
+
     def part(self, title):
         latex_str = r'\part{%s}' % title
         return display(Latex(latex_str))
@@ -55,21 +73,16 @@ class puslides(lyxdoc.document):
         latex_str = r'\def\nameofchapter{%s}' % content
         return display(Latex(latex_str))
 
+    def bibliography(self):
+        return super(puslides, self).bibliography(header_level=3, force_string=True)
+
     def onecolumntitle(self, content):
         self.slide_title = content
 
-    @staticmethod
-    def process_content(content, filename=None, **kwargs):
+    def process_content(self, content, filename=None, **kwargs):
         if isinstance(content, str):
             self.content_one = self.process_markdown(content)
-            latex_str = r'''\onecolumnslide{%%
-                \begin{content}%%
-                    %s
-                \end{content}}%%
-                {%s}%%''' \
-                % (self.content_one, self.slide_title)
-            self.slide_title = None
-            self.content_one = None
+            latex_str = self.content_one
             return Latex(latex_str)
         elif isinstance(content, pyg2d.pyg2d):
             content.export(filename, sizes=['cs'], customsize=(7.5, 5.25))
@@ -77,8 +90,8 @@ class puslides(lyxdoc.document):
 
 
     def onecolumn(self, content, **kwargs):
-        display(Latex(r'''\onecolumnslide{%%
-            \begin{content}%%'''))
+        display(Latex(r'''\onecolumnslide{%
+            \begin{content}%'''))
         display(self.process_content(content, **kwargs))
         display(Latex(r'''\end{content}}%%
         {%s}%%''' % self.slide_title))
@@ -93,17 +106,36 @@ class puslides(lyxdoc.document):
 
     def twocolumnright(self, content, **kwargs):
         self.content_two = self.process_content(content, **kwargs)
-        if self.content_one not None and self.content_two not None:
-            display(Latex(r'''\onecolumnslide{%%
-                \begin{content}%%'''))
+        if self.content_one is not None and self.content_two is not None:
+            display(Latex(r'''\twocolumnslide{%
+                \begin{content}%'''))
             display(self.process_content(self.content_one, **kwargs))
-            display(Latex(r'''\end{content}}%%'''))
-            display(Latex(r'''{%%
-                \begin{content}%%'''))
+            display(Latex(r'''\end{content}}%'''))
+            display(Latex(r'''{%
+                \begin{content}%'''))
             display(self.process_content(self.content_two, **kwargs))
             display(Latex(r'''\end{content}}%%
             {%s}%%''' % self.slide_title))
 
+    def twocolumnshiftlefttitle(self, content):
+        self.slide_title = content
+
+    def twocolumnshiftleftleft(self, content, **kwargs):
+        self.content_one = self.process_content(content, **kwargs)
+
+    def twocolumnshiftleftright(self, content, **kwargs):
+        self.content_two = self.process_content(content, **kwargs)
+        if self.content_one is not None and self.content_two is not None:
+            display(Latex(r'''\twocolumnshiftleft{%
+                \begin{content}%'''))
+            display(self.process_content(self.content_one, **kwargs))
+            display(Latex(r'''\end{content}}%'''))
+            display(Latex(r'''{%
+                \begin{content}%'''))
+            display(self.process_content(self.content_two, **kwargs))
+            display(Latex(r'''\end{content}}%%
+            {%s}%%''' % self.slide_title))
+        return self.content_two
 
 
 @magics_class

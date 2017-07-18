@@ -97,7 +97,7 @@
    \node (CQ) {\color{grey20}\chaparral\fontsize{\quotesize}{\quotesize}\selectfont”};}
 
 % select a colour for the shading
-\colorlet{shadecolor}{white}
+\colorlet{shadecolor}{white!0}
 
 \newcommand*\shadedauthorformat{\chaparral\emph} % define format for the author argument
 

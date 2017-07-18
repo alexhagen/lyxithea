@@ -1,5 +1,5 @@
 from tabulate import tabulate
-from IPython.display import SVG, display, Latex, HTML, Javascript, FileLink
+from IPython.display import SVG, display, Latex, HTML, Javascript, FileLink, Markdown
 import sys
 import os
 import os.path
@@ -26,6 +26,22 @@ __tables__ = psgv.psgv('__lyxtables__')
 __tables__.val = {}
 __figures__ = psgv.psgv('__lyxfigures__')
 __figures__.val = {}
+__chapters__ = psgv.psgv('__lyxchapters__')
+__chapters__.val = {}
+__sections__ = psgv.psgv('__lyxsections__')
+__sections__.val = {}
+__subsections__ = psgv.psgv('__lyxsubsections__')
+__subsections__.val = {}
+__eqs__ = psgv.psgv('__lyxeqs__')
+__eqs__.val = {}
+__lsts__ = psgv.psgv('__lyxlsts__')
+__lsts__.val = {}
+__itms__ = psgv.psgv('__lyxitms__')
+__itms__.val = {}
+__algs__ = psgv.psgv('__lyxalgs__')
+__algs__.val = {}
+__apps__ = psgv.psgv('__lyxapps__')
+__apps__.val = {}
 
 def get_pname(id):
     p = subprocess.Popen(["ps -o cmd= {}".format(id)], stdout=subprocess.PIPE, shell=True)
@@ -96,13 +112,17 @@ def table_no_caption(array, headers=None, floatfmt=".2f"):
         return str(table)
 
 def threeparttable(array, headers=None, label=None, caption='', floatfmt=".2f",
-                   after=''):
+                   after='', sideways=False):
     if run_from_ipython() and need_latex():
         table = tabulate.tabulate(array, headers=headers, tablefmt='latex_raw',
                          numalign='center', stralign='center',
                          floatfmt=floatfmt)
+        if sideways:
+            env = 'sidewaystable'
+        else:
+            env = 'table'
         strlatex = r"""
-        \begin{table}
+        \begin{%s}
             \centering
             \begin{threeparttable}
                 \caption{%s\label{tab:%s}}
@@ -113,15 +133,20 @@ def threeparttable(array, headers=None, label=None, caption='', floatfmt=".2f",
                 %s
                 \end{tablenotes}
             \end{threeparttable}
-        \end{table}""" % (caption, label, table, after)
+        \end{%s}""" % (env, caption, label, table, after, env)
         __tables__.val[label] = __tabcount__.val
         __tabcount__.val += 1
         return display(Latex(strlatex))
 
-def table(array, caption='', label=None, headers=None, floatfmt=".2f"):
+def table(array, caption='', label=None, headers=None, floatfmt=".2f",
+          sideways=False):
     if label is None:
         label = __tabcount__.val
         #print __tabcount__
+    if sideways:
+        env = 'sidewaystable'
+    else:
+        env = 'table'
     if not all(isinstance(el, list) for el in headers):
         headers = [headers]
     if run_from_ipython() and not need_latex():
@@ -145,13 +170,13 @@ def table(array, caption='', label=None, headers=None, floatfmt=".2f"):
                          numalign='center', stralign='center',
                          floatfmt=floatfmt)
         strlatex = r"""
-        \begin{table}
+        \begin{%s}
             \centering
             \caption{%s\label{tab:%s}}
             %%\begin{adjustbox}{max width=\textwidth}
                 %s
             %%\end{adjustbox}
-        \end{table}""" % (caption, label, table)
+        \end{%s}""" % (env, caption, label, table, env)
         __tables__.val[label] = __tabcount__.val
         __tabcount__.val += 1
         return display(Latex(strlatex))
@@ -304,7 +329,7 @@ class bib(object):
         elif need_latex():
             return r'\cite{%s}' % label
 
-    def bibliography(self, header_level=2):
+    def bibliography(self, header_level=2, force_string=False):
         if run_from_ipython() and not need_latex():
             htmlstr = '<h{hl}>Bibliography</h{hl}>\n'.format(hl=header_level)
             htmlstr += '<ol>\n'
@@ -344,6 +369,8 @@ class bib(object):
             else:
                 return display(HTML(htmlstr))
         elif need_latex():
+            if force_string:
+                return r'\bibliographystyle{%s} \bibliography{%s}' % (self.style, self.full_filename)
             return Latex(r'\bibliographystyle{%s} \bibliography{%s}' % (self.style, self.full_filename))
 
 
@@ -357,7 +384,7 @@ def todo(task):
         todos.val.extend([task])
     if run_from_ipython() and not need_latex():
         if need_markdown():
-            return ''
+            return display(Markdown(''))
         elif need_latex():
             return '\invis{%s}' % task
         else:
@@ -434,4 +461,5 @@ def cref(label):
             text = ''
             name = ''
             number = 0
+            return r'\cref{%s%s}' % (text, label)
         return r'%s\ref{%s%s}' % (name, text, label)
