@@ -11,6 +11,7 @@ import os.path as osp
 import shutil
 from pyg import twod as pyg2d
 import pypandoc
+import numpy as np
 
 ip = get_ipython()
 
@@ -75,10 +76,6 @@ class puslides(lyxdoc.document):
         latex_str = r'\def\nameofchapter{%s}' % content
         return display(Latex(latex_str))
 
-    def clear_slide(self):
-        self.slide_title = None
-        self.content = [None for x in self.content]
-
     def bibliography(self):
         return super(puslides, self).bibliography(header_level=3, force_string=True)
 
@@ -93,126 +90,223 @@ class puslides(lyxdoc.document):
             content.export(filename, sizes=['cs'], customsize=(7.5, 5.25))
             return content.show(**kwargs)
 
+    def clear_slide(self):
+        self.slide_title = None
+        self.content = [None for x in self.content]
+
+    ### One Content Slides
+
     def onecolumntitle(self, content):
         self.slide_title = content
+        self.finish_slide('onecolumnslide', 1)
 
     def onecolumn(self, content, **kwargs):
+        self.size(7.5, 5.25)
         self.process_content(content, 0, **kwargs)
-        display(Latex(r'\onecolumnslide{\begin{content}%s \end{content}}{%s}' % (self.content[0], self.slide_title)))
-        self.clear_slide()
+        self.finish_slide('onecolumnslide', 1)
+
+    ### Two content slides
 
     def twocolumntitle(self, content):
         self.slide_title = content
+        self.finish_slide('twocolumnslide', 2)
 
-    def twocolumnleft(self, content, **kwargs):
+    def twocolumn1(self, content, **kwargs):
+        self.size(3.375, 5.25)
         self.process_content(content, 0, **kwargs)
+        self.finish_slide('twocolumnslide', 2)
 
-    def twocolumnright(self, content, **kwargs):
+    def twocolumn2(self, content, **kwargs):
+        self.size(3.375, 5.25)
         self.process_content(content, 1, **kwargs)
-        if self.content[0] is not None and self.content[1] is not None:
-            latex_str = (r'\twocolumnslide{\begin{content}%s \end{content}}' + \
-                r'{\begin{content}%s \end{content}}' + \
-                r'{%s}') % \
-                (self.content[0], self.content[1], self.slide_title)
-            display(Latex(latex_str))
-            self.clear_slide()
+        self.finish_slide('twocolumnslide', 2)
 
     def twocolumnshiftlefttitle(self, content):
         self.slide_title = content
+        self.finish_slide('twocolumnshiftleft', 2)
 
-    def twocolumnshiftleftleft(self, content, **kwargs):
+    def twocolumnshiftleft1(self, content, **kwargs):
+        self.size(2.25, 5.25)
         self.process_content(content, 0, **kwargs)
+        self.finish_slide('twocolumnshiftleft', 2)
 
-    def twocolumnshiftleftright(self, content, **kwargs):
+    def twocolumnshiftleft2(self, content, **kwargs):
+        self.size(4.5, 5.25)
         self.process_content(content, 1, **kwargs)
-        if self.content[0] is not None and self.content[1] is not None:
-            latex_str = (r'\twocolumnshiftleft{\begin{content}%s \end{content}}' + \
-                r'{\begin{content}%s \end{content}}' + \
-                r'{%s}') % \
-                (self.content[0], self.content[1], self.slide_title)
-            display(Latex(latex_str))
-            self.clear_slide()
+        self.finish_slide('twocolumnshiftleft', 2)
 
     def twocolumnshiftrighttitle(self, content):
         self.slide_title = content
+        self.finish_slide('twocolumnshiftright', 2)
 
-    def twocolumnshiftrightleft(self, content, **kwargs):
+    def twocolumnshiftright1(self, content, **kwargs):
+        self.size(4.5, 5.25)
         self.process_content(content, 0, **kwargs)
+        self.finish_slide('twocolumnshiftright', 2)
 
-    def twocolumnshiftrightright(self, content, **kwargs):
+    def twocolumnshiftright2(self, content, **kwargs):
+        self.size(2.25, 5.25)
         self.process_content(content, 1, **kwargs)
-        if self.content[0] is not None and self.content[1] is not None:
-            latex_str = (r'\twocolumnshiftright{\begin{content}%s \end{content}}' + \
-                r'{\begin{content}%s \end{content}}' + \
-                r'{%s}') % \
-                (self.content[0], self.content[1], self.slide_title)
-            display(Latex(latex_str))
-            self.clear_slide()
+        self.finish_slide('twocolumnshiftright', 2)
 
     def tworowtitle(self, content):
         self.slide_title = content
+        self.finish_slide('tworow', 2)
 
     def tworowtop(self, content, **kwargs):
+        self.size(7.5, 2.375)
         self.process_content(content, 0, **kwargs)
+        self.finish_slide('tworow', 2)
 
-    def tworowbottom(self, content, **kwargs):
+    def tworow2(self, content, **kwargs):
+        self.size(7.5, 2.375)
         self.process_content(content, 1, **kwargs)
-        if self.content[0] is not None and self.content[1] is not None:
-            latex_str = (r'\tworow{\begin{content}%s \end{content}}' + \
-                r'{\begin{content}%s \end{content}}' + \
-                r'{%s}') % \
-                (self.content[0], self.content[1], self.slide_title)
-            display(Latex(latex_str))
-            self.clear_slide()
+        self.finish_slide('tworow', 2)
 
     def tworowpushdowntitle(self, content):
         self.slide_title = content
+        self.finish_slide('tworowpushdown', 2)
 
-    def tworowpushdowntop(self, content, **kwargs):
+    def tworowpushdown1(self, content, **kwargs):
+        self.size(7.5, 3.75)
         self.process_content(content, 0, **kwargs)
+        self.finish_slide('tworowpushdown', 2)
 
-    def tworowpushdownbottom(self, content, **kwargs):
+    def tworowpushdown2(self, content, **kwargs):
+        self.size(7.5, 1.125)
         self.process_content(content, 1, **kwargs)
-        if self.content[0] is not None and self.content[1] is not None:
-            latex_str = (r'\tworowpushdown{\begin{content}%s \end{content}}' + \
-                r'{\begin{content}%s \end{content}}' + \
-                r'{%s}') % \
-                (self.content[0], self.content[1], self.slide_title)
-            display(Latex(latex_str))
-            self.clear_slide()
+        self.finish_slide('tworowpushdown', 2)
 
     def tworowpushuptitle(self, content):
         self.slide_title = content
+        self.finish_slide('tworowpushdown', 2)
 
-    def tworowpushuptop(self, content, **kwargs):
+    def tworowpushup1(self, content, **kwargs):
+        self.size(7.5, 1.125)
         self.process_content(content, 0, **kwargs)
+        self.finish_slide('tworowpushup', 2)
 
-    def tworowpushupbottom(self, content, **kwargs):
+    def tworowpushup2(self, content, **kwargs):
+        self.size(7.5, 3.75)
         self.process_content(content, 1, **kwargs)
-        if self.content[0] is not None and self.content[1] is not None:
-            latex_str = (r'\tworowpushup{\begin{content}%s \end{content}}' + \
-                r'{\begin{content}%s \end{content}}' + \
-                r'{%s}') % \
-                (self.content[0], self.content[1], self.slide_title)
-            display(Latex(latex_str))
-            self.clear_slide()
+        self.finish_slide('tworowpushup', 2)
 
     def tworowtoptwocolumntitle(self, content):
         self.slide_title = content
+        self.finish_slide('tworowtoptwocolumn', 3)
 
-    def tworowtoptwocolumntop(self, content, **kwargs):
+    def tworowtoptwocolumn1(self, content, **kwargs):
+        self.size(3.375, 2.375)
         self.process_content(content, 0, **kwargs)
+        self.finish_slide('tworowtoptwocolumn', 3)
 
-    def tworowpushipbottom(self, content, **kwargs):
+    def tworowtoptwocolumn2(self, content, **kwargs):
+        self.size(3.375, 2.375)
         self.process_content(content, 1, **kwargs)
-        if self.content[0] is not None and self.content[1] is not None:
-            latex_str = (r'\tworowpushup{\begin{content}%s \end{content}}' + \
-                r'{\begin{content}%s \end{content}}' + \
-                r'{%s}') % \
-                (self.content[0], self.content[1], self.slide_title)
+        self.finish_slide('tworowtoptwocolumn', 3)
+
+    def tworowtoptwocolumn3(self, content, **kwargs):
+        self.size(7.5, 2.375)
+        self.process_content(content, 2, **kwargs)
+        self.finish_slide('tworowtoptwocolumn', 3)
+
+    def tworowbottomtwocolumntitle(self, content):
+        self.slide_title = content
+        self.finish_slide('tworowbottomtwocolumn', 3)
+
+    def tworowbottomtwocolumn1(self, content, **kwargs):
+        self.size(7.5, 2.375)
+        self.process_content(content, 0, **kwargs)
+        self.finish_slide('tworowbottomtwocolumn', 3)
+
+    def tworowbottomtwocolumn2(self, content, **kwargs):
+        self.size(3.375, 2.375)
+        self.process_content(content, 1, **kwargs)
+        self.finish_slide('tworowbottomtwocolumn', 3)
+
+    def tworowbottomtwocolumn3(self, content, **kwargs):
+        self.size(3.375, 2.375)
+        self.process_content(content, 2, **kwargs)
+        self.finish_slide('tworowbottomtwocolumn', 3)
+
+    def tworowleftsidebartitle(self, content, **kwargs):
+        self.slide_title = content
+        self.finish_slide('tworowleftsidebar', 3)
+
+    def tworowleftsidebar1(self, content, **kwargs):
+        self.size(4.5, 2.375)
+        self.process_content(content, 0, **kwargs)
+        self.finish_slide('tworowleftsidebar', 3)
+
+    def tworowleftsidebar2(self, content, **kwargs):
+        self.size(4.5, 2.375)
+        self.process_content(content, 1, **kwargs)
+        self.finish_slide('tworowleftsidebar', 3)
+
+    def tworowleftsidebar3(self, content, **kwargs):
+        self.size(2.25, 5.125)
+        self.process_content(content, 2, **kwargs)
+        self.finish_slide('tworowleftsidebar', 3)
+
+    def tworowrightsidebartitle(self, content, **kwargs):
+        self.slide_title = content
+        self.finish_slide('tworowrightsidebar', 3)
+
+    def tworowrightsidebar1(self, content, **kwargs):
+        self.size(4.5, 2.375)
+        self.process_content(content, 0, **kwargs)
+        self.finish_slide('tworowrightsidebar', 3)
+
+    def tworowrightsidebar2(self, content, **kwargs):
+        self.size(4.5, 2.375)
+        self.process_content(content, 1, **kwargs)
+        self.finish_slide('tworowrightsidebar', 3)
+
+    def tworowrightsidebar3(self, content, **kwargs):
+        self.size(2.25, 5.125)
+        self.process_content(content, 2, **kwargs)
+        self.finish_slide('tworowrightsidebar', 3)
+
+    ### Four arguments
+
+    def tworowtwocolumntitle(self, content, **kwargs):
+        self.slide_title = content
+        self.finish_slide('tworowtwocolumn', 4)
+
+    def tworowtwocolumn1(self, content, **kwargs):
+        self.size(3.375, 2.375)
+        self.process_content(content, 0, **kwargs)
+        self.finish_slide('tworowtwocolumn', 4)
+
+    def tworowtwocolumn2(self, content, **kwargs):
+        self.size(3.375, 2.375)
+        self.process_content(content, 1, **kwargs)
+        self.finish_slide('tworowtwocolumn', 4)
+
+    def tworowtwocolumn3(self, content, **kwargs):
+        self.size(3.375, 2.375)
+        self.process_content(content, 2, **kwargs)
+        self.finish_slide('tworowtwocolumn', 4)
+
+    def tworowtwocolumn4(self, content, **kwargs):
+        self.size(3.375, 2.375)
+        self.process_content(content, 3, **kwargs)
+        self.finish_slide('tworowtwocolumn', 4)
+
+    def size(self, width, height):
+        self.width = width
+        self.height = height - 0.125
+
+    def finish_slide(self, latexname, numargs):
+        bools = [_content is not None for _content in self.content[:numargs]]
+        if np.all(bools) and self.slide_title is not None:
+            latex_str = '\\' + latexname
+            for i in range(0, numargs):
+                latex_str += r'{\begin{content} %s \end{content}}' % \
+                    self.content[i]
+            latex_str += r'{%s}' % self.slide_title
             display(Latex(latex_str))
             self.clear_slide()
-
 
 @magics_class
 class puslides_magics(Magics):
