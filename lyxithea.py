@@ -42,6 +42,8 @@ __algs__ = psgv.psgv('__lyxalgs__')
 __algs__.val = {}
 __apps__ = psgv.psgv('__lyxapps__')
 __apps__.val = {}
+__exporting__ = psgv.psgv('__lyxexporting__')
+__exporting__.val = False
 
 def get_pname(id):
     p = subprocess.Popen(["ps -o cmd= {}".format(id)], stdout=subprocess.PIPE, shell=True)
@@ -73,6 +75,12 @@ def need_markdown():
 
 def latex(i=True):
     __needs_latex__.val = i
+
+def exporting(i=True):
+    __exporting__.val = i
+
+def is_exporting():
+    return __exporting__.val
 
 def markdown(i=True):
     __needs_markdown__.val = i

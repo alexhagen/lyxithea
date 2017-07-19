@@ -25,6 +25,73 @@
 \RequirePackage{media9}
 \usepackage[absolute,overlay]{textpos}
 \RequirePackage{anyfontsize}
+\usepackage{amstext}
+\usepackage{fontspec}
+\usepackage[landscape,paperwidth=7in,paperheight=9in]{geometry}
+\geometry{verbose,tmargin=0cm,bmargin=0cm,lmargin=0cm,rmargin=0cm,headheight=0cm,headsep=0cm,footskip=0cm}
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+\usepackage{float}
+\usepackage{units}
+\usepackage{graphicx}
+\PassOptionsToPackage{version=3}{mhchem}
+\usepackage{mhchem}
+\usepackage[numbers]{natbib}
+\usepackage{luatex85}
+\usepackage{pgf}
+\usepackage{xcolor}
+\usepackage{color}
+\usepackage{xparse}
+\usepackage{soul}
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows,calc,positioning}
+\usepackage{pdfpages}
+\usepackage{float}
+\usepackage{xunicode}
+\usepackage{polyglossia}
+\setdefaultlanguage[variant=american]{english}
+
+\definecolor{green}{HTML}{5C8727}
+\definecolor{yellow}{HTML}{E3AE24}
+\NewDocumentCommand{\sotwo}{O{red}O{black}+m}
+    {%
+        \begingroup
+        \setulcolor{#1}%
+        \setul{-.6ex}{2pt}%
+        \def\SOUL@uleverysyllable{%
+            \rlap{%
+                \color{#2}\the\SOUL@syllable
+                \SOUL@setkern\SOUL@charkern}%
+            \SOUL@ulunderline{%
+                \phantom{\the\SOUL@syllable}}%
+        }%
+        \ul{#3}%
+        \endgroup
+    }
+\vfuzz = 500pt
+
+\definecolor{grey20}{RGB}{209,211,212}
+\definecolor{grey40}{RGB}{167,169,172}
+\definecolor{grey60}{RGB}{116,108,102}
+\definecolor{oldgold}{RGB}{163,121,44}
+\definecolor{newgold}{RGB}{227,174,36}
+\definecolor{652C}{RGB}{114,153,198}
+\definecolor{1675C}{RGB}{185,89,21}
+\definecolor{puteal}{RGB}{46,175,164}
+
+%\providecommand{\tightlist}{}
+
+\providecommand{\tightlist}{}
+
+\floatname{algorithm}{Source Code}
+\newcommand{\algorithmname}{Source Code}
+
+\AtBeginDocument{
+  \def\labelitemi{\(\Rightarrow\)}
+  \def\labelitemii{\(\rightarrow\)}
+  \def\labelitemiii{\(\rightarrow\)}
+}
+
 
 \newcommand{\nameofsubtitle}{}
 \newcommand{\nameofvenue}{}
@@ -162,7 +229,7 @@
   % Author and Venue
   \begin{textblock}{4}(4.85,6.54)
     \begin{minipage}[t][0.30 in][c]{4 in}\raggedright
-      \color{grey40} \small{\theauthorsforbottom}\\ \today\hspace{0.1em}at \nameofvenue
+      \color{grey40} \small{\theauthorsforbottom}\smallskip \today\hspace{0.1em}at \nameofvenue
     \end{minipage}
   \end{textblock}
   % Title of Paper
@@ -202,7 +269,7 @@
   % Author and Venue
   \begin{textblock}{4}(4.85,6.54)
     \begin{minipage}[t][0.30 in][c]{4 in}\raggedright
-      \color{grey40} \small{\nameofauthor}\\ \today\hspace{0.1em}at \nameofvenue
+      \color{grey40} \small{\nameofauthor}\smallskip \today\hspace{0.1em}at \nameofvenue
     \end{minipage}
   \end{textblock}
   % Title of Paper
@@ -251,7 +318,7 @@
     \begin{textblock}{6}(1.5,5.15)
       \fontsize{20}{20}
       \begin{minipage}[c][0.5 in][s]{6 in}\centering
-        \large{\today\hspace{0.1em}at \nameofvenue}\\ \normalsize{\nameofcity}
+        \large{\today\hspace{0.1em}at \nameofvenue}\smallskip \normalsize{\nameofcity}
       \end{minipage}
     \end{textblock}%
     % Author
@@ -662,4 +729,5 @@
 
 \newcommand{\heading}[1]{\LARGE{\champion #1}}
 
+\renewcommand{\subsection}[1]{\heading{#1}}
 \endinput

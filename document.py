@@ -266,6 +266,7 @@ class document(object):
     def export(self, filename, fmt='latex', engine='pdflatex',
                template="article", metadata={}):
         """ exports the current document - into latex for now """
+        lyx.exporting(True)
         # open the notebook as version four, get its path and all its cells
         self.nb = nbformat.v4.new_notebook()
         self.cwd = os.path.abspath(os.getcwd())
@@ -284,6 +285,7 @@ class document(object):
             self.export_latex(filename, engine=engine)
         elif fmt == 'html':
             self.export_html(filename)
+        lyx.exporting(False)
 
     def export_latex(self, filename, engine='pdflatex'):
         """ exports to latex """

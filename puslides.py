@@ -1,5 +1,5 @@
 import lyxithea as lyx
-from IPython.display import display, Latex
+from IPython.display import display, Latex, HTML
 from IPython.core.magic import (Magics, magics_class, line_magic,
                                 cell_magic, line_cell_magic)
 import nbformat
@@ -12,6 +12,9 @@ import shutil
 from pyg import twod as pyg2d
 import pypandoc
 import numpy as np
+from mwe import mwe
+
+ip = get_ipython()
 
 ip = get_ipython()
 
@@ -29,6 +32,7 @@ class puslides(lyxdoc.document):
         self.content_one = None
         self.content_two = None
         self.content = [None, None, None, None, None, None, None]
+        self.slide = 1
         super(puslides, self).__init__(bib=bib)
         bi.__cslides__ = self
 
@@ -36,6 +40,8 @@ class puslides(lyxdoc.document):
         # copy the classfile over
         shutil.copy(osp.join(self.modulepath, 'puslides.cls'), './')
         # copy the css files over
+        shutil.rmtree('fonts/', ignore_errors=True)
+        shutil.rmtree('css/', ignore_errors=True)
         shutil.copytree(osp.join(self.modulepath, 'css/'), 'css/')
         # copy the fonts over
         shutil.copytree(osp.join(self.modulepath, 'fonts/'), 'fonts/')
@@ -69,11 +75,13 @@ class puslides(lyxdoc.document):
         self._city = city
 
     def part(self, title):
+        self.current_part = title
         latex_str = r'\part{%s}' % title
         return display(Latex(latex_str))
 
-    def chapter(title, content):
-        latex_str = r'\def\nameofchapter{%s}' % content
+    def chapter(self, title):
+        self.current_chapter = title
+        latex_str = r'\def\nameofchapter{%s}' % title
         return display(Latex(latex_str))
 
     def bibliography(self):
@@ -153,7 +161,7 @@ class puslides(lyxdoc.document):
         self.slide_title = content
         self.finish_slide('tworow', 2)
 
-    def tworowtop(self, content, **kwargs):
+    def tworow1(self, content, **kwargs):
         self.size(7.5, 2.375)
         self.process_content(content, 0, **kwargs)
         self.finish_slide('tworow', 2)
@@ -307,6 +315,35 @@ class puslides(lyxdoc.document):
             latex_str += r'{%s}' % self.slide_title
             display(Latex(latex_str))
             self.clear_slide()
+            if not lyx.is_exporting():
+                preamble_str = '\def\\theauthorsforbottom{%s}\n' % self._author
+                preamble_str += '\\providecommand{\\tightlist}{}\n'
+                # copy the classfile over
+                shutil.copy(osp.join(self.modulepath, 'puslides.cls'), './')
+                prelatex_str = '\\title{%s}\n' % self._title
+                prelatex_str += '\subtitle{%s}\n' % self._subtitle
+                prelatex_str += '\\author{%s}\n' % self._author
+                prelatex_str += '\\venue{%s}\n' % self._venue
+                prelatex_str += '\\city{%s}\n' % self._city
+                prelatex_str += '\\part{%s}\n' % self.current_part
+                prelatex_str += '\def\\nameofchapter{%s}\n' % self.current_chapter
+                # copy the css files over
+                shutil.rmtree('fonts/', ignore_errors=True)
+                shutil.rmtree('css/', ignore_errors=True)
+                shutil.copytree(osp.join(self.modulepath, 'css/'), 'css/')
+                # copy the fonts over
+                shutil.copytree(osp.join(self.modulepath, 'fonts/'), 'fonts/')
+                thisslide = mwe.mwe(prelatex_str + latex_str, texcls='puslides',
+                                    texclsopts={'english': None, '20pt': None},
+                                    preamble=preamble_str)
+                try:
+                    thisslide.show(alone=True, filename='slide_%d' % self.slide,
+                                   engine='lualatex')
+                except IOError:
+                    display(HTML('<h2>Latex Error</h2>'))
+                self.slide += 1
+                shutil.rmtree('fonts/')
+                shutil.rmtree('css/')
 
 @magics_class
 class puslides_magics(Magics):
