@@ -147,7 +147,7 @@ def threeparttable(array, headers=None, label=None, caption='', floatfmt=".2f",
         return display(Latex(strlatex))
 
 def table(array, caption='', label=None, headers=None, floatfmt=".2f",
-          sideways=False):
+          sideways=False, need_string=False):
     if label is None:
         label = __tabcount__.val
         #print __tabcount__
@@ -187,6 +187,8 @@ def table(array, caption='', label=None, headers=None, floatfmt=".2f",
         \end{%s}""" % (env, caption, label, table, env)
         __tables__.val[label] = __tabcount__.val
         __tabcount__.val += 1
+        if need_string:
+            return strlatex
         return display(Latex(strlatex))
 
 def to_pdf():

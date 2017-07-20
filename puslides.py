@@ -87,7 +87,11 @@ class puslides(lyxdoc.document):
     def bibliography(self):
         return super(puslides, self).bibliography(header_level=3, force_string=True)
 
-    def process_content(self, content, index, filename=None, **kwargs):
+    def process_content(self, content, index, filename=None, latex=False,
+                        **kwargs):
+        if latex:
+            self.content[index] = content
+            return content
         if isinstance(content, str):
             self.content[index] = \
                 pypandoc.convert_text(self.process_markdown(content), 'latex',
@@ -95,8 +99,17 @@ class puslides(lyxdoc.document):
             latex_str = self.content[index]
             return latex_str
         elif isinstance(content, pyg2d.pyg2d):
-            content.export(filename, sizes=['cs'], customsize=(7.5, 5.25))
-            return content.show(**kwargs)
+            lyx.latex()
+            content.export(filename, force=True, sizes=['cs'],
+                           customsize=(self.width, self.height - 0.125))
+            string = content.show(need_string=True, **kwargs)
+            self.content[index] = string
+            return string
+        elif isinstance(content, pyg2d.svg):
+            lyx.latex()
+            string = content.show(width=self.width, need_string=True, **kwargs)
+            self.content[index] = string
+            return string
 
     def clear_slide(self):
         self.slide_title = None
@@ -303,7 +316,7 @@ class puslides(lyxdoc.document):
 
     def size(self, width, height):
         self.width = width
-        self.height = height - 0.125
+        self.height = height
 
     def finish_slide(self, latexname, numargs):
         bools = [_content is not None for _content in self.content[:numargs]]
@@ -313,7 +326,8 @@ class puslides(lyxdoc.document):
                 latex_str += r'{\begin{content} %s \end{content}}' % \
                     self.content[i]
             latex_str += r'{%s}' % self.slide_title
-            display(Latex(latex_str))
+            if lyx.is_exporting():
+                display(Latex(latex_str))
             self.clear_slide()
             if not lyx.is_exporting():
                 preamble_str = '\def\\theauthorsforbottom{%s}\n' % self._author

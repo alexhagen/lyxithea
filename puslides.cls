@@ -50,6 +50,7 @@
 \usepackage{xunicode}
 \usepackage{polyglossia}
 \setdefaultlanguage[variant=american]{english}
+\usepackage{makecell}
 
 \definecolor{green}{HTML}{5C8727}
 \definecolor{yellow}{HTML}{E3AE24}
@@ -82,6 +83,7 @@
 %\providecommand{\tightlist}{}
 
 \providecommand{\tightlist}{}
+\providecommand{\invis}[1]{}
 
 \floatname{algorithm}{Source Code}
 \newcommand{\algorithmname}{Source Code}

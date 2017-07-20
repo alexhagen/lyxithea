@@ -1,4 +1,4 @@
-%% Creator: Inkscape 0.48.3.1, www.inkscape.org
+%% Creator: Inkscape inkscape 0.91, www.inkscape.org
 %% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
 %% Accompanies image file 'Formal_Slide_Outer_Data.pdf' (pdf, eps, ps)
 %%
@@ -49,17 +49,6 @@
   \global\let\svgscale\undefined%
   \makeatother%
   \begin{picture}(1,0.77777778)%
-    \put(0,0){\includegraphics[width=\unitlength]{css/Formal_Slide_Outer_Data.pdf}}%
-    \setlength{\unitlength}{1 in}
-    \begin{content}%
-    %
-    \end{content}%
-    \put(4.375,0.45){\begin{minipage}[t][0.30 in][c]{0.25 in}\centering \color{white}\champion\LARGE{\nameofpagenumber}\end{minipage}}%
-    \put(4.85,0.45){\begin{minipage}[t][0.30 in][c]{4 in}\raggedright \color{grey40} \scriptsize{\theauthorsforbottom}\\ \today\hspace{0.1em}at \nameofvenue \end{minipage}}%
-    \put(0.15,0.45){\begin{minipage}[t][0.30 in][c]{4 in}\raggedleft \color{grey40} \scriptsize{\nameoftitle}\end{minipage}}%
-    \put(0.25,6.35){\begin{minipage}[b][0.4 in][c]{8.5 in}\raggedright \champion \Huge{\color{newgold} \nameofchapter : \color{grey40} \nameofsection}\end{minipage}}%
-    \put(0.00,6.875){ \forloop[1]{index}{1}{\value{index} < \value{numberpart}}{%
-      \chaparral\colorbox{grey20}{\color{white}{\textsc{\gettext{\arabic{index}}}}}}
-      \chaparral\colorbox{newgold}{\color{white}{\textsc{\gettext{\arabic{numberpart}}}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{Formal_Slide_Outer_Data.pdf}}%
   \end{picture}%
 \endgroup%
