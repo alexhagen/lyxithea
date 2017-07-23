@@ -1,4 +1,4 @@
-%% Creator: Inkscape inkscape 0.48.4, www.inkscape.org
+%% Creator: Inkscape inkscape 0.91, www.inkscape.org
 %% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
 %% Accompanies image file 'Formal_Chapter_Slide_Outer_Data.pdf' (pdf, eps, ps)
 %%
@@ -49,6 +49,7 @@
   \global\let\svgscale\undefined%
   \makeatother%
   \begin{picture}(1,0.77777778)%
-    \put(0,0){\includegraphics[width=\unitlength]{Formal_Chapter_Slide_Outer_Data.pdf}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{Formal_Chapter_Slide_Outer_Data.pdf}}%
+    \put(0.09902741,0.57869142){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.80562927\unitlength}\centering \end{minipage}}}%
   \end{picture}%
 \endgroup%

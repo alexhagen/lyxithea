@@ -84,6 +84,16 @@ class puslides(lyxdoc.document):
         latex_str = r'\def\nameofchapter{%s}' % title
         return display(Latex(latex_str))
 
+    def chapterslidetitle(self, content, **kwargs):
+        self.slide_title = content
+        self.process_content(content, 0, **kwargs)
+        self.finish_slide('chapter', 2)
+
+    def chapterslidesubtitle(self, content, **kwargs):
+        self.process_content(content, 1, **kwargs)
+        self.finish_slide('chapter', 2)
+
+
     def bibliography(self):
         return super(puslides, self).bibliography(header_level=3, force_string=True)
 

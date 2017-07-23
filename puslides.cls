@@ -289,7 +289,7 @@
   \end{textblock}
 }
 
-\renewcommand{\chapter}[2]{\def\nameofchapter{#2} \def\nameoflongchapter{#1}
+\renewcommand{\chapter}[3]{\def\nameofchapter{#3} \def\nameoflongchapter{#1}
   \newpage
   \ThisCenterWallPaper{1}{css/Formal_Chapter_Slide_Outer_Data.pdf}
   \thispagestyle{fancy}
@@ -297,12 +297,21 @@
   \fancyhf{}
 
   \hspace{1in}
-  \begin{textblock}{8}(0.75,2.25)
-    \begin{minipage}[s][1.0 in][c]{8 in}\raggedright {\fontsize{40}{60}\selectfont \color{grey60} \champion
+  \begin{textblock}{8}(0.75,1.75)
+    \begin{minipage}[s][1.0 in][c]{7.5 in}\raggedright {\fontsize{60}{80}\selectfont \color{grey60} \champion
       #1
     }
     \end{minipage}
   \end{textblock}
+
+  \hspace{1in}
+  \begin{textblock}{8}(0.75,4.25)
+    \begin{minipage}[s][1.0 in][c]{7.5 in}\raggedright {\fontsize{16}{18}\selectfont \color{black} \chaparral
+      #2
+    }
+    \end{minipage}
+  \end{textblock}
+
   \puchapthf
   \newpage
 
