@@ -117,7 +117,9 @@ class puslides(lyxdoc.document):
             return string
         elif isinstance(content, pyg2d.svg):
             lyx.latex()
-            string = content.show(width=self.width, need_string=True, **kwargs)
+            string = content.show(width=self.width, need_string=True,
+                                  bbox=(self.width, self.height - 0.125),
+                                  **kwargs)
             self.content[index] = string
             return string
 
@@ -353,7 +355,7 @@ class puslides(lyxdoc.document):
             self.clear_slide()
             if not lyx.is_exporting():
                 preamble_str = '\def\\theauthorsforbottom{%s}\n' % self._author
-                preamble_str += '\\providecommand{\\tightlist}{}\n'
+                preamble_str += '\\providecommand{\\tightlist}{\\renewcommand{\\\\}{\\vspace{0pt}}}\n'
                 # copy the classfile over
                 shutil.copy(osp.join(self.modulepath, 'puslides.cls'), './')
                 prelatex_str = '\\title{%s}\n' % self._title

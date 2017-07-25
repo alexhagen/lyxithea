@@ -236,7 +236,7 @@
   % Author and Venue
   \begin{textblock}{4}(4.85,6.54)
     \begin{minipage}[t][0.30 in][c]{4 in}\raggedright
-      \color{grey40} \small{\theauthorsforbottom}\vspace{0.2em} \today\hspace{0.1em}at \nameofvenue
+      \color{grey40} \small{\theauthorsforbottom}\\ \today\hspace{0.1em}at \nameofvenue
     \end{minipage}
   \end{textblock}
   % Title of Paper
@@ -276,7 +276,7 @@
   % Author and Venue
   \begin{textblock}{4}(4.85,6.54)
     \begin{minipage}[t][0.30 in][c]{4 in}\raggedright
-      \color{grey40} \small{\nameofauthor}\vspace{0.2em} \today\hspace{0.1em}at \nameofvenue
+      \color{grey40} \small{\nameofauthor}\\ \today\hspace{0.1em}at \nameofvenue
     \end{minipage}
   \end{textblock}
   % Title of Paper
@@ -355,7 +355,7 @@
     \begin{textblock}{6}(1.5,5.15)
       \fontsize{20}{20}
       \begin{minipage}[c][0.5 in][s]{6 in}\centering
-        \large{\today\hspace{0.1em}at \nameofvenue}\vspace{0.2em} \normalsize{\nameofcity}
+        \large{\today\hspace{0.1em}at \nameofvenue}\\ \normalsize{\nameofcity}
       \end{minipage}
     \end{textblock}%
     % Author
