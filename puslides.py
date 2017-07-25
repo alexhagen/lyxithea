@@ -87,11 +87,11 @@ class puslides(lyxdoc.document):
     def chapterslidetitle(self, content, **kwargs):
         self.slide_title = content
         self.process_content(content, 0, **kwargs)
-        self.finish_slide('chapter', 2)
+        self.finish_slide('chapterslide', 2)
 
     def chapterslidesubtitle(self, content, **kwargs):
         self.process_content(content, 1, **kwargs)
-        self.finish_slide('chapter', 2)
+        self.finish_slide('chapterslide', 2)
 
 
     def bibliography(self):
@@ -246,7 +246,7 @@ class puslides(lyxdoc.document):
         self.finish_slide('tworowbottomtwocolumn', 3)
 
     def tworowbottomtwocolumn1(self, content, **kwargs):
-        self.size(7.5, 2.375)
+        self.size(3.375, 2.375)
         self.process_content(content, 0, **kwargs)
         self.finish_slide('tworowbottomtwocolumn', 3)
 
@@ -256,7 +256,7 @@ class puslides(lyxdoc.document):
         self.finish_slide('tworowbottomtwocolumn', 3)
 
     def tworowbottomtwocolumn3(self, content, **kwargs):
-        self.size(3.375, 2.375)
+        self.size(7.5, 2.375)
         self.process_content(content, 2, **kwargs)
         self.finish_slide('tworowbottomtwocolumn', 3)
 
@@ -327,6 +327,18 @@ class puslides(lyxdoc.document):
     def size(self, width, height):
         self.width = width
         self.height = height
+
+    def pocket_on(self):
+        display(Latex(r'\savepocketslide{'))
+        prelatex_str = '\def\\nameofchapter{%s}\n' % self.current_chapter
+        display(Latex(prelatex_str))
+
+    def pocket_off(self):
+        display(Latex(r'}'))
+
+    def pocket_slides(self):
+        display(Latex('\\pocketslides\n'))
+
 
     def finish_slide(self, latexname, numargs):
         bools = [_content is not None for _content in self.content[:numargs]]

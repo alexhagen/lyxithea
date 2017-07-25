@@ -26,6 +26,8 @@
 \usepackage[absolute,overlay]{textpos}
 \RequirePackage{anyfontsize}
 \usepackage{amstext}
+\usepackage{amsmath}
+\usepackage{amssymb}
 \usepackage{fontspec}
 \usepackage[landscape,paperwidth=7in,paperheight=9in]{geometry}
 \geometry{verbose,tmargin=0cm,bmargin=0cm,lmargin=0cm,rmargin=0cm,headheight=0cm,headsep=0cm,footskip=0cm}
@@ -84,6 +86,9 @@
 
 \providecommand{\tightlist}{}
 \providecommand{\invis}[1]{}
+
+\def\pocketslides{}
+\newcommand\savepocketslide[1]{\g@addto@macro\pocketslides{#1}}
 
 \floatname{algorithm}{Source Code}
 \newcommand{\algorithmname}{Source Code}
@@ -223,15 +228,15 @@
     \end{minipage}
   \end{textblock}
     % Confidential
-  %\begin{textblock}{3}(3,6.25)
-  %  \begin{minipage}[t][0.30 in][c]{3 in}\centering
-  %    \small{\color{grey60} Confidential - Not for Dissemination}
-  %  \end{minipage}
-  %\end{textblock}
+  \begin{textblock}{3}(3,6.25)
+    \begin{minipage}[t][0.30 in][c]{3 in}\centering
+      \small{\color{grey60} Confidential - Not for Dissemination}
+    \end{minipage}
+  \end{textblock}
   % Author and Venue
   \begin{textblock}{4}(4.85,6.54)
     \begin{minipage}[t][0.30 in][c]{4 in}\raggedright
-      \color{grey40} \small{\theauthorsforbottom}\smallskip \today\hspace{0.1em}at \nameofvenue
+      \color{grey40} \small{\theauthorsforbottom}\vspace{0.2em} \today\hspace{0.1em}at \nameofvenue
     \end{minipage}
   \end{textblock}
   % Title of Paper
@@ -271,7 +276,7 @@
   % Author and Venue
   \begin{textblock}{4}(4.85,6.54)
     \begin{minipage}[t][0.30 in][c]{4 in}\raggedright
-      \color{grey40} \small{\nameofauthor}\smallskip \today\hspace{0.1em}at \nameofvenue
+      \color{grey40} \small{\nameofauthor}\vspace{0.2em} \today\hspace{0.1em}at \nameofvenue
     \end{minipage}
   \end{textblock}
   % Title of Paper
@@ -289,7 +294,28 @@
   \end{textblock}
 }
 
-\renewcommand{\chapter}[3]{\def\nameofchapter{#3} \def\nameoflongchapter{#1}
+\renewcommand{\chapter}[2]{\def\nameofchapter{#2} \def\nameoflongchapter{#1}
+  \newpage
+  \ThisCenterWallPaper{1}{css/Formal_Chapter_Slide_Outer_Data.pdf}
+  \thispagestyle{fancy}
+  \renewcommand{\headrulewidth}{0pt}
+  \fancyhf{}
+
+  \hspace{1in}
+  \begin{textblock}{8}(0.75,1.75)
+    \begin{minipage}[s][1.0 in][c]{7.5 in}\raggedright {\fontsize{60}{80}\selectfont \color{grey60} \champion
+      #1
+    }
+    \end{minipage}
+  \end{textblock}
+
+  \puchapthf
+  \newpage
+
+  %chapterslide
+}
+
+\newcommand{\chapterslide}[3]{\def\nameofchapter{#3} \def\nameoflongchapter{#1}
   \newpage
   \ThisCenterWallPaper{1}{css/Formal_Chapter_Slide_Outer_Data.pdf}
   \thispagestyle{fancy}
@@ -329,7 +355,7 @@
     \begin{textblock}{6}(1.5,5.15)
       \fontsize{20}{20}
       \begin{minipage}[c][0.5 in][s]{6 in}\centering
-        \large{\today\hspace{0.1em}at \nameofvenue}\smallskip \normalsize{\nameofcity}
+        \large{\today\hspace{0.1em}at \nameofvenue}\vspace{0.2em} \normalsize{\nameofcity}
       \end{minipage}
     \end{textblock}%
     % Author
