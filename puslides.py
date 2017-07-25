@@ -220,7 +220,7 @@ class puslides(lyxdoc.document):
         self.finish_slide('tworowpushup', 2)
 
     def tworowpushup2(self, content, **kwargs):
-        self.size(7.5, 3.75)
+        self.size(7.5, 4.25)
         self.process_content(content, 1, **kwargs)
         self.finish_slide('tworowpushup', 2)
 
