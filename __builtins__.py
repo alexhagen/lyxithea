@@ -103,6 +103,99 @@ __latex_template__ = r"""
 ((* endblock maketitle *))
 """
 
+__article2_template__ = r"""
+((*- extends 'article.tplx' -*))
+
+((* block input_group *))
+    ((*- if cell.metadata.get('nbconvert', {}).get('show_code', False) -*))
+        ((( super() )))
+    ((*- endif -*))
+((* endblock input_group *))
+
+((* block data_latex -*))
+    ((( output.data['text/latex'] | strip_files_prefix )))
+((* endblock data_latex *))
+
+((* set cell_style = 'style_bw_python.tplx' *))
+
+((* block packages *))
+  \usepackage[T1]{fontenc}
+  % Nicer default font (+ math font) than Computer Modern for most use cases
+  \usepackage{mathpazo}
+  \usepackage{graphicx}
+  \usepackage{adjustbox} % Used to constrain images to a maximum size
+  \usepackage{xcolor} % Allow colors to be defined
+  \usepackage{enumerate} % Needed for markdown enumerations to work
+  \usepackage{geometry} % Used to adjust the document margins
+  \usepackage{amsmath} % Equations
+  \usepackage{amssymb} % Equations
+  \usepackage{textcomp} % defines textquotesingle
+  \AtBeginDocument{%
+      \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+  }
+  \usepackage{upquote} % Upright quotes for verbatim code
+  \usepackage{eurosym} % defines \euro
+  \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+  \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+  \usepackage{fancyvrb} % verbatim replacement that allows latex
+  \usepackage{grffile} % extends the file name processing of package graphics
+                       % to support a larger range
+  % The hyperref package gives us a pdf with properly built
+  % internal navigation ('pdf bookmarks' for the table of contents,
+  % internal cross-reference links, web links for URLs, etc.)
+  \usepackage{hyperref}
+  \usepackage{longtable} % longtable support required by pandoc >1.10
+  \usepackage{booktabs}  % table support for pandoc > 1.12.2
+  \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+  \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                              % normalem makes italics be italics, not underlines
+  \usepackage{tikz}
+  \usepackage{nicefrac}
+  \usepackage{gensymb}
+  %\usepackage{nomencl}
+  %\makenomenclature
+  \usepackage{import}
+  \usepackage[english]{babel}
+  \newcommand{\unit}[1]{\mathrm{#1}}
+  \newcommand{\ce}[1]{\mathrm{#1}}
+  \newcommand{\cc}{\unit{cm^{2}}}
+  %\newcommand\inputpgf[2]{{
+    %\let\pgfimageWithoutPath\pgfimage
+    %\renewcommand{\pgfimage}[2][]{\pgfimageWithoutPath[##1]{#1/##2}}
+    %\input{#1/#2}
+    %}}
+((* endblock packages *))
+
+% Author and Title from metadata
+((* block maketitle *))
+
+((*- if nb.metadata["latex_metadata"]: -*))
+((*- if nb.metadata["latex_metadata"]["author"]: -*))
+    \author{((( nb.metadata["latex_metadata"]["author"] )))}
+((*- endif *))
+((*- else -*))
+    \author{Alex Hagen}
+((*- endif *))
+
+((*- if nb.metadata["latex_metadata"]: -*))
+((*- if nb.metadata["latex_metadata"]["affiliation"]: -*))
+    \affiliation{((( nb.metadata["latex_metadata"]["affiliation"] )))}
+((*- endif *))
+((*- endif *))
+
+((*- if nb.metadata["latex_metadata"]: -*))
+((*- if nb.metadata["latex_metadata"]["title"]: -*))
+    \title{((( nb.metadata["latex_metadata"]["title"] )))}
+((*- endif *))
+((*- else -*))
+    \title{((( resources.metadata.name )))}
+((*- endif *))
+
+\date{\today}
+\maketitle
+((* endblock maketitle *))
+"""
+
 __dissertation_template__ = r"""
 ((*- extends 'report.tplx' -*))
 
@@ -472,4 +565,5 @@ __puslides_template__ = r"""((*- extends 'article.tplx' -*))
 
 __templates__ = {'dissertation': __dissertation_template__,
                  'article': __latex_template__,
-                 'puslides': __puslides_template__}
+                 'puslides': __puslides_template__,
+                 'article2': __article2_template__}
