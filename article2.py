@@ -16,13 +16,12 @@ from mwe import mwe
 
 ip = get_ipython()
 
-ip = get_ipython()
 
-def cslides():
-    if bi.__cslides__ is not None:
-        return bi.__cslides__
+def cdoc():
+    if bi.__cdoc__ is not None:
+        return bi.__cdoc__
     else:
-        return puslides()
+        return article2()
 
 
 class article2(lyxdoc.document):
@@ -32,15 +31,15 @@ class article2(lyxdoc.document):
         super(article2, self).__init__(bib=bib)
         bi.__cslides__ = self
 
-    def export(self, filename, engine='lualatex'):
+    def export(self, filename, engine='latex'):
         # copy the classfile over
-        shutil.copy(osp.join(self.modulepath, 'article2.cls'), './')
+        #shutil.copy(osp.join(self.modulepath, 'article2.cls'), './')
         # copy the css files over
-        shutil.rmtree('fonts/', ignore_errors=True)
-        shutil.rmtree('css/', ignore_errors=True)
-        shutil.copytree(osp.join(self.modulepath, 'css/'), 'css/')
+        #shutil.rmtree('fonts/', ignore_errors=True)
+        #shutil.rmtree('css/', ignore_errors=True)
+        #shutil.copytree(osp.join(self.modulepath, 'css/'), 'css/')
         # copy the fonts over
-        shutil.copytree(osp.join(self.modulepath, 'fonts/'), 'fonts/')
+        #shutil.copytree(osp.join(self.modulepath, 'fonts/'), 'fonts/')
         metadata = {"author": self._author, "title": self._title,
                     "affiliation": self._affiliation,
                     "subtitle": self._subtitle,
@@ -49,8 +48,8 @@ class article2(lyxdoc.document):
         super(article2, self).export(filename=filename, fmt='latex',
                                      engine=engine, template='article2',
                                      metadata=metadata)
-        shutil.rmtree('fonts/')
-        shutil.rmtree('css/')
+        #shutil.rmtree('fonts/')
+        #shutil.rmtree('css/')
 
     def title(self, title):
         self._title = title
