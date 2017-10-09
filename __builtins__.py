@@ -59,6 +59,7 @@ __latex_template__ = r"""
   \usepackage{tikz}
   \usepackage{nicefrac}
   \usepackage{gensymb}
+  \usepackage{cleveref}
   %\usepackage{nomencl}
   %\makenomenclature
   \usepackage{import}
@@ -66,11 +67,7 @@ __latex_template__ = r"""
   \newcommand{\unit}[1]{\mathrm{#1}}
   \newcommand{\ce}[1]{\mathrm{#1}}
   \newcommand{\cc}{\unit{cm^{2}}}
-  %\newcommand\inputpgf[2]{{
-    %\let\pgfimageWithoutPath\pgfimage
-    %\renewcommand{\pgfimage}[2][]{\pgfimageWithoutPath[##1]{#1/##2}}
-    %\input{#1/#2}
-    %}}
+  \newcommand{\invis}[1]{}
 ((* endblock packages *))
 
 % Author and Title from metadata
@@ -105,6 +102,10 @@ __latex_template__ = r"""
 
 __article2_template__ = r"""
 ((*- extends 'article.tplx' -*))
+
+((* block docclass *))
+\documentclass[english, twocolumn]{article}
+((* endblock docclass *))
 
 ((* block input_group *))
     ((*- if cell.metadata.get('nbconvert', {}).get('show_code', False) -*))
@@ -152,6 +153,7 @@ __article2_template__ = r"""
   \usepackage{tikz}
   \usepackage{nicefrac}
   \usepackage{gensymb}
+  \usepackage{cleveref}
   %\usepackage{nomencl}
   %\makenomenclature
   \usepackage{import}
@@ -159,11 +161,7 @@ __article2_template__ = r"""
   \newcommand{\unit}[1]{\mathrm{#1}}
   \newcommand{\ce}[1]{\mathrm{#1}}
   \newcommand{\cc}{\unit{cm^{2}}}
-  %\newcommand\inputpgf[2]{{
-    %\let\pgfimageWithoutPath\pgfimage
-    %\renewcommand{\pgfimage}[2][]{\pgfimageWithoutPath[##1]{#1/##2}}
-    %\input{#1/#2}
-    %}}
+  \newcommand{\invis}[1]{}
 ((* endblock packages *))
 
 % Author and Title from metadata
