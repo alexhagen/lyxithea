@@ -206,7 +206,9 @@ class document(object):
                 if re.match('dis\.chapter\([\'\"](.*)[\'\"]\)', cell['source']) is None \
                     and re.match('dis\.appendix\([\'\"](.*)[\'\"]\)', cell['source']) is None \
                     and cell['source'] is not '' \
-                    and re.match('dis\.export\([\'\"](.*)[\'\"]\)', cell['source']) is None and re.match('slides\.export\([\'\"](.*)[\'\"]\)', cell['source']) is None:
+                    and re.match('dis\.export\([\'\"](.*)[\'\"]\)', cell['source']) is None \
+                    and re.match('slides\.export\([\'\"](.*)[\'\"]\)', cell['source']) is None \
+                    and re.match('doc\.export\([\'\"](.*)[\'\"]\)', cell['source']) is None):
                         if child:
                             source = cell['source'].replace('lyx.print_todos()', '')\
                                 .replace(".export(\'../img", ".export(\'%s/img" % self.cwd)\
