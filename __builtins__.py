@@ -167,9 +167,9 @@ __article2_template__ = r"""
 % Author and Title from metadata
 ((* block maketitle *))
 
-((*- if nb.metadata["latex_metadata"]: -*))
-((*- if nb.metadata["latex_metadata"]["author"]: -*))
-    \author{((( nb.metadata["latex_metadata"]["author"] )))}
+((*- if nb.metadata: -*))
+((*- if nb.metadata["author"]: -*))
+    \author{((( nb.metadata["author"] )))}
 ((*- endif *))
 ((*- else -*))
     \author{Alex Hagen}
@@ -181,9 +181,9 @@ __article2_template__ = r"""
 ((*- endif *))
 ((*- endif *))
 
-((*- if nb.metadata["latex_metadata"]: -*))
-((*- if nb.metadata["latex_metadata"]["title"]: -*))
-    \title{((( nb.metadata["latex_metadata"]["title"] )))}
+((*- if nb.metadata: -*))
+((*- if nb.metadata["title"]: -*))
+    \title{((( nb.metadata["title"] )))}
 ((*- endif *))
 ((*- else -*))
     \title{((( resources.metadata.name )))}

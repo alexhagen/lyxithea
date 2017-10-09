@@ -208,7 +208,7 @@ class document(object):
                     and cell['source'] is not '' \
                     and re.match('dis\.export\([\'\"](.*)[\'\"]\)', cell['source']) is None \
                     and re.match('slides\.export\([\'\"](.*)[\'\"]\)', cell['source']) is None \
-                    and re.match('doc\.export\([\'\"](.*)[\'\"]\)', cell['source']) is None):
+                    and re.match('doc\.export\([\'\"](.*)[\'\"]\)', cell['source']) is None:
                         if child:
                             source = cell['source'].replace('lyx.print_todos()', '')\
                                 .replace(".export(\'../img", ".export(\'%s/img" % self.cwd)\
