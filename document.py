@@ -252,7 +252,7 @@ class document(object):
                     if _fname in files:
                         return os.path.join(root, _fname)
 
-    def bibliography(self, **kwargs):
+    def bibliography(self, header_level=3, force_string=True, **kwargs):
         return self._bib.bibliography(**kwargs)
 
     def add_to_cchap(self, string):
@@ -262,12 +262,30 @@ class document(object):
 
     def add(self, string):
         processed_string = self.process_markdown(string)
-        self._current_chapter += processed_string
+        #self._current_chapter += processed_string
         return display(bi.__formatter__(processed_string))
+
+    def appendix_on(self):
+        r""" ``appendix_on`` starts a section of text sent to reserved text for
+                appendices. Must be ended with ``appendix_off``.
+        """
+        display(Latex(r'\saveappendix{'))
+
+    def appendix_off(self):
+        r""" ``appendix_off`` ends a section of text reserved for the appendices.
+                Must be preceded by ``appendix_on``.
+        """
+        display(Latex(r'}'))
+
+    def appendices(self):
+        r""" ``appendices`` prints all the text saved for appendices.
+        """
+        display(Latex('\\appendix\n'))
+        display(Latex('\\appendicestext\n'))
 
     def export(self, filename, fmt='latex', engine='pdflatex',
                template="article", metadata={}):
-        """ exports the current document - into latex for now """
+        r""" exports the current document - into latex for now """
         lyx.exporting(True)
         # open the notebook as version four, get its path and all its cells
         self.nb = nbformat.v4.new_notebook()
@@ -290,7 +308,7 @@ class document(object):
         lyx.exporting(False)
 
     def export_latex(self, filename, engine='pdflatex'):
-        """ exports to latex """
+        r""" exports to latex """
         lyx.latex()
         lyx.markdown(False)
         bi.__formatter__ = Latex
@@ -322,7 +340,7 @@ class document(object):
         #os.remove(filename + '.blg')
 
     def export_html(self):
-        """ exports to html """
+        r""" exports to html """
         self.c.HTMLExporter.preprocessors = \
             ['nbconvert.preprocessors.ExecutePreprocessor']
         #html_exporter = HTMLExporter(config=c, template_file='noinputhtmlfull.tpl')

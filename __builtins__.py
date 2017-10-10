@@ -162,6 +162,10 @@ __article2_template__ = r"""
   \newcommand{\ce}[1]{\mathrm{#1}}
   \newcommand{\cc}{\unit{cm^{2}}}
   \newcommand{\invis}[1]{}
+  \makeatletter
+  \def\appendicestext{}
+  \newcommand\saveappendix[1]{\g@addto@macro\appendicestext{#1}}
+  \makeatother
 ((* endblock packages *))
 
 % Author and Title from metadata
