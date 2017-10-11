@@ -1,8 +1,0 @@
-bibtexparser > 0.6.2
-IPython
-tabulate
-sys
-os
-subprocess
-pybtex
-bibtex2html
