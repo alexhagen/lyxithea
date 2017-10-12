@@ -59,7 +59,10 @@ html_str += '<style> span.abbr{ color: #999; } </style>\n<style> [data-wenk]:aft
 display_html(html_str, raw=True)
 
 class document(object):
-    """ A document class """
+    """ ``lyxithea.document`` is analogous to LaTeX's article.cls - a
+        generalized journal article-like template.
+
+        :param lyx.bib bib: A ``lyx.bib`` object for the bibliography """
     def __init__(self, bib=None):
         if bib is None:
             self._bib = lyx.bib('bibs/dissertation.bib')
@@ -74,7 +77,7 @@ class document(object):
 
     @staticmethod
     def check_chapter_path(path):
-        """ checks if the chapter path is a legitimate path
+        """ Checks if the chapter path is a legitimate path
 
         :param path: the path to the folder to be added
         :returns: boolean if the path is good or not
@@ -83,6 +86,9 @@ class document(object):
         return os.path.isdir(path)
 
     def set_hide_dblclick(self, string):
+        """ A private method to hide the text on double click - like Jupyter's
+            Markdown cells.
+        """
         javascript_str = """
         function code_toggle()
         {
@@ -113,15 +119,21 @@ class document(object):
 
     @staticmethod
     def get_locals():
+        """ When we pass things out to the temporary notebooks, we need the
+            local variables.
+        """
         lcls = ip.user_module.__dict__
         return lcls
 
     def process_markdown(self, markdown):
-        """ looks for python parameter notation in a markdown string
+        """ Looks for python parameter notation in a markdown string
 
-        :todo: Make this into a Jinja2 class for more flexibility.
-        :todo: make a context manager for the markdown so I can use ``with``
-            syntax
+            :todo: Make this into a Jinja2 class for more flexibility.
+            :todo: make a context manager for the markdown so I can use ``with``
+                syntax
+            :param str markdown: Markdown formatted text with possible Python
+                inclusions
+            :returns str: Markdown formatted replaced text
         """
         matches = re.finditer(bi.__regex__, markdown)
         matches2 = re.finditer(bi.__regex2__, markdown)
@@ -165,10 +177,10 @@ class document(object):
         return markdown
 
     def chapter_paths(self, paths):
-        """ add paths to the chapter path variable
+        """ Add paths to the chapter path variable
 
-        :param paths: a list of string paths in the filesystem where chapters
-            are found
+            :param paths: a list of string paths in the filesystem where chapters
+                are found
         """
         for path in paths:
             if self.check_chapter_path(path):
@@ -176,6 +188,10 @@ class document(object):
                 self._chapter_paths.extend([path])
 
     def nom(self):
+        """ Prints the nomenclature
+
+            :todo: Implement this into html as well
+        """
         latex_str = r'\printnomenclature'
         return display(bi.__formatter__(latex_str))
 
