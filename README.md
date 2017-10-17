@@ -9,7 +9,7 @@ Hosted at [github.com/alexhagen/lyxithea](http://github.com/alexhagen/lyxithea)
 
 Documentation at [alexhagen.github.io/lyxithea/](http://alexhagen.github.io/lyxithea/)
 
-## Pym Demonstrations and Screenshots
+## LyXithea Demonstrations and Screenshots
 
 ### Installation
 

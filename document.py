@@ -22,7 +22,10 @@ import re
 import __builtins__ as bi
 import __init__ as init
 
-ip = get_ipython()
+if lyx.run_from_ipython():
+    ip = get_ipython()
+else:
+    ip = None
 
 def cdoc():
     if bi.__cdoc__ is not None:
@@ -375,19 +378,19 @@ class document(object):
         #html_exporter = HTMLExporter(config=c, template_file='noinputhtmlfull.tpl')
         #(body, resources) = html_exporter.from_notebook_node(nb)
 
+if ip is not None:
+    @magics_class
+    class document_magics(Magics):
 
-@magics_class
-class document_magics(Magics):
+        @line_cell_magic
+        def doc(self, line, cell):
+            """ call function of dissertation from a line magic """
+            cdoc = bi.__cdoc__
+            # sanitize the inputs
+            arg = re.sub(u"(\u2018|\u2019)", "'", cell)
+            arg = arg.replace("\'\'\'", "\"\"\"")
+            cmd_str = "cdoc.{method}(r\'\'\'{arg}\'\'\')" \
+                .format(method=line, arg=arg)
+            exec(cmd_str)
 
-    @line_cell_magic
-    def doc(self, line, cell):
-        """ call function of dissertation from a line magic """
-        cdoc = bi.__cdoc__
-        # sanitize the inputs
-        arg = re.sub(u"(\u2018|\u2019)", "'", cell)
-        arg = arg.replace("\'\'\'", "\"\"\"")
-        cmd_str = "cdoc.{method}(r\'\'\'{arg}\'\'\')" \
-            .format(method=line, arg=arg)
-        exec(cmd_str)
-
-ip.register_magics(document_magics)
+    ip.register_magics(document_magics)
