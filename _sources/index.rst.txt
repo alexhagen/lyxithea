@@ -6,12 +6,25 @@
 .. raw:: html
    :file: readme.html
 
-Class Documentation for func.curve
+Class Documentation
 ==================================
 
-.. autoclass:: lyxithea.lyxithea
-  :members:
-  :show-inheritance:
+LyXithea module
+---------------
+
+.. automodule:: lyxithea
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+Document module
+---------------
+
+.. automodule:: document
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 
 Indices and tables
 ==================

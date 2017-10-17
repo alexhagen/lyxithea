@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>lyxithea &#8212; lyxithea 0.1a1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/extra.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1a1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body>
+
+
+
+<div id="navbar" class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="../index.html"><span><img src="../_static/lyx_logo.svg"></span>
+        lyxithea</a>
+      <span class="navbar-text navbar-version pull-left"><b>0.1</b></span>
+    </div>
+
+      <div class="collapse navbar-collapse nav-collapse">
+        <ul class="nav navbar-nav">
+          
+            <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Alex Hagen <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"></ul>
+</li>
+            
+              <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#"> <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"></ul>
+</li>
+            
+          
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+          
+          
+            
+              
+            
+          
+          
+          
+          
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="http://alexhagen.github.io/" target="_blank">Alex Hagen</a></li>
+        </ul>
+      </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <h1>Source code for lyxithea</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">tabulate</span> <span class="k">import</span> <span class="n">tabulate</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="k">import</span> <span class="n">SVG</span><span class="p">,</span> <span class="n">display</span><span class="p">,</span> <span class="n">Latex</span><span class="p">,</span> <span class="n">HTML</span><span class="p">,</span> <span class="n">Javascript</span><span class="p">,</span> <span class="n">FileLink</span><span class="p">,</span> <span class="n">Markdown</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">os.path</span>
+<span class="kn">import</span> <span class="nn">subprocess</span>
+<span class="kn">import</span> <span class="nn">bibtexparser</span>
+<span class="kn">from</span> <span class="nn">bibtexparser.bibdatabase</span> <span class="k">import</span> <span class="n">BibDatabase</span>
+<span class="kn">import</span> <span class="nn">__builtins__</span> <span class="k">as</span> <span class="nn">bi</span>
+<span class="kn">import</span> <span class="nn">tempfile</span>
+<span class="kn">import</span> <span class="nn">nbformat</span>
+<span class="kn">import</span> <span class="nn">psgv.psgv</span> <span class="k">as</span> <span class="nn">psgv</span>
+<span class="kn">import</span> <span class="nn">re</span>
+
+<span class="n">todos</span> <span class="o">=</span> <span class="n">psgv</span><span class="o">.</span><span class="n">psgv</span><span class="p">(</span><span class="s1">&#39;__todos__&#39;</span><span class="p">)</span>
+<span class="n">todos</span><span class="o">.</span><span class="n">val</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">__needs_latex__</span> <span class="o">=</span> <span class="n">psgv</span><span class="o">.</span><span class="n">psgv</span><span class="p">(</span><span class="s1">&#39;__needs_latex__&#39;</span><span class="p">)</span>
+<span class="n">__needs_latex__</span><span class="o">.</span><span class="n">val</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">__needs_markdown__</span> <span class="o">=</span> <span class="n">psgv</span><span class="o">.</span><span class="n">psgv</span><span class="p">(</span><span class="s1">&#39;__needs_markdown__&#39;</span><span class="p">)</span>
+<span class="n">__needs_markdown__</span><span class="o">.</span><span class="n">val</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">__labels__</span> <span class="o">=</span> <span class="n">psgv</span><span class="o">.</span><span class="n">psgv</span><span class="p">(</span><span class="s1">&#39;__lyxlabels__&#39;</span><span class="p">)</span>
+<span class="n">__labels__</span><span class="o">.</span><span class="n">val</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">__tabcount__</span> <span class="o">=</span> <span class="n">psgv</span><span class="o">.</span><span class="n">psgv</span><span class="p">(</span><span class="s1">&#39;__lyxtabcount__&#39;</span><span class="p">)</span>
+<span class="n">__tabcount__</span><span class="o">.</span><span class="n">val</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">__tables__</span> <span class="o">=</span> <span class="n">psgv</span><span class="o">.</span><span class="n">psgv</span><span class="p">(</span><span class="s1">&#39;__lyxtables__&#39;</span><span class="p">)</span>
+<span class="n">__tables__</span><span class="o">.</span><span class="n">val</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">__figures__</span> <span class="o">=</span> <span class="n">psgv</span><span class="o">.</span><span class="n">psgv</span><span class="p">(</span><span class="s1">&#39;__lyxfigures__&#39;</span><span class="p">)</span>
+<span class="n">__figures__</span><span class="o">.</span><span class="n">val</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">__chapters__</span> <span class="o">=</span> <span class="n">psgv</span><span class="o">.</span><span class="n">psgv</span><span class="p">(</span><span class="s1">&#39;__lyxchapters__&#39;</span><span class="p">)</span>
+<span class="n">__chapters__</span><span class="o">.</span><span class="n">val</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">__sections__</span> <span class="o">=</span> <span class="n">psgv</span><span class="o">.</span><span class="n">psgv</span><span class="p">(</span><span class="s1">&#39;__lyxsections__&#39;</span><span class="p">)</span>
+<span class="n">__sections__</span><span class="o">.</span><span class="n">val</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">__subsections__</span> <span class="o">=</span> <span class="n">psgv</span><span class="o">.</span><span class="n">psgv</span><span class="p">(</span><span class="s1">&#39;__lyxsubsections__&#39;</span><span class="p">)</span>
+<span class="n">__subsections__</span><span class="o">.</span><span class="n">val</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">__eqs__</span> <span class="o">=</span> <span class="n">psgv</span><span class="o">.</span><span class="n">psgv</span><span class="p">(</span><span class="s1">&#39;__lyxeqs__&#39;</span><span class="p">)</span>
+<span class="n">__eqs__</span><span class="o">.</span><span class="n">val</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">__lsts__</span> <span class="o">=</span> <span class="n">psgv</span><span class="o">.</span><span class="n">psgv</span><span class="p">(</span><span class="s1">&#39;__lyxlsts__&#39;</span><span class="p">)</span>
+<span class="n">__lsts__</span><span class="o">.</span><span class="n">val</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">__itms__</span> <span class="o">=</span> <span class="n">psgv</span><span class="o">.</span><span class="n">psgv</span><span class="p">(</span><span class="s1">&#39;__lyxitms__&#39;</span><span class="p">)</span>
+<span class="n">__itms__</span><span class="o">.</span><span class="n">val</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">__algs__</span> <span class="o">=</span> <span class="n">psgv</span><span class="o">.</span><span class="n">psgv</span><span class="p">(</span><span class="s1">&#39;__lyxalgs__&#39;</span><span class="p">)</span>
+<span class="n">__algs__</span><span class="o">.</span><span class="n">val</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">__apps__</span> <span class="o">=</span> <span class="n">psgv</span><span class="o">.</span><span class="n">psgv</span><span class="p">(</span><span class="s1">&#39;__lyxapps__&#39;</span><span class="p">)</span>
+<span class="n">__apps__</span><span class="o">.</span><span class="n">val</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">__exporting__</span> <span class="o">=</span> <span class="n">psgv</span><span class="o">.</span><span class="n">psgv</span><span class="p">(</span><span class="s1">&#39;__lyxexporting__&#39;</span><span class="p">)</span>
+<span class="n">__exporting__</span><span class="o">.</span><span class="n">val</span> <span class="o">=</span> <span class="kc">False</span>
+
+<div class="viewcode-block" id="get_pname"><a class="viewcode-back" href="../index.html#lyxithea.get_pname">[docs]</a><span class="k">def</span> <span class="nf">get_pname</span><span class="p">(</span><span class="nb">id</span><span class="p">):</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">([</span><span class="s2">&quot;ps -o cmd= </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">id</span><span class="p">)],</span> <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">communicate</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="run_from_ipython"><a class="viewcode-back" href="../index.html#lyxithea.run_from_ipython">[docs]</a><span class="k">def</span> <span class="nf">run_from_ipython</span><span class="p">():</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">__IPYTHON__</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">except</span> <span class="ne">NameError</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="need_latex"><a class="viewcode-back" href="../index.html#lyxithea.need_latex">[docs]</a><span class="k">def</span> <span class="nf">need_latex</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">__needs_latex__</span><span class="o">.</span><span class="n">val</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    cmds = get_pname(os.getpid())</span>
+<span class="sd">    cmds += get_pname(os.getppid())</span>
+<span class="sd">    if &#39;jupyter-nbconvert&#39; in cmds and (&#39;to pdf&#39; in cmds or &#39;to latex&#39; in cmds):</span>
+<span class="sd">        import IPython</span>
+<span class="sd">        ip = IPython.core.getipython.get_ipython()</span>
+<span class="sd">        ip.display_formatter.formatters[&#39;text/latex&#39;].enabled = True</span>
+<span class="sd">        return True</span>
+<span class="sd">    else:</span>
+<span class="sd">        return os.path.isfile(&#39;/tmp/need_latex&#39;)</span>
+<span class="sd">    &#39;&#39;&#39;</span></div>
+
+<div class="viewcode-block" id="need_markdown"><a class="viewcode-back" href="../index.html#lyxithea.need_markdown">[docs]</a><span class="k">def</span> <span class="nf">need_markdown</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">__needs_markdown__</span><span class="o">.</span><span class="n">val</span></div>
+
+<div class="viewcode-block" id="latex"><a class="viewcode-back" href="../index.html#lyxithea.latex">[docs]</a><span class="k">def</span> <span class="nf">latex</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="n">__needs_latex__</span><span class="o">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">i</span></div>
+
+<div class="viewcode-block" id="exporting"><a class="viewcode-back" href="../index.html#lyxithea.exporting">[docs]</a><span class="k">def</span> <span class="nf">exporting</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="n">__exporting__</span><span class="o">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">i</span></div>
+
+<div class="viewcode-block" id="is_exporting"><a class="viewcode-back" href="../index.html#lyxithea.is_exporting">[docs]</a><span class="k">def</span> <span class="nf">is_exporting</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">__exporting__</span><span class="o">.</span><span class="n">val</span></div>
+
+<div class="viewcode-block" id="markdown"><a class="viewcode-back" href="../index.html#lyxithea.markdown">[docs]</a><span class="k">def</span> <span class="nf">markdown</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="n">__needs_markdown__</span><span class="o">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">i</span></div>
+
+<div class="viewcode-block" id="tex_escape"><a class="viewcode-back" href="../index.html#lyxithea.tex_escape">[docs]</a><span class="k">def</span> <span class="nf">tex_escape</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :param text: a plain text message</span>
+<span class="sd">        :return: the message escaped to appear correctly in LaTeX</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">conv</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;&amp;&#39;</span><span class="p">:</span> <span class="sa">r</span><span class="s1">&#39;\&amp;&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;%&#39;</span><span class="p">:</span> <span class="sa">r</span><span class="s1">&#39;\%&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;$&#39;</span><span class="p">:</span> <span class="sa">r</span><span class="s1">&#39;\$&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;#&#39;</span><span class="p">:</span> <span class="sa">r</span><span class="s1">&#39;\#&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;_&#39;</span><span class="p">:</span> <span class="sa">r</span><span class="s1">&#39;\_&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;{&#39;</span><span class="p">:</span> <span class="sa">r</span><span class="s1">&#39;\{&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;}&#39;</span><span class="p">:</span> <span class="sa">r</span><span class="s1">&#39;\}&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;~&#39;</span><span class="p">:</span> <span class="sa">r</span><span class="s1">&#39;\textasciitilde</span><span class="si">{}</span><span class="s1">&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;^&#39;</span><span class="p">:</span> <span class="sa">r</span><span class="s1">&#39;\^</span><span class="si">{}</span><span class="s1">&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">:</span> <span class="sa">r</span><span class="s1">&#39;\textbackslash</span><span class="si">{}</span><span class="s1">&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;&lt;&#39;</span><span class="p">:</span> <span class="sa">r</span><span class="s1">&#39;\textless&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;&gt;&#39;</span><span class="p">:</span> <span class="sa">r</span><span class="s1">&#39;\textgreater&#39;</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">regex</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">&#39;|&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">escape</span><span class="p">(</span><span class="n">unicode</span><span class="p">(</span><span class="n">key</span><span class="p">))</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">conv</span><span class="o">.</span><span class="n">keys</span><span class="p">(),</span> <span class="n">key</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">item</span><span class="p">:</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">item</span><span class="p">))))</span>
+    <span class="k">return</span> <span class="n">regex</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="k">lambda</span> <span class="n">match</span><span class="p">:</span> <span class="n">conv</span><span class="p">[</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">()],</span> <span class="n">text</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="table_no_caption"><a class="viewcode-back" href="../index.html#lyxithea.table_no_caption">[docs]</a><span class="k">def</span> <span class="nf">table_no_caption</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">floatfmt</span><span class="o">=</span><span class="s2">&quot;.2f&quot;</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">run_from_ipython</span><span class="p">()</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">need_latex</span><span class="p">():</span>
+        <span class="n">table</span> <span class="o">=</span> <span class="n">tabulate</span><span class="o">.</span><span class="n">tabulate</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">tablefmt</span><span class="o">=</span><span class="s1">&#39;html&#39;</span><span class="p">,</span>
+                         <span class="n">numalign</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">stralign</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+                         <span class="n">floatfmt</span><span class="o">=</span><span class="n">floatfmt</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">table</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">run_from_ipython</span><span class="p">()</span> <span class="ow">and</span> <span class="n">need_latex</span><span class="p">():</span>
+        <span class="n">table</span> <span class="o">=</span> <span class="n">tabulate</span><span class="o">.</span><span class="n">tabulate</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">tablefmt</span><span class="o">=</span><span class="s1">&#39;latex_raw&#39;</span><span class="p">,</span>
+                         <span class="n">numalign</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">stralign</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+                         <span class="n">floatfmt</span><span class="o">=</span><span class="n">floatfmt</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">table</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="threeparttable"><a class="viewcode-back" href="../index.html#lyxithea.threeparttable">[docs]</a><span class="k">def</span> <span class="nf">threeparttable</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">caption</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">floatfmt</span><span class="o">=</span><span class="s2">&quot;.2f&quot;</span><span class="p">,</span>
+                   <span class="n">after</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">sideways</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">run_from_ipython</span><span class="p">()</span> <span class="ow">and</span> <span class="n">need_latex</span><span class="p">():</span>
+        <span class="n">table</span> <span class="o">=</span> <span class="n">tabulate</span><span class="o">.</span><span class="n">tabulate</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">tablefmt</span><span class="o">=</span><span class="s1">&#39;latex_raw&#39;</span><span class="p">,</span>
+                         <span class="n">numalign</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">stralign</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+                         <span class="n">floatfmt</span><span class="o">=</span><span class="n">floatfmt</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">sideways</span><span class="p">:</span>
+            <span class="n">env</span> <span class="o">=</span> <span class="s1">&#39;sidewaystable&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">env</span> <span class="o">=</span> <span class="s1">&#39;table&#39;</span>
+        <span class="n">strlatex</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        \begin{</span><span class="si">%s</span><span class="s2">}</span>
+<span class="s2">            \centering</span>
+<span class="s2">            \begin</span><span class="si">{threeparttable}</span><span class="s2"></span>
+<span class="s2">                \caption{</span><span class="si">%s</span><span class="s2">\label{tab:</span><span class="si">%s</span><span class="s2">}}</span>
+<span class="s2">                </span><span class="si">%%</span><span class="s2">\begin</span><span class="si">{adjustbox}</span><span class="s2">{max width=\textwidth}</span>
+<span class="s2">                    </span><span class="si">%s</span><span class="s2"></span>
+<span class="s2">                </span><span class="si">%%</span><span class="s2">\end</span><span class="si">{adjustbox}</span><span class="s2"></span>
+<span class="s2">                \begin</span><span class="si">{tablenotes}</span><span class="s2"></span>
+<span class="s2">                </span><span class="si">%s</span><span class="s2"></span>
+<span class="s2">                \end</span><span class="si">{tablenotes}</span><span class="s2"></span>
+<span class="s2">            \end</span><span class="si">{threeparttable}</span><span class="s2"></span>
+<span class="s2">        \end{</span><span class="si">%s</span><span class="s2">}&quot;&quot;&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">caption</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">after</span><span class="p">,</span> <span class="n">env</span><span class="p">)</span>
+        <span class="n">__tables__</span><span class="o">.</span><span class="n">val</span><span class="p">[</span><span class="n">label</span><span class="p">]</span> <span class="o">=</span> <span class="n">__tabcount__</span><span class="o">.</span><span class="n">val</span>
+        <span class="n">__tabcount__</span><span class="o">.</span><span class="n">val</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="n">display</span><span class="p">(</span><span class="n">Latex</span><span class="p">(</span><span class="n">strlatex</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="table"><a class="viewcode-back" href="../index.html#lyxithea.table">[docs]</a><span class="k">def</span> <span class="nf">table</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">caption</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">floatfmt</span><span class="o">=</span><span class="s2">&quot;.2f&quot;</span><span class="p">,</span>
+          <span class="n">sideways</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">need_string</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">label</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">label</span> <span class="o">=</span> <span class="n">__tabcount__</span><span class="o">.</span><span class="n">val</span>
+        <span class="c1">#print __tabcount__</span>
+    <span class="k">if</span> <span class="n">sideways</span><span class="p">:</span>
+        <span class="n">env</span> <span class="o">=</span> <span class="s1">&#39;sidewaystable&#39;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">env</span> <span class="o">=</span> <span class="s1">&#39;table&#39;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">el</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="k">for</span> <span class="n">el</span> <span class="ow">in</span> <span class="n">headers</span><span class="p">):</span>
+        <span class="n">headers</span> <span class="o">=</span> <span class="p">[</span><span class="n">headers</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">run_from_ipython</span><span class="p">()</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">need_latex</span><span class="p">():</span>
+        <span class="n">table</span> <span class="o">=</span> <span class="n">tabulate</span><span class="o">.</span><span class="n">tabulate</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">tablefmt</span><span class="o">=</span><span class="s1">&#39;html&#39;</span><span class="p">,</span>
+                         <span class="n">numalign</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">stralign</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+                         <span class="n">floatfmt</span><span class="o">=</span><span class="n">floatfmt</span><span class="p">)</span>
+        <span class="n">__tables__</span><span class="o">.</span><span class="n">val</span><span class="p">[</span><span class="n">label</span><span class="p">]</span> <span class="o">=</span> <span class="n">__tabcount__</span><span class="o">.</span><span class="n">val</span>
+        <span class="n">fig_html</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">            &lt;div class=&#39;table&#39; style=&#39;align: center; margin-left: auto; margin-right: auto;&#39;&gt;</span>
+<span class="s2">                &lt;div style=&#39;margin: auto; text-align: center;&#39; class=&#39;tablecaption&#39; name=&#39;</span><span class="si">%s</span><span class="s2">&#39;&gt;&lt;b&gt;Table </span><span class="si">%d</span><span class="s2">:&lt;/b&gt; </span><span class="si">%s</span><span class="s2">&lt;/div&gt;</span>
+<span class="s2">                </span><span class="si">%s</span><span class="s2"></span>
+<span class="s2">            &lt;/div&gt;</span>
+<span class="s2">        &quot;&quot;&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">__tabcount__</span><span class="o">.</span><span class="n">val</span><span class="p">,</span> <span class="n">caption</span><span class="p">,</span> <span class="n">table</span><span class="p">)</span>
+        <span class="n">__tabcount__</span><span class="o">.</span><span class="n">val</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="n">need_markdown</span><span class="p">():</span>
+            <span class="k">return</span> <span class="n">display</span><span class="p">(</span><span class="n">HTML</span><span class="p">(</span><span class="n">fig_html</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">display</span><span class="p">(</span><span class="n">HTML</span><span class="p">(</span><span class="n">fig_html</span><span class="p">))</span>
+    <span class="k">elif</span> <span class="n">run_from_ipython</span><span class="p">()</span> <span class="ow">and</span> <span class="n">need_latex</span><span class="p">():</span>
+        <span class="n">table</span> <span class="o">=</span> <span class="n">tabulate</span><span class="o">.</span><span class="n">tabulate</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">tablefmt</span><span class="o">=</span><span class="s1">&#39;latex_raw&#39;</span><span class="p">,</span>
+                         <span class="n">numalign</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">stralign</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+                         <span class="n">floatfmt</span><span class="o">=</span><span class="n">floatfmt</span><span class="p">)</span>
+        <span class="n">strlatex</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        \begin{</span><span class="si">%s</span><span class="s2">}</span>
+<span class="s2">            \centering</span>
+<span class="s2">            \caption{</span><span class="si">%s</span><span class="s2">\label{tab:</span><span class="si">%s</span><span class="s2">}}</span>
+<span class="s2">            </span><span class="si">%%</span><span class="s2">\begin</span><span class="si">{adjustbox}</span><span class="s2">{max width=\textwidth}</span>
+<span class="s2">                </span><span class="si">%s</span><span class="s2"></span>
+<span class="s2">            </span><span class="si">%%</span><span class="s2">\end</span><span class="si">{adjustbox}</span><span class="s2"></span>
+<span class="s2">        \end{</span><span class="si">%s</span><span class="s2">}&quot;&quot;&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">caption</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">env</span><span class="p">)</span>
+        <span class="n">__tables__</span><span class="o">.</span><span class="n">val</span><span class="p">[</span><span class="n">label</span><span class="p">]</span> <span class="o">=</span> <span class="n">__tabcount__</span><span class="o">.</span><span class="n">val</span>
+        <span class="n">__tabcount__</span><span class="o">.</span><span class="n">val</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="n">need_string</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">strlatex</span>
+        <span class="k">return</span> <span class="n">display</span><span class="p">(</span><span class="n">Latex</span><span class="p">(</span><span class="n">strlatex</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="to_pdf"><a class="viewcode-back" href="../index.html#lyxithea.to_pdf">[docs]</a><span class="k">def</span> <span class="nf">to_pdf</span><span class="p">():</span>
+    <span class="k">if</span> <span class="s1">&#39;jupyter-nbconvert&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">get_pname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getpid</span><span class="p">())</span> <span class="o">+</span> <span class="n">get_pname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getppid</span><span class="p">()):</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;/tmp/need_latex&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;True&#39;</span><span class="p">)</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">())</span>
+        <span class="n">subprocess</span><span class="o">.</span><span class="n">cwd</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+        <span class="k">if</span> <span class="kc">False</span><span class="p">:</span>
+            <span class="c1"># first lets remove all of the cell metadata</span>
+            <span class="n">display</span><span class="p">(</span><span class="n">Javascript</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">                var ncells = IPython.notebook.ncells();</span>
+<span class="s2">                var cells = IPython.notebook.get_cells();</span>
+<span class="s2">                for (var i = 0; i &lt; ncells; i++) {</span>
+<span class="s2">                    var cell = cells[i];</span>
+<span class="s2">                    if (cell.metadata.hasOwnProperty(&#39;variables&#39;)) {</span>
+<span class="s2">                        delete cell.metadata.variables;</span>
+<span class="s2">                    }</span>
+<span class="s2">                }</span>
+<span class="s2">                &quot;&quot;&quot;</span><span class="p">))</span>
+            <span class="c1"># and, lets run all of the cells, but this should include latex stuff</span>
+            <span class="n">display</span><span class="p">(</span><span class="n">Javascript</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">                require([&#39;base/js/namespace&#39;,</span>
+<span class="s2">                        &#39;jquery&#39;,</span>
+<span class="s2">                        &#39;notebook/js/cell&#39;,</span>
+<span class="s2">                        &#39;base/js/security&#39;,</span>
+<span class="s2">                        &#39;components/marked/lib/marked&#39;,</span>
+<span class="s2">                        &#39;base/js/events&#39;],</span>
+<span class="s2">                function(jupyter, $, events) {</span>
+<span class="s2">                    &quot;use strict&quot;;</span>
+<span class="s2">                    var runall = function() {</span>
+<span class="s2">                        console.log(&quot;Auto-running all cells above...&quot;);</span>
+<span class="s2">                        events.on(&quot;rendered.MarkdownCell&quot;, function (event, data) {</span>
+<span class="s2">                            var element = data.cell.element.find(&#39;div.text_cell_render&#39;);</span>
+<span class="s2">                            console.log(&#39;editing a cell&#39;);</span>
+<span class="s2">                            var text = execute_python(data.cell, element[0].innerHTML);</span>
+<span class="s2">                            if (text !== undefined) {</span>
+<span class="s2">                                element[0].innerHTML = text;</span>
+<span class="s2">                                MathJax.Hub.Queue([&quot;Typeset&quot;,MathJax.Hub,element[0]]);</span>
+<span class="s2">                            }</span>
+<span class="s2">                        });</span>
+<span class="s2">                        jupyter.actions.call(&#39;jupyter-notebook:run-all-cells-above&#39;);</span>
+<span class="s2">                        jupyter.actions.call(&#39;jupyter-notebook:save-notebook&#39;);</span>
+<span class="s2">                    };</span>
+<span class="s2">                    return {</span>
+<span class="s2">                        runall : runall</span>
+<span class="s2">                    };</span>
+<span class="s2">                });</span>
+<span class="s2">            &quot;&quot;&quot;</span><span class="p">))</span>
+        <span class="c1"># now lets actually convert it</span>
+        <span class="n">cmd</span> <span class="o">=</span> <span class="s1">&#39;jupyter nbconvert --to latex stored_energy_fingerprints.ipynb&#39;</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span> <span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">out</span><span class="p">,</span> <span class="n">err</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">communicate</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s2">&quot;/tmp/need_latex&quot;</span><span class="p">):</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s2">&quot;/tmp/need_latex&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="kc">False</span><span class="p">:</span>
+            <span class="n">display</span><span class="p">(</span><span class="n">Javascript</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">                require([&#39;base/js/namespace&#39;, &#39;jquery&#39;],</span>
+<span class="s2">                function(jupyter, $) {</span>
+<span class="s2">                    console.log(&quot;Auto-running all cells-below...&quot;);</span>
+<span class="s2">                    jupyter.actions.call(&#39;jupyter-notebook:run-all-cells-above&#39;);</span>
+<span class="s2">                    jupyter.actions.call(&#39;jupyter-notebook:save-notebook&#39;);</span>
+<span class="s2">                });</span>
+<span class="s2">            &quot;&quot;&quot;</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="nom"><a class="viewcode-back" href="../index.html#lyxithea.nom">[docs]</a><span class="k">def</span> <span class="nf">nom</span><span class="p">(</span><span class="n">abbr</span><span class="p">,</span> <span class="n">extended</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;abbr&#39;</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">abbr</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">bi</span><span class="o">.</span><span class="n">__nom__</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="n">bi</span><span class="o">.</span><span class="n">__nom__</span><span class="p">[</span><span class="n">kind</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">bi</span><span class="o">.</span><span class="n">__nom__</span><span class="p">[</span><span class="n">kind</span><span class="p">][</span><span class="n">abbr</span><span class="p">]</span> <span class="o">=</span> <span class="n">extended</span>
+    <span class="k">if</span> <span class="n">run_from_ipython</span><span class="p">()</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">need_latex</span><span class="p">():</span>
+        <span class="c1">#html_str = &#39;&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.rawgit.com/tiaanduplessis/wenk/master/dist/wenk.css&quot;&gt;&#39;</span>
+        <span class="n">html_str</span> <span class="o">=</span> <span class="s2">&quot;&lt;span class=&#39;abbr&#39; data-wenk=&#39;</span><span class="si">{extd}</span><span class="s2">&#39;&gt;</span><span class="si">{abbr}</span><span class="s2">&lt;/span&gt;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">abbr</span><span class="o">=</span><span class="n">abbr</span><span class="p">,</span><span class="n">extd</span><span class="o">=</span><span class="n">extended</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">need_markdown</span><span class="p">():</span>
+            <span class="k">return</span> <span class="n">html_str</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">display</span><span class="p">(</span><span class="n">HTML</span><span class="p">(</span><span class="n">html_str</span><span class="p">))</span>
+    <span class="k">elif</span> <span class="n">run_from_ipython</span><span class="p">()</span> <span class="ow">and</span> <span class="n">need_latex</span><span class="p">():</span>
+        <span class="n">kinds</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;abbr&#39;</span><span class="p">:</span> <span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;symb&#39;</span><span class="p">:</span> <span class="s1">&#39;Y&#39;</span><span class="p">,</span> <span class="s1">&#39;subsup&#39;</span><span class="p">:</span> <span class="s1">&#39;S&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;unit&#39;</span><span class="p">:</span> <span class="s1">&#39;U&#39;</span><span class="p">,</span> <span class="s1">&#39;units&#39;</span><span class="p">:</span> <span class="s1">&#39;U&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;def&#39;</span><span class="p">:</span> <span class="s1">&#39;D&#39;</span><span class="p">,</span> <span class="s1">&#39;defs&#39;</span><span class="p">:</span> <span class="s1">&#39;D&#39;</span><span class="p">}</span>
+        <span class="n">latex_str</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">\nomenclature[</span><span class="si">%s</span><span class="s2">]{</span><span class="si">%s</span><span class="s2">}{</span><span class="si">%s</span><span class="s2">}&quot;</span> <span class="o">%</span> \
+            <span class="p">(</span><span class="n">abbr</span><span class="p">,</span> <span class="n">kinds</span><span class="p">[</span><span class="n">kind</span><span class="p">],</span> <span class="n">abbr</span><span class="p">,</span>
+             <span class="n">extended</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">latex_str</span></div>
+
+<div class="viewcode-block" id="lipsum"><a class="viewcode-back" href="../index.html#lyxithea.lipsum">[docs]</a><span class="k">def</span> <span class="nf">lipsum</span><span class="p">():</span>
+    <span class="n">html_str</span> <span class="o">=</span> <span class="s1">&#39;&lt;p&gt;&#39;</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">500</span><span class="p">):</span>
+        <span class="n">html_str</span> <span class="o">+=</span> <span class="s1">&#39;word &#39;</span>
+    <span class="n">html_str</span> <span class="o">+=</span> <span class="s1">&#39;&lt;/p&gt;&#39;</span>
+    <span class="k">return</span> <span class="n">display</span><span class="p">(</span><span class="n">HTML</span><span class="p">(</span><span class="n">html_str</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="bib"><a class="viewcode-back" href="../index.html#lyxithea.bib">[docs]</a><span class="k">class</span> <span class="nc">bib</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s1">&#39;bibs/dissertation.bib&#39;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;unsrt&#39;</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bib_dict</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">style</span> <span class="o">=</span> <span class="n">style</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cited_labels</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">full_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s1">&#39;~/&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="n">filename</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_bib</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">full_filename</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="n">eq</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">iteritems</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">other</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">!=</span> <span class="n">val</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">key</span><span class="p">],</span> <span class="s1">&#39;__dict__&#39;</span><span class="p">):</span>
+                <span class="nb">print</span> <span class="n">val</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+                <span class="k">return</span> <span class="kc">False</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span> <span class="n">val</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+        <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="vm">__dict__</span>
+
+<div class="viewcode-block" id="bib.add_bib"><a class="viewcode-back" href="../index.html#lyxithea.bib.add_bib">[docs]</a>    <span class="k">def</span> <span class="nf">add_bib</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bib_fname</span> <span class="o">=</span> <span class="n">filename</span>
+        <span class="k">if</span> <span class="n">run_from_ipython</span><span class="p">():</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bib_fname</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">bib_file</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">bib_db</span> <span class="o">=</span> <span class="n">bibtexparser</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">bib_file</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">bib_db</span><span class="o">.</span><span class="n">entries</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">bib_dict</span><span class="p">[</span><span class="n">entry</span><span class="p">[</span><span class="s1">&#39;ID&#39;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">entry</span></div>
+
+<div class="viewcode-block" id="bib.pcite"><a class="viewcode-back" href="../index.html#lyxithea.bib.pcite">[docs]</a>    <span class="k">def</span> <span class="nf">pcite</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">label</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">bib_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="n">pcitestr</span> <span class="o">=</span> <span class="s1">&#39;\[</span><span class="si">%s</span><span class="s1">\]&#39;</span> <span class="o">%</span> <span class="n">label</span>
+            <span class="n">todo</span><span class="p">(</span><span class="s1">&#39;fix </span><span class="si">{citation}</span><span class="s1"> citation&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">citation</span><span class="o">=</span><span class="n">label</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">need_markdown</span><span class="p">():</span>
+                <span class="k">return</span> <span class="n">pcitestr</span>
+            <span class="k">elif</span> <span class="n">need_latex</span><span class="p">():</span>
+                <span class="k">return</span> <span class="n">pcitestr</span><span class="c1"># r&#39;\cite{%s}&#39; % label</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">display</span><span class="p">(</span><span class="n">HTML</span><span class="p">(</span><span class="n">pcitestr</span><span class="p">))</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">need_latex</span><span class="p">():</span>
+            <span class="n">d</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bib_dict</span><span class="p">[</span><span class="n">label</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">label</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cited_labels</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">cited_labels</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">label</span><span class="p">])</span>
+            <span class="n">pcitestr</span> <span class="o">=</span> <span class="s1">&#39;(&#39;</span>
+            <span class="n">pcitestr</span> <span class="o">+=</span> <span class="s1">&#39;&lt;a href=&quot;</span><span class="si">{link}</span><span class="s1">&quot;&gt;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">link</span><span class="o">=</span><span class="s1">&#39;#&#39;</span> <span class="o">+</span> <span class="n">label</span><span class="p">)</span>
+            <span class="n">pcitestr</span> <span class="o">+=</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;author&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">partition</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;author&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="n">pcitestr</span> <span class="o">+=</span> <span class="s1">&#39; et. al.&#39;</span>
+            <span class="n">pcitestr</span> <span class="o">+=</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span>
+            <span class="n">pcitestr</span> <span class="o">+=</span> <span class="s1">&#39;&lt;/a&gt;&#39;</span>
+            <span class="n">pcitestr</span> <span class="o">+=</span> <span class="s1">&#39;)&#39;</span>
+            <span class="k">if</span> <span class="n">need_markdown</span><span class="p">():</span>
+                <span class="k">return</span> <span class="n">pcitestr</span>
+            <span class="k">elif</span> <span class="n">need_latex</span><span class="p">():</span>
+                <span class="k">return</span> <span class="n">display</span><span class="p">(</span><span class="n">Latex</span><span class="p">(</span><span class="s1">&#39;\[</span><span class="si">%s</span><span class="s1">\]&#39;</span> <span class="o">%</span> <span class="n">label</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">display</span><span class="p">(</span><span class="n">HTML</span><span class="p">(</span><span class="n">pcitestr</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="n">need_latex</span><span class="p">():</span>
+            <span class="k">return</span> <span class="sa">r</span><span class="s1">&#39;\cite{</span><span class="si">%s</span><span class="s1">}&#39;</span> <span class="o">%</span> <span class="n">label</span></div>
+
+<div class="viewcode-block" id="bib.bibliography"><a class="viewcode-back" href="../index.html#lyxithea.bib.bibliography">[docs]</a>    <span class="k">def</span> <span class="nf">bibliography</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">header_level</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">force_string</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">run_from_ipython</span><span class="p">()</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">need_latex</span><span class="p">():</span>
+            <span class="n">htmlstr</span> <span class="o">=</span> <span class="s1">&#39;&lt;h</span><span class="si">{hl}</span><span class="s1">&gt;Bibliography&lt;/h</span><span class="si">{hl}</span><span class="s1">&gt;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">hl</span><span class="o">=</span><span class="n">header_level</span><span class="p">)</span>
+            <span class="n">htmlstr</span> <span class="o">+=</span> <span class="s1">&#39;&lt;ol&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+            <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cited_labels</span><span class="p">:</span>
+                <span class="n">bibdb</span> <span class="o">=</span> <span class="n">BibDatabase</span><span class="p">()</span>
+                <span class="n">bibdb</span><span class="o">.</span><span class="n">entries</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">bib_dict</span><span class="p">[</span><span class="n">label</span><span class="p">]]</span>
+                <span class="n">bibtex_str</span> <span class="o">=</span> <span class="n">bibtexparser</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">bibdb</span><span class="p">)</span>
+                <span class="kn">from</span> <span class="nn">subprocess</span> <span class="k">import</span> <span class="n">Popen</span><span class="p">,</span> <span class="n">PIPE</span>
+                <span class="kn">import</span> <span class="nn">shlex</span>
+                <span class="n">f</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">NamedTemporaryFile</span><span class="p">(</span><span class="n">suffix</span><span class="o">=</span><span class="s2">&quot;.bib&quot;</span><span class="p">,</span> <span class="n">delete</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">bibtex_str</span><span class="p">)</span>
+                <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+                <span class="n">system_str</span> <span class="o">=</span> <span class="s1">&#39;bibtex2html -nokeys -o - -s plain -nodoc -q </span><span class="si">{fname}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fname</span><span class="o">=</span><span class="n">f</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+                <span class="n">args</span> <span class="o">=</span> <span class="n">shlex</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">system_str</span><span class="p">)</span>
+                <span class="n">proc</span> <span class="o">=</span> <span class="n">Popen</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">stdout</span><span class="o">=</span><span class="n">PIPE</span><span class="p">,</span> <span class="n">stderr</span><span class="o">=</span><span class="n">PIPE</span><span class="p">)</span>
+                <span class="n">out</span><span class="p">,</span> <span class="n">err</span> <span class="o">=</span> <span class="n">proc</span><span class="o">.</span><span class="n">communicate</span><span class="p">()</span>
+                <span class="n">exitcode</span> <span class="o">=</span> <span class="n">proc</span><span class="o">.</span><span class="n">returncode</span>
+                <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;&lt;!-- This document was automatically generated with bibtex2html 1.98</span>
+<span class="s2">     (see http://www.lri.fr/~filliatr/bibtex2html/),</span>
+<span class="s2">     with the following command:</span>
+<span class="s2">     bibtex2html -nokeys -o - -s plain -nodoc -q temp.bib  --&gt;</span>
+
+
+
+
+<span class="s2">&quot;&quot;&quot;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;&lt;hr&gt;&lt;p&gt;&lt;em&gt;This file was generated by</span>
+<span class="s2">&lt;a href=&quot;http://www.lri.fr/~filliatr/bibtex2html/&quot;&gt;bibtex2html&lt;/a&gt; 1.98.&lt;/em&gt;&lt;/p&gt;&quot;&quot;&quot;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+                <span class="c1">#print out, err, exitcode</span>
+                <span class="n">htmlstr</span> <span class="o">+=</span> <span class="s1">&#39;&lt;li name=&quot;</span><span class="si">{name}</span><span class="s1">&quot;&gt;</span><span class="si">{citation}</span><span class="s1">&lt;/li&gt;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">label</span><span class="p">,</span> <span class="n">citation</span><span class="o">=</span><span class="n">result</span><span class="p">)</span>
+            <span class="n">htmlstr</span> <span class="o">+=</span> <span class="s1">&#39;&lt;/ol&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+            <span class="k">if</span> <span class="n">need_markdown</span><span class="p">():</span>
+                <span class="k">return</span> <span class="n">display</span><span class="p">(</span><span class="n">HTML</span><span class="p">(</span><span class="n">htmlstr</span><span class="p">))</span>
+            <span class="k">elif</span> <span class="n">need_latex</span><span class="p">():</span>
+                <span class="k">return</span> <span class="sa">r</span><span class="s1">&#39;\bibliographystyle{</span><span class="si">%s</span><span class="s1">} \bibliography{</span><span class="si">%s</span><span class="s1">}&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">style</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">full_filename</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">display</span><span class="p">(</span><span class="n">HTML</span><span class="p">(</span><span class="n">htmlstr</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="n">need_latex</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">force_string</span><span class="p">:</span>
+                <span class="k">return</span> <span class="sa">r</span><span class="s1">&#39;\bibliographystyle{</span><span class="si">%s</span><span class="s1">} \bibliography{</span><span class="si">%s</span><span class="s1">}&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">style</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">full_filename</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">Latex</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\bibliographystyle{</span><span class="si">%s</span><span class="s1">} \bibliography{</span><span class="si">%s</span><span class="s1">}&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">style</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">full_filename</span><span class="p">))</span></div></div>
+
+
+<div class="viewcode-block" id="figures"><a class="viewcode-back" href="../index.html#lyxithea.figures">[docs]</a><span class="k">def</span> <span class="nf">figures</span><span class="p">():</span>
+    <span class="nb">print</span> <span class="n">__tables__</span><span class="o">.</span><span class="n">val</span>
+    <span class="nb">print</span> <span class="n">__figures__</span><span class="o">.</span><span class="n">val</span>
+    <span class="nb">print</span> <span class="n">__labels__</span><span class="o">.</span><span class="n">val</span></div>
+
+<div class="viewcode-block" id="todo"><a class="viewcode-back" href="../index.html#lyxithea.todo">[docs]</a><span class="k">def</span> <span class="nf">todo</span><span class="p">(</span><span class="n">task</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">task</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">todos</span><span class="o">.</span><span class="n">val</span><span class="p">:</span>
+        <span class="n">todos</span><span class="o">.</span><span class="n">val</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">task</span><span class="p">])</span>
+    <span class="k">if</span> <span class="n">run_from_ipython</span><span class="p">()</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">need_latex</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">need_markdown</span><span class="p">():</span>
+            <span class="k">return</span> <span class="n">display</span><span class="p">(</span><span class="n">Markdown</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="n">need_latex</span><span class="p">():</span>
+            <span class="k">return</span> <span class="s1">&#39;\invis{</span><span class="si">%s</span><span class="s1">}&#39;</span> <span class="o">%</span> <span class="n">task</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">display</span><span class="p">(</span><span class="n">HTML</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">display</span><span class="p">(</span><span class="n">Latex</span><span class="p">(</span><span class="s1">&#39;\invis{</span><span class="si">%s</span><span class="s1">}&#39;</span> <span class="o">%</span> <span class="n">task</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="export_todos"><a class="viewcode-back" href="../index.html#lyxithea.export_todos">[docs]</a><span class="k">def</span> <span class="nf">export_todos</span><span class="p">():</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;todos.md&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;# Todos </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="n">todos</span><span class="o">.</span><span class="n">val</span><span class="p">:</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;- [ ] </span><span class="si">{task}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">task</span><span class="o">=</span><span class="n">task</span><span class="p">))</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s1">&#39;pandoc todos.md -t latex -o todos.pdf&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="print_todos"><a class="viewcode-back" href="../index.html#lyxithea.print_todos">[docs]</a><span class="k">def</span> <span class="nf">print_todos</span><span class="p">():</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">need_latex</span><span class="p">():</span>
+        <span class="n">html_str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="n">bi</span><span class="o">.</span><span class="n">__todos__</span><span class="p">:</span>
+            <span class="n">html_str</span> <span class="o">+=</span> <span class="s2">&quot;&lt;li&gt;</span><span class="si">{task}</span><span class="s2">&lt;/li&gt;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">task</span><span class="o">=</span><span class="n">task</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">need_markdown</span><span class="p">():</span>
+            <span class="k">return</span> <span class="n">html_str</span>
+        <span class="k">elif</span> <span class="n">need_latex</span><span class="p">():</span>
+            <span class="c1"># we should write to another file here!</span>
+            <span class="c1"># export_todos()</span>
+            <span class="k">return</span> <span class="n">display</span><span class="p">(</span><span class="n">FileLink</span><span class="p">(</span><span class="s1">&#39;todos.pdf&#39;</span><span class="p">))</span>
+    <span class="k">elif</span> <span class="n">need_latex</span><span class="p">():</span>
+        <span class="n">export_todos</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">display</span><span class="p">(</span><span class="n">FileLink</span><span class="p">(</span><span class="s1">&#39;todos.pdf&#39;</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="label"><a class="viewcode-back" href="../index.html#lyxithea.label">[docs]</a><span class="k">def</span> <span class="nf">label</span><span class="p">(</span><span class="n">label</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">run_from_ipython</span><span class="p">()</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">need_latex</span><span class="p">():</span>
+        <span class="k">if</span> <span class="s1">&#39;fig:&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">label</span> <span class="ow">and</span> <span class="s1">&#39;tab:&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">label</span><span class="p">:</span>
+            <span class="n">number</span> <span class="o">=</span> <span class="n">__labels__</span><span class="o">.</span><span class="n">val</span>
+    <span class="k">elif</span> <span class="n">need_latex</span><span class="p">():</span>
+        <span class="k">return</span> <span class="sa">r</span><span class="s1">&#39;\label{</span><span class="si">%s</span><span class="s1">}&#39;</span> <span class="o">%</span> <span class="n">label</span></div>
+
+<div class="viewcode-block" id="cref"><a class="viewcode-back" href="../index.html#lyxithea.cref">[docs]</a><span class="k">def</span> <span class="nf">cref</span><span class="p">(</span><span class="n">label</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">run_from_ipython</span><span class="p">()</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">need_latex</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">__tables__</span><span class="o">.</span><span class="n">val</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="n">number</span> <span class="o">=</span> <span class="n">__tables__</span><span class="o">.</span><span class="n">val</span><span class="p">[</span><span class="n">label</span><span class="p">]</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="s1">&#39;table&#39;</span>
+        <span class="k">elif</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">__figures__</span><span class="o">.</span><span class="n">val</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="n">number</span> <span class="o">=</span> <span class="n">__figures__</span><span class="o">.</span><span class="n">val</span><span class="p">[</span><span class="n">label</span><span class="p">]</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="s1">&#39;figure&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="s1">&#39;ref&#39;</span>
+            <span class="n">number</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">html_str</span> <span class="o">=</span> <span class="s1">&#39;&lt;a href=&quot;#</span><span class="si">%s</span><span class="s1">&quot;&gt;</span><span class="si">%s</span><span class="s1"> </span><span class="si">%d</span><span class="s1">&lt;/a&gt;&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">number</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">need_markdown</span><span class="p">():</span>
+            <span class="k">return</span> <span class="n">html_str</span>
+        <span class="k">elif</span> <span class="n">need_latex</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">__tables__</span><span class="o">.</span><span class="n">val</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="n">number</span> <span class="o">=</span> <span class="n">__tables__</span><span class="o">.</span><span class="n">val</span><span class="p">[</span><span class="n">label</span><span class="p">]</span>
+                <span class="n">text</span> <span class="o">=</span> <span class="s1">&#39;tab:&#39;</span>
+            <span class="k">elif</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">__figures__</span><span class="o">.</span><span class="n">val</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="n">number</span> <span class="o">=</span> <span class="n">__figures__</span><span class="o">.</span><span class="n">val</span><span class="p">[</span><span class="n">label</span><span class="p">]</span>
+                <span class="n">text</span> <span class="o">=</span> <span class="s1">&#39;fig:&#39;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">text</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+                <span class="n">number</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">return</span> <span class="sa">r</span><span class="s1">&#39;\ref{</span><span class="si">%s%s</span><span class="s1">}&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">display</span><span class="p">(</span><span class="n">HTML</span><span class="p">(</span><span class="n">html_str</span><span class="p">))</span>
+    <span class="k">elif</span> <span class="n">run_from_ipython</span><span class="p">()</span> <span class="ow">and</span> <span class="n">need_latex</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">__tables__</span><span class="o">.</span><span class="n">val</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="n">number</span> <span class="o">=</span> <span class="n">__tables__</span><span class="o">.</span><span class="n">val</span><span class="p">[</span><span class="n">label</span><span class="p">]</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="s1">&#39;tab:&#39;</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;table &#39;</span>
+        <span class="k">elif</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">__figures__</span><span class="o">.</span><span class="n">val</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="n">number</span> <span class="o">=</span> <span class="n">__figures__</span><span class="o">.</span><span class="n">val</span><span class="p">[</span><span class="n">label</span><span class="p">]</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="s1">&#39;fig:&#39;</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;figure &#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+            <span class="n">number</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">return</span> <span class="sa">r</span><span class="s1">&#39;\cref{</span><span class="si">%s%s</span><span class="s1">}&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+        <span class="k">return</span> <span class="sa">r</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">\ref{</span><span class="si">%s%s</span><span class="s1">}&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span></div>
+</pre></div>
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2016, Alex Hagen.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

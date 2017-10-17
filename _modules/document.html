@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>document &#8212; lyxithea 0.1a1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/extra.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1a1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body>
+
+
+
+<div id="navbar" class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="../index.html"><span><img src="../_static/lyx_logo.svg"></span>
+        lyxithea</a>
+      <span class="navbar-text navbar-version pull-left"><b>0.1</b></span>
+    </div>
+
+      <div class="collapse navbar-collapse nav-collapse">
+        <ul class="nav navbar-nav">
+          
+            <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Alex Hagen <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"></ul>
+</li>
+            
+              <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#"> <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"></ul>
+</li>
+            
+          
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+          
+          
+            
+              
+            
+          
+          
+          
+          
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="http://alexhagen.github.io/" target="_blank">Alex Hagen</a></li>
+        </ul>
+      </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <h1>Source code for document</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="k">import</span> <span class="n">display</span><span class="p">,</span> <span class="n">HTML</span><span class="p">,</span> <span class="n">Markdown</span><span class="p">,</span> <span class="n">Javascript</span><span class="p">,</span> <span class="n">display_javascript</span><span class="p">,</span> <span class="n">display_html</span>
+<span class="kn">from</span> <span class="nn">IPython.core.magic</span> <span class="k">import</span> <span class="p">(</span><span class="n">Magics</span><span class="p">,</span> <span class="n">magics_class</span><span class="p">,</span> <span class="n">line_magic</span><span class="p">,</span>
+                                <span class="n">cell_magic</span><span class="p">,</span> <span class="n">line_cell_magic</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="k">import</span> <span class="n">FileLink</span><span class="p">,</span> <span class="n">JSON</span><span class="p">,</span> <span class="n">DisplayObject</span><span class="p">,</span> <span class="n">Latex</span>
+<span class="kn">import</span> <span class="nn">os.path</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">StringIO</span>
+<span class="kn">import</span> <span class="nn">contextlib</span>
+<span class="kn">import</span> <span class="nn">inspect</span>
+<span class="kn">import</span> <span class="nn">nbformat</span>
+<span class="kn">from</span> <span class="nn">nbconvert</span> <span class="k">import</span> <span class="n">HTMLExporter</span><span class="p">,</span> <span class="n">LatexExporter</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="k">import</span> <span class="n">display</span><span class="p">,</span> <span class="n">HTML</span>
+<span class="kn">from</span> <span class="nn">traitlets.config</span> <span class="k">import</span> <span class="n">Config</span>
+<span class="kn">from</span> <span class="nn">jinja2</span> <span class="k">import</span> <span class="n">DictLoader</span>
+<span class="kn">from</span> <span class="nn">IPython.core.magics.code</span> <span class="k">import</span> <span class="n">CodeMagics</span>
+<span class="kn">import</span> <span class="nn">lyxithea</span> <span class="k">as</span> <span class="nn">lyx</span>
+<span class="kn">import</span> <span class="nn">nbformat</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">__builtins__</span> <span class="k">as</span> <span class="nn">bi</span>
+<span class="kn">import</span> <span class="nn">__init__</span> <span class="k">as</span> <span class="nn">init</span>
+
+<span class="k">if</span> <span class="n">lyx</span><span class="o">.</span><span class="n">run_from_ipython</span><span class="p">():</span>
+    <span class="n">ip</span> <span class="o">=</span> <span class="n">get_ipython</span><span class="p">()</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">ip</span> <span class="o">=</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="cdoc"><a class="viewcode-back" href="../index.html#document.cdoc">[docs]</a><span class="k">def</span> <span class="nf">cdoc</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">bi</span><span class="o">.</span><span class="n">__cdoc__</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">bi</span><span class="o">.</span><span class="n">__cdoc__</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">document</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="stdoutIO"><a class="viewcode-back" href="../index.html#document.stdoutIO">[docs]</a><span class="nd">@contextlib</span><span class="o">.</span><span class="n">contextmanager</span>
+<span class="k">def</span> <span class="nf">stdoutIO</span><span class="p">(</span><span class="n">stdout</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">old</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span>
+    <span class="k">if</span> <span class="n">stdout</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">stdout</span> <span class="o">=</span> <span class="n">StringIO</span><span class="o">.</span><span class="n">StringIO</span><span class="p">()</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span> <span class="o">=</span> <span class="n">stdout</span>
+    <span class="k">yield</span> <span class="n">stdout</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span> <span class="o">=</span> <span class="n">old</span></div>
+
+<span class="n">js</span> <span class="o">=</span> <span class="s2">&quot;require(</span><span class="se">\&quot;</span><span class="s2">notebook/js/cell</span><span class="se">\&quot;</span><span class="s2">).Cell.options_default.cm_config.lineWrapping = true;</span><span class="se">\n</span><span class="s2">&quot;</span>
+<span class="c1">#js += &quot;require(\&quot;notebook/js/cell\&quot;).CodeCell.options_default.cm_config.lineWrapping = true;\n&quot;</span>
+<span class="c1">#js += &quot;require(\&quot;notebook/js/cell\&quot;).MarkdownCell.options_default.cm_config.lineWrapping = true;\n&quot;</span>
+<span class="c1">#js = &quot;console.log(Object.getOwnPropertyNames(require(\&quot;notebook/js/cell\&quot;).CodeCell));\n&quot;</span>
+<span class="n">js</span> <span class="o">+=</span> <span class="s2">&quot;require([&#39;notebook/js/codecell&#39;], function(codecell) {</span><span class="se">\n</span><span class="s2">&quot;</span>
+<span class="n">js</span> <span class="o">+=</span> <span class="s2">&quot;    codecell.CodeCell.options_default.highlight_modes[&#39;magic_markdown&#39;] = {&#39;reg&#39;:[/^</span><span class="si">%%</span><span class="s2">dis|^</span><span class="si">%%</span><span class="s2">doc/]}; </span><span class="se">\n</span><span class="s2">&quot;</span>
+<span class="n">js</span> <span class="o">+=</span> <span class="s2">&quot;    Jupyter.notebook.events.one(&#39;kernel_ready.Kernel&#39;, function(){</span><span class="se">\n</span><span class="s2">&quot;</span>
+<span class="n">js</span> <span class="o">+=</span> <span class="s2">&quot;      Jupyter.notebook.get_cells().map(function(cell){</span><span class="se">\n</span><span class="s2">&quot;</span>
+<span class="n">js</span> <span class="o">+=</span> <span class="s2">&quot;          if (cell.cell_type == &#39;code&#39;){ cell.auto_highlight(); } }) ;</span><span class="se">\n</span><span class="s2">&quot;</span>
+<span class="n">js</span> <span class="o">+=</span> <span class="s2">&quot;      });</span><span class="se">\n</span><span class="s2">&quot;</span>
+<span class="n">js</span> <span class="o">+=</span> <span class="s2">&quot;   });</span><span class="se">\n</span><span class="s2">&quot;</span>
+<span class="n">display_javascript</span><span class="p">(</span><span class="n">js</span><span class="p">,</span> <span class="n">raw</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">html_str</span> <span class="o">=</span> <span class="s1">&#39;&lt;span&gt;$</span><span class="se">\\</span><span class="s1">newcommand{</span><span class="se">\\</span><span class="s1">unit}[1]{</span><span class="se">\\</span><span class="s1">mathrm{\; #1}}$&lt;/span&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+<span class="n">html_str</span> <span class="o">+=</span> <span class="s1">&#39;&lt;span&gt;$</span><span class="se">\\</span><span class="s1">newcommand{</span><span class="se">\\</span><span class="s1">ce}[1]{</span><span class="se">\\</span><span class="s1">mathrm{#1}}$&lt;/span&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+<span class="n">html_str</span> <span class="o">+=</span> <span class="s1">&#39;&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.rawgit.com/tiaanduplessis/wenk/master/dist/wenk.css&quot;&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+<span class="n">html_str</span> <span class="o">+=</span> <span class="s1">&#39;&lt;style&gt; span.abbr{ color: #999; } &lt;/style&gt;</span><span class="se">\n</span><span class="s1">&lt;style&gt; [data-wenk]:after { z-index: 1000000000; } &lt;/style&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+<span class="n">display_html</span><span class="p">(</span><span class="n">html_str</span><span class="p">,</span> <span class="n">raw</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<div class="viewcode-block" id="document"><a class="viewcode-back" href="../index.html#document.document">[docs]</a><span class="k">class</span> <span class="nc">document</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; ``lyxithea.document`` is analogous to LaTeX&#39;s article.cls - a</span>
+<span class="sd">        generalized journal article-like template.</span>
+
+<span class="sd">        :param lyx.bib bib: A ``lyx.bib`` object for the bibliography &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bib</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">bib</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_bib</span> <span class="o">=</span> <span class="n">lyx</span><span class="o">.</span><span class="n">bib</span><span class="p">(</span><span class="s1">&#39;bibs/dissertation.bib&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_bib</span> <span class="o">=</span> <span class="n">bib</span>
+        <span class="n">now</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_month</span> <span class="o">=</span> <span class="n">now</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%B&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_year</span> <span class="o">=</span> <span class="n">now</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_chapter_paths</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_data_paths</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">bi</span><span class="o">.</span><span class="n">__cdoc__</span> <span class="o">=</span> <span class="bp">self</span>
+
+<div class="viewcode-block" id="document.check_chapter_path"><a class="viewcode-back" href="../index.html#document.document.check_chapter_path">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">check_chapter_path</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Checks if the chapter path is a legitimate path</span>
+
+<span class="sd">        :param path: the path to the folder to be added</span>
+<span class="sd">        :returns: boolean if the path is good or not</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;~&#39;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s1">&#39;~&#39;</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">path</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="document.set_hide_dblclick"><a class="viewcode-back" href="../index.html#document.document.set_hide_dblclick">[docs]</a>    <span class="k">def</span> <span class="nf">set_hide_dblclick</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">string</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; A private method to hide the text on double click - like Jupyter&#39;s</span>
+<span class="sd">            Markdown cells.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">javascript_str</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        function code_toggle()</span>
+<span class="s2">        {</span>
+<span class="s2">            var code_shown = $(this).attr(&#39;value&#39;) == &#39;true&#39;;</span>
+<span class="s2">            if (code_shown)</span>
+<span class="s2">            {</span>
+<span class="s2">                console.log(&quot;code shown&quot;)</span>
+<span class="s2">                $(this).children(&#39;.input&#39;).show(&#39;500&#39;);</span>
+<span class="s2">            }</span>
+<span class="s2">            else</span>
+<span class="s2">            {</span>
+<span class="s2">                console.log(&quot;code not shown&quot;)</span>
+<span class="s2">                $(this).children(&#39;.input&#39;).hide(&#39;500&#39;);</span>
+<span class="s2">            }</span>
+
+<span class="s2">            code_shown = !code_shown;</span>
+<span class="s2">            $(this).attr(&#39;value&#39;, code_shown);</span>
+<span class="s2">        }</span>
+<span class="s2">        $(&#39;.code_cell&#39;).each(function() {</span>
+<span class="s2">            if(!$(this)[0].hasAttribute(&quot;value&quot;)){</span>
+<span class="s2">                $(this).attr(&#39;value&#39;, &#39;true&#39;);</span>
+<span class="s2">            }</span>
+<span class="s2">        });</span>
+<span class="s2">        $(&#39;.code_cell&#39;).each(function() {</span>
+<span class="s2">            $(this).unbind(&quot;dblclick&quot;).dblclick(code_toggle);</span>
+<span class="s2">        });&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">display</span><span class="p">(</span><span class="n">Javascript</span><span class="p">(</span><span class="n">javascript_str</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="document.get_locals"><a class="viewcode-back" href="../index.html#document.document.get_locals">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">get_locals</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot; When we pass things out to the temporary notebooks, we need the</span>
+<span class="sd">            local variables.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">lcls</span> <span class="o">=</span> <span class="n">ip</span><span class="o">.</span><span class="n">user_module</span><span class="o">.</span><span class="vm">__dict__</span>
+        <span class="k">return</span> <span class="n">lcls</span></div>
+
+<div class="viewcode-block" id="document.process_markdown"><a class="viewcode-back" href="../index.html#document.document.process_markdown">[docs]</a>    <span class="k">def</span> <span class="nf">process_markdown</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">markdown</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Looks for python parameter notation in a markdown string</span>
+
+<span class="sd">            :todo: Make this into a Jinja2 class for more flexibility.</span>
+<span class="sd">            :todo: make a context manager for the markdown so I can use ``with``</span>
+<span class="sd">                syntax</span>
+
+<span class="sd">            :param str markdown: Markdown formatted text with possible Python</span>
+<span class="sd">                inclusions</span>
+<span class="sd">            :returns str: Markdown formatted replaced text</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">matches</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">finditer</span><span class="p">(</span><span class="n">bi</span><span class="o">.</span><span class="n">__regex__</span><span class="p">,</span> <span class="n">markdown</span><span class="p">)</span>
+        <span class="n">matches2</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">finditer</span><span class="p">(</span><span class="n">bi</span><span class="o">.</span><span class="n">__regex2__</span><span class="p">,</span> <span class="n">markdown</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">matchNum</span><span class="p">,</span> <span class="n">match</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">matches</span><span class="p">):</span>
+            <span class="k">with</span> <span class="n">stdoutIO</span><span class="p">()</span> <span class="k">as</span> <span class="n">s</span><span class="p">:</span>
+                <span class="c1">#lyx.markdown()</span>
+                <span class="n">lyx</span><span class="o">.</span><span class="n">latex</span><span class="p">()</span>
+                <span class="n">exec</span><span class="p">(</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_locals</span><span class="p">())</span>
+                <span class="c1">#lyx.latex(False)</span>
+                <span class="c1">#lyx.markdown(False)</span>
+            <span class="n">rep_string</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">getvalue</span><span class="p">()</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">rep_string</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">cmd</span> <span class="o">=</span> <span class="s2">&quot;print </span><span class="si">{oldcmd}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">oldcmd</span><span class="o">=</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+                <span class="k">with</span> <span class="n">stdoutIO</span><span class="p">()</span> <span class="k">as</span> <span class="n">s</span><span class="p">:</span>
+                    <span class="c1">#lyx.markdown()</span>
+                    <span class="n">lyx</span><span class="o">.</span><span class="n">latex</span><span class="p">()</span>
+                    <span class="n">exec</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_locals</span><span class="p">())</span>
+                    <span class="c1">#lyx.latex(False)</span>
+                    <span class="c1">#lyx.markdown(False)</span>
+                <span class="n">rep_string</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">getvalue</span><span class="p">()</span>
+            <span class="n">markdown</span> <span class="o">=</span> <span class="n">markdown</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(),</span> <span class="n">rep_string</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">matchNum</span><span class="p">,</span> <span class="n">match</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">matches2</span><span class="p">):</span>
+            <span class="k">with</span> <span class="n">stdoutIO</span><span class="p">()</span> <span class="k">as</span> <span class="n">s</span><span class="p">:</span>
+                <span class="c1">#lyx.markdown()</span>
+                <span class="n">lyx</span><span class="o">.</span><span class="n">latex</span><span class="p">()</span>
+                <span class="n">exec</span><span class="p">(</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_locals</span><span class="p">())</span>
+                <span class="c1">#lyx.latex(False)</span>
+                <span class="c1">#lyx.markdown(False)</span>
+            <span class="n">rep_string</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">getvalue</span><span class="p">()</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">rep_string</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">cmd</span> <span class="o">=</span> <span class="s2">&quot;print </span><span class="si">{oldcmd}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">oldcmd</span><span class="o">=</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+                <span class="k">with</span> <span class="n">stdoutIO</span><span class="p">()</span> <span class="k">as</span> <span class="n">s</span><span class="p">:</span>
+                    <span class="c1">#lyx.markdown()</span>
+                    <span class="n">lyx</span><span class="o">.</span><span class="n">latex</span><span class="p">()</span>
+                    <span class="n">exec</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_locals</span><span class="p">())</span>
+                    <span class="c1">#lyx.latex(False)</span>
+                    <span class="c1">#lyx.markdown(False)</span>
+                <span class="n">rep_string</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">getvalue</span><span class="p">()</span>
+            <span class="n">markdown</span> <span class="o">=</span> <span class="n">markdown</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(),</span> <span class="n">rep_string</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">markdown</span></div>
+
+<div class="viewcode-block" id="document.chapter_paths"><a class="viewcode-back" href="../index.html#document.document.chapter_paths">[docs]</a>    <span class="k">def</span> <span class="nf">chapter_paths</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">paths</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Add paths to the chapter path variable</span>
+
+<span class="sd">            :param paths: a list of string paths in the filesystem where chapters</span>
+<span class="sd">                are found</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">paths</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">check_chapter_path</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+                <span class="n">path</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;~&#39;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s1">&#39;~&#39;</span><span class="p">))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_chapter_paths</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">path</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="document.nom"><a class="viewcode-back" href="../index.html#document.document.nom">[docs]</a>    <span class="k">def</span> <span class="nf">nom</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Prints the nomenclature</span>
+
+<span class="sd">            :todo: Implement this into html as well</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">latex_str</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;\printnomenclature&#39;</span>
+        <span class="k">return</span> <span class="n">display</span><span class="p">(</span><span class="n">bi</span><span class="o">.</span><span class="n">__formatter__</span><span class="p">(</span><span class="n">latex_str</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="document.chapter"><a class="viewcode-back" href="../index.html#document.document.chapter">[docs]</a>    <span class="k">def</span> <span class="nf">chapter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="document.replace_rel_paths"><a class="viewcode-back" href="../index.html#document.document.replace_rel_paths">[docs]</a>    <span class="k">def</span> <span class="nf">replace_rel_paths</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">string</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Replaces relative paths with an absolute path</span>
+
+<span class="sd">            :todo: make the relative path replacement more robust</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">print</span> <span class="n">filename</span>
+        <span class="nb">print</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="c1"># find all paths in the string with a regex</span>
+        <span class="n">matches</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;(([/]|\.\.|\./)([^.]*[\.][\w][\w][\w][\w]?|$))&quot;</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> \
+            <span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+        <span class="nb">print</span> <span class="n">matches</span>
+        <span class="c1"># for each path</span>
+        <span class="k">for</span> <span class="n">match</span> <span class="ow">in</span> <span class="n">matches</span><span class="p">:</span>
+            <span class="nb">print</span> <span class="n">match</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">rep_str</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">relpath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">filename</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="n">match</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+            <span class="nb">print</span> <span class="n">rep_str</span>
+            <span class="n">string</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">match</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">rep_str</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">string</span></div>
+
+<div class="viewcode-block" id="document.append_notebook"><a class="viewcode-back" href="../index.html#document.document.append_notebook">[docs]</a>    <span class="k">def</span> <span class="nf">append_notebook</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">cells</span><span class="p">,</span> <span class="n">child</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Append a notebook (the whole notebook) to a point in a lyxithea</span>
+<span class="sd">            ``document``.  This works only if the notebook is also a</span>
+<span class="sd">            ``document``.</span>
+
+<span class="sd">            :param str filename: filename of ipynb to append</span>
+<span class="sd">            :param list cells: the cells that we&#39;ll append to</span>
+<span class="sd">            :param bool child: if the notebook we&#39;re appending is the child</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">_nb</span> <span class="o">=</span> <span class="n">nbformat</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">find_first</span><span class="p">(</span><span class="n">filename</span><span class="p">),</span> <span class="mi">4</span><span class="p">)</span>
+        <span class="n">fpath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">find_first</span><span class="p">(</span><span class="n">filename</span><span class="p">)))</span>
+        <span class="n">cells</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">nbformat</span><span class="o">.</span><span class="n">v4</span><span class="o">.</span><span class="n">new_code_cell</span><span class="p">(</span><span class="s2">&quot;import os; os.chdir(</span><span class="se">\&#39;</span><span class="si">%s</span><span class="se">\&#39;</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="n">fpath</span><span class="p">)])</span>
+        <span class="k">for</span> <span class="n">cell</span> <span class="ow">in</span> <span class="n">_nb</span><span class="o">.</span><span class="n">cells</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">cell</span><span class="p">[</span><span class="s1">&#39;cell_type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;code&#39;</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s1">&#39;dis\.chapter\([</span><span class="se">\&#39;\&quot;</span><span class="s1">](.*)[</span><span class="se">\&#39;\&quot;</span><span class="s1">]\)&#39;</span><span class="p">,</span> <span class="n">cell</span><span class="p">[</span><span class="s1">&#39;source&#39;</span><span class="p">])</span> <span class="ow">is</span> <span class="kc">None</span> \
+                    <span class="ow">and</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s1">&#39;dis\.appendix\([</span><span class="se">\&#39;\&quot;</span><span class="s1">](.*)[</span><span class="se">\&#39;\&quot;</span><span class="s1">]\)&#39;</span><span class="p">,</span> <span class="n">cell</span><span class="p">[</span><span class="s1">&#39;source&#39;</span><span class="p">])</span> <span class="ow">is</span> <span class="kc">None</span> \
+                    <span class="ow">and</span> <span class="n">cell</span><span class="p">[</span><span class="s1">&#39;source&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="s1">&#39;&#39;</span> \
+                    <span class="ow">and</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s1">&#39;dis\.export\([</span><span class="se">\&#39;\&quot;</span><span class="s1">](.*)[</span><span class="se">\&#39;\&quot;</span><span class="s1">]\)&#39;</span><span class="p">,</span> <span class="n">cell</span><span class="p">[</span><span class="s1">&#39;source&#39;</span><span class="p">])</span> <span class="ow">is</span> <span class="kc">None</span> \
+                    <span class="ow">and</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s1">&#39;slides\.export\([</span><span class="se">\&#39;\&quot;</span><span class="s1">](.*)[</span><span class="se">\&#39;\&quot;</span><span class="s1">]\)&#39;</span><span class="p">,</span> <span class="n">cell</span><span class="p">[</span><span class="s1">&#39;source&#39;</span><span class="p">])</span> <span class="ow">is</span> <span class="kc">None</span> \
+                    <span class="ow">and</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s1">&#39;doc\.export\([</span><span class="se">\&#39;\&quot;</span><span class="s1">](.*)[</span><span class="se">\&#39;\&quot;</span><span class="s1">]\)&#39;</span><span class="p">,</span> <span class="n">cell</span><span class="p">[</span><span class="s1">&#39;source&#39;</span><span class="p">])</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">child</span><span class="p">:</span>
+                            <span class="n">source</span> <span class="o">=</span> <span class="n">cell</span><span class="p">[</span><span class="s1">&#39;source&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;lyx.print_todos()&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>\
+                                <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;.export(</span><span class="se">\&#39;</span><span class="s2">../img&quot;</span><span class="p">,</span> <span class="s2">&quot;.export(</span><span class="se">\&#39;</span><span class="si">%s</span><span class="s2">/img&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">cwd</span><span class="p">)</span>\
+                                <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;.export(</span><span class="se">\&quot;</span><span class="s2">../img&quot;</span><span class="p">,</span> <span class="s2">&quot;.export(</span><span class="se">\&quot;</span><span class="si">%s</span><span class="s2">/img&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">cwd</span><span class="p">)</span>\
+                                <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;.svg_show(</span><span class="se">\&#39;</span><span class="s2">../img&quot;</span><span class="p">,</span> <span class="s2">&quot;.svg_show(</span><span class="se">\&#39;</span><span class="si">%s</span><span class="s2">/img&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">cwd</span><span class="p">)</span>\
+                                <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;.svg_show(</span><span class="se">\&quot;</span><span class="s2">../img&quot;</span><span class="p">,</span> <span class="s2">&quot;.svg_show(</span><span class="se">\&quot;</span><span class="si">%s</span><span class="s2">/img&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">cwd</span><span class="p">)</span>
+                            <span class="c1">#source = self.replace_rel_paths(source, self.find_first(filename))</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="n">source</span> <span class="o">=</span> <span class="n">cell</span><span class="p">[</span><span class="s1">&#39;source&#39;</span><span class="p">]</span>\
+                                <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;.export(</span><span class="se">\&#39;</span><span class="s2">../img&quot;</span><span class="p">,</span> <span class="s2">&quot;.export(</span><span class="se">\&#39;</span><span class="si">%s</span><span class="s2">/img&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">cwd</span><span class="p">)</span>\
+                                <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;.export(</span><span class="se">\&quot;</span><span class="s2">../img&quot;</span><span class="p">,</span> <span class="s2">&quot;.export(</span><span class="se">\&quot;</span><span class="si">%s</span><span class="s2">/img&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">cwd</span><span class="p">)</span>\
+                                <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;.svg_show(</span><span class="se">\&#39;</span><span class="s2">../img&quot;</span><span class="p">,</span> <span class="s2">&quot;.svg_show(</span><span class="se">\&#39;</span><span class="si">%s</span><span class="s2">/img&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">cwd</span><span class="p">)</span>\
+                                <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;.svg_show(</span><span class="se">\&quot;</span><span class="s2">../img&quot;</span><span class="p">,</span> <span class="s2">&quot;.svg_show(</span><span class="se">\&quot;</span><span class="si">%s</span><span class="s2">/img&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">cwd</span><span class="p">)</span>
+                            <span class="c1">#source = self.replace_rel_paths(source, self.find_first(filename))</span>
+                        <span class="n">cell_to_add</span> <span class="o">=</span> <span class="n">nbformat</span><span class="o">.</span><span class="n">v4</span><span class="o">.</span><span class="n">new_code_cell</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
+                        <span class="n">cells</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">cell_to_add</span><span class="p">])</span>
+                <span class="k">elif</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s1">&#39;dis\.chapter\([</span><span class="se">\&#39;\&quot;</span><span class="s1">](.*)[</span><span class="se">\&#39;\&quot;</span><span class="s1">]\)&#39;</span><span class="p">,</span> <span class="n">cell</span><span class="p">[</span><span class="s1">&#39;source&#39;</span><span class="p">])</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="c1"># find the argument of &#39;dischapter(&#39;</span>
+                    <span class="n">matches</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s1">&#39;dis\.chapter\([</span><span class="se">\&#39;\&quot;</span><span class="s1">](.*)[</span><span class="se">\&#39;\&quot;</span><span class="s1">]\)&#39;</span><span class="p">,</span> <span class="n">cell</span><span class="p">[</span><span class="s1">&#39;source&#39;</span><span class="p">])</span>
+                    <span class="n">import_filename</span> <span class="o">=</span> <span class="n">matches</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">append_notebook</span><span class="p">(</span><span class="n">import_filename</span><span class="p">,</span> <span class="n">cells</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s1">&#39;dis\.appendix\([</span><span class="se">\&#39;\&quot;</span><span class="s1">](.*)[</span><span class="se">\&#39;\&quot;</span><span class="s1">]\)&#39;</span><span class="p">,</span> <span class="n">cell</span><span class="p">[</span><span class="s1">&#39;source&#39;</span><span class="p">])</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="c1"># find the argument of &#39;disappendix(&#39;</span>
+                    <span class="n">matches</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s1">&#39;dis\.appendix\([</span><span class="se">\&#39;\&quot;</span><span class="s1">](.*)[</span><span class="se">\&#39;\&quot;</span><span class="s1">]\)&#39;</span><span class="p">,</span> <span class="n">cell</span><span class="p">[</span><span class="s1">&#39;source&#39;</span><span class="p">])</span>
+                    <span class="n">import_filename</span> <span class="o">=</span> <span class="n">matches</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">append_notebook</span><span class="p">(</span><span class="n">import_filename</span><span class="p">,</span> <span class="n">cells</span><span class="p">)</span>
+        <span class="c1">#cells.extend([nbformat.v4.new_code_cell(&quot;os.chdir(\&#39;%s\&#39;)&quot; % self.cwd)])</span>
+        <span class="k">return</span> <span class="n">cells</span></div>
+
+<div class="viewcode-block" id="document.abstract"><a class="viewcode-back" href="../index.html#document.document.abstract">[docs]</a>    <span class="k">def</span> <span class="nf">abstract</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">abstract</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_abstract</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">process_markdown</span><span class="p">(</span><span class="n">abstract</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">display</span><span class="p">(</span><span class="n">bi</span><span class="o">.</span><span class="n">__formatter__</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">begin</span><span class="si">{abstract}</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_abstract</span> <span class="o">+</span>
+                                        <span class="s1">&#39;</span><span class="se">\\</span><span class="s1">end</span><span class="si">{abstract}</span><span class="s1">&#39;</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="document.find_first"><a class="viewcode-back" href="../index.html#document.document.find_first">[docs]</a>    <span class="k">def</span> <span class="nf">find_first</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_chapter_paths</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">root</span><span class="p">,</span> <span class="n">dirs</span><span class="p">,</span> <span class="n">files</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">extension</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;ipynb&quot;</span><span class="p">,</span> <span class="s2">&quot;lyx&quot;</span><span class="p">]:</span>
+                    <span class="n">_fname</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{fname}</span><span class="s2">.</span><span class="si">{ext}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fname</span><span class="o">=</span><span class="n">filename</span><span class="p">,</span>
+                                                    <span class="n">ext</span><span class="o">=</span><span class="n">extension</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">_fname</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+                        <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">_fname</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="document.bibliography"><a class="viewcode-back" href="../index.html#document.document.bibliography">[docs]</a>    <span class="k">def</span> <span class="nf">bibliography</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">header_level</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">force_string</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bib</span><span class="o">.</span><span class="n">bibliography</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="document.add_to_cchap"><a class="viewcode-back" href="../index.html#document.document.add_to_cchap">[docs]</a>    <span class="k">def</span> <span class="nf">add_to_cchap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">string</span><span class="p">):</span>
+        <span class="n">processed_string</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">process_markdown</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+        <span class="c1">#self._current_chapter += processed_string</span>
+        <span class="k">return</span> <span class="n">display</span><span class="p">(</span><span class="n">bi</span><span class="o">.</span><span class="n">__formatter__</span><span class="p">(</span><span class="n">processed_string</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="document.add"><a class="viewcode-back" href="../index.html#document.document.add">[docs]</a>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">string</span><span class="p">):</span>
+        <span class="n">processed_string</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">process_markdown</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+        <span class="c1">#self._current_chapter += processed_string</span>
+        <span class="k">return</span> <span class="n">display</span><span class="p">(</span><span class="n">bi</span><span class="o">.</span><span class="n">__formatter__</span><span class="p">(</span><span class="n">processed_string</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="document.appendix_on"><a class="viewcode-back" href="../index.html#document.document.appendix_on">[docs]</a>    <span class="k">def</span> <span class="nf">appendix_on</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot; ``appendix_on`` starts a section of text sent to reserved text for</span>
+<span class="sd">                appendices. Must be ended with ``appendix_off``.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">display</span><span class="p">(</span><span class="n">Latex</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\saveappendix{&#39;</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="document.appendix_off"><a class="viewcode-back" href="../index.html#document.document.appendix_off">[docs]</a>    <span class="k">def</span> <span class="nf">appendix_off</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot; ``appendix_off`` ends a section of text reserved for the appendices.</span>
+<span class="sd">                Must be preceded by ``appendix_on``.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">display</span><span class="p">(</span><span class="n">Latex</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;}&#39;</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="document.appendices"><a class="viewcode-back" href="../index.html#document.document.appendices">[docs]</a>    <span class="k">def</span> <span class="nf">appendices</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot; ``appendices`` prints all the text saved for appendices.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">display</span><span class="p">(</span><span class="n">Latex</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">appendix</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">))</span>
+        <span class="n">display</span><span class="p">(</span><span class="n">Latex</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">appendicestext</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="document.export"><a class="viewcode-back" href="../index.html#document.document.export">[docs]</a>    <span class="k">def</span> <span class="nf">export</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;latex&#39;</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s1">&#39;pdflatex&#39;</span><span class="p">,</span>
+               <span class="n">template</span><span class="o">=</span><span class="s2">&quot;article&quot;</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="p">{}):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot; exports the current document - into latex for now &quot;&quot;&quot;</span>
+        <span class="n">lyx</span><span class="o">.</span><span class="n">exporting</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="c1"># open the notebook as version four, get its path and all its cells</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nb</span> <span class="o">=</span> <span class="n">nbformat</span><span class="o">.</span><span class="n">v4</span><span class="o">.</span><span class="n">new_notebook</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cwd</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">())</span>
+        <span class="n">cells</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">append_notebook</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="p">[],</span> <span class="n">child</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nb</span><span class="p">[</span><span class="s1">&#39;cells&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cells</span>
+        <span class="c1"># write it to a temp file</span>
+        <span class="n">nbformat</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nb</span><span class="p">,</span> <span class="s1">&#39;temp_notebook.ipynb&#39;</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+        <span class="c1"># now do the nb_convert to latex by executing</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nb</span> <span class="o">=</span> <span class="n">nbformat</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s1">&#39;temp_notebook.ipynb&#39;</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nb</span><span class="o">.</span><span class="n">metadata</span> <span class="o">+=</span> <span class="n">metadata</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">c</span> <span class="o">=</span> <span class="n">Config</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">ExecutePreprocessor</span><span class="o">.</span><span class="n">interrupt_on_timeout</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">ExecutePreprocessor</span><span class="o">.</span><span class="n">timeout</span> <span class="o">=</span> <span class="mi">600</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">template</span> <span class="o">=</span> <span class="n">bi</span><span class="o">.</span><span class="n">__templates__</span><span class="p">[</span><span class="n">template</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">fmt</span> <span class="o">==</span> <span class="s1">&#39;latex&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">export_latex</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="n">engine</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">fmt</span> <span class="o">==</span> <span class="s1">&#39;html&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">export_html</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="n">lyx</span><span class="o">.</span><span class="n">exporting</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="document.export_latex"><a class="viewcode-back" href="../index.html#document.document.export_latex">[docs]</a>    <span class="k">def</span> <span class="nf">export_latex</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s1">&#39;pdflatex&#39;</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot; exports to latex &quot;&quot;&quot;</span>
+        <span class="n">lyx</span><span class="o">.</span><span class="n">latex</span><span class="p">()</span>
+        <span class="n">lyx</span><span class="o">.</span><span class="n">markdown</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">bi</span><span class="o">.</span><span class="n">__formatter__</span> <span class="o">=</span> <span class="n">Latex</span>
+        <span class="n">bi</span><span class="o">.</span><span class="n">__need_latex__</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">LatexExporter</span><span class="o">.</span><span class="n">preprocessors</span> <span class="o">=</span> \
+            <span class="p">[</span><span class="s1">&#39;nbconvert.preprocessors.ExecutePreprocessor&#39;</span><span class="p">]</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;nilf.tplx&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">template</span><span class="p">)</span>
+        <span class="n">latex_exporter</span> <span class="o">=</span> <span class="n">LatexExporter</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="p">,</span> <span class="n">template_file</span><span class="o">=</span><span class="s1">&#39;nilf.tplx&#39;</span><span class="p">)</span>
+        <span class="p">(</span><span class="n">body</span><span class="p">,</span> <span class="n">resources</span><span class="p">)</span> <span class="o">=</span> <span class="n">latex_exporter</span><span class="o">.</span><span class="n">from_notebook_node</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nb</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;./&#39;</span> <span class="o">+</span> <span class="n">filename</span> <span class="o">+</span> <span class="s1">&#39;.tex&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">body</span><span class="p">)</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{engine}</span><span class="s1"> ./&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">engine</span><span class="o">=</span><span class="n">engine</span><span class="p">)</span> <span class="o">+</span> <span class="n">filename</span> <span class="o">+</span> <span class="s1">&#39;.tex&#39;</span><span class="p">)</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s1">&#39;bibtex ./&#39;</span> <span class="o">+</span> <span class="n">filename</span><span class="p">)</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{engine}</span><span class="s1"> ./&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">engine</span><span class="o">=</span><span class="n">engine</span><span class="p">)</span> <span class="o">+</span> <span class="n">filename</span> <span class="o">+</span> <span class="s1">&#39;.tex&#39;</span><span class="p">)</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{engine}</span><span class="s1"> ./&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">engine</span><span class="o">=</span><span class="n">engine</span><span class="p">)</span> <span class="o">+</span> <span class="n">filename</span> <span class="o">+</span> <span class="s1">&#39;.tex&#39;</span><span class="p">)</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s1">&#39;makeindex&#39;</span><span class="p">)</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{engine}</span><span class="s1"> ./&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">engine</span><span class="o">=</span><span class="n">engine</span><span class="p">)</span> <span class="o">+</span> <span class="n">filename</span> <span class="o">+</span> <span class="s1">&#39;.tex&#39;</span><span class="p">)</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s1">&#39;makeindex ./</span><span class="si">{fname}</span><span class="s1">.nlo -s nomencl.ist -o </span><span class="si">{fname}</span><span class="s1">.nls&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fname</span><span class="o">=</span><span class="n">filename</span><span class="p">))</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{engine}</span><span class="s1"> ./&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">engine</span><span class="o">=</span><span class="n">engine</span><span class="p">)</span> <span class="o">+</span> <span class="n">filename</span> <span class="o">+</span> <span class="s1">&#39;.tex&#39;</span><span class="p">)</span>
+        <span class="n">display</span><span class="p">(</span><span class="n">FileLink</span><span class="p">(</span><span class="s1">&#39;./&#39;</span> <span class="o">+</span> <span class="n">filename</span> <span class="o">+</span> <span class="s1">&#39;.pdf&#39;</span><span class="p">))</span>
+        <span class="n">display</span><span class="p">(</span><span class="n">FileLink</span><span class="p">(</span><span class="s1">&#39;./&#39;</span> <span class="o">+</span> <span class="n">filename</span> <span class="o">+</span> <span class="s1">&#39;.tex&#39;</span><span class="p">))</span>
+        <span class="c1">#lyx.latex(False)</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s1">&#39;temp_notebook.ipynb&#39;</span><span class="p">)</span></div>
+        <span class="c1">#os.remove(filename + &#39;.out&#39;)</span>
+        <span class="c1">#os.remove(filename + &#39;.log&#39;)</span>
+        <span class="c1">#os.remove(filename + &#39;.bbl&#39;)</span>
+        <span class="c1">#os.remove(filename + &#39;.aux&#39;)</span>
+        <span class="c1">#os.remove(filename + &#39;.blg&#39;)</span>
+
+<div class="viewcode-block" id="document.export_html"><a class="viewcode-back" href="../index.html#document.document.export_html">[docs]</a>    <span class="k">def</span> <span class="nf">export_html</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sa">r</span><span class="sd">&quot;&quot;&quot; exports to html &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">HTMLExporter</span><span class="o">.</span><span class="n">preprocessors</span> <span class="o">=</span> \
+            <span class="p">[</span><span class="s1">&#39;nbconvert.preprocessors.ExecutePreprocessor&#39;</span><span class="p">]</span></div></div>
+        <span class="c1">#html_exporter = HTMLExporter(config=c, template_file=&#39;noinputhtmlfull.tpl&#39;)</span>
+        <span class="c1">#(body, resources) = html_exporter.from_notebook_node(nb)</span>
+
+<span class="k">if</span> <span class="n">ip</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="nd">@magics_class</span>
+    <span class="k">class</span> <span class="nc">document_magics</span><span class="p">(</span><span class="n">Magics</span><span class="p">):</span>
+
+        <span class="nd">@line_cell_magic</span>
+        <span class="k">def</span> <span class="nf">doc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="p">,</span> <span class="n">cell</span><span class="p">):</span>
+            <span class="sd">&quot;&quot;&quot; call function of dissertation from a line magic &quot;&quot;&quot;</span>
+            <span class="n">cdoc</span> <span class="o">=</span> <span class="n">bi</span><span class="o">.</span><span class="n">__cdoc__</span>
+            <span class="c1"># sanitize the inputs</span>
+            <span class="n">arg</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">u</span><span class="s2">&quot;(</span><span class="se">\u2018</span><span class="s2">|</span><span class="se">\u2019</span><span class="s2">)&quot;</span><span class="p">,</span> <span class="s2">&quot;&#39;&quot;</span><span class="p">,</span> <span class="n">cell</span><span class="p">)</span>
+            <span class="n">arg</span> <span class="o">=</span> <span class="n">arg</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\&#39;\&#39;\&#39;</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\&quot;\&quot;\&quot;</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">cmd_str</span> <span class="o">=</span> <span class="s2">&quot;cdoc.</span><span class="si">{method}</span><span class="s2">(r</span><span class="se">\&#39;\&#39;\&#39;</span><span class="si">{arg}</span><span class="se">\&#39;\&#39;\&#39;</span><span class="s2">)&quot;</span> \
+                <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="n">line</span><span class="p">,</span> <span class="n">arg</span><span class="o">=</span><span class="n">arg</span><span class="p">)</span>
+            <span class="n">exec</span><span class="p">(</span><span class="n">cmd_str</span><span class="p">)</span>
+
+    <span class="n">ip</span><span class="o">.</span><span class="n">register_magics</span><span class="p">(</span><span class="n">document_magics</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2016, Alex Hagen.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
