@@ -131,6 +131,7 @@ class document(object):
             :todo: Make this into a Jinja2 class for more flexibility.
             :todo: make a context manager for the markdown so I can use ``with``
                 syntax
+
             :param str markdown: Markdown formatted text with possible Python
                 inclusions
             :returns str: Markdown formatted replaced text
@@ -199,6 +200,10 @@ class document(object):
         pass
 
     def replace_rel_paths(self, string, filename):
+        """ Replaces relative paths with an absolute path
+
+            :todo: make the relative path replacement more robust
+        """
         print filename
         print os.path.split(filename)
         # find all paths in the string with a regex
@@ -214,6 +219,14 @@ class document(object):
         return string
 
     def append_notebook(self, filename, cells, child=True):
+        """ Append a notebook (the whole notebook) to a point in a lyxithea
+            ``document``.  This works only if the notebook is also a
+            ``document``.
+
+            :param str filename: filename of ipynb to append
+            :param list cells: the cells that we'll append to
+            :param bool child: if the notebook we're appending is the child
+        """
         _nb = nbformat.read(self.find_first(filename), 4)
         fpath = os.path.abspath(os.path.dirname(self.find_first(filename)))
         cells.extend([nbformat.v4.new_code_cell("import os; os.chdir(\'%s\')" % fpath)])
