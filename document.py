@@ -276,6 +276,9 @@ class document(object):
                                         '\\end{abstract}'))
 
     def find_first(self, filename):
+        r""" find_first is an internal command for finding the first instance of
+            a document on the path
+        """
         for path in self._chapter_paths:
             for root, dirs, files in os.walk(path):
                 for extension in ["ipynb", "lyx"]:
@@ -285,6 +288,13 @@ class document(object):
                         return os.path.join(root, _fname)
 
     def bibliography(self, header_level=3, force_string=True, **kwargs):
+        r""" writes the bibliography to the document
+        
+            :param int header_level: defines the latex heading level of
+                the bibliography section
+            :param bool force_string: forces a latex string (not
+                IPython.html or IPython.latex) output
+        """
         return self._bib.bibliography(**kwargs)
 
     def add_to_cchap(self, string):
