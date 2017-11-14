@@ -19,6 +19,7 @@ from IPython.core.magics.code import CodeMagics
 import lyxithea as lyx
 import nbformat
 import re
+from pyg import twod as pyg2d
 import __builtins__ as bi
 import __init__ as init
 
@@ -127,6 +128,27 @@ class document(object):
         """
         lcls = ip.user_module.__dict__
         return lcls
+
+    def process_content(self, content, filename=None, latex=False,
+                        **kwargs):
+        if latex:
+            return content
+        if isinstance(content, str):
+            content = self.process_markdown(content)
+            latex_str = content
+            return latex_str
+        elif isinstance(content, pyg2d.pyg2d):
+            lyx.latex()
+            content.export(filename, force=True, sizes=['1'])
+            string = content.show(need_string=True, **kwargs)
+            return string
+        elif isinstance(content, pyg2d.svg):
+            lyx.latex()
+            string = content.show(width=self.width, need_string=True,
+                                  bbox=(self.width, self.height - 0.125),
+                                  **kwargs)
+            self.content[index] = string
+            return string
 
     def process_markdown(self, markdown):
         """ Looks for python parameter notation in a markdown string
@@ -289,7 +311,7 @@ class document(object):
 
     def bibliography(self, header_level=3, force_string=True, **kwargs):
         r""" writes the bibliography to the document
-        
+
             :param int header_level: defines the latex heading level of
                 the bibliography section
             :param bool force_string: forces a latex string (not
@@ -302,10 +324,10 @@ class document(object):
         #self._current_chapter += processed_string
         return display(bi.__formatter__(processed_string))
 
-    def add(self, string):
-        processed_string = self.process_markdown(string)
+    def add(self, string, **kwargs):
+        processed_string = self.process_content(string, **kwargs)
         #self._current_chapter += processed_string
-        return display(bi.__formatter__(processed_string))
+        return bi.__formatter__(processed_string)
 
     def appendix_on(self):
         r""" ``appendix_on`` starts a section of text sent to reserved text for
