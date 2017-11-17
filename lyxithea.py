@@ -11,6 +11,7 @@ import tempfile
 import nbformat
 import psgv.psgv as psgv
 import re
+import numpy as np
 
 todos = psgv.psgv('__todos__')
 todos.val = []
@@ -147,7 +148,9 @@ def threeparttable(array, headers=None, label=None, caption='', floatfmt=".2f",
         return display(Latex(strlatex))
 
 def table(array, caption='', label=None, headers=None, floatfmt=".2f",
-          sideways=False, need_string=False):
+          sideways=False, need_string=False, rotate=False):
+    if rotate:
+        array = np.rot90(array)
     if label is None:
         label = __tabcount__.val
         #print __tabcount__
@@ -157,6 +160,7 @@ def table(array, caption='', label=None, headers=None, floatfmt=".2f",
         env = 'table'
     if not all(isinstance(el, list) for el in headers):
         headers = [headers]
+    print headers
     if run_from_ipython() and not need_latex():
         table = tabulate.tabulate(array, headers=headers, tablefmt='html',
                          numalign='center', stralign='center',
