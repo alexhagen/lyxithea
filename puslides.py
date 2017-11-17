@@ -33,6 +33,12 @@ class puslides(lyxdoc.document):
         self.content_two = None
         self.content = [None, None, None, None, None, None, None]
         self.slide = 1
+        self._title = None
+        self._affiliation = None
+        self._author = None
+        self._venue = None
+        self._subtitle = None
+        self._city = None
         super(puslides, self).__init__(bib=bib)
         bi.__cslides__ = self
 
@@ -58,21 +64,27 @@ class puslides(lyxdoc.document):
 
     def title(self, title):
         self._title = title
+        self.finish_title()
 
     def author(self, author):
         self._author = author
+        self.finish_title()
 
     def affiliation(self, affiliation):
         self._affiliation = affiliation
+        self.finish_title()
 
     def subtitle(self, subtitle):
         self._subtitle = subtitle
+        self.finish_title()
 
     def venue(self, venue):
         self._venue = venue
+        self.finish_title()
 
     def city(self, city):
         self._city = city
+        self.finish_title()
 
     def part(self, title):
         self.current_part = title
@@ -340,6 +352,41 @@ class puslides(lyxdoc.document):
 
     def pocket_slides(self):
         display(Latex('\\pocketslides\n'))
+
+    def finish_title(self):
+        # check if all the title slide stuff is done
+        if self._title is not None and self._subtitle is not None and \
+            self._author is not None and self._venue is not None and \
+            self._affiliation is not None and self._city is not None:
+            self.clear_slide()
+            if not lyx.is_exporting():
+                preamble_str = '\def\\theauthorsforbottom{%s}\n' % self._author
+                preamble_str += '\\providecommand{\\tightlist}{\\renewcommand{\\\\}{\\vspace{0pt}}}\n'
+                # copy the classfile over
+                shutil.copy(osp.join(self.modulepath, 'puslides.cls'), './')
+                prelatex_str = '\\title{%s}\n' % self._title
+                prelatex_str += '\subtitle{%s}\n' % self._subtitle
+                prelatex_str += '\\author{%s}\n' % self._author
+                prelatex_str += '\\venue{%s}\n' % self._venue
+                prelatex_str += '\\city{%s}\n' % self._city
+                prelatex_str += '\\maketitle\n'
+                # copy the css files over
+                shutil.rmtree('fonts/', ignore_errors=True)
+                shutil.rmtree('css/', ignore_errors=True)
+                shutil.copytree(osp.join(self.modulepath, 'css/'), 'css/')
+                # copy the fonts over
+                shutil.copytree(osp.join(self.modulepath, 'fonts/'), 'fonts/')
+                thisslide = mwe.mwe(prelatex_str, texcls='puslides',
+                                    texclsopts={'english': None, '20pt': None},
+                                    preamble=preamble_str)
+                try:
+                    thisslide.show(alone=True, filename='slide_%d' % self.slide,
+                                   engine='lualatex')
+                except IOError:
+                    display(HTML('<h2>Latex Error</h2>'))
+                self.slide += 1
+                shutil.rmtree('fonts/')
+                shutil.rmtree('css/')
 
 
     def finish_slide(self, latexname, numargs):
