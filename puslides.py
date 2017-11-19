@@ -28,8 +28,11 @@ def cslides():
 class puslides(lyxdoc.document):
     """ A purdue slides class """
     slidetypes = {'onecolumnslide': {'size': [(7.5, 5.25)], 'number': 1},
-                       'twoclumnslide': {'size': [(3.375, 5.25), (3.375, 5.25)],
-                                         'number': 2}}
+                  'twocolumnslide': {'size': [(3.375, 5.25), (3.375, 5.25)],
+                                     'number': 2},
+                  'twocolumnshiftleft': {'size': [], 'number': 2},
+                  'twocolumnshiftright': {'size': [], 'number': 2}
+                 }
     def __init__(self, bib=None):
         self.modulepath = osp.dirname(__file__)
         self.content_one = None
@@ -153,6 +156,9 @@ class puslides(lyxdoc.document):
         self.slide_title = content
         self.finish_slide(self._slidetype, 1)
 
+    def t(self, content):
+        self.slidetitle(content)
+
     def slidecontent(self, content, **kwargs):
         w, h = self.slidetypes[self._slidetype]['size'][self._contentno]
         self.size(w, h)
@@ -160,7 +166,13 @@ class puslides(lyxdoc.document):
         self.finish_slide(self._slidetype, self.slidetypes[self._slidetype]['number'])
         self._contentno += 1
 
+    def c(self, content, **kwargs):
+        self.slidecontent(content, **kwargs)
+
     ### One Content Slides
+
+    def onecolumn(self):
+        self.slidetype('onecolumnslide')
 
     def onecolumntitle(self, content):
         self.slide_title = content
@@ -172,6 +184,9 @@ class puslides(lyxdoc.document):
         self.finish_slide('onecolumnslide', 1)
 
     ### Two content slides
+
+    def twocolumn(self):
+        self.slidetype('twocolumnslide')
 
     def twocolumntitle(self, content):
         self.slide_title = content
@@ -187,6 +202,9 @@ class puslides(lyxdoc.document):
         self.process_content(content, 1, **kwargs)
         self.finish_slide('twocolumnslide', 2)
 
+    def twocolumnshiftleft(self):
+        self.slidetype('twocolumnshiftleft')
+
     def twocolumnshiftlefttitle(self, content):
         self.slide_title = content
         self.finish_slide('twocolumnshiftleft', 2)
@@ -200,6 +218,9 @@ class puslides(lyxdoc.document):
         self.size(4.5, 5.25)
         self.process_content(content, 1, **kwargs)
         self.finish_slide('twocolumnshiftleft', 2)
+
+    def twocolumnshiftright(self):
+        self.slidetype('twocolumnshiftright')
 
     def twocolumnshiftrighttitle(self, content):
         self.slide_title = content
@@ -334,6 +355,8 @@ class puslides(lyxdoc.document):
         self.finish_slide('tworowrightsidebar', 3)
 
     ### Four arguments
+    def tworowtwocolumn(self):
+        self.slidetype('tworowtwocolumn')
 
     def tworowtwocolumntitle(self, content, **kwargs):
         self.slide_title = content
@@ -358,6 +381,8 @@ class puslides(lyxdoc.document):
         self.size(3.375, 2.375)
         self.process_content(content, 3, **kwargs)
         self.finish_slide('tworowtwocolumn', 4)
+
+    ### Generic things
 
     def size(self, width, height):
         self.width = width
