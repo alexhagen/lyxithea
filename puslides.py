@@ -27,6 +27,9 @@ def cslides():
 
 class puslides(lyxdoc.document):
     """ A purdue slides class """
+    slidetypes = {'onecolumnslide': {'size': [(7.5, 5.25)], 'number': 1},
+                       'twoclumnslide': {'size': [(3.375, 5.25), (3.375, 5.25)],
+                                         'number': 2}}
     def __init__(self, bib=None):
         self.modulepath = osp.dirname(__file__)
         self.content_one = None
@@ -39,6 +42,7 @@ class puslides(lyxdoc.document):
         self._venue = None
         self._subtitle = None
         self._city = None
+        self._slidetype = None
         super(puslides, self).__init__(bib=bib)
         bi.__cslides__ = self
 
@@ -138,6 +142,23 @@ class puslides(lyxdoc.document):
     def clear_slide(self):
         self.slide_title = None
         self.content = [None for x in self.content]
+
+    ### generic
+
+    def slidetype(self, slidetype='onecolumnslide'):
+        self._slidetype = slidetype
+        self._contentno = 0
+
+    def slidetitle(self, content):
+        self.slide_title = content
+        self.finish_slide(self._slidetype, 1)
+
+    def slidecontent(self, content, **kwargs):
+        w, h = self.slidetypes[self._slidetype]['size'][self._contentno]
+        self.size(w, h)
+        self.process_content(content, self._contentno, **kwargs)
+        self.finish_slide(self._slidetype, self.slidetypes[self._slidetype]['number'])
+        self._contentno += 1
 
     ### One Content Slides
 
