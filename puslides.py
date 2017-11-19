@@ -178,7 +178,7 @@ class puslides(lyxdoc.document):
         self.slide_title = content
         self.finish_slide('onecolumnslide', 1)
 
-    def onecolumn(self, content, **kwargs):
+    def onecolumn1(self, content, **kwargs):
         self.size(7.5, 5.25)
         self.process_content(content, 0, **kwargs)
         self.finish_slide('onecolumnslide', 1)
