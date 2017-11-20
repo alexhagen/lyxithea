@@ -232,11 +232,11 @@
     \end{minipage}
   \end{textblock}
     % Confidential
-  \begin{textblock}{3}(3,6.25)
-    \begin{minipage}[t][0.30 in][c]{3 in}\centering
-      \small{\color{grey60} Confidential - Not for Dissemination}
-    \end{minipage}
-  \end{textblock}
+  %\begin{textblock}{3}(3,6.25)
+  %  \begin{minipage}[t][0.30 in][c]{3 in}\centering
+  %    \small{\color{grey60} Confidential - Not for Dissemination}
+  %  \end{minipage}
+  %\end{textblock}
   % Author and Venue
   \begin{textblock}{4}(4.85,6.54)
     \begin{minipage}[t][0.30 in][c]{4 in}\raggedright
@@ -272,11 +272,11 @@
     \end{minipage}
   \end{textblock}
     % Confidential
-  \begin{textblock}{3}(3,6.25)
-    \begin{minipage}[t][0.30 in][c]{3 in}\centering
-      \small{\color{grey60} Confidential - Not for Dissemination}
-    \end{minipage}
-  \end{textblock}
+  %\begin{textblock}{3}(3,6.25)
+  %  \begin{minipage}[t][0.30 in][c]{3 in}\centering
+  %    \small{\color{grey60} Confidential - Not for Dissemination}
+  %  \end{minipage}
+  %\end{textblock}
   % Author and Venue
   \begin{textblock}{4}(4.85,6.54)
     \begin{minipage}[t][0.30 in][c]{4 in}\raggedright

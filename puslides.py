@@ -158,11 +158,12 @@ class puslides(lyxdoc.document):
 
     def slidetype(self, slidetype='onecolumnslide'):
         self._slidetype = slidetype
+        self.content = [None, None, None, None, None, None, None]
         self._contentno = 0
 
     def slidetitle(self, content):
         self.slide_title = content
-        self.finish_slide(self._slidetype, 1)
+        self.finish_slide(self._slidetype, self.slidetypes[self._slidetype]['number'])
 
     def t(self, content):
         self.slidetitle(content)
