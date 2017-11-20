@@ -30,8 +30,16 @@ class puslides(lyxdoc.document):
     slidetypes = {'onecolumnslide': {'size': [(7.5, 5.25)], 'number': 1},
                   'twocolumnslide': {'size': [(3.375, 5.25), (3.375, 5.25)],
                                      'number': 2},
-                  'twocolumnshiftleft': {'size': [], 'number': 2},
-                  'twocolumnshiftright': {'size': [], 'number': 2}
+                  'twocolumnshiftleft': {'size': [(2.25, 5.25), (4.5, 5.25)], 'number': 2},
+                  'twocolumnshiftright': {'size': [(4.5, 5.25), (2.25, 5.25)], 'number': 2},
+                  'tworow': {'size': [(7.5, 2.375), (7.5, 2.375)], 'number': 2},
+                  'tworowpushdown': {'size': [(7.5, 3.75), (7.5, 1.125)], 'number': 2},
+                  'tworowpushup': {'size': [(7.5, 1.125), (7.4, 4.25)], 'number': 2},
+                  'tworowtoptwocolumn': {'size': [(3.375, 2.375), (3.375, 2.375), (7.5, 2.375)], 'number': 3},
+                  'tworowbottomtwocolumn': {'size': [(3.375, 2.375), (3.375, 2.375), (7.5, 2.375)], 'number': 3},
+                  'tworowleftsidebar': {'size': [(4.5, 2.375), (4.5, 2.375), (2.25, 5.125)], 'number': 3},
+                  'tworowrightsidebar': {'size': [(4.5, 2.375), (4.5, 2.375), (2.25, 5.125)], 'number': 3},
+                  'tworowtwocolumn': {'size': [(3.375, 2.375), (3.375, 2.375), (3.375, 2.375), (3.375, 2.375)], 'number': 4}
                  }
     def __init__(self, bib=None):
         self.modulepath = osp.dirname(__file__)
@@ -168,6 +176,47 @@ class puslides(lyxdoc.document):
 
     def c(self, content, **kwargs):
         self.slidecontent(content, **kwargs)
+
+    ### All Slide Types
+
+    def listslidetypes(self):
+        print self.slidetypes.keys()
+
+    def onecolumnslide(self):
+        self.slidetype('onecolumnslide')
+
+    def twocolumnslide(self):
+        self.slidetype('twocolumnslide')
+
+    def twocolumnshiftleft(self):
+        self.slidetype('twocolumnshiftleft')
+
+    def twocolumnshiftright(self):
+        self.slidetype('twocolumnshiftright')
+
+    def tworow(self):
+        self.slidetype('tworow')
+
+    def tworowpushdown(self):
+        self.slidetype('tworowpushdown')
+
+    def tworowpushup(self):
+        self.slidetype('tworowpushup')
+
+    def tworowtoptwocolumn(self):
+        self.slidetype('tworowtoptwocolumn')
+
+    def tworowbottomtwocolumn(self):
+        self.slidetype('tworowbottomtwocolumn')
+
+    def tworowleftsidebar(self):
+        self.slidetype('tworowleftsidebar')
+
+    def tworowrightsidebar(self):
+        self.slidetype('tworowrightsidebar')
+
+    def tworowtwocolumn(self):
+        self.slidetype('tworowtwocolumn')
 
     ### One Content Slides
 
