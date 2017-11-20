@@ -4,7 +4,7 @@
 
 
 %% Load base
-\LoadClass[10pt]{book}
+\LoadClass[english, 10pt]{book}
 
 \RequirePackage{graphicx}
 \RequirePackage{color}
@@ -35,10 +35,12 @@
 \setcounter{tocdepth}{3}
 \usepackage{float}
 \usepackage{units}
+\usepackage{hyperref}
 \usepackage{graphicx}
 \PassOptionsToPackage{version=3}{mhchem}
 \usepackage{mhchem}
 \usepackage[numbers]{natbib}
+%\usepackage{biblatex}
 \usepackage{luatex85}
 \usepackage{pgf}
 \usepackage{xcolor}
@@ -52,6 +54,8 @@
 \usepackage{xunicode}
 \usepackage{polyglossia}
 \setdefaultlanguage[variant=american]{english}
+\usepackage{bibentry}
+\nobibliography*
 \usepackage{makecell}
 
 \definecolor{green}{HTML}{5C8727}
@@ -767,4 +771,5 @@
 \newcommand{\heading}[1]{\LARGE{\champion #1}}
 
 \renewcommand{\subsection}[1]{\heading{#1}}
+\renewcommand{\subsubsection}[1]{\Large{\champion #1}}
 \endinput

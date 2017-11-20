@@ -490,7 +490,7 @@ __puslides_template__ = r"""((*- extends 'article.tplx' -*))
 ((* set cell_style = 'style_bw_python.tplx' *))
 
 ((* block docclass *))
-\documentclass[english,20pt]{puslides}
+\documentclass[american,20pt]{puslides}
 ((* endblock docclass *))
 
 ((* block margins *))

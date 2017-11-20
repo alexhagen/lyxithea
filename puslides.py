@@ -34,7 +34,7 @@ class puslides(lyxdoc.document):
                   'twocolumnshiftright': {'size': [(4.5, 5.25), (2.25, 5.25)], 'number': 2},
                   'tworow': {'size': [(7.5, 2.375), (7.5, 2.375)], 'number': 2},
                   'tworowpushdown': {'size': [(7.5, 3.75), (7.5, 1.125)], 'number': 2},
-                  'tworowpushup': {'size': [(7.5, 1.125), (7.4, 4.25)], 'number': 2},
+                  'tworowpushup': {'size': [(7.5, 1.125), (7.4, 3.75)], 'number': 2},
                   'tworowtoptwocolumn': {'size': [(3.375, 2.375), (3.375, 2.375), (7.5, 2.375)], 'number': 3},
                   'tworowbottomtwocolumn': {'size': [(3.375, 2.375), (3.375, 2.375), (7.5, 2.375)], 'number': 3},
                   'tworowleftsidebar': {'size': [(4.5, 2.375), (4.5, 2.375), (2.25, 5.125)], 'number': 3},
@@ -323,7 +323,7 @@ class puslides(lyxdoc.document):
         self.finish_slide('tworowpushup', 2)
 
     def tworowpushup2(self, content, **kwargs):
-        self.size(7.5, 4.25)
+        self.size(7.5, 3.75)
         self.process_content(content, 1, **kwargs)
         self.finish_slide('tworowpushup', 2)
 

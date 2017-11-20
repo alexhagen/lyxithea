@@ -342,7 +342,7 @@ class bib(object):
             else:
                 return display(HTML(pcitestr))
         elif need_latex():
-            return r'\fullcite{%s}' % label
+            return r'\bibentry{%s}' % label
 
     def pcite(self, label):
         if label not in self.bib_dict.keys():
