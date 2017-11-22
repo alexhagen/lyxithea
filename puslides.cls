@@ -48,7 +48,7 @@
 \usepackage{xparse}
 \usepackage{soul}
 \usepackage{tikz}
-\usetikzlibrary{shapes,arrows,calc,positioning}
+\usetikzlibrary{shapes,arrows,calc,positioning, automata}
 \usepackage{pdfpages}
 \usepackage{float}
 \usepackage{xunicode}
