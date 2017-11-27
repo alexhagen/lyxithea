@@ -4,7 +4,7 @@
 
 
 %% Load base
-\LoadClass[10pt]{book}
+\LoadClass[english, 10pt]{book}
 
 \RequirePackage{graphicx}
 \RequirePackage{color}
@@ -35,10 +35,12 @@
 \setcounter{tocdepth}{3}
 \usepackage{float}
 \usepackage{units}
+\usepackage{hyperref}
 \usepackage{graphicx}
 \PassOptionsToPackage{version=3}{mhchem}
 \usepackage{mhchem}
 \usepackage[numbers]{natbib}
+%\usepackage{biblatex}
 \usepackage{luatex85}
 \usepackage{pgf}
 \usepackage{xcolor}
@@ -46,12 +48,14 @@
 \usepackage{xparse}
 \usepackage{soul}
 \usepackage{tikz}
-\usetikzlibrary{shapes,arrows,calc,positioning}
+\usetikzlibrary{shapes,arrows,calc,positioning, automata}
 \usepackage{pdfpages}
 \usepackage{float}
 \usepackage{xunicode}
 \usepackage{polyglossia}
 \setdefaultlanguage[variant=american]{english}
+\usepackage{bibentry}
+\nobibliography*
 \usepackage{makecell}
 
 \definecolor{green}{HTML}{5C8727}
@@ -228,11 +232,11 @@
     \end{minipage}
   \end{textblock}
     % Confidential
-  \begin{textblock}{3}(3,6.25)
-    \begin{minipage}[t][0.30 in][c]{3 in}\centering
-      \small{\color{grey60} Confidential - Not for Dissemination}
-    \end{minipage}
-  \end{textblock}
+  %\begin{textblock}{3}(3,6.25)
+  %  \begin{minipage}[t][0.30 in][c]{3 in}\centering
+  %    \small{\color{grey60} Confidential - Not for Dissemination}
+  %  \end{minipage}
+  %\end{textblock}
   % Author and Venue
   \begin{textblock}{4}(4.85,6.54)
     \begin{minipage}[t][0.30 in][c]{4 in}\raggedright
@@ -268,11 +272,11 @@
     \end{minipage}
   \end{textblock}
     % Confidential
-  \begin{textblock}{3}(3,6.25)
-    \begin{minipage}[t][0.30 in][c]{3 in}\centering
-      \small{\color{grey60} Confidential - Not for Dissemination}
-    \end{minipage}
-  \end{textblock}
+  %\begin{textblock}{3}(3,6.25)
+  %  \begin{minipage}[t][0.30 in][c]{3 in}\centering
+  %    \small{\color{grey60} Confidential - Not for Dissemination}
+  %  \end{minipage}
+  %\end{textblock}
   % Author and Venue
   \begin{textblock}{4}(4.85,6.54)
     \begin{minipage}[t][0.30 in][c]{4 in}\raggedright
@@ -767,4 +771,5 @@
 \newcommand{\heading}[1]{\LARGE{\champion #1}}
 
 \renewcommand{\subsection}[1]{\heading{#1}}
+\renewcommand{\subsubsection}[1]{\Large{\champion #1}}
 \endinput
