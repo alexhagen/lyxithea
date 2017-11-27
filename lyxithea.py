@@ -150,7 +150,7 @@ def threeparttable(array, headers=None, label=None, caption='', floatfmt=".2f",
 def table(array, caption='', label=None, headers=None, floatfmt=".2f",
           sideways=False, need_string=False, rotate=False):
     if rotate:
-        array = np.fliplr(np.rot90(array))
+        array = np.fliplr(np.rot90(np.rot90(np.rot90(array))))
     if label is None:
         label = __tabcount__.val
         #print __tabcount__
