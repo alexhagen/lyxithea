@@ -758,6 +758,47 @@
   \puhf
   }
 
+  \newcommand{\fourcolumn}[5]
+    {
+    \newpage
+    \ThisCenterWallPaper{1}{css/Formal_Slide_Outer_Data.pdf}
+    \thispagestyle{fancy}
+    \renewcommand{\headrulewidth}{0pt}
+    \fancyhf{}
+
+    \def\nameofsection{#5}
+    \hspace{1in}
+    % Top Left
+    \begin{textblock}{1.625}(0.75,1.0)
+      \begin{minipage}[s][5.25 in][c]{1.625 in}\raggedright { \LARGE
+        #1
+      }
+      \end{minipage}
+    \end{textblock}
+    % Bottom Left
+    \begin{textblock}{1.625}(2.5,1.0)
+      \begin{minipage}[s][5.25 in][c]{1.625 in}\raggedright { \LARGE
+        #2
+      }
+      \end{minipage}
+    \end{textblock}
+    % Top Right
+    \begin{textblock}{1.625}(4.75,1.0)
+      \begin{minipage}[s][5.25 in][c]{1.625 in}\raggedright { \LARGE
+        #3
+      }
+      \end{minipage}
+    \end{textblock}
+    % Bottom Right
+    \begin{textblock}{1.625}(6.5,1.0)
+      \begin{minipage}[s][5.25 in][c]{1.625 in}\raggedright { \LARGE
+        #4
+      }
+      \end{minipage}
+    \end{textblock}
+    \puhf
+    }
+
 %% Bibliography stuff
 
 \def\bibname{}

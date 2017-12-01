@@ -39,7 +39,8 @@ class puslides(lyxdoc.document):
                   'tworowbottomtwocolumn': {'size': [(3.375, 2.375), (3.375, 2.375), (7.5, 2.375)], 'number': 3},
                   'tworowleftsidebar': {'size': [(4.5, 2.375), (4.5, 2.375), (2.25, 5.125)], 'number': 3},
                   'tworowrightsidebar': {'size': [(4.5, 2.375), (4.5, 2.375), (2.25, 5.125)], 'number': 3},
-                  'tworowtwocolumn': {'size': [(3.375, 2.375), (3.375, 2.375), (3.375, 2.375), (3.375, 2.375)], 'number': 4}
+                  'tworowtwocolumn': {'size': [(3.375, 2.375), (3.375, 2.375), (3.375, 2.375), (3.375, 2.375)], 'number': 4},
+                  'fourcolumn': {'size': [(1.625, 5.25), (1.625, 5.25), (1.625, 5.25), (1.625, 5.25)], 'number': 4}
                  }
     def __init__(self, bib=None):
         self.modulepath = osp.dirname(__file__)
@@ -431,6 +432,33 @@ class puslides(lyxdoc.document):
         self.size(3.375, 2.375)
         self.process_content(content, 3, **kwargs)
         self.finish_slide('tworowtwocolumn', 4)
+
+    def fourcolumn(self):
+        self.slidetype('fourcolumn')
+
+    def fourcolumntitle(self, content, **kwargs):
+        self.slide_title = content
+        self.finish_slide('fourcolumn', 4)
+
+    def fourcolumn1(self, content, **kwargs):
+        self.size(1.625, 5.25)
+        self.process_content(content, 0, **kwargs)
+        self.finish_slide('fourcolumn', 4)
+
+    def fourcolumn2(self, content, **kwargs):
+        self.size(1.625, 5.25)
+        self.process_content(content, 1, **kwargs)
+        self.finish_slide('fourcolumn', 4)
+
+    def fourcolumn3(self, content, **kwargs):
+        self.size(1.625, 5.25)
+        self.process_content(content, 2, **kwargs)
+        self.finish_slide('fourcolumn', 4)
+
+    def fourcolumn4(self, content, **kwargs):
+        self.size(1.625, 5.25)
+        self.process_content(content, 3, **kwargs)
+        self.finish_slide('fourcolumn', 4)
 
     ### Generic things
 
