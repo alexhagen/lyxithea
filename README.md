@@ -34,3 +34,11 @@ and then, we can use the library within any script by using
 ```python
 
 ```
+
+## Upcoming Features and Inspiration
+
+- [https://stackoverflow.com/questions/37154329/jupyter-notebook-command-for-hide-the-output-of-a-cell](https://stackoverflow.com/questions/37154329/jupyter-notebook-command-for-hide-the-output-of-a-cell)
+- [https://stackoverflow.com/questions/33159518/collapse-cell-in-jupyter-notebook](https://stackoverflow.com/questions/33159518/collapse-cell-in-jupyter-notebook)
+- [https://www.dataquest.io/blog/jupyter-notebook-tips-tricks-shortcuts/](https://www.dataquest.io/blog/jupyter-notebook-tips-tricks-shortcuts/)
+- [https://python-docx.readthedocs.io/en/latest/](https://python-docx.readthedocs.io/en/latest/)
+- [https://github.com/jupyter/nbconvert/issues/121](https://github.com/jupyter/nbconvert/issues/121)
