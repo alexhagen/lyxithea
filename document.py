@@ -79,6 +79,15 @@ class document(object):
         self._data_paths = []
         bi.__cdoc__ = self
 
+    def title(self, title):
+        self._title = title
+
+    def author(self, author):
+        self._author = author
+
+    def affiliation(self, affiliation):
+        self._affiliation = affiliation
+
     @staticmethod
     def check_chapter_path(path):
         """ Checks if the chapter path is a legitimate path
@@ -144,11 +153,8 @@ class document(object):
             return string
         elif isinstance(content, pyg2d.svg):
             lyx.latex()
-            string = content.show(width=self.width, need_string=True,
-                                  bbox=(self.width, self.height - 0.125),
-                                  **kwargs)
-            self.content[index] = string
-            return string
+            string = content.show(need_string=True, **kwargs)
+            return Latex(string)
 
     def process_markdown(self, markdown):
         """ Looks for python parameter notation in a markdown string

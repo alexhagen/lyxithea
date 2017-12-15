@@ -25,26 +25,26 @@ def cdoc():
 
 
 class article(lyxdoc.document):
-    """ A two column article class """
+    """ A one column article class """
     def __init__(self, bib=None):
         self.modulepath = osp.dirname(__file__)
-        super(article2, self).__init__(bib=bib)
+        super(article, self).__init__(bib=bib)
         bi.__cdoc__ = self
 
     def export(self, filename, engine='pdflatex'):
         metadata = {"author": self._author, "title": self._title,
                     "affiliation": self._affiliation}
-        super(article2, self).export(filename=filename, fmt='latex',
-                                     engine=engine, template='article2',
+        super(article, self).export(filename=filename, fmt='latex',
+                                     engine=engine, template='article',
                                      metadata=metadata)
 
 
 @magics_class
-class article2_magics(Magics):
+class article_magics(Magics):
 
     @line_cell_magic
-    def art2(self, line, cell):
-        """ call function of article2 from a line magic """
+    def art(self, line, cell):
+        """ call function of article from a line magic """
         cdoc = bi.__cdoc__
         # sanitize the inputs
         arg = re.sub(u"(\u2018|\u2019)", "'", cell)
@@ -53,4 +53,4 @@ class article2_magics(Magics):
             .format(method=line, arg=arg)
         exec(cmd_str)
 
-ip.register_magics(article2_magics)
+ip.register_magics(article_magics)
