@@ -126,6 +126,7 @@
 <span class="kn">import</span> <span class="nn">nbformat</span>
 <span class="kn">import</span> <span class="nn">psgv.psgv</span> <span class="k">as</span> <span class="nn">psgv</span>
 <span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="n">todos</span> <span class="o">=</span> <span class="n">psgv</span><span class="o">.</span><span class="n">psgv</span><span class="p">(</span><span class="s1">&#39;__todos__&#39;</span><span class="p">)</span>
 <span class="n">todos</span><span class="o">.</span><span class="n">val</span> <span class="o">=</span> <span class="p">[]</span>
@@ -262,7 +263,9 @@
         <span class="k">return</span> <span class="n">display</span><span class="p">(</span><span class="n">Latex</span><span class="p">(</span><span class="n">strlatex</span><span class="p">))</span></div>
 
 <div class="viewcode-block" id="table"><a class="viewcode-back" href="../index.html#lyxithea.table">[docs]</a><span class="k">def</span> <span class="nf">table</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">caption</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">floatfmt</span><span class="o">=</span><span class="s2">&quot;.2f&quot;</span><span class="p">,</span>
-          <span class="n">sideways</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">need_string</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+          <span class="n">sideways</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">need_string</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">rotate</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">rotate</span><span class="p">:</span>
+        <span class="n">array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fliplr</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">rot90</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">rot90</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">rot90</span><span class="p">(</span><span class="n">array</span><span class="p">))))</span>
     <span class="k">if</span> <span class="n">label</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">label</span> <span class="o">=</span> <span class="n">__tabcount__</span><span class="o">.</span><span class="n">val</span>
         <span class="c1">#print __tabcount__</span>
@@ -272,6 +275,7 @@
         <span class="n">env</span> <span class="o">=</span> <span class="s1">&#39;table&#39;</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">el</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="k">for</span> <span class="n">el</span> <span class="ow">in</span> <span class="n">headers</span><span class="p">):</span>
         <span class="n">headers</span> <span class="o">=</span> <span class="p">[</span><span class="n">headers</span><span class="p">]</span>
+    <span class="nb">print</span> <span class="n">headers</span>
     <span class="k">if</span> <span class="n">run_from_ipython</span><span class="p">()</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">need_latex</span><span class="p">():</span>
         <span class="n">table</span> <span class="o">=</span> <span class="n">tabulate</span><span class="o">.</span><span class="n">tabulate</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">tablefmt</span><span class="o">=</span><span class="s1">&#39;html&#39;</span><span class="p">,</span>
                          <span class="n">numalign</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">stralign</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
@@ -423,6 +427,38 @@
                 <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">bib_db</span><span class="o">.</span><span class="n">entries</span><span class="p">:</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">bib_dict</span><span class="p">[</span><span class="n">entry</span><span class="p">[</span><span class="s1">&#39;ID&#39;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">entry</span></div>
 
+<div class="viewcode-block" id="bib.fullcite"><a class="viewcode-back" href="../index.html#lyxithea.bib.fullcite">[docs]</a>    <span class="k">def</span> <span class="nf">fullcite</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">label</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">bib_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="n">pcitestr</span> <span class="o">=</span> <span class="s1">&#39;\[</span><span class="si">%s</span><span class="s1">\]&#39;</span> <span class="o">%</span> <span class="n">label</span>
+            <span class="n">todo</span><span class="p">(</span><span class="s1">&#39;fix </span><span class="si">{citation}</span><span class="s1"> citation&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">citation</span><span class="o">=</span><span class="n">label</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">need_markdown</span><span class="p">():</span>
+                <span class="k">return</span> <span class="n">pcitestr</span>
+            <span class="k">elif</span> <span class="n">need_latex</span><span class="p">():</span>
+                <span class="k">return</span> <span class="n">pcitestr</span><span class="c1"># r&#39;\cite{%s}&#39; % label</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">display</span><span class="p">(</span><span class="n">HTML</span><span class="p">(</span><span class="n">pcitestr</span><span class="p">))</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">need_latex</span><span class="p">():</span>
+            <span class="n">d</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bib_dict</span><span class="p">[</span><span class="n">label</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">label</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cited_labels</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">cited_labels</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">label</span><span class="p">])</span>
+            <span class="n">pcitestr</span> <span class="o">=</span> <span class="s1">&#39;(&#39;</span>
+            <span class="n">pcitestr</span> <span class="o">+=</span> <span class="s1">&#39;&lt;a href=&quot;</span><span class="si">{link}</span><span class="s1">&quot;&gt;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">link</span><span class="o">=</span><span class="s1">&#39;#&#39;</span> <span class="o">+</span> <span class="n">label</span><span class="p">)</span>
+            <span class="n">pcitestr</span> <span class="o">+=</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;author&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">partition</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;author&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="n">pcitestr</span> <span class="o">+=</span> <span class="s1">&#39; et. al.&#39;</span>
+            <span class="n">pcitestr</span> <span class="o">+=</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span>
+            <span class="n">pcitestr</span> <span class="o">+=</span> <span class="s1">&#39;&lt;/a&gt;&#39;</span>
+            <span class="n">pcitestr</span> <span class="o">+=</span> <span class="s1">&#39;)&#39;</span>
+            <span class="n">pcitestr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">html_citation</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">need_markdown</span><span class="p">():</span>
+                <span class="k">return</span> <span class="n">pcitestr</span>
+            <span class="k">elif</span> <span class="n">need_latex</span><span class="p">():</span>
+                <span class="k">return</span> <span class="n">display</span><span class="p">(</span><span class="n">Latex</span><span class="p">(</span><span class="s1">&#39;\[</span><span class="si">%s</span><span class="s1">\]&#39;</span> <span class="o">%</span> <span class="n">label</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">display</span><span class="p">(</span><span class="n">HTML</span><span class="p">(</span><span class="n">pcitestr</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="n">need_latex</span><span class="p">():</span>
+            <span class="k">return</span> <span class="sa">r</span><span class="s1">&#39;\bibentry{</span><span class="si">%s</span><span class="s1">}&#39;</span> <span class="o">%</span> <span class="n">label</span></div>
+
 <div class="viewcode-block" id="bib.pcite"><a class="viewcode-back" href="../index.html#lyxithea.bib.pcite">[docs]</a>    <span class="k">def</span> <span class="nf">pcite</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">label</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">bib_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
             <span class="n">pcitestr</span> <span class="o">=</span> <span class="s1">&#39;\[</span><span class="si">%s</span><span class="s1">\]&#39;</span> <span class="o">%</span> <span class="n">label</span>
@@ -454,38 +490,43 @@
         <span class="k">elif</span> <span class="n">need_latex</span><span class="p">():</span>
             <span class="k">return</span> <span class="sa">r</span><span class="s1">&#39;\cite{</span><span class="si">%s</span><span class="s1">}&#39;</span> <span class="o">%</span> <span class="n">label</span></div>
 
-<div class="viewcode-block" id="bib.bibliography"><a class="viewcode-back" href="../index.html#lyxithea.bib.bibliography">[docs]</a>    <span class="k">def</span> <span class="nf">bibliography</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">header_level</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">force_string</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">run_from_ipython</span><span class="p">()</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">need_latex</span><span class="p">():</span>
-            <span class="n">htmlstr</span> <span class="o">=</span> <span class="s1">&#39;&lt;h</span><span class="si">{hl}</span><span class="s1">&gt;Bibliography&lt;/h</span><span class="si">{hl}</span><span class="s1">&gt;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">hl</span><span class="o">=</span><span class="n">header_level</span><span class="p">)</span>
-            <span class="n">htmlstr</span> <span class="o">+=</span> <span class="s1">&#39;&lt;ol&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
-            <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cited_labels</span><span class="p">:</span>
-                <span class="n">bibdb</span> <span class="o">=</span> <span class="n">BibDatabase</span><span class="p">()</span>
-                <span class="n">bibdb</span><span class="o">.</span><span class="n">entries</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">bib_dict</span><span class="p">[</span><span class="n">label</span><span class="p">]]</span>
-                <span class="n">bibtex_str</span> <span class="o">=</span> <span class="n">bibtexparser</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">bibdb</span><span class="p">)</span>
-                <span class="kn">from</span> <span class="nn">subprocess</span> <span class="k">import</span> <span class="n">Popen</span><span class="p">,</span> <span class="n">PIPE</span>
-                <span class="kn">import</span> <span class="nn">shlex</span>
-                <span class="n">f</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">NamedTemporaryFile</span><span class="p">(</span><span class="n">suffix</span><span class="o">=</span><span class="s2">&quot;.bib&quot;</span><span class="p">,</span> <span class="n">delete</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">bibtex_str</span><span class="p">)</span>
-                <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-                <span class="n">system_str</span> <span class="o">=</span> <span class="s1">&#39;bibtex2html -nokeys -o - -s plain -nodoc -q </span><span class="si">{fname}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fname</span><span class="o">=</span><span class="n">f</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-                <span class="n">args</span> <span class="o">=</span> <span class="n">shlex</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">system_str</span><span class="p">)</span>
-                <span class="n">proc</span> <span class="o">=</span> <span class="n">Popen</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">stdout</span><span class="o">=</span><span class="n">PIPE</span><span class="p">,</span> <span class="n">stderr</span><span class="o">=</span><span class="n">PIPE</span><span class="p">)</span>
-                <span class="n">out</span><span class="p">,</span> <span class="n">err</span> <span class="o">=</span> <span class="n">proc</span><span class="o">.</span><span class="n">communicate</span><span class="p">()</span>
-                <span class="n">exitcode</span> <span class="o">=</span> <span class="n">proc</span><span class="o">.</span><span class="n">returncode</span>
-                <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-                <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-                <span class="n">result</span> <span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;&lt;!-- This document was automatically generated with bibtex2html 1.98</span>
-<span class="s2">     (see http://www.lri.fr/~filliatr/bibtex2html/),</span>
-<span class="s2">     with the following command:</span>
-<span class="s2">     bibtex2html -nokeys -o - -s plain -nodoc -q temp.bib  --&gt;</span>
+<div class="viewcode-block" id="bib.html_citation"><a class="viewcode-back" href="../index.html#lyxithea.bib.html_citation">[docs]</a>    <span class="k">def</span> <span class="nf">html_citation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
+        <span class="n">bibdb</span> <span class="o">=</span> <span class="n">BibDatabase</span><span class="p">()</span>
+        <span class="n">bibdb</span><span class="o">.</span><span class="n">entries</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">bib_dict</span><span class="p">[</span><span class="n">label</span><span class="p">]]</span>
+        <span class="n">bibtex_str</span> <span class="o">=</span> <span class="n">bibtexparser</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">bibdb</span><span class="p">)</span>
+        <span class="kn">from</span> <span class="nn">subprocess</span> <span class="k">import</span> <span class="n">Popen</span><span class="p">,</span> <span class="n">PIPE</span>
+        <span class="kn">import</span> <span class="nn">shlex</span>
+        <span class="n">f</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">NamedTemporaryFile</span><span class="p">(</span><span class="n">suffix</span><span class="o">=</span><span class="s2">&quot;.bib&quot;</span><span class="p">,</span> <span class="n">delete</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">bibtex_str</span><span class="p">)</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="n">system_str</span> <span class="o">=</span> <span class="s1">&#39;bibtex2html -nokeys -o - -s plain -nodoc -q </span><span class="si">{fname}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fname</span><span class="o">=</span><span class="n">f</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="n">args</span> <span class="o">=</span> <span class="n">shlex</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">system_str</span><span class="p">)</span>
+        <span class="n">proc</span> <span class="o">=</span> <span class="n">Popen</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">stdout</span><span class="o">=</span><span class="n">PIPE</span><span class="p">,</span> <span class="n">stderr</span><span class="o">=</span><span class="n">PIPE</span><span class="p">)</span>
+        <span class="n">out</span><span class="p">,</span> <span class="n">err</span> <span class="o">=</span> <span class="n">proc</span><span class="o">.</span><span class="n">communicate</span><span class="p">()</span>
+        <span class="n">exitcode</span> <span class="o">=</span> <span class="n">proc</span><span class="o">.</span><span class="n">returncode</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;&lt;!-- This document was automatically generated with bibtex2html 1.98</span>
+<span class="s2">(see http://www.lri.fr/~filliatr/bibtex2html/),</span>
+<span class="s2">with the following command:</span>
+<span class="s2">bibtex2html -nokeys -o - -s plain -nodoc -q temp.bib  --&gt;</span>
 
 
 
 
 <span class="s2">&quot;&quot;&quot;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;&lt;hr&gt;&lt;p&gt;&lt;em&gt;This file was generated by</span>
 <span class="s2">&lt;a href=&quot;http://www.lri.fr/~filliatr/bibtex2html/&quot;&gt;bibtex2html&lt;/a&gt; 1.98.&lt;/em&gt;&lt;/p&gt;&quot;&quot;&quot;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
-                <span class="c1">#print out, err, exitcode</span>
-                <span class="n">htmlstr</span> <span class="o">+=</span> <span class="s1">&#39;&lt;li name=&quot;</span><span class="si">{name}</span><span class="s1">&quot;&gt;</span><span class="si">{citation}</span><span class="s1">&lt;/li&gt;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">label</span><span class="p">,</span> <span class="n">citation</span><span class="o">=</span><span class="n">result</span><span class="p">)</span>
+        <span class="c1">#print out, err, exitcode</span>
+        <span class="n">htmlstr</span> <span class="o">=</span> <span class="s1">&#39;&lt;li name=&quot;</span><span class="si">{name}</span><span class="s1">&quot;&gt;</span><span class="si">{citation}</span><span class="s1">&lt;/li&gt;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">label</span><span class="p">,</span> <span class="n">citation</span><span class="o">=</span><span class="n">result</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">htmlstr</span></div>
+
+
+<div class="viewcode-block" id="bib.bibliography"><a class="viewcode-back" href="../index.html#lyxithea.bib.bibliography">[docs]</a>    <span class="k">def</span> <span class="nf">bibliography</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">header_level</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">force_string</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">run_from_ipython</span><span class="p">()</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">need_latex</span><span class="p">():</span>
+            <span class="n">htmlstr</span> <span class="o">=</span> <span class="s1">&#39;&lt;h</span><span class="si">{hl}</span><span class="s1">&gt;Bibliography&lt;/h</span><span class="si">{hl}</span><span class="s1">&gt;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">hl</span><span class="o">=</span><span class="n">header_level</span><span class="p">)</span>
+            <span class="n">htmlstr</span> <span class="o">+=</span> <span class="s1">&#39;&lt;ol&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
+            <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cited_labels</span><span class="p">:</span>
+                <span class="n">htmlstr</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">html_citation</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
             <span class="n">htmlstr</span> <span class="o">+=</span> <span class="s1">&#39;&lt;/ol&gt;</span><span class="se">\n</span><span class="s1">&#39;</span>
             <span class="k">if</span> <span class="n">need_markdown</span><span class="p">():</span>
                 <span class="k">return</span> <span class="n">display</span><span class="p">(</span><span class="n">HTML</span><span class="p">(</span><span class="n">htmlstr</span><span class="p">))</span>

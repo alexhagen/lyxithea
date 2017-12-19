@@ -80,7 +80,7 @@
       aria-labelledby="dLabelLocalToc"><ul>
 <li><a class="reference internal" href="#">Class Documentation</a><ul>
 <li><a class="reference internal" href="#module-lyxithea">LyXithea module</a></li>
-<li><a class="reference internal" href="#module-document">Document module</a></li>
+<li><a class="reference internal" href="#document-module">Document module</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#indices-and-tables">Indices and tables</a><ul>
@@ -140,8 +140,33 @@
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="LyXithea-Demonstrations-and-Screenshots">LyXithea Demonstrations and Screenshots<a class="anchor-link" href="#LyXithea-Demonstrations-and-Screenshots">&#194;&#182;</a></h2><h3 id="Installation">Installation<a class="anchor-link" href="#Installation">&#194;&#182;</a></h3><p>To install <code>pym</code>, all we have to do is install <code>numpy</code>, <code>scipy</code>, and
-<code>matplotlib</code>, then download <code>pym</code> to our code directory (or wherever, really).
+<h2 id="Introduction">Introduction<a class="anchor-link" href="#Introduction">&#194;&#182;</a></h2><p><code>lyxithea</code> - named as a mix between <code>LyX</code>, the great $\LaTeX$ editing program, and <em>Lisithea</em> a moon of Jupiter - is a (very alpha) way to write LaTeX documents in Jupyter Notebook.  It currently allows completely for LaTeX export, and also some components allow HTML export.  It includes</p>
+<ul>
+<li>Bibliography</li>
+<li>LaTeX figure environments</li>
+<li>LaTeX tabulate environments</li>
+<li>Cross Referencing</li>
+</ul>
+<p>For any problems or feature requests, send me an issue on <a href="github.com/alexhagen/lyxithea">github</a> and I'll work on it!</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Demo">Demo<a class="anchor-link" href="#Demo">&#194;&#182;</a></h3><p>Once <code>lyxithea</code> is installed (a how-to is below), we can start to use it.  Below is an example on how to write a quick two column document with a figure, a table, and a bibliography, and export that to a pdf.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Installation">Installation<a class="anchor-link" href="#Installation">&#194;&#182;</a></h3><p>To install <code>lyxithea</code>, all we have to do is install <code>numpy</code>, <code>scipy</code>, and
+<code>matplotlib</code>, then download <code>lyxithea</code> to our code directory (or wherever, really).
 To do this, we can use</p>
 <div class="highlight"><pre><span></span>$ pip install numpy
 $ pip install scipy
@@ -150,7 +175,10 @@ $ pip install colours
 $ <span class="nb">cd</span> ~/code
 $ git clone https://github.com/alexhagen/lyxithea.git
 </pre></div>
-<p>and then, we can use the library within any script by using</p>
+<p>and then, we can use the library within any script by adding</p>
+<div class="highlight"><pre><span></span>sudo <span class="nb">echo</span> <span class="s2">&quot;export PYTHONPATH=</span><span class="si">${</span><span class="nv">PYTHONPATH</span><span class="si">}</span><span class="s2">:~/code:~/util&quot;</span> &gt;&gt; ~/.bashrc
+</pre></div>
+<p>to our <code>.bashrc</code>.</p>
 
 </div>
 </div>
@@ -186,6 +214,16 @@ $ git clone https://github.com/alexhagen/lyxithea.git
 <dl class="method">
 <dt id="lyxithea.bib.bibliography">
 <code class="descname">bibliography</code><span class="sig-paren">(</span><em>header_level=2</em>, <em>force_string=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lyxithea.html#bib.bibliography"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lyxithea.bib.bibliography" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lyxithea.bib.fullcite">
+<code class="descname">fullcite</code><span class="sig-paren">(</span><em>label</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lyxithea.html#bib.fullcite"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lyxithea.bib.fullcite" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lyxithea.bib.html_citation">
+<code class="descname">html_citation</code><span class="sig-paren">(</span><em>label</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lyxithea.html#bib.html_citation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lyxithea.bib.html_citation" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -272,7 +310,7 @@ $ git clone https://github.com/alexhagen/lyxithea.git
 
 <dl class="function">
 <dt id="lyxithea.table">
-<code class="descclassname">lyxithea.</code><code class="descname">table</code><span class="sig-paren">(</span><em>array</em>, <em>caption=”</em>, <em>label=None</em>, <em>headers=None</em>, <em>floatfmt=’.2f’</em>, <em>sideways=False</em>, <em>need_string=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lyxithea.html#table"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lyxithea.table" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">lyxithea.</code><code class="descname">table</code><span class="sig-paren">(</span><em>array</em>, <em>caption=”</em>, <em>label=None</em>, <em>headers=None</em>, <em>floatfmt=’.2f’</em>, <em>sideways=False</em>, <em>need_string=False</em>, <em>rotate=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lyxithea.html#table"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lyxithea.table" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
@@ -311,218 +349,8 @@ $ git clone https://github.com/alexhagen/lyxithea.git
 <dd></dd></dl>
 
 </div>
-<div class="section" id="module-document">
-<span id="document-module"></span><h2>Document module<a class="headerlink" href="#module-document" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="document.cdoc">
-<code class="descclassname">document.</code><code class="descname">cdoc</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/document.html#cdoc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#document.cdoc" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="class">
-<dt id="document.document">
-<em class="property">class </em><code class="descclassname">document.</code><code class="descname">document</code><span class="sig-paren">(</span><em>bib=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/document.html#document"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#document.document" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
-<p><code class="docutils literal"><span class="pre">lyxithea.document</span></code> is analogous to LaTeX’s article.cls - a
-generalized journal article-like template.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>bib</strong> (<em>lyx.bib</em>) – A <code class="docutils literal"><span class="pre">lyx.bib</span></code> object for the bibliography</td>
-</tr>
-</tbody>
-</table>
-<dl class="method">
-<dt id="document.document.abstract">
-<code class="descname">abstract</code><span class="sig-paren">(</span><em>abstract</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/document.html#document.abstract"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#document.document.abstract" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="document.document.add">
-<code class="descname">add</code><span class="sig-paren">(</span><em>string</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/document.html#document.add"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#document.document.add" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="document.document.add_to_cchap">
-<code class="descname">add_to_cchap</code><span class="sig-paren">(</span><em>string</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/document.html#document.add_to_cchap"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#document.document.add_to_cchap" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="document.document.append_notebook">
-<code class="descname">append_notebook</code><span class="sig-paren">(</span><em>filename</em>, <em>cells</em>, <em>child=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/document.html#document.append_notebook"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#document.document.append_notebook" title="Permalink to this definition">¶</a></dt>
-<dd><p>Append a notebook (the whole notebook) to a point in a lyxithea
-<code class="docutils literal"><span class="pre">document</span></code>.  This works only if the notebook is also a
-<code class="docutils literal"><span class="pre">document</span></code>.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – filename of ipynb to append</li>
-<li><strong>cells</strong> (<em>list</em>) – the cells that we’ll append to</li>
-<li><strong>child</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) – if the notebook we’re appending is the child</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="document.document.appendices">
-<code class="descname">appendices</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/document.html#document.appendices"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#document.document.appendices" title="Permalink to this definition">¶</a></dt>
-<dd><p><code class="docutils literal"><span class="pre">appendices</span></code> prints all the text saved for appendices.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="document.document.appendix_off">
-<code class="descname">appendix_off</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/document.html#document.appendix_off"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#document.document.appendix_off" title="Permalink to this definition">¶</a></dt>
-<dd><p><code class="docutils literal"><span class="pre">appendix_off</span></code> ends a section of text reserved for the appendices.
-Must be preceded by <code class="docutils literal"><span class="pre">appendix_on</span></code>.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="document.document.appendix_on">
-<code class="descname">appendix_on</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/document.html#document.appendix_on"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#document.document.appendix_on" title="Permalink to this definition">¶</a></dt>
-<dd><p><code class="docutils literal"><span class="pre">appendix_on</span></code> starts a section of text sent to reserved text for
-appendices. Must be ended with <code class="docutils literal"><span class="pre">appendix_off</span></code>.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="document.document.bibliography">
-<code class="descname">bibliography</code><span class="sig-paren">(</span><em>header_level=3</em>, <em>force_string=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/document.html#document.bibliography"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#document.document.bibliography" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="document.document.chapter">
-<code class="descname">chapter</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/document.html#document.chapter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#document.document.chapter" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="document.document.chapter_paths">
-<code class="descname">chapter_paths</code><span class="sig-paren">(</span><em>paths</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/document.html#document.chapter_paths"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#document.document.chapter_paths" title="Permalink to this definition">¶</a></dt>
-<dd><p>Add paths to the chapter path variable</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>paths</strong> – a list of string paths in the filesystem where chapters
-are found</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="staticmethod">
-<dt id="document.document.check_chapter_path">
-<em class="property">static </em><code class="descname">check_chapter_path</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/document.html#document.check_chapter_path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#document.document.check_chapter_path" title="Permalink to this definition">¶</a></dt>
-<dd><p>Checks if the chapter path is a legitimate path</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>path</strong> – the path to the folder to be added</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">boolean if the path is good or not</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="document.document.export">
-<code class="descname">export</code><span class="sig-paren">(</span><em>filename</em>, <em>fmt=’latex’</em>, <em>engine=’pdflatex’</em>, <em>template=’article’</em>, <em>metadata={}</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/document.html#document.export"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#document.document.export" title="Permalink to this definition">¶</a></dt>
-<dd><p>exports the current document - into latex for now</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="document.document.export_html">
-<code class="descname">export_html</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/document.html#document.export_html"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#document.document.export_html" title="Permalink to this definition">¶</a></dt>
-<dd><p>exports to html</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="document.document.export_latex">
-<code class="descname">export_latex</code><span class="sig-paren">(</span><em>filename</em>, <em>engine=’pdflatex’</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/document.html#document.export_latex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#document.document.export_latex" title="Permalink to this definition">¶</a></dt>
-<dd><p>exports to latex</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="document.document.find_first">
-<code class="descname">find_first</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/document.html#document.find_first"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#document.document.find_first" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="staticmethod">
-<dt id="document.document.get_locals">
-<em class="property">static </em><code class="descname">get_locals</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/document.html#document.get_locals"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#document.document.get_locals" title="Permalink to this definition">¶</a></dt>
-<dd><p>When we pass things out to the temporary notebooks, we need the
-local variables.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="document.document.nom">
-<code class="descname">nom</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/document.html#document.nom"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#document.document.nom" title="Permalink to this definition">¶</a></dt>
-<dd><p>Prints the nomenclature</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Todo:</th><td class="field-body">Implement this into html as well</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="document.document.process_markdown">
-<code class="descname">process_markdown</code><span class="sig-paren">(</span><em>markdown</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/document.html#document.process_markdown"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#document.document.process_markdown" title="Permalink to this definition">¶</a></dt>
-<dd><p>Looks for python parameter notation in a markdown string</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Todo:</th><td class="field-body">Make this into a Jinja2 class for more flexibility.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Todo:</th><td class="field-body">make a context manager for the markdown so I can use <code class="docutils literal"><span class="pre">with</span></code>
-syntax</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>markdown</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – Markdown formatted text with possible Python
-inclusions</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns str:</th><td class="field-body">Markdown formatted replaced text</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="document.document.replace_rel_paths">
-<code class="descname">replace_rel_paths</code><span class="sig-paren">(</span><em>string</em>, <em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/document.html#document.replace_rel_paths"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#document.document.replace_rel_paths" title="Permalink to this definition">¶</a></dt>
-<dd><p>Replaces relative paths with an absolute path</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Todo:</th><td class="field-body">make the relative path replacement more robust</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="document.document.set_hide_dblclick">
-<code class="descname">set_hide_dblclick</code><span class="sig-paren">(</span><em>string</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/document.html#document.set_hide_dblclick"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#document.document.set_hide_dblclick" title="Permalink to this definition">¶</a></dt>
-<dd><p>A private method to hide the text on double click - like Jupyter’s
-Markdown cells.</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="function">
-<dt id="document.stdoutIO">
-<code class="descclassname">document.</code><code class="descname">stdoutIO</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/document.html#stdoutIO"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#document.stdoutIO" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
+<div class="section" id="document-module">
+<h2>Document module<a class="headerlink" href="#document-module" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 <div class="section" id="indices-and-tables">
