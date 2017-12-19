@@ -256,7 +256,9 @@ $ git clone https://github.com/alexhagen/lyxithea.git
 <dl class="function">
 <dt id="lyxithea.get_pname">
 <code class="descclassname">lyxithea.</code><code class="descname">get_pname</code><span class="sig-paren">(</span><em>id</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lyxithea.html#get_pname"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lyxithea.get_pname" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>An internal command to determine the process name of the current
+exporting process</p>
+</dd></dl>
 
 <dl class="function">
 <dt id="lyxithea.is_exporting">
@@ -286,12 +288,34 @@ $ git clone https://github.com/alexhagen/lyxithea.git
 <dl class="function">
 <dt id="lyxithea.need_latex">
 <code class="descclassname">lyxithea.</code><code class="descname">need_latex</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lyxithea.html#need_latex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lyxithea.need_latex" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>An internal command to determine if we need to compile in LaTeX</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns bool:</th><td class="field-body">True if we need to compile in LaTeX, false otherwise.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Todo:</th><td class="field-body">Make <code class="docutils literal"><span class="pre">need_latex</span></code> process dependent</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="function">
 <dt id="lyxithea.need_markdown">
 <code class="descclassname">lyxithea.</code><code class="descname">need_markdown</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lyxithea.html#need_markdown"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lyxithea.need_markdown" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>An internal command to determine if we need to compile in Markdown</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns bool:</th><td class="field-body">True if we need to compile in Markdown, false otherwise.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Todo:</th><td class="field-body">Make <code class="docutils literal"><span class="pre">need_markdown</span></code> process dependent</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="function">
 <dt id="lyxithea.nom">
@@ -306,7 +330,19 @@ $ git clone https://github.com/alexhagen/lyxithea.git
 <dl class="function">
 <dt id="lyxithea.run_from_ipython">
 <code class="descclassname">lyxithea.</code><code class="descname">run_from_ipython</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lyxithea.html#run_from_ipython"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lyxithea.run_from_ipython" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><dl class="docutils">
+<dt>An internal command to determine if the script is running from IPython</dt>
+<dd>or just from a regular Python console.</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns bool:</th><td class="field-body">True if in an IPython notebook, false otherwise.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="function">
 <dt id="lyxithea.table">

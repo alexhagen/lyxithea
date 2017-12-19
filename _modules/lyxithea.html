@@ -162,10 +162,19 @@
 <span class="n">__exporting__</span><span class="o">.</span><span class="n">val</span> <span class="o">=</span> <span class="kc">False</span>
 
 <div class="viewcode-block" id="get_pname"><a class="viewcode-back" href="../index.html#lyxithea.get_pname">[docs]</a><span class="k">def</span> <span class="nf">get_pname</span><span class="p">(</span><span class="nb">id</span><span class="p">):</span>
-    <span class="n">p</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">([</span><span class="s2">&quot;ps -o cmd= </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">id</span><span class="p">)],</span> <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="sd">&quot;&quot;&quot; An internal command to determine the process name of the current</span>
+<span class="sd">            exporting process</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">([</span><span class="s2">&quot;ps -o cmd= </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">id</span><span class="p">)],</span> <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span>
+                         <span class="n">shell</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">communicate</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span></div>
 
 <div class="viewcode-block" id="run_from_ipython"><a class="viewcode-back" href="../index.html#lyxithea.run_from_ipython">[docs]</a><span class="k">def</span> <span class="nf">run_from_ipython</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot; An internal command to determine if the script is running from IPython</span>
+<span class="sd">            or just from a regular Python console.</span>
+
+<span class="sd">        :returns bool: True if in an IPython notebook, false otherwise.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">__IPYTHON__</span>
         <span class="k">return</span> <span class="kc">True</span>
@@ -173,20 +182,21 @@
         <span class="k">return</span> <span class="kc">False</span></div>
 
 <div class="viewcode-block" id="need_latex"><a class="viewcode-back" href="../index.html#lyxithea.need_latex">[docs]</a><span class="k">def</span> <span class="nf">need_latex</span><span class="p">():</span>
-    <span class="k">return</span> <span class="n">__needs_latex__</span><span class="o">.</span><span class="n">val</span>
-    <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">    cmds = get_pname(os.getpid())</span>
-<span class="sd">    cmds += get_pname(os.getppid())</span>
-<span class="sd">    if &#39;jupyter-nbconvert&#39; in cmds and (&#39;to pdf&#39; in cmds or &#39;to latex&#39; in cmds):</span>
-<span class="sd">        import IPython</span>
-<span class="sd">        ip = IPython.core.getipython.get_ipython()</span>
-<span class="sd">        ip.display_formatter.formatters[&#39;text/latex&#39;].enabled = True</span>
-<span class="sd">        return True</span>
-<span class="sd">    else:</span>
-<span class="sd">        return os.path.isfile(&#39;/tmp/need_latex&#39;)</span>
-<span class="sd">    &#39;&#39;&#39;</span></div>
+    <span class="sd">&quot;&quot;&quot; An internal command to determine if we need to compile in LaTeX</span>
+
+<span class="sd">        :returns bool: True if we need to compile in LaTeX, false otherwise.</span>
+
+<span class="sd">        :todo: Make ``need_latex`` process dependent</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">__needs_latex__</span><span class="o">.</span><span class="n">val</span></div>
 
 <div class="viewcode-block" id="need_markdown"><a class="viewcode-back" href="../index.html#lyxithea.need_markdown">[docs]</a><span class="k">def</span> <span class="nf">need_markdown</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot; An internal command to determine if we need to compile in Markdown</span>
+
+<span class="sd">        :returns bool: True if we need to compile in Markdown, false otherwise.</span>
+
+<span class="sd">        :todo: Make ``need_markdown`` process dependent</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">__needs_markdown__</span><span class="o">.</span><span class="n">val</span></div>
 
 <div class="viewcode-block" id="latex"><a class="viewcode-back" href="../index.html#lyxithea.latex">[docs]</a><span class="k">def</span> <span class="nf">latex</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
