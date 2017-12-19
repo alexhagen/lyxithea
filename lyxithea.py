@@ -47,10 +47,19 @@ __exporting__ = psgv.psgv('__lyxexporting__')
 __exporting__.val = False
 
 def get_pname(id):
-    p = subprocess.Popen(["ps -o cmd= {}".format(id)], stdout=subprocess.PIPE, shell=True)
+    """ An internal command to determine the process name of the current
+            exporting process
+    """
+    p = subprocess.Popen(["ps -o cmd= {}".format(id)], stdout=subprocess.PIPE,
+                         shell=True)
     return str(p.communicate()[0])
 
 def run_from_ipython():
+    """ An internal command to determine if the script is running from IPython
+            or just from a regular Python console.
+
+        :returns bool: True if in an IPython notebook, false otherwise.
+    """
     try:
         __IPYTHON__
         return True
@@ -58,20 +67,21 @@ def run_from_ipython():
         return False
 
 def need_latex():
+    """ An internal command to determine if we need to compile in LaTeX
+
+        :returns bool: True if we need to compile in LaTeX, false otherwise.
+
+        :todo: Make ``need_latex`` process dependent
+    """
     return __needs_latex__.val
-    '''
-    cmds = get_pname(os.getpid())
-    cmds += get_pname(os.getppid())
-    if 'jupyter-nbconvert' in cmds and ('to pdf' in cmds or 'to latex' in cmds):
-        import IPython
-        ip = IPython.core.getipython.get_ipython()
-        ip.display_formatter.formatters['text/latex'].enabled = True
-        return True
-    else:
-        return os.path.isfile('/tmp/need_latex')
-    '''
 
 def need_markdown():
+    """ An internal command to determine if we need to compile in Markdown
+
+        :returns bool: True if we need to compile in Markdown, false otherwise.
+
+        :todo: Make ``need_markdown`` process dependent
+    """
     return __needs_markdown__.val
 
 def latex(i=True):
