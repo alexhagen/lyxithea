@@ -80,12 +80,29 @@ class document(object):
         bi.__cdoc__ = self
 
     def title(self, title):
+        """ Adds a title to the document that will be printed in the
+                ``\maketitle`` environment in LaTeX.
+
+            :param str title: the title of the document
+        """
         self._title = title
 
     def author(self, author):
+        """ Adds an author to the document that will be printed in the
+                ``\maketitle`` environment in LaTeX.
+
+            :param str author: the author's name
+
+            :todo: implement author lists and author with affiliation
+        """
         self._author = author
 
     def affiliation(self, affiliation):
+        """ Adds the affiliation to the author written with the
+                ``document.author`` method
+            :param str affiliation: the institution the author in the
+                ``document.author`` section works at
+        """
         self._affiliation = affiliation
 
     @staticmethod
