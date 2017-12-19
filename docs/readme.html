@@ -1,0 +1,75 @@
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="lyxithea">lyxithea<a class="anchor-link" href="#lyxithea">&#194;&#182;</a></h1><p>Last Updated on 10/17/17</p>
+<p>Written by <a href="http://alexhagen.github.io">Alex Hagen</a></p>
+<p>Hosted at <a href="http://github.com/alexhagen/lyxithea">github.com/alexhagen/lyxithea</a></p>
+<p>Documentation at <a href="http://alexhagen.github.io/lyxithea/">alexhagen.github.io/lyxithea/</a></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Introduction">Introduction<a class="anchor-link" href="#Introduction">&#194;&#182;</a></h2><p><code>lyxithea</code> - named as a mix between <code>LyX</code>, the great $\LaTeX$ editing program, and <em>Lisithea</em> a moon of Jupiter - is a (very alpha) way to write LaTeX documents in Jupyter Notebook.  It currently allows completely for LaTeX export, and also some components allow HTML export.  It includes</p>
+<ul>
+<li>Bibliography</li>
+<li>LaTeX figure environments</li>
+<li>LaTeX tabulate environments</li>
+<li>Cross Referencing</li>
+</ul>
+<p>For any problems or feature requests, send me an issue on <a href="github.com/alexhagen/lyxithea">github</a> and I'll work on it!</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Demo">Demo<a class="anchor-link" href="#Demo">&#194;&#182;</a></h3><p>Once <code>lyxithea</code> is installed (a how-to is below), we can start to use it.  Below is an example on how to write a quick two column document with a figure, a table, and a bibliography, and export that to a pdf.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Installation">Installation<a class="anchor-link" href="#Installation">&#194;&#182;</a></h3><p>To install <code>lyxithea</code>, all we have to do is install <code>numpy</code>, <code>scipy</code>, and
+<code>matplotlib</code>, then download <code>lyxithea</code> to our code directory (or wherever, really).
+To do this, we can use</p>
+<div class="highlight"><pre><span></span>$ pip install numpy
+$ pip install scipy
+$ pip install matplotlib
+$ pip install colours
+$ <span class="nb">cd</span> ~/code
+$ git clone https://github.com/alexhagen/lyxithea.git
+</pre></div>
+<p>and then, we can use the library within any script by adding</p>
+<div class="highlight"><pre><span></span>sudo <span class="nb">echo</span> <span class="s2">&quot;export PYTHONPATH=</span><span class="si">${</span><span class="nv">PYTHONPATH</span><span class="si">}</span><span class="s2">:~/code:~/util&quot;</span> &gt;&gt; ~/.bashrc
+</pre></div>
+<p>to our <code>.bashrc</code>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span></span> 
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+ 
+

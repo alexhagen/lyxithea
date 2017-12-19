@@ -14,7 +14,7 @@ import pypandoc
 import numpy as np
 from mwe import mwe
 
-ip = get_ipython()
+ip = lyx.get_ipython()
 
 
 def cdoc():
@@ -35,8 +35,8 @@ class article(lyxdoc.document):
         metadata = {"author": self._author, "title": self._title,
                     "affiliation": self._affiliation}
         super(article, self).export(filename=filename, fmt='latex',
-                                     engine=engine, template='article',
-                                     metadata=metadata)
+                                    engine=engine, template='article',
+                                    metadata=metadata)
 
 
 @magics_class

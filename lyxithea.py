@@ -1,5 +1,11 @@
 from tabulate import tabulate
-from IPython.display import SVG, display, Latex, HTML, Javascript, FileLink, Markdown
+from IPython.display import SVG
+from IPython.display import display
+from IPython.display import Latex
+from IPython.display import HTML
+from IPython.display import Javascript
+from IPython.display import FileLink
+from IPython.display import Markdown
 import sys
 import os
 import os.path
@@ -8,7 +14,6 @@ import bibtexparser
 from bibtexparser.bibdatabase import BibDatabase
 import __builtins__ as bi
 import tempfile
-import nbformat
 import psgv.psgv as psgv
 import re
 import numpy as np
@@ -46,13 +51,17 @@ __apps__.val = {}
 __exporting__ = psgv.psgv('__lyxexporting__')
 __exporting__.val = False
 
+
 def get_pname(id):
-    """ An internal command to determine the process name of the current
-            exporting process
+    """Check the process name.
+
+    An internal command to determine the process name of the current exporting
+    process.
     """
     p = subprocess.Popen(["ps -o cmd= {}".format(id)], stdout=subprocess.PIPE,
                          shell=True)
     return str(p.communicate()[0])
+
 
 def run_from_ipython():
     """ An internal command to determine if the script is running from IPython
