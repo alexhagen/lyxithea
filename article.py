@@ -18,6 +18,13 @@ ip = lyx.get_ipython()
 
 
 def cdoc():
+    """A reference to the document that is currently being edited.
+
+    ``cdoc()`` returns a reference to the current document, or creates a new
+    document if one doesn't exist.
+
+    :returns article: the current article object.
+    """
     if bi.__cdoc__ is not None:
         return bi.__cdoc__
     else:
@@ -25,7 +32,14 @@ def cdoc():
 
 
 class article(lyxdoc.document):
-    """ A one column article class """
+    """A one column LaTeX document object.
+
+    ``lyx.article`` is a one column LaTeX document that is written in a flow
+    manner and supports all article options.
+
+    :param lyx.bib bib: the bibliography object used in this article
+    """
+
     def __init__(self, bib=None):
         self.modulepath = osp.dirname(__file__)
         super(article, self).__init__(bib=bib)
