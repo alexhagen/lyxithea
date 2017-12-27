@@ -29,6 +29,15 @@ else:
     ip = None
 
 def cdoc():
+    """``cdoc`` returns the document currently being edited.
+
+    ``cdoc`` will return the document that is currently being edited, or, if
+    a document is not currently being edited, returns a new document. Use this
+    at the beginning of new chapters so you can edit them in place but still
+    have them inherit the whole document.
+
+    :returns lyxithea.document: the document being edited
+    """
     if bi.__cdoc__ is not None:
         return bi.__cdoc__
     else:
@@ -107,7 +116,7 @@ class document(object):
 
     @staticmethod
     def check_chapter_path(path):
-        """ Checks if the chapter path is a legitimate path
+        """Check if the chapter path is a legitimate path.
 
         :param path: the path to the folder to be added
         :returns: boolean if the path is good or not
@@ -116,9 +125,7 @@ class document(object):
         return os.path.isdir(path)
 
     def set_hide_dblclick(self, string):
-        """ A private method to hide the text on double click - like Jupyter's
-            Markdown cells.
-        """
+        """A private method to hide the text on double click."""
         javascript_str = """
         function code_toggle()
         {
@@ -149,14 +156,29 @@ class document(object):
 
     @staticmethod
     def get_locals():
-        """ When we pass things out to the temporary notebooks, we need the
-            local variables.
-        """
+        """Pass local variables to external chapters in other notebooks."""
         lcls = ip.user_module.__dict__
         return lcls
 
     def process_content(self, content, filename=None, latex=False,
                         **kwargs):
+        """Process the arguments into something LaTeX/word can handle.
+
+        ``process_content`` checks the type of the content passed to it and
+        will then process it into something that our exporter can handle.
+        If ``content`` is a string, it will pull out any python variables and
+        replace them with their output, and also process all markdown into
+        LaTeX.
+        If ``content`` is some graphics class, it will fill in the necessary
+        graphics commands.
+
+        :param content: the content that will be processed. Can be ``str``,
+            ``pyg2d``, or an ``pygsvg`` object.
+        :param str filename: filename for ``svg`` file, if applicable
+        :param bool latex: if we need to output the content in LaTeX format,
+            default ``False``
+        :returns: the content after processing
+        """
         if latex:
             return content
         if isinstance(content, str):
