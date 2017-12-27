@@ -24,7 +24,7 @@ def cdoc():
         return article()
 
 
-class article(lyxdoc.document):
+class article2(lyxdoc.document):
     """ A two column article class """
     def __init__(self, bib=None):
         self.modulepath = osp.dirname(__file__)
