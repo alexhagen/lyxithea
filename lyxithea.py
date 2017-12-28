@@ -182,7 +182,7 @@ def table(array, caption='', label=None, headers=None, floatfmt=".2f",
         env = 'table'
     if not all(isinstance(el, list) for el in headers):
         headers = [headers]
-    print headers
+    #print headers
     if run_from_ipython() and not need_latex():
         table = tabulate.tabulate(array, headers=headers, tablefmt='html',
                          numalign='center', stralign='center',
