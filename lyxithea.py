@@ -167,7 +167,8 @@ def threeparttable(array, headers=None, label=None, caption='', floatfmt=".2f",
         return display(Latex(strlatex))
 
 def table(array, caption='', label=None, headers=None, floatfmt=".2f",
-          sideways=False, need_string=False, rotate=False):
+          sideways=False, span_columns=False, need_string=False,
+          rotate=False):
     if rotate:
         array = np.fliplr(np.rot90(np.rot90(np.rot90(array))))
     if label is None:
@@ -175,6 +176,8 @@ def table(array, caption='', label=None, headers=None, floatfmt=".2f",
         #print __tabcount__
     if sideways:
         env = 'sidewaystable'
+    elif span_columns:
+        env = 'table*'
     else:
         env = 'table'
     if not all(isinstance(el, list) for el in headers):
