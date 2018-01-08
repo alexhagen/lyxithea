@@ -536,3 +536,10 @@ def cref(label):
             number = 0
             return r'\cref{%s%s}' % (text, label)
         return r'%s\ref{%s%s}' % (name, text, label)
+
+
+def fnote(content):
+    if run_from_ipython() and not need_latex():
+        return r'<span class="fnote">%s</span>' % content
+    elif need_latex():
+        return r'\footnote{%s}' % content
