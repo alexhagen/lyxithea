@@ -170,7 +170,7 @@ def includepdf(filename, pages=None):
     if pages is None:
         strlatex = r"""\includepdf[pages=-]{%s.pdf}
         """ % filename
-    return display(Latex(strlatex))
+    return strlatex
 
 def table(array, caption='', label=None, headers=None, floatfmt=".2f",
           sideways=False, span_columns=False, need_string=False,
@@ -370,7 +370,8 @@ class bib(object):
             else:
                 return display(HTML(pcitestr))
         elif need_latex():
-            return r'\bibentry{%s}' % label
+            pcitestr = self.html_citation(label)
+            return r'%s' % (pcitestr)
 
     def pcite(self, label):
         if label not in self.bib_dict.keys():

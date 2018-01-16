@@ -489,7 +489,7 @@ __dissertation_template__ = r"""
 
     \usepackage{pgf}
 
-    %\usepackage{bibentry}
+    \usepackage{bibentry}
 
     \usepackage{pgf}
     \usepackage{tikz}
