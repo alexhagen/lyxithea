@@ -166,6 +166,12 @@ def threeparttable(array, headers=None, label=None, caption='', floatfmt=".2f",
         __tabcount__.val += 1
         return display(Latex(strlatex))
 
+def includepdf(filename, pages=None):
+    if pages is None:
+        strlatex = r"""\includepdf[pages=-]{%s.pdf}
+        """ % filename
+    return display(Latex(strlatex))
+
 def table(array, caption='', label=None, headers=None, floatfmt=".2f",
           sideways=False, span_columns=False, need_string=False,
           rotate=False):

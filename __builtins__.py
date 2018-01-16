@@ -357,6 +357,7 @@ __dissertation_template__ = r"""
      {hyperref}
     \usepackage{breakurl}
     \usepackage{threeparttable}
+    \usepackage{pdfpages}
 
     \makeatletter
 
@@ -399,6 +400,7 @@ __dissertation_template__ = r"""
     \usepackage{listings}
     \usepackage{adjustbox}
     \usepackage{rotfloat}
+    \usepackage{pdfpages}
     \makeatletter
     \newcommand{\invis}[1]{%
       \@bsphack
@@ -493,6 +495,7 @@ __dissertation_template__ = r"""
     \usepackage{tikz}
     \usepackage{listings}
     \usepackage{tikz}
+    \usepackage{pdfpages}
 
     \usepackage{pgfplots}
     \usetikzlibrary{shapes,arrows,calc,shadings,positioning,fit, trees, decorations.pathreplacing,}
