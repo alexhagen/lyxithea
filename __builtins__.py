@@ -337,7 +337,8 @@ __dissertation_template__ = r"""
     \usepackage{mhchem}
     \usepackage[numbers]{natbib}
     \usepackage{nomencl}
-    \usepackage{todonotes}
+    %\usepackage{todonotes}
+    \usepackage{fixmetodonotes}
     % the following is useful when we have the old nomencl.sty package
     \providecommand{\printnomenclature}{\printglossary}
     \providecommand{\makenomenclature}{\makeglossary}
