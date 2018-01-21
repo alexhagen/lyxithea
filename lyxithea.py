@@ -466,11 +466,11 @@ def todo(task):
         if need_markdown():
             return display(Markdown(''))
         elif need_latex():
-            return '\invis{%s}' % task
+            return r'\todo{%s}' % task
         else:
             return display(HTML(''))
     else:
-        return display(Latex('\invis{%s}' % task))
+        return r'\todo{%s}' % task
 
 def export_todos():
     with open('todos.md', 'w') as f:
