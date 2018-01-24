@@ -472,6 +472,19 @@ def todo(task):
     else:
         return r'\TODO{%s}' % task
 
+def fixme(task):
+    if task not in todos.val:
+        todos.val.extend([task])
+    if run_from_ipython() and not need_latex():
+        if need_markdown():
+            return display(Markdown(''))
+        elif need_latex():
+            return r'\FIXME{%s}' % task
+        else:
+            return display(HTML(''))
+    else:
+        return r'\FIXME{%s}' % task
+
 def export_todos():
     with open('todos.md', 'w') as f:
         f.write('# Todos \n')
