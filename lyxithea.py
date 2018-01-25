@@ -459,6 +459,7 @@ def figures():
     print __figures__.val
     print __labels__.val
 
+
 def todo(task):
     if task not in todos.val:
         todos.val.extend([task])
@@ -471,6 +472,17 @@ def todo(task):
             return display(HTML(''))
     else:
         return r'\TODO{%s}' % task
+
+
+def ul(text, color='000000'):
+    """Underline text.
+
+    :param str text: The text to underline
+    :param str color: The color of the underline - defaults to black
+    """
+    latexstr = (r"\definecolor{ulcolor}{HTML}{%s}\setulcolor{ulcolor}" % color)
+    latexstr += (r"\ul{%s}" % text)
+    return latexstr
 
 def export_todos():
     with open('todos.md', 'w') as f:

@@ -360,6 +360,8 @@ __dissertation_template__ = r"""
     \usepackage{breakurl}
     \usepackage{threeparttable}
     \usepackage{pdfpages}
+    \usepackage{soul}
+    \setul{0.5ex}{0.3ex}
 
     \makeatletter
 
