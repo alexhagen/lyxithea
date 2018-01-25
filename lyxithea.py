@@ -398,10 +398,22 @@ class bib(object):
             if need_markdown():
                 return pcitestr
             elif need_latex():
+                if isinstance(label, list):
+                    labelstr = ''
+                    for _label in label:
+                        labelstr += '%s,' % _label
+                    labelstr = labelstr[:-1]
+                    label = labelstr
                 return display(Latex('\[%s\]' % label))
             else:
                 return display(HTML(pcitestr))
         elif need_latex():
+            if isinstance(label, list):
+                labelstr = ''
+                for _label in label:
+                    labelstr += '%s,' % _label
+                labelstr = labelstr[:-1]
+                label = labelstr
             return r'\cite{%s}' % label
 
     def html_citation(self, label):
@@ -490,6 +502,20 @@ def export_todos():
         for task in todos.val:
             f.write('- [ ] {task}\n'.format(task=task))
     os.system('pandoc todos.md -t latex -o todos.pdf')
+    with open('todos.tex', 'w') as f:
+        f.write(r"""\documentclass{article}
+\usepackage{enumitem,amssymb}
+\newlist{todolist}{itemize}{2}
+\setlist[todolist]{label=$\square$}
+\begin{document}
+\section{ToDos}
+
+\begin{todolist}""")
+        for task in todos.val:
+            f.write("\item {task}\n".format(task=task))
+        f.write(r'\end{todolist}' + '\n')
+        f.write(r'\end{document}')
+    os.system('pdflatex todos.tex')
 
 def print_todos():
     if not need_latex():
