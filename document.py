@@ -216,7 +216,7 @@ class document(object):
                 exec(match.group(1), self.get_locals())
                 #lyx.latex(False)
                 #lyx.markdown(False)
-            rep_string = s.getvalue()
+            rep_string = s.getvalue()[:-1]
             if len(rep_string) < 1:
                 cmd = "print {oldcmd}".format(oldcmd=match.group(1))
                 with stdoutIO() as s:
@@ -225,7 +225,7 @@ class document(object):
                     exec(cmd, self.get_locals())
                     #lyx.latex(False)
                     #lyx.markdown(False)
-                rep_string = s.getvalue()
+                rep_string = s.getvalue()[:-1]
             markdown = markdown.replace(match.group(), rep_string)
         for matchNum, match in enumerate(matches2):
             with stdoutIO() as s:
@@ -234,7 +234,7 @@ class document(object):
                 exec(match.group(1), self.get_locals())
                 #lyx.latex(False)
                 #lyx.markdown(False)
-            rep_string = s.getvalue()
+            rep_string = s.getvalue()[:-1]
             if len(rep_string) < 1:
                 cmd = "print {oldcmd}".format(oldcmd=match.group(1))
                 with stdoutIO() as s:
@@ -243,7 +243,7 @@ class document(object):
                     exec(cmd, self.get_locals())
                     #lyx.latex(False)
                     #lyx.markdown(False)
-                rep_string = s.getvalue()
+                rep_string = s.getvalue()[:-1]
             markdown = markdown.replace(match.group(), rep_string)
         return markdown
 

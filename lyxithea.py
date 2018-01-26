@@ -472,18 +472,31 @@ def figures():
     print __labels__.val
 
 
+def ack(person, task=''):
+    """Acknowledge a person for doing a task.
+
+    :param str person: The person to acknowledge.
+    :param str task: The the person is being acknowledged for.
+    """
+    return '\invis{%s: %s}' % (person, task)
+
+
 def todo(task):
+    """Add a task to a saved todo list that can be referenced latex.
+
+    :param str task: The task to be saved.
+    """
     if task not in todos.val:
         todos.val.extend([task])
     if run_from_ipython() and not need_latex():
         if need_markdown():
             return display(Markdown(''))
         elif need_latex():
-            return r'\TODO{%s}' % task
+            return r'\todo{%s}' % task
         else:
             return display(HTML(''))
     else:
-        return r'\TODO{%s}' % task
+        return r'\todo{%s}' % task
 
 
 def ul(text, color='000000'):
