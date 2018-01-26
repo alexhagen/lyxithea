@@ -516,11 +516,11 @@ def fixme(task):
         if need_markdown():
             return display(Markdown(''))
         elif need_latex():
-            return r'\FIXME{%s}' % task
+            return r'\todo{%s}' % task
         else:
             return display(HTML(''))
     else:
-        return r'\FIXME{%s}' % task
+        return r'\todo{%s}' % task
 
 def export_todos():
     with open('todos.md', 'w') as f:
