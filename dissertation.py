@@ -1,3 +1,5 @@
+from __future__ import division
+from __future__ import print_function
 import datetime
 from IPython.display import display, HTML, Markdown, Javascript, display_javascript, display_html
 from IPython.core.magic import (Magics, magics_class, line_magic,

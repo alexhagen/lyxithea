@@ -1,3 +1,5 @@
+from __future__ import division
+from __future__ import print_function
 from tabulate import tabulate
 from IPython.display import SVG
 from IPython.display import display
@@ -326,10 +328,10 @@ class bib(object):
         eq = True
         for key, val in self.__dict__.iteritems():
             if other.__dict__[key] != val and not hasattr(other.__dict__[key], '__dict__'):
-                print val, other.__dict__[key]
+                print(val, other.__dict__[key])
                 return False
             else:
-                print val, other.__dict__[key]
+                print(val, other.__dict__[key])
         return isinstance(other, type(self)) and self.__dict__ == other.__dict__
 
     def add_bib(self, filename):
@@ -467,9 +469,9 @@ bibtex2html -nokeys -o - -s plain -nodoc -q temp.bib  -->
 
 
 def figures():
-    print __tables__.val
-    print __figures__.val
-    print __labels__.val
+    print(__tables__.val)
+    print(__figures__.val)
+    print(__labels__.val)
 
 
 def ack(person, task=''):

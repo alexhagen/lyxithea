@@ -1,3 +1,5 @@
+from __future__ import division
+from __future__ import print_function
 import lyxithea as lyx
 from IPython.display import display, Latex, HTML
 from IPython.core.magic import (Magics, magics_class, line_magic,
@@ -182,7 +184,7 @@ class puslides(lyxdoc.document):
     ### All Slide Types
 
     def listslidetypes(self):
-        print self.slidetypes.keys()
+        print(self.slidetypes.keys())
 
     def onecolumnslide(self):
         self.slidetype('onecolumnslide')
