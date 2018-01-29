@@ -337,7 +337,7 @@ __dissertation_template__ = r"""
     \usepackage{mhchem}
     \usepackage[numbers]{natbib}
     \usepackage{nomencl}
-    \usepackage[disable]{todonotes}
+    \usepackage{todonotes}
     %\usepackage{fixmetodonotes}
     % the following is useful when we have the old nomencl.sty package
     \providecommand{\printnomenclature}{\printglossary}
@@ -564,7 +564,7 @@ __dissertation_template__ = r"""
 
 % Author and Title from metadata
 ((* block maketitle *))
-\pudegree{Doctorate of Philosophy in Nuclear Engineering}{Ph.D.N.E.}{December}{2017}
+\pudegree{Doctorate of Philosophy in Nuclear Engineering}{Ph.D.N.E.}{February/March}{2018}
 
 \majorprof{Rusi P. Taleyarkhan}
 
