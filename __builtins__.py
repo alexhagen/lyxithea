@@ -7,8 +7,8 @@ __need_latex__ = True
 __cdis__ = None
 __cdoc__ = None
 __cslides__ = None
-__regex__ = r"{% ([\s\w\d\(\)\'\"\{\}\.\%\\\-\,\;\:\$]*?) %}"
-__regex2__ = r"\(\(\. ([\s\w\d\(\)\'\"\{\}\.\%\\\-\,\;\:\$]*?) \.\)\)"
+__regex__ = r"{% ([\s\w\d\(\)\'\"\{\}\.\%\*\\\-\,\;\:\$]*?) %}"
+__regex2__ = r"\(\(\. ([\s\w\d\(\)\'\"\{\}\.\%\*\\\-\,\;\:\$]*?) \.\)\)"
 
 __latex_template__ = r"""
 ((*- extends 'article.tplx' -*))
@@ -337,7 +337,7 @@ __dissertation_template__ = r"""
     \usepackage{mhchem}
     \usepackage[numbers]{natbib}
     \usepackage{nomencl}
-    \usepackage{todonotes}
+    \usepackage[disable]{todonotes}
     %\usepackage{fixmetodonotes}
     % the following is useful when we have the old nomencl.sty package
     \providecommand{\printnomenclature}{\printglossary}
