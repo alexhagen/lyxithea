@@ -375,7 +375,7 @@ class bib(object):
             pcitestr = self.html_citation(label)
             return r'%s' % (pcitestr)
 
-    def pcite(self, label):
+    def pcite(self, label, page=None):
         if label not in self.bib_dict.keys():
             pcitestr = '\[%s\]' % label
             todo('fix {citation} citation'.format(citation=label))
@@ -416,7 +416,11 @@ class bib(object):
                     labelstr += '%s,' % _label
                 labelstr = labelstr[:-1]
                 label = labelstr
-            return r'\cite{%s}' % label
+                if page is not None:
+                    pagestr = '[%s]' % page
+                else:
+                    pagestr = ''
+            return r'\cite%s{%s}' % (pagestr, label)
 
     def html_citation(self, label):
         bibdb = BibDatabase()
