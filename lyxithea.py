@@ -289,13 +289,23 @@ def to_pdf():
                 });
             """))
 
+
 def nom(abbr, extended, kind='abbr'):
+    """Add the entry to the document's nomenclature.
+
+    :param str abbr: The label for the nomenclature entry
+    :param str extended: The extended description for the nomenclature entry
+    :param str kind: The kind of nomenclature entry, choice of ``'abbr'`` for
+        an abbreviation, ``'symb'`` for a symbol, ``'subsup'`` for a super- or
+        sub- script, ``'unit'`` for a type of unit, ``'def'`` or ``'defs'`` for
+        a definition.
+    """
     if abbr not in bi.__nom__.keys():
         bi.__nom__[kind] = {}
         bi.__nom__[kind][abbr] = extended
     if run_from_ipython() and not need_latex():
-        #html_str = '<link rel="stylesheet" href="https://cdn.rawgit.com/tiaanduplessis/wenk/master/dist/wenk.css">'
-        html_str = "<span class='abbr' data-wenk='{extd}'>{abbr}</span>".format(abbr=abbr,extd=extended)
+        html_str = "<span class='abbr' data-wenk='{extd}'>{abbr}</span>"\
+            .format(abbr=abbr, extd=extended)
         if need_markdown():
             return html_str
         else:
