@@ -319,7 +319,15 @@ def nom(abbr, extended, kind='abbr'):
              extended)
         return latex_str
 
+
 def lipsum():
+    """Write random text as filler.
+
+    Lorem Ipsum is latin filler text.  ``lipsum`` returns 500 words of filler
+    text, right now in HTML
+
+    :todo: Write lipsum to actually output some of the words from lorem ipsum
+    """
     html_str = '<p>'
     for i in range(0, 500):
         html_str += 'word '
