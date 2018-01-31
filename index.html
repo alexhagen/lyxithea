@@ -202,6 +202,24 @@ $ git clone https://github.com/alexhagen/lyxithea.git
 <h1>Class Documentation<a class="headerlink" href="#class-documentation" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="module-lyxithea">
 <span id="lyxithea-module"></span><h2>LyXithea module<a class="headerlink" href="#module-lyxithea" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="lyxithea.ack">
+<code class="descclassname">lyxithea.</code><code class="descname">ack</code><span class="sig-paren">(</span><em>person</em>, <em>task=”</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lyxithea.html#ack"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lyxithea.ack" title="Permalink to this definition">¶</a></dt>
+<dd><p>Acknowledge a person for doing a task.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>person</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – The person to acknowledge.</li>
+<li><strong>task</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – The the person is being acknowledged for.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 <dl class="class">
 <dt id="lyxithea.bib">
 <em class="property">class </em><code class="descclassname">lyxithea.</code><code class="descname">bib</code><span class="sig-paren">(</span><em>filename=’bibs/dissertation.bib’</em>, <em>style=’unsrt’</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lyxithea.html#bib"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lyxithea.bib" title="Permalink to this definition">¶</a></dt>
@@ -228,7 +246,7 @@ $ git clone https://github.com/alexhagen/lyxithea.git
 
 <dl class="method">
 <dt id="lyxithea.bib.pcite">
-<code class="descname">pcite</code><span class="sig-paren">(</span><em>label</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lyxithea.html#bib.pcite"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lyxithea.bib.pcite" title="Permalink to this definition">¶</a></dt>
+<code class="descname">pcite</code><span class="sig-paren">(</span><em>label</em>, <em>page=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lyxithea.html#bib.pcite"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lyxithea.bib.pcite" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -254,11 +272,27 @@ $ git clone https://github.com/alexhagen/lyxithea.git
 <dd></dd></dl>
 
 <dl class="function">
+<dt id="lyxithea.fixme">
+<code class="descclassname">lyxithea.</code><code class="descname">fixme</code><span class="sig-paren">(</span><em>task</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lyxithea.html#fixme"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lyxithea.fixme" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="lyxithea.fnote">
+<code class="descclassname">lyxithea.</code><code class="descname">fnote</code><span class="sig-paren">(</span><em>content</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lyxithea.html#fnote"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lyxithea.fnote" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
 <dt id="lyxithea.get_pname">
 <code class="descclassname">lyxithea.</code><code class="descname">get_pname</code><span class="sig-paren">(</span><em>id</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lyxithea.html#get_pname"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lyxithea.get_pname" title="Permalink to this definition">¶</a></dt>
-<dd><p>An internal command to determine the process name of the current
-exporting process</p>
+<dd><p>Check the process name.</p>
+<p>An internal command to determine the process name of the current exporting
+process.</p>
 </dd></dl>
+
+<dl class="function">
+<dt id="lyxithea.includepdf">
+<code class="descclassname">lyxithea.</code><code class="descname">includepdf</code><span class="sig-paren">(</span><em>filename</em>, <em>pages=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lyxithea.html#includepdf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lyxithea.includepdf" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="function">
 <dt id="lyxithea.is_exporting">
@@ -278,7 +312,18 @@ exporting process</p>
 <dl class="function">
 <dt id="lyxithea.lipsum">
 <code class="descclassname">lyxithea.</code><code class="descname">lipsum</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lyxithea.html#lipsum"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lyxithea.lipsum" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Write random text as filler.</p>
+<p>Lorem Ipsum is latin filler text.  <code class="docutils literal"><span class="pre">lipsum</span></code> returns 500 words of filler
+text, right now in HTML</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Todo:</th><td class="field-body">Write lipsum to actually output some of the words from lorem ipsum</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="function">
 <dt id="lyxithea.markdown">
@@ -320,7 +365,24 @@ exporting process</p>
 <dl class="function">
 <dt id="lyxithea.nom">
 <code class="descclassname">lyxithea.</code><code class="descname">nom</code><span class="sig-paren">(</span><em>abbr</em>, <em>extended</em>, <em>kind=’abbr’</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lyxithea.html#nom"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lyxithea.nom" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Add the entry to the document’s nomenclature.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>abbr</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – The label for the nomenclature entry</li>
+<li><strong>extended</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – The extended description for the nomenclature entry</li>
+<li><strong>kind</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – The kind of nomenclature entry, choice of <code class="docutils literal"><span class="pre">'abbr'</span></code> for
+an abbreviation, <code class="docutils literal"><span class="pre">'symb'</span></code> for a symbol, <code class="docutils literal"><span class="pre">'subsup'</span></code> for a super- or
+sub- script, <code class="docutils literal"><span class="pre">'unit'</span></code> for a type of unit, <code class="docutils literal"><span class="pre">'def'</span></code> or <code class="docutils literal"><span class="pre">'defs'</span></code> for
+a definition.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="function">
 <dt id="lyxithea.print_todos">
@@ -346,7 +408,7 @@ exporting process</p>
 
 <dl class="function">
 <dt id="lyxithea.table">
-<code class="descclassname">lyxithea.</code><code class="descname">table</code><span class="sig-paren">(</span><em>array</em>, <em>caption=”</em>, <em>label=None</em>, <em>headers=None</em>, <em>floatfmt=’.2f’</em>, <em>sideways=False</em>, <em>need_string=False</em>, <em>rotate=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lyxithea.html#table"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lyxithea.table" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">lyxithea.</code><code class="descname">table</code><span class="sig-paren">(</span><em>array</em>, <em>caption=”</em>, <em>label=None</em>, <em>headers=None</em>, <em>floatfmt=’.2f’</em>, <em>sideways=False</em>, <em>span_columns=False</em>, <em>need_string=False</em>, <em>rotate=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lyxithea.html#table"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lyxithea.table" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
@@ -382,7 +444,34 @@ exporting process</p>
 <dl class="function">
 <dt id="lyxithea.todo">
 <code class="descclassname">lyxithea.</code><code class="descname">todo</code><span class="sig-paren">(</span><em>task</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lyxithea.html#todo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lyxithea.todo" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Add a task to a saved todo list that can be referenced latex.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>task</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – The task to be saved.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="lyxithea.ul">
+<code class="descclassname">lyxithea.</code><code class="descname">ul</code><span class="sig-paren">(</span><em>text</em>, <em>color=‘000000’</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lyxithea.html#ul"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lyxithea.ul" title="Permalink to this definition">¶</a></dt>
+<dd><p>Underline text.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>text</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – The text to underline</li>
+<li><strong>color</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) – The color of the underline - defaults to black</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 </div>
 <div class="section" id="document-module">
