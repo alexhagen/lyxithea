@@ -589,7 +589,7 @@ def label(label):
     elif need_latex():
         return r'\label{%s}' % label
 
-def cref(label):
+def cref(label, rename=None):
     if run_from_ipython() and not need_latex():
         if label in __tables__.val.keys():
             number = __tables__.val[label]
@@ -627,7 +627,10 @@ def cref(label):
             name = 'figure '
         else:
             text = ''
-            name = ''
+            if rename is None:
+                name = ''
+            else:
+                name = rename
             number = 0
             return r'\cref{%s%s}' % (text, label)
         return r'%s\ref{%s%s}' % (name, text, label)

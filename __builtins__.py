@@ -7,8 +7,8 @@ __need_latex__ = True
 __cdis__ = None
 __cdoc__ = None
 __cslides__ = None
-__regex__ = r"{% ([\s\w\d\(\)\[\]=\'\"\{\}\.\%\*\\\-\,\;\:\$]*?) %}"
-__regex2__ = r"\(\(\. ([\s\w\d\(\)\[\]=\'\"\{\}\.\%\*\\\-\,\;\:\$]*?) \.\)\)"
+__regex__ = r"{% ([\s\w\d\(\)\[\]=\+\^\'\"\{\}\.\%\*\\\-\,\;\:\$]*?) %}"
+__regex2__ = r"\(\(\. ([\s\w\d\(\)\[\]=\+\^\'\"\{\}\.\%\*\\\-\,\;\:\$]*?) \.\)\)"
 
 __latex_template__ = r"""
 ((*- extends 'article.tplx' -*))
@@ -66,7 +66,7 @@ __latex_template__ = r"""
   \usepackage[english]{babel}
   \newcommand{\unit}[1]{\mathrm{#1}}
   \newcommand{\ce}[1]{\mathrm{#1}}
-  \newcommand{\cc}{\unit{cm^{2}}}
+  \newcommand{\cc}{\unit{cm^{3}}}
   \newcommand{\invis}[1]{}
 ((* endblock packages *))
 
@@ -160,7 +160,7 @@ __article_template__ = r"""
   \usepackage[english]{babel}
   \newcommand{\unit}[1]{\mathrm{#1}}
   \newcommand{\ce}[1]{\mathrm{#1}}
-  \newcommand{\cc}{\unit{cm^{2}}}
+  \newcommand{\cc}{\unit{cm^{3}}}
   \newcommand{\invis}[1]{}
   \makeatletter
   \def\appendicestext{}
@@ -259,7 +259,7 @@ __article2_template__ = r"""
   \usepackage[english]{babel}
   \newcommand{\unit}[1]{\mathrm{#1}}
   \newcommand{\ce}[1]{\mathrm{#1}}
-  \newcommand{\cc}{\unit{cm^{2}}}
+  \newcommand{\cc}{\unit{cm^{3}}}
   \newcommand{\invis}[1]{}
   \makeatletter
   \def\appendicestext{}
@@ -540,7 +540,7 @@ __dissertation_template__ = r"""
   \usepackage{amsfonts}
   \providecommand{\unit}[1]{\;\color{grey60}{\mathrm{#1}}}
   \providecommand{\ce}[1]{\mathrm{#1}}
-  \providecommand{\cc}{\unit{cm^{2}}}
+  \providecommand{\cc}{\unit{cm^{3}}}
   %\newcommand\inputpgf[2]{{
     %\let\pgfimageWithoutPath\pgfimage
     %\renewcommand{\pgfimage}[2][]{\pgfimageWithoutPath[##1]{#1/##2}}
