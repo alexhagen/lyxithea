@@ -636,6 +636,23 @@ def cref(label, rename=None):
         return r'%s\ref{%s%s}' % (name, text, label)
 
 
+def scinot(number, unit='', precision='2e'):
+    """Convert a number and unit into a scientific notation LaTeX string.
+
+    :param float number: the number to convert
+    :param str unit: a legal LaTeX string defining the units
+    :param str precision: the precision without the ``'.'``, defaults to
+        ``'2e'``
+    """
+    string = r'{1:.{0}}'.format(precision, number)
+    string = r'$%s}\unit{%s}$' % (string, unit)
+    string = string.replace('e+0', r'\times 10^{')\
+        .replace('e-0', r'\times 10^{-')\
+        .replace('e+', r'\times 10^{')\
+        .replace('e-', r'\times 10^{-')
+    return string
+
+
 def fnote(content):
     if run_from_ipython() and not need_latex():
         return r'<span class="fnote">%s</span>' % content
