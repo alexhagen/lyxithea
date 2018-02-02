@@ -337,7 +337,7 @@ __dissertation_template__ = r"""
     \usepackage{mhchem}
     \usepackage[numbers]{natbib}
     \usepackage{nomencl}
-    \usepackage{todonotes}
+    \usepackage[disable]{todonotes}
     %\usepackage{fixmetodonotes}
     % the following is useful when we have the old nomencl.sty package
     \providecommand{\printnomenclature}{\printglossary}
@@ -493,7 +493,7 @@ __dissertation_template__ = r"""
 
     \usepackage{pgf}
 
-    \usepackage{bibentry}
+    %\usepackage{bibentry}
 
     \usepackage{pgf}
     \usepackage{tikz}
