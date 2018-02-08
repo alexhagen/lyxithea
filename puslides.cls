@@ -54,9 +54,32 @@
 \usepackage{xunicode}
 \usepackage{polyglossia}
 \setdefaultlanguage[variant=american]{english}
-\usepackage{bibentry}
-\nobibliography*
+%\usepackage{bibentry}
+%\nobibliography*
 \usepackage{makecell}
+\usepackage{outlines}
+
+\renewcommand{\theenumi}{\Roman{enumi}. }
+\renewcommand{\labelenumi}{\theenumi}
+
+\renewcommand{\theenumii}{\Alph{enumii}. }
+\renewcommand{\labelenumii}{\theenumii}
+
+\renewcommand{\theenumiii}{\roman{enumiii}. }
+\renewcommand{\labelenumiii}{\theenumiii}
+
+\renewcommand{\theenumiv}{\alph{enumiv}) }
+\renewcommand{\labelenumiv}{\theenumiv}
+
+\newcounter{cenum}
+\newcounter{cenumsaved}
+\setcounter{cenumsaved}{0}
+\newcommand{\labelcenum}{\arabic{cenum}.}
+\newenvironment{cenumerate}%
+{\begin{list}{\labelcenum}{\usecounter{cenum}}%
+\setcounter{cenum}{\value{cenumsaved}}}%
+{\setcounter{cenumsaved}{\value{cenum}}%
+\end{list}}
 
 \definecolor{green}{HTML}{5C8727}
 \definecolor{yellow}{HTML}{E3AE24}

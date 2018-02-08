@@ -335,7 +335,7 @@ def lipsum():
     return display(HTML(html_str))
 
 class bib(object):
-    def __init__(self, filename='bibs/dissertation.bib', style='unsrt'):
+    def __init__(self, filename='bibs/dissertation', style='unsrt'):
         self.bib_dict = {}
         self.style = style
         self.cited_labels = []

@@ -405,6 +405,7 @@ __dissertation_template__ = r"""
     \usepackage{adjustbox}
     \usepackage{rotfloat}
     \usepackage{pdfpages}
+    %\usepackage{pdfx}
     \makeatletter
     \newcommand{\invis}[1]{%
       \@bsphack

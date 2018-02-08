@@ -147,6 +147,8 @@ class puslides(lyxdoc.document):
             return string
         elif isinstance(content, pyg2d.svg):
             lyx.latex()
+            if 'scalef' not in kwargs:
+                kwargs['scalef'] = 1.35
             string = content.show(width=self.width, need_string=True,
                                   bbox=(self.width, self.height - 0.125),
                                   **kwargs)
