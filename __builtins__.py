@@ -265,6 +265,19 @@ __article2_template__ = r"""
   \def\appendicestext{}
   \newcommand\saveappendix[1]{\g@addto@macro\appendicestext{#1}}
   \makeatother
+  \usepackage{outlines}
+
+  \renewcommand{\theenumi}{\Roman{enumi}. }
+  \renewcommand{\labelenumi}{\theenumi}
+
+  \renewcommand{\theenumii}{\Alph{enumii}. }
+  \renewcommand{\labelenumii}{\theenumii}
+
+  \renewcommand{\theenumiii}{\roman{enumiii}. }
+  \renewcommand{\labelenumiii}{\theenumiii}
+
+  \renewcommand{\theenumiv}{\alph{enumiv}) }
+  \renewcommand{\labelenumiv}{\theenumiv}
 ((* endblock packages *))
 
 % Author and Title from metadata
