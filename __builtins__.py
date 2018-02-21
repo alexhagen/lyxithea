@@ -278,6 +278,7 @@ __article2_template__ = r"""
 
   \renewcommand{\theenumiv}{\alph{enumiv}) }
   \renewcommand{\labelenumiv}{\theenumiv}
+  \usepackage{todonotes}
 ((* endblock packages *))
 
 % Author and Title from metadata
@@ -618,7 +619,6 @@ __puslides_template__ = r"""((*- extends 'article.tplx' -*))
 
 
 ((* block packages *))
-
 ((* endblock packages *))
 
 ((* block definitions *))

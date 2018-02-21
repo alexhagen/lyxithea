@@ -54,8 +54,8 @@
 \usepackage{xunicode}
 \usepackage{polyglossia}
 \setdefaultlanguage[variant=american]{english}
-%\usepackage{bibentry}
-%\nobibliography*
+\usepackage{bibentry}
+\nobibliography*
 \usepackage{makecell}
 \usepackage{outlines}
 
@@ -113,6 +113,7 @@
 
 \providecommand{\tightlist}{}
 \providecommand{\invis}[1]{}
+\providecommand{\todo}[1]{}
 
 \def\pocketslides{}
 \newcommand\savepocketslide[1]{\g@addto@macro\pocketslides{#1}}

@@ -529,8 +529,8 @@ def ul(text, color='000000'):
     :param str text: The text to underline
     :param str color: The color of the underline - defaults to black
     """
-    latexstr = (r"\definecolor{ulcolor}{HTML}{%s}\setulcolor{ulcolor}" % color)
-    latexstr += (r"\ul{%s}" % text)
+    latexstr = (r'\definecolor{ulcolor}{HTML}{%s}\setulcolor{ulcolor}' % color)
+    latexstr += (r'\ul{%s}' % text)
     return latexstr
 
 def fixme(task):
