@@ -279,6 +279,11 @@ __article2_template__ = r"""
   \renewcommand{\theenumiv}{\alph{enumiv}) }
   \renewcommand{\labelenumiv}{\theenumiv}
   \usepackage{todonotes}
+  \usepackage{authblk}
+  \renewcommand\Affilfont{\itshape\small}
+  %\renewcommand\Authsep{ \and }
+  %\renewcommand\Authand{ \and }
+  %\renewcommand\Authands{ \and }
 ((* endblock packages *))
 
 % Author and Title from metadata
@@ -286,16 +291,13 @@ __article2_template__ = r"""
 
 ((*- if nb.metadata: -*))
 ((*- if nb.metadata["author"]: -*))
-    \author{((( nb.metadata["author"] )))}
+    ((( nb.metadata["author"] )))
+((*- if nb.metadata["affiliation"]: -*))
+    ((( nb.metadata["affiliation"] )))
+((*- endif *))
 ((*- endif *))
 ((*- else -*))
     \author{Alex Hagen}
-((*- endif *))
-
-((*- if nb.metadata["latex_metadata"]: -*))
-((*- if nb.metadata["latex_metadata"]["affiliation"]: -*))
-    \affiliation{((( nb.metadata["latex_metadata"]["affiliation"] )))}
-((*- endif *))
 ((*- endif *))
 
 ((*- if nb.metadata: -*))

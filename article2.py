@@ -29,7 +29,27 @@ class article2(lyxdoc.document):
     def __init__(self, bib=None):
         self.modulepath = osp.dirname(__file__)
         super(article2, self).__init__(bib=bib)
+        self._affiliation = ''
+        self._author = ''
         bi.__cdoc__ = self
+
+    def author(self, author):
+        """ Adds an author to the document that will be printed in the
+                ``\maketitle`` environment in LaTeX.
+
+            :param str author: the author's name
+
+            :todo: implement author lists and author with affiliation
+        """
+        self._author += '\n' + r'\author{%s}'% author
+
+    def affiliation(self, affiliation):
+        """ Adds the affiliation to the author written with the
+                ``document.author`` method
+            :param str affiliation: the institution the author in the
+                ``document.author`` section works at
+        """
+        self._affiliation += '\n' + r'\affil{%s}' % affiliation
 
     def export(self, filename, engine='pdflatex'):
         metadata = {"author": self._author, "title": self._title,
