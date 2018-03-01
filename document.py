@@ -9,7 +9,7 @@ import os.path
 import os
 import re
 import sys
-from io import StringIO as StringIO
+import StringIO
 import contextlib
 import inspect
 import nbformat
@@ -22,12 +22,8 @@ import lyxithea as lyx
 import nbformat
 import re
 from pyg import twod as pyg2d
-#import __builtins__ as bi
+import __builtins__ as bi
 import __init__ as init
-try:
-    import builtins as bi
-except ImportError:
-    import __builtins__ as bi
 
 if lyx.run_from_ipython():
     ip = get_ipython()
