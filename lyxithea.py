@@ -14,11 +14,15 @@ import os.path
 import subprocess
 import bibtexparser
 from bibtexparser.bibdatabase import BibDatabase
-import __builtins__ as bi
+#import __builtins__ as bi
 import tempfile
 import psgv.psgv as psgv
 import re
 import numpy as np
+try:
+    import builtins as bi
+except ImportError:
+    import __builtins__ as bi
 
 todos = psgv.psgv('__todos__')
 todos.val = []

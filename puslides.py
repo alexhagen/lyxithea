@@ -6,7 +6,7 @@ from IPython.core.magic import (Magics, magics_class, line_magic,
                                 cell_magic, line_cell_magic)
 import nbformat
 import re
-import __builtins__ as bi
+#import __builtins__ as bi
 import __init__ as init
 import document as lyxdoc
 import os.path as osp
@@ -15,10 +15,14 @@ from pyg import twod as pyg2d
 import pypandoc
 import numpy as np
 from mwe import mwe
+try:
+    import builtins as bi
+except ImportError:
+    import __builtins__ as bi
 
 ip = get_ipython()
 
-ip = get_ipython()
+#ip = get_ipython()
 
 def cslides():
     if bi.__cslides__ is not None:
