@@ -1,5 +1,5 @@
 from __future__ import division
-from __future__ import print_function
+#from __future__ import print_function
 import lyxithea as lyx
 from IPython.display import display, Latex, HTML
 from IPython.core.magic import (Magics, magics_class, line_magic,

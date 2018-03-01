@@ -1,5 +1,5 @@
 from __future__ import division
-#from __future__ import print_function
+from __future__ import print_function
 import datetime
 from IPython.display import display, HTML, Markdown, Javascript, display_javascript, display_html
 from IPython.core.magic import (Magics, magics_class, line_magic,
@@ -9,7 +9,7 @@ import os.path
 import os
 import re
 import sys
-import StringIO
+from io import StringIO as StringIO
 import contextlib
 import inspect
 import nbformat
@@ -224,7 +224,7 @@ class document(object):
                 #lyx.markdown(False)
             rep_string = s.getvalue()[:-1]
             if len(rep_string) < 1:
-                cmd = "print {oldcmd}".format(oldcmd=match.group(1))
+                cmd = "from __future__ import print_function; print ({oldcmd})".format(oldcmd=match.group(1))
                 with stdoutIO() as s:
                     #lyx.markdown()
                     lyx.latex()
@@ -242,7 +242,7 @@ class document(object):
                 #lyx.markdown(False)
             rep_string = s.getvalue()[:-1]
             if len(rep_string) < 1:
-                cmd = "print {oldcmd}".format(oldcmd=match.group(1))
+                cmd = "from __future__ import print_function; print ({oldcmd})".format(oldcmd=match.group(1))
                 with stdoutIO() as s:
                     #lyx.markdown()
                     lyx.latex()
@@ -280,17 +280,17 @@ class document(object):
 
             :todo: make the relative path replacement more robust
         """
-        print filename
-        print os.path.split(filename)
+        print (filename)
+        print (os.path.split(filename))
         # find all paths in the string with a regex
         matches = re.compile(r"(([/]|\.\.|\./)([^.]*[\.][\w][\w][\w][\w]?|$))", flags=0) \
             .findall(string)
-        print matches
+        print (matches)
         # for each path
         for match in matches:
-            print match[0]
+            print (match[0])
             rep_str = os.path.relpath(os.path.join(os.path.split(filename)[0], match[0]))
-            print rep_str
+            print (rep_str)
             string.replace(match[0], rep_str)
         return string
 
