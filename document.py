@@ -364,7 +364,8 @@ class document(object):
             :param bool force_string: forces a latex string (not
                 IPython.html or IPython.latex) output
         """
-        return self._bib.bibliography(**kwargs)
+        return self._bib.bibliography(header_level=header_level,
+                                      force_string=force_string, **kwargs)
 
     def add_to_cchap(self, string):
         processed_string = self.process_markdown(string)
@@ -438,9 +439,8 @@ class document(object):
         os.system('{engine} ./'.format(engine=engine) + filename + '.tex')
         os.system('{engine} ./'.format(engine=engine) + filename + '.tex')
         os.system('{engine} ./'.format(engine=engine) + filename + '.tex')
-        os.system('makeindex')
-        os.system('{engine} ./'.format(engine=engine) + filename + '.tex')
         os.system('makeindex ./{fname}.nlo -s nomencl.ist -o {fname}.nls'.format(fname=filename))
+        os.system('{engine} ./'.format(engine=engine) + filename + '.tex')
         display(FileLink('./' + filename + '.pdf'))
         display(FileLink('./' + filename + '.tex'))
         #lyx.latex(False)
