@@ -823,6 +823,61 @@
     \puhf
     }
 
+    \newcommand{\tworowthreecolumn}[7]
+      {
+      \newpage
+      \ThisCenterWallPaper{1}{css/Formal_Slide_Outer_Data.pdf}
+      \thispagestyle{fancy}
+      \renewcommand{\headrulewidth}{0pt}
+      \fancyhf{}
+
+      \def\nameofsection{#7}
+      \hspace{1in}
+      % Top Left
+      \begin{textblock}{2.333}(0.75,1.0)
+        \begin{minipage}[s][2.375 in][c]{2.333 in}\raggedright { \LARGE
+          #1
+        }
+        \end{minipage}
+      \end{textblock}
+      % Bottom Left
+      \begin{textblock}{2.333}(0.75,3.75)
+        \begin{minipage}[s][2.375 in][c]{2.333 in}\raggedright { \LARGE
+          #4
+        }
+        \end{minipage}
+      \end{textblock}
+      % Top Middle
+      \begin{textblock}{2.333}(3.33,1.0)
+        \begin{minipage}[s][2.375 in][c]{2.333 in}\raggedright { \LARGE
+          #2
+        }
+        \end{minipage}
+      \end{textblock}
+      % Bottom Middle
+      \begin{textblock}{2.333}(3.33,3.75)
+        \begin{minipage}[s][2.375 in][c]{2.333 in}\raggedright { \LARGE
+          #5
+        }
+        \end{minipage}
+      \end{textblock}
+      % Top Right
+      \begin{textblock}{2.333}(5.916,1.0)
+        \begin{minipage}[s][2.375 in][c]{2.333 in}\raggedright { \LARGE
+          #3
+        }
+        \end{minipage}
+      \end{textblock}
+      % Bottom Right
+      \begin{textblock}{2.333}(5.916,3.75)
+        \begin{minipage}[s][2.375 in][c]{2.333 in}\raggedright { \LARGE
+          #6
+        }
+        \end{minipage}
+      \end{textblock}
+      \puhf
+      }
+
 %% Bibliography stuff
 
 \def\bibname{}

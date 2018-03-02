@@ -42,7 +42,8 @@ class puslides(lyxdoc.document):
                   'tworowleftsidebar': {'size': [(4.5, 2.375), (4.5, 2.375), (2.25, 5.125)], 'number': 3},
                   'tworowrightsidebar': {'size': [(4.5, 2.375), (4.5, 2.375), (2.25, 5.125)], 'number': 3},
                   'tworowtwocolumn': {'size': [(3.375, 2.375), (3.375, 2.375), (3.375, 2.375), (3.375, 2.375)], 'number': 4},
-                  'fourcolumn': {'size': [(1.625, 5.25), (1.625, 5.25), (1.625, 5.25), (1.625, 5.25)], 'number': 4}
+                  'fourcolumn': {'size': [(1.625, 5.25), (1.625, 5.25), (1.625, 5.25), (1.625, 5.25)], 'number': 4},
+                  'tworowthreecolumn': {'size': 6*[(2.333, 2.375)], 'number': 6}
                  }
     def __init__(self, bib=None):
         self.modulepath = osp.dirname(__file__)
