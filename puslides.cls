@@ -83,6 +83,7 @@
 
 \definecolor{green}{HTML}{5C8727}
 \definecolor{yellow}{HTML}{E3AE24}
+\definecolor{red}{HTML}{B95915}
 \NewDocumentCommand{\sotwo}{O{red}O{black}+m}
     {%
         \begingroup
