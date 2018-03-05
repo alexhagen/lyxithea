@@ -824,6 +824,40 @@
     \puhf
     }
 
+    \newcommand{\threecolumn}[4]
+      {
+      \newpage
+      \ThisCenterWallPaper{1}{css/Formal_Slide_Outer_Data.pdf}
+      \thispagestyle{fancy}
+      \renewcommand{\headrulewidth}{0pt}
+      \fancyhf{}
+
+      \def\nameofsection{#4}
+      \hspace{1in}
+      % Left
+      \begin{textblock}{2.333}(0.75,1.0)
+        \begin{minipage}[s][5.25 in][c]{2.333 in}\raggedright { \LARGE
+          #1
+        }
+        \end{minipage}
+      \end{textblock}
+      % Middle
+      \begin{textblock}{2.333}(3.33,1.0)
+        \begin{minipage}[s][5.25 in][c]{2.333 in}\raggedright { \LARGE
+          #2
+        }
+        \end{minipage}
+      \end{textblock}
+      % Right
+      \begin{textblock}{2.333}(5.916,1.0)
+        \begin{minipage}[s][5.25 in][c]{2.333 in}\raggedright { \LARGE
+          #3
+        }
+        \end{minipage}
+      \end{textblock}
+      \puhf
+      }
+
     \newcommand{\tworowthreecolumn}[7]
       {
       \newpage
