@@ -176,7 +176,7 @@ def includepdf(filename, pages=None):
 
 def table(array, caption='', label=None, headers=None, floatfmt=".2f",
           sideways=False, span_columns=False, need_string=False,
-          rotate=False):
+          rotate=False, extrarowheight=0):
     if rotate:
         array = np.fliplr(np.rot90(np.rot90(np.rot90(array))))
     if label is None:
@@ -188,8 +188,9 @@ def table(array, caption='', label=None, headers=None, floatfmt=".2f",
         env = 'table*'
     else:
         env = 'table'
-    if not all(isinstance(el, list) for el in headers):
-        headers = [headers]
+    if headers:
+        if not all(isinstance(el, list) for el in headers):
+            headers = [headers]
     #print headers
     if run_from_ipython() and not need_latex():
         table = tabulate.tabulate(array, headers=headers, tablefmt='html',
@@ -216,9 +217,10 @@ def table(array, caption='', label=None, headers=None, floatfmt=".2f",
             \centering
             \caption{%s\label{tab:%s}}
             %%\begin{adjustbox}{max width=\textwidth}
+                \setlength\extrarowheight{%dpt}
                 %s
             %%\end{adjustbox}
-        \end{%s}""" % (env, caption, label, table, env)
+        \end{%s}""" % (env, caption, label, extrarowheight, table, env)
         __tables__.val[label] = __tabcount__.val
         __tabcount__.val += 1
         if need_string:
@@ -658,3 +660,22 @@ def fnote(content):
         return r'<span class="fnote">%s</span>' % content
     elif need_latex():
         return r'\footnote{%s}' % content
+
+def video(path, replace=None, width='7.5in', height='5.0in',
+          caption='', label=''):
+    if 'http' not in path:
+        resource = 'addresource%s,' % path
+    else:
+        resource = ''
+        path.replace('~', r'\textasciitilde{}')
+    latexstr = r'''
+    \begin{figure}
+        \centering
+        \includemedia[width=%s, activate=onclick,
+                      transparent,
+                      %s keepaspectratio,
+                      flashvars={source=%s&autoPlay=true}
+                      ]{\includegraphics[width=%s]{%s}}{VPlayer.swf}
+        \caption{%s\label{fig:%s}}
+    \end{figure}''' % (width, resource, path, width, replace, caption, label)
+    return latexstr

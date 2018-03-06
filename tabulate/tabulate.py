@@ -843,10 +843,11 @@ def _normalize_tabular_data(tabular_data, headers, showindex="default"):
             headers = rows[0]
         headers = list(map(_text_type, headers)) # headers should be strings
         rows = rows[1:]
-    if isinstance(headers[0], list):
-        headers = list(map(list, headers))
-    else:
-        headers = list(map(_text_type,headers))
+    if headers:
+        if isinstance(headers[0], list):
+            headers = list(map(list, headers))
+        else:
+            headers = list(map(_text_type,headers))
     rows = list(map(list,rows))
 
     # add or remove an index column
@@ -1163,8 +1164,12 @@ def tabulate(tabular_data, headers=(), tablefmt="simple",
 
     # optimization: look for ANSI control codes once,
     # enable smart width functions only if a control code is found
-    plain_text = '\n'.join(['\t'.join(map(_text_type, header)) for header in headers] + \
-                            ['\t'.join(map(_text_type, row)) for row in list_of_lists])
+    if headers:
+        plain_text = ['\t'.join(map(_text_type, header)) for header in headers]
+    else:
+        plain_text = []
+    plain_text += ['\t'.join(map(_text_type, row)) for row in list_of_lists]
+    plain_text = '\n'.join(plain_text)
 
     has_invisible = re.search(_invisible_codes, plain_text)
     enable_widechars = wcwidth is not None and WIDE_CHARS_MODE
@@ -1203,7 +1208,7 @@ def tabulate(tabular_data, headers=(), tablefmt="simple",
         else:
             minwidths = [len(h) + MIN_PADDING for h in headers]
     else:
-        [0]*len(cols)
+        minwidths = [0]*len(cols)
     cols = [_align_column(c, a, minw, has_invisible)
             for c, a, minw in zip(cols, aligns, minwidths)]
 
@@ -1300,7 +1305,10 @@ def _format_table(fmt, headers, rows, colwidths, colaligns):
     #headers = map(list, zip(*headers))
     #print(headers)
     padded_widths = [(w + 2*pad) for w in colwidths]
-    padded_headers = [_pad_row(header, pad) for header in headers]
+    if headers:
+        padded_headers = [_pad_row(header, pad) for header in headers]
+    else:
+        padded_headers = False
     padded_rows = [_pad_row(row, pad) for row in rows]
 
     if fmt.lineabove and "lineabove" not in hidden:

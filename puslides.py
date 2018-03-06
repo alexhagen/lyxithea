@@ -12,6 +12,7 @@ import document as lyxdoc
 import os.path as osp
 import shutil
 from pyg import twod as pyg2d
+from pyg import three2twod as pyg32d
 import pypandoc
 import numpy as np
 from mwe import mwe
@@ -44,7 +45,8 @@ class puslides(lyxdoc.document):
                   'tworowtwocolumn': {'size': [(3.375, 2.375), (3.375, 2.375), (3.375, 2.375), (3.375, 2.375)], 'number': 4},
                   'fourcolumn': {'size': [(1.625, 5.25), (1.625, 5.25), (1.625, 5.25), (1.625, 5.25)], 'number': 4},
                   'tworowthreecolumn': {'size': 6*[(2.333, 2.375)], 'number': 6},
-                  'threecolumn': {'size': 3*[(2.333, 5.25)], 'number': 3}
+                  'threecolumn': {'size': 3*[(2.333, 5.25)], 'number': 3},
+                  'twocolumnrighttworow': {'size': [(3.375, 5.25), (3.375, 2.375), (3.375, 2.375)], 'number': 3}
                  }
     def __init__(self, bib=None):
         self.modulepath = osp.dirname(__file__)
@@ -154,6 +156,13 @@ class puslides(lyxdoc.document):
             string = content.show(width=self.width, need_string=True,
                                   bbox=(self.width, self.height - 0.125),
                                   **kwargs)
+            self.content[index] = string
+            return string
+        elif isinstance(content, pyg32d.ann_im):
+            lyx.latex()
+            content.export(filename, force=True, sizes=['cs'],
+                           customsize=(self.width, self.height - 0.125))
+            string = content.show(need_string=True, **kwargs)
             self.content[index] = string
             return string
 

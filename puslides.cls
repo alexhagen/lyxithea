@@ -22,7 +22,6 @@
 \RequirePackage{algorithmic}
 \RequirePackage{multicol}
 \RequirePackage{url}
-\RequirePackage{media9}
 \usepackage[absolute,overlay]{textpos}
 \RequirePackage{anyfontsize}
 \usepackage{amstext}
@@ -37,6 +36,8 @@
 \usepackage{units}
 \usepackage{hyperref}
 \usepackage{graphicx}
+\usepackage{media9}
+\usepackage{array}
 \PassOptionsToPackage{version=3}{mhchem}
 \usepackage{mhchem}
 \usepackage[numbers]{natbib}
@@ -48,7 +49,7 @@
 \usepackage{xparse}
 \usepackage{soul}
 \usepackage{tikz}
-\usetikzlibrary{shapes,arrows,calc,positioning, automata}
+\usetikzlibrary{shapes,arrows,calc,positioning,automata}
 \usepackage{pdfpages}
 \usepackage{float}
 \usepackage{xunicode}
@@ -782,6 +783,40 @@
   \end{textblock}
   \puhf
   }
+
+  \newcommand{\twocolumnrighttworow}[4]
+    {
+    \newpage
+    \ThisCenterWallPaper{1}{css/Formal_Slide_Outer_Data.pdf}
+    \thispagestyle{fancy}
+    \renewcommand{\headrulewidth}{0pt}
+    \fancyhf{}
+
+    \def\nameofsection{#4}
+    \hspace{1in}
+    % Left Column
+    \begin{textblock}{3.375}(0.75,1.0)
+      \begin{minipage}[s][5.25 in][c]{3.375 in}\raggedright { \LARGE
+        #1
+      }
+      \end{minipage}
+    \end{textblock}
+    % Top Right
+    \begin{textblock}{3.375}(4.75,1.0)
+      \begin{minipage}[s][2.375 in][c]{3.375 in}\raggedright { \LARGE
+        #2
+      }
+      \end{minipage}
+    \end{textblock}
+    % Bottom Right
+    \begin{textblock}{3.375}(4.75,3.75)
+      \begin{minipage}[s][2.375 in][c]{3.375 in}\raggedright { \LARGE
+        #3
+      }
+      \end{minipage}
+    \end{textblock}
+    \puhf
+    }
 
   \newcommand{\fourcolumn}[5]
     {
