@@ -613,7 +613,12 @@ __puslides_template__ = r"""((*- extends 'article.tplx' -*))
 ((* set cell_style = 'style_bw_python.tplx' *))
 
 ((* block docclass *))
-\documentclass[american,20pt]{puslides}
+
+((*- if nb.metadata["confidential"]: -*))
+    \documentclass[confidential,american,20pt]{puslides}
+((*- else -*))
+    \documentclass[american,20pt]{puslides}
+((*- endif -*))
 ((* endblock docclass *))
 
 ((* block margins *))
@@ -634,7 +639,7 @@ __puslides_template__ = r"""((*- extends 'article.tplx' -*))
     \title{((( nb.metadata["title"] )))}
 ((*- else -*))
     \title{((( resources.metadata.name )))}
-((*- endif *))
+((*- endif -*))
 
 ((*- if nb.metadata["author"]: -*))
     \author{((( nb.metadata["author"] )))}

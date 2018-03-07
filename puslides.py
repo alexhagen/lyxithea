@@ -48,7 +48,7 @@ class puslides(lyxdoc.document):
                   'threecolumn': {'size': 3*[(2.333, 5.25)], 'number': 3},
                   'twocolumnrighttworow': {'size': [(3.375, 5.25), (3.375, 2.375), (3.375, 2.375)], 'number': 3}
                  }
-    def __init__(self, bib=None):
+    def __init__(self, bib=None, confidential=False):
         self.modulepath = osp.dirname(__file__)
         self.content_one = None
         self.content_two = None
@@ -60,6 +60,7 @@ class puslides(lyxdoc.document):
         self._venue = None
         self._subtitle = None
         self._city = None
+        self._confidential = confidential
         self._slidetype = None
         super(puslides, self).__init__(bib=bib)
         bi.__cslides__ = self
@@ -77,7 +78,8 @@ class puslides(lyxdoc.document):
                     "affiliation": self._affiliation,
                     "subtitle": self._subtitle,
                     "venue": self._venue,
-                    "city": self._city}
+                    "city": self._city,
+                    "confidential": self._confidential}
         super(puslides, self).export(filename=filename, fmt='latex',
                                      engine=engine, template='puslides',
                                      metadata=metadata)

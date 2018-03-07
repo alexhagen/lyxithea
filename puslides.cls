@@ -2,6 +2,12 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{puslides}[2014/04/03 Purdue slides class]
 
+\RequirePackage{ifthen}
+
+\newboolean{conf}
+\setboolean{conf}{false}
+\DeclareOption{confidential}{\setboolean{conf}{true}}
+\ProcessOptions\relax
 
 %% Load base
 \LoadClass[english, 10pt]{book}
@@ -52,6 +58,7 @@
 \usetikzlibrary{shapes,arrows,calc,positioning,automata}
 \usepackage{pdfpages}
 \usepackage{float}
+\usepackage{ifthen}
 \usepackage{xunicode}
 \usepackage{polyglossia}
 \setdefaultlanguage[variant=american]{english}
@@ -258,11 +265,13 @@
     \end{minipage}
   \end{textblock}
     % Confidential
-  %\begin{textblock}{3}(3,6.25)
-  %  \begin{minipage}[t][0.30 in][c]{3 in}\centering
-  %    \small{\color{grey60} Confidential - Not for Dissemination}
-  %  \end{minipage}
-  %\end{textblock}
+    \ifthenelse{\boolean{conf}}{
+      \begin{textblock}{3}(3,6.25)
+        \begin{minipage}[t][0.30 in][c]{3 in}\centering
+          \small{\color{grey60} Confidential - Not for Dissemination}
+        \end{minipage}
+      \end{textblock}
+    }{}
   % Author and Venue
   \begin{textblock}{4}(4.85,6.54)
     \begin{minipage}[t][0.30 in][c]{4 in}\raggedright
@@ -298,11 +307,13 @@
     \end{minipage}
   \end{textblock}
     % Confidential
-  %\begin{textblock}{3}(3,6.25)
-  %  \begin{minipage}[t][0.30 in][c]{3 in}\centering
-  %    \small{\color{grey60} Confidential - Not for Dissemination}
-  %  \end{minipage}
-  %\end{textblock}
+    \ifthenelse{\boolean{conf}}{
+      \begin{textblock}{3}(3,6.25)
+        \begin{minipage}[t][0.30 in][c]{3 in}\centering
+          \small{\color{grey60} Confidential - Not for Dissemination}
+        \end{minipage}
+      \end{textblock}
+    }{}
   % Author and Venue
   \begin{textblock}{4}(4.85,6.54)
     \begin{minipage}[t][0.30 in][c]{4 in}\raggedright
