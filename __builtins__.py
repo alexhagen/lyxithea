@@ -230,6 +230,9 @@ __article2_template__ = r"""
   \usepackage{amsmath} % Equations
   \usepackage{amssymb} % Equations
   \usepackage{textcomp} % defines textquotesingle
+  \usepackage{array}
+  \usepackage[utopia]{mathdesign}
+  \usepackage[OMLmathrm,OMLmathbf]{isomath}
   \AtBeginDocument{%
       \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
   }
