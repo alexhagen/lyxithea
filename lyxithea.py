@@ -664,13 +664,13 @@ def figures(figures, captions=[], caption='', filenames=[], labels=[],
     string = r'''
     \begin{figure*}%%
         \centering
-        \subfloat[%s]{{\input{%s} }}%%
-        \subfloat[%s]{{\input{%s} }}%%
+        \subfloat[%s\label{fig:%s}]{{\input{%s} }}%%
+        \subfloat[%s\label{fig:%s}]{{\input{%s} }}%%
         \caption{%s}%%
         \label{%s}%%
     \end{figure*}
-    ''' % (captions[0], figures[0].pgf_filename,
-           captions[1], figures[1].pgf_filename,
+    ''' % (captions[0], labels[0], figures[0].pgf_filename,
+           captions[1], labels[1], figures[1].pgf_filename,
            caption, label)
     return display(Latex(string))
 
