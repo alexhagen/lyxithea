@@ -52,6 +52,7 @@ __apps__ = psgv.psgv('__lyxapps__')
 __apps__.val = {}
 __exporting__ = psgv.psgv('__lyxexporting__')
 __exporting__.val = False
+__context__ = psgv.psgv('__context__')
 
 
 def get_pname(id):
@@ -654,6 +655,24 @@ def scinot(number, unit='', precision='2e'):
         .replace('e-', r'\times 10^{-')
     return string
 
+
+def figures(figures, captions=[], caption='', filenames=[], labels=[],
+            widths=[], label=''):
+    __context__.val = 'thesis'
+    for figure, filename, width in zip(figures, filenames, widths):
+        figure.export(filename, sizes=[width], formats=['pgf'], force=True)
+    string = r'''
+    \begin{figure*}%%
+        \centering
+        \subfloat[%s]{{\input{%s} }}%%
+        \subfloat[%s]{{\input{%s} }}%%
+        \caption{%s}%%
+        \label{%s}%%
+    \end{figure*}
+    ''' % (captions[0], figures[0].pgf_filename,
+           captions[1], figures[1].pgf_filename,
+           caption, label)
+    return display(Latex(string))
 
 def fnote(content):
     if run_from_ipython() and not need_latex():

@@ -233,6 +233,7 @@ __article2_template__ = r"""
   \usepackage{array}
   \usepackage[utopia]{mathdesign}
   \usepackage[OMLmathrm,OMLmathbf]{isomath}
+  \usepackage{subfig}
   \AtBeginDocument{%
       \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
   }
