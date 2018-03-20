@@ -34,6 +34,7 @@ __tables__ = psgv.psgv('__lyxtables__')
 __tables__.val = {}
 __figures__ = psgv.psgv('__lyxfigures__')
 __figures__.val = {}
+__figcount__ = 1
 __chapters__ = psgv.psgv('__lyxchapters__')
 __chapters__.val = {}
 __sections__ = psgv.psgv('__lyxsections__')
@@ -659,8 +660,11 @@ def scinot(number, unit='', precision='2e'):
 def figures(figures, captions=[], caption='', filenames=[], labels=[],
             widths=[], label=''):
     __context__.val = 'thesis'
-    for figure, filename, width in zip(figures, filenames, widths):
+    __figcount__ = 1
+    for figure, filename, width, label in zip(figures, filenames, widths, labels):
         figure.export(filename, sizes=[width], formats=['pgf'], force=True)
+        __figures__.val[label] = __figcount__
+        __figcount__ += 1
     string = r'''
     \begin{figure*}%%
         \centering
