@@ -333,7 +333,7 @@ __dissertation_template__ = r"""
 ((* set cell_style = 'style_bw_python.tplx' *))
 
 ((* block docclass *))
-\documentclass[english, ne, thesis]{puthesis}
+\documentclass[english, ne, dissertation]{puthesis}
 ((* endblock docclass *))
 
 ((* block margins *))
@@ -480,8 +480,8 @@ __dissertation_template__ = r"""
     \definecolor{405C}{RGB}{116,108,102}
 
     %Add header for confidentiality
-    \def\@@evenhead{\hfil\textrm{DRAFT - CONFIDENTIAL - NOT FOR DISSEMINATION}\hfil\textrm{\thepage}}
-    \def\@@oddhead{\hfil\textrm{DRAFT - CONFIDENTIAL - NOT FOR DISSEMINATION}\hfil\textrm{\thepage}}
+    \def\@@evenhead{\hfil\textrm{DRAFT - BUSINESS CONFIDENTIAL - NOT FOR DISSEMINATION}\hfil\textrm{\thepage}}
+    \def\@@oddhead{\hfil\textrm{DRAFT - BUSINESS CONFIDENTIAL - NOT FOR DISSEMINATION}\hfil\textrm{\thepage}}
 
     %Make list of symbols, etc.
     \renewcommand{\nomname}{}
@@ -567,6 +567,8 @@ __dissertation_template__ = r"""
     %\renewcommand{\pgfimage}[2][]{\pgfimageWithoutPath[##1]{#1/##2}}
     %\input{#1/#2}
     %}}
+  \newcommand{\dt}{$\mathrm{T}\left(d, n\right)$ }
+  \newcommand{\dd}{$\mathrm{D}\left(d, n\right)$ }
 ((* endblock packages *))
 
 ((* block error *))
@@ -585,9 +587,9 @@ __dissertation_template__ = r"""
 
 % Author and Title from metadata
 ((* block maketitle *))
-\pudegree{Doctorate of Philosophy in Nuclear Engineering}{Ph.D.N.E.}{March}{2018}
+\pudegree{Doctorate of Philosophy in Nuclear Engineering}{Ph.D. Candidate}{April}{2018}
 
-\majorprof{Rusi P. Taleyarkhan}
+\majorprof{Dr. Rusi P. Taleyarkhan}
 
 \campus{West Lafayette}
 
@@ -597,7 +599,38 @@ __dissertation_template__ = r"""
 Material using Tensioned Metastable Fluid Detectors}
 
 \date{\today}
+
 \maketitle
+\begin{statement}
+\noindent Dr. Rusi P. Taleyarkhan, Chair\\
+\null\qquad School of Nuclear Engineering and School of Health Sciences
+
+\smallskip{}
+
+\noindent Dr. Shripad T. Revankar\\
+\null\qquad School of Nuclear Engineering
+
+\smallskip{}
+
+\noindent Dr. James F. Schweitzer\\
+\null\qquad Radiological and Environmental Management and School of Health Sciencies
+
+\smallskip{}
+
+\noindent Dr. Robert S. Bean\\
+\null\qquad School of Nuclear Engineering
+
+\smallskip{}
+
+\noindent Dr. Brian C. Archambault\\
+\null\qquad School of Nuclear Engineering
+
+\bigskip{}
+
+\noindent \textbf{Approved by:}\\
+\null\qquad Dr. Chan K. Choi\\
+\null\qquad \qquad Head of the Graduate Program
+\end{statement}
 ((* endblock maketitle *))
 """
 

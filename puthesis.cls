@@ -1047,7 +1047,7 @@
       \vbox{
         \noindent
         \@@AbstractAuthor~\@@AbstractDegree,
-        Purdue University,
+        Purdue University School of Nuclear Engineering,
         \@@DegreeMonth\ %
         \@@DegreeYear.
         {%
