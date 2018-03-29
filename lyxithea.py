@@ -662,7 +662,8 @@ def figures(figures, captions=[], caption='', filenames=[], labels=[],
     __context__.val = 'thesis'
     __figcount__ = 1
     for figure, filename, width, label in zip(figures, filenames, widths, labels):
-        figure.export(filename, sizes=[width], formats=['pgf'], force=True)
+        figure.export(filename, sizes=[width], formats=['pgf'], force=True,
+                      context='thesis')
         __figures__.val[label] = __figcount__
         __figcount__ += 1
     string = r'''

@@ -71,9 +71,9 @@ class dissertation(lyxdoc.document):
 
     def acknowledgements(self, ack):
         self._acknowledgements = self.process_markdown(ack)
-        return display(bi.__formatter__('\\begin{acknowledgements}\n' +
+        return display(bi.__formatter__('\\begin{acknowledgments}\n' +
                                         self._acknowledgements +
-                                        '\\end{acknowledgements}\n'))
+                                        '\\end{acknowledgments}\n'))
 
     def preface(self, preface):
         self._preface = self.process_markdown(preface)

@@ -585,7 +585,7 @@ __dissertation_template__ = r"""
 
 % Author and Title from metadata
 ((* block maketitle *))
-\pudegree{Doctorate of Philosophy in Nuclear Engineering}{Ph.D.N.E.}{February/March}{2018}
+\pudegree{Doctorate of Philosophy in Nuclear Engineering}{Ph.D.N.E.}{March}{2018}
 
 \majorprof{Rusi P. Taleyarkhan}
 
