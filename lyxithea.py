@@ -631,12 +631,13 @@ def cref(label, rename=None):
             name = 'figure '
         else:
             text = ''
+            number = 0
             if rename is None:
                 name = ''
+                return r'\cref{%s%s}' % (text, label)
             else:
                 name = rename
-            number = 0
-            return r'\cref{%s%s}' % (text, label)
+                return r'%s\ref{%s%s}' % (name, text, label)
         return r'%s\ref{%s%s}' % (name, text, label)
 
 

@@ -557,6 +557,7 @@ __dissertation_template__ = r"""
     \makeatother
   \usepackage{nicefrac}
   \usepackage{gensymb}
+  \usepackage{textcomp}
   \usepackage{import}
   \usepackage{amsfonts}
   \providecommand{\unit}[1]{\;\color{grey60}{\mathrm{#1}}}
@@ -569,6 +570,7 @@ __dissertation_template__ = r"""
     %}}
   \newcommand{\dt}{$\mathrm{T}\left(d, n\right)$ }
   \newcommand{\dd}{$\mathrm{D}\left(d, n\right)$ }
+  \newcommand{\ftcc}{($15\unit{cm^{3}}$) }
 ((* endblock packages *))
 
 ((* block error *))
@@ -628,7 +630,7 @@ Material using Tensioned Metastable Fluid Detectors}
 \bigskip{}
 
 \noindent \textbf{Approved by:}\\
-\null\qquad Dr. Chan K. Choi\\
+\null\qquad Dr. Seungjin Kim\\
 \null\qquad \qquad Head of the Graduate Program
 \end{statement}
 ((* endblock maketitle *))
