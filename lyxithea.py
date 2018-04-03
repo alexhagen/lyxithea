@@ -641,7 +641,7 @@ def cref(label, rename=None):
         return r'%s\ref{%s%s}' % (name, text, label)
 
 
-def scinot(number, unit='', precision='2e'):
+def scinot(number, unit='', precision='2e', math=True):
     """Convert a number and unit into a scientific notation LaTeX string.
 
     :param float number: the number to convert
@@ -650,7 +650,9 @@ def scinot(number, unit='', precision='2e'):
         ``'2e'``
     """
     string = r'{1:.{0}}'.format(precision, number)
-    string = r'$%s}\unit{%s}$' % (string, unit)
+    string = r'%s}\unit{%s}' % (string, unit)
+    if math:
+        string = r'$' + string + r'$'
     string = string.replace('e+0', r'\times 10^{')\
         .replace('e-0', r'\times 10^{-')\
         .replace('e+', r'\times 10^{')\
