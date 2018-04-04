@@ -428,7 +428,11 @@ class bib(object):
                         labelstr += '%s,' % _label
                     labelstr = labelstr[:-1]
                     label = labelstr
-                return display(Latex('\[%s\]' % label))
+                if page is not None:
+                    pagestr = '[%s]' % page
+                else:
+                    pagestr = ''
+                return display(Latex(r'\cite%s{%s}' % (pagestr, label)))
             else:
                 return display(HTML(pcitestr))
         elif need_latex():
@@ -489,9 +493,10 @@ bibtex2html -nokeys -o - -s plain -nodoc -q temp.bib  -->
             else:
                 return display(HTML(htmlstr))
         elif need_latex():
+            os.system('iconv -f utf-8 -t ascii -c {0} -o {1}'.format(self.full_filename, self.full_filename.replace('.bib', 'bak.bib')))
             if force_string:
-                return r'\bibliographystyle{%s} \bibliography{%s}' % (self.style, self.full_filename)
-            return Latex(r'\bibliographystyle{%s} \bibliography{%s}' % (self.style, self.full_filename))
+                return r'\bibliographystyle{%s} \bibliography{%s}' % (self.style, self.full_filename.replace('.bib', 'bak.bib'))
+            return Latex(r'\bibliographystyle{%s} \bibliography{%s}' % (self.style, self.full_filename.replace('.bib', 'bak.bib')))
 
 
 def figures():

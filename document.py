@@ -433,14 +433,16 @@ class document(object):
         (body, resources) = latex_exporter.from_notebook_node(self.nb)
         with open('./' + filename + '.tex', 'w') as f:
             f.write(body)
-        os.system('{engine} -interaction batchmode ./'.format(engine=engine) + filename + '.tex')
+        interaction = '-interaction batchmode'
+        interaction = ''
+        os.system('{engine} {int} ./'.format(engine=engine, int=interaction) + filename + '.tex')
         os.system('bibtex ./' + filename)
         os.system('bibtex ./' + filename + '.aux')
-        os.system('{engine} -interaction batchmode ./'.format(engine=engine) + filename + '.tex')
-        os.system('{engine} -interaction batchmode ./'.format(engine=engine) + filename + '.tex')
-        os.system('{engine} -interaction batchmode ./'.format(engine=engine) + filename + '.tex')
+        os.system('{engine} {int} ./'.format(engine=engine, int=interaction) + filename + '.tex')
+        os.system('{engine} {int} ./'.format(engine=engine, int=interaction) + filename + '.tex')
+        os.system('{engine} {int} ./'.format(engine=engine, int=interaction) + filename + '.tex')
         os.system('makeindex ./{fname}.nlo -s nomencl.ist -o {fname}.nls'.format(fname=filename))
-        os.system('{engine} -interaction batchmode ./'.format(engine=engine) + filename + '.tex')
+        os.system('{engine} {int} ./'.format(engine=engine, int=interaction) + filename + '.tex')
         display(FileLink('./' + filename + '.pdf'))
         display(FileLink('./' + filename + '.tex'))
         #lyx.latex(False)
