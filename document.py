@@ -330,12 +330,23 @@ class document(object):
                     # find the argument of 'dischapter('
                     matches = re.match('dis\.chapter\([\'\"](.*)[\'\"]\)', cell['source'])
                     import_filename = matches.group(1)
-                    self.append_notebook(import_filename, cells)
+                    if '.tex' not in import_filename:
+                        self.append_notebook(import_filename, cells)
+                    else:
+                        src = r'Latex(\'\input{%s}\')' % import_filename
+                        cell_to_add = nbformat.v4.new_code_cell(src)
+                        cells.extend([cell_to_add])
+
                 elif re.match('dis\.appendix\([\'\"](.*)[\'\"]\)', cell['source']) is not None:
                     # find the argument of 'disappendix('
                     matches = re.match('dis\.appendix\([\'\"](.*)[\'\"]\)', cell['source'])
                     import_filename = matches.group(1)
-                    self.append_notebook(import_filename, cells)
+                    if '.tex' not in import_filename:
+                        self.append_notebook(import_filename, cells)
+                    else:
+                        src = r'Latex(\'\input{%s}\')' % import_filename
+                        cell_to_add = nbformat.v4.new_code_cell(src)
+                        cells.extend([cell_to_add])
         #cells.extend([nbformat.v4.new_code_cell("os.chdir(\'%s\')" % self.cwd)])
         return cells
 
