@@ -641,7 +641,7 @@ def cref(label, rename=None):
                 name = ''
                 return r'\cref{%s%s}' % (text, label)
             else:
-                name = rename
+                name = rename + ' '
                 return r'%s\ref{%s%s}' % (name, text, label)
         return r'%s\ref{%s%s}' % (name, text, label)
 
