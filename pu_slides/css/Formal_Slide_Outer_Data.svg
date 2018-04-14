@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="810"
+   height="630"
+   id="svg3309"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="Formal_Slide_Outer_Data.svg">
+  <defs
+     id="defs3311" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.4619048"
+     inkscape:cx="405"
+     inkscape:cy="315"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     units="in"
+     inkscape:window-width="1920"
+     inkscape:window-height="1138"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata3314">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-422.35975)">
+    <rect
+       style="fill:#746c66;fill-opacity:1;fill-rule:nonzero;stroke:none"
+       id="rect3005"
+       width="22.5"
+       height="45.900002"
+       x="393.75"
+       y="1006.4597" />
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot3319"
+       style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Myriad Pro Cond;-inkscape-font-specification:Myriad Pro Cond"
+       transform="translate(-464.1784,600.39526)"><flowRegion
+         id="flowRegion3321"><rect
+           id="rect3323"
+           width="206.05325"
+           height="206.36095"
+           x="766.15979"
+           y="406.49112"
+           style="font-size:20px;text-align:center;text-anchor:middle" /></flowRegion><flowPara
+         id="flowPara3325">\color{white} \LARGE{\nameofpagenumber}</flowPara></flowRoot>    <path
+       style="fill:none;stroke:#746c66;stroke-width:1.00082457000000000px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 23.015803,1006.8598 763.968397,0"
+       id="path3317"
+       inkscape:connector-curvature="0" />
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot3319-5"
+       style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:94.99999881%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Myriad Pro Cond;-inkscape-font-specification:Myriad Pro Cond"
+       transform="translate(-343.62597,605.39125)"><flowRegion
+         id="flowRegion3321-1"><rect
+           id="rect3323-7"
+           width="554.05322"
+           height="32.360947"
+           x="766.15979"
+           y="406.49112"
+           style="font-size:20px;line-height:94.99999881%" /></flowRegion><flowPara
+         id="flowPara3325-1"
+         style="font-size:16px">\color{grey40} \small{\nameoftitle}</flowPara><flowPara
+         style="font-size:16px"
+         id="flowPara3384" /></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot3356"
+       style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Myriad Pro Cond;-inkscape-font-specification:Myriad Pro Cond"
+       transform="translate(-4.4423482,421.57902)"><flowRegion
+         id="flowRegion3358"><rect
+           id="rect3360"
+           width="1037.8225"
+           height="53.68047"
+           x="26.094675"
+           y="10.43787"
+           style="font-size:18px" /></flowRegion><flowPara
+         id="flowPara3362"><flowSpan
+           style="font-size:18px;font-weight:bold;fill:#746c66;-inkscape-font-specification:Myriad Pro Cond Bold"
+           id="flowSpan3370">\Large{\color{grey60} \nameofsection</flowSpan><flowSpan
+           style="font-size:18px;fill:#a7a9ac"
+           id="flowSpan3380"> \color{grey40} $\;\rightarrow$ \nameofsubsection</flowSpan><flowSpan
+           style="font-size:18px;fill:#d1d3d4"
+           id="flowSpan3378"> \color{grey20} $\;\rightarrow$</flowSpan><flowSpan
+           style="font-size:18px;font-style:oblique;fill:#d1d3d4;-inkscape-font-specification:Myriad Pro Cond Oblique"
+           id="flowSpan3372"> \nameofsubsubsection}</flowSpan></flowPara></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot3000"
+       style="font-size:22px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Myriad Pro Cond;-inkscape-font-specification:Myriad Pro Cond"
+       transform="translate(4.5717503,422.35975)"><flowRegion
+         id="flowRegion3002"><rect
+           id="rect3004"
+           width="770.16571"
+           height="538.2959"
+           x="17.893492"
+           y="42.497025"
+           style="font-size:22px" /></flowRegion><flowPara
+         id="flowPara3006">\thecontent</flowPara></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot3005"
+       style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:end;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:end;fill:#000000;fill-opacity:1;stroke:none;font-family:Times New Roman;-inkscape-font-specification:Times New Roman"
+       transform="translate(64,418.35975)"><flowRegion
+         id="flowRegion3007"><rect
+           id="rect3009"
+           width="378.74557"
+           height="39.514793"
+           x="-57.408287"
+           y="594.21301"
+           style="font-size:10px;text-align:end;text-anchor:end" /></flowRegion><flowPara
+         id="flowPara3011">\color{grey40} \small{\nameofauthor}</flowPara></flowRoot>  </g>
+</svg>

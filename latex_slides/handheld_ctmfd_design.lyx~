@@ -1,0 +1,2897 @@
+#LyX 2.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 474
+\begin_document
+\begin_header
+\textclass puslides
+\begin_preamble
+\usepackage{pgf}
+\usepackage{xcolor}
+\usepackage{color}
+\usepackage{xparse}
+\usepackage{soul}
+\definecolor{green}{HTML}{5C8727}
+\definecolor{yellow}{HTML}{E3AE24}
+\makeatletter
+\NewDocumentCommand{\sotwo}{O{red}O{black}+m}
+    {%
+        \begingroup
+        \setulcolor{#1}%
+        \setul{-.6ex}{2pt}%
+        \def\SOUL@uleverysyllable{%
+            \rlap{%
+                \color{#2}\the\SOUL@syllable
+                \SOUL@setkern\SOUL@charkern}%
+            \SOUL@ulunderline{%
+                \phantom{\the\SOUL@syllable}}%
+        }%
+        \ul{#3}%
+        \endgroup
+    }
+\makeatother
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows,calc,positioning}
+\end_preamble
+\options 20pt
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_math auto
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\float_placement H
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\pdf_bookmarks true
+\pdf_bookmarksnumbered false
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks false
+\pdf_pdfborder false
+\pdf_colorlinks false
+\pdf_backref false
+\pdf_pdfusetitle false
+\papersize custom
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 0
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 0
+\use_package mhchem 1
+\use_package stackrel 0
+\use_package stmaryrd 0
+\use_package undertilde 0
+\cite_engine natbib
+\cite_engine_type authoryear
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation landscape
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\paperwidth 7in
+\paperheight 9in
+\leftmargin 0cm
+\topmargin 0cm
+\rightmargin 0cm
+\bottommargin 0cm
+\headheight 0cm
+\headsep 0cm
+\footskip 0cm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\bullet 0 0 34 -1
+\bullet 1 0 30 -1
+\bullet 2 0 30 -1
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Proposed Design for Handheld 
+\begin_inset Formula $18\unit{cm^{3}}$
+\end_inset
+
+ CTMFD - Rotordynamics, enclosure, and control system
+\end_layout
+
+\begin_layout Author
+Alex Hagen
+\begin_inset script superscript
+
+\begin_layout Plain Layout
+(1)
+\end_layout
+
+\end_inset
+
+, Brian C.
+ Archambault
+\begin_inset script superscript
+
+\begin_layout Plain Layout
+(2)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subtitle
+(1) Purdue University, (2) S/A Labs, LLC., * Corresponding Author
+\end_layout
+
+\begin_layout Venue
+MFARL Internal Presentation
+\end_layout
+
+\begin_layout City
+Lafayette, IN
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+def
+\backslash
+theauthorsforbottom{A.
+ Hagen, B.C.
+ Archambault}
+\end_layout
+
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\end_layout
+
+\begin_layout Part
+General System Improvements
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+def
+\backslash
+nameofchapter{Acoustic Instrumentation of CTMFDs}
+\end_layout
+
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\end_layout
+
+\begin_layout Two Row Left Sidebar
+Motivation and Concept
+\begin_inset Argument 3
+status open
+
+\begin_layout Plain Layout
+\begin_inset Flex Content
+status open
+
+\begin_layout Subsection*
+Motivation
+\end_layout
+
+\begin_layout Itemize
+Cavitation detection time uncertainty is driven by vapor column creation
+ time
+\end_layout
+
+\begin_layout Itemize
+Cavitation detection time uncertainty currently is too high for quick resolution
+ of multiplicity
+\end_layout
+
+\begin_layout Itemize
+Piezoelectric means may be preferable when in intense 
+\begin_inset Formula $\gamma$
+\end_inset
+
+ environments
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+\begin_inset Flex Content
+status open
+
+\begin_layout Subsection*
+Methodology
+\end_layout
+
+\begin_layout Itemize
+Piezoelectric device(s) attached to CTMFD bulb provide evidence of shock
+ traces
+\end_layout
+
+\begin_layout Itemize
+Filter removes electronic noise and drive frequency
+\end_layout
+
+\begin_layout Itemize
+High speed ADC system detects rise in PZT signal
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Argument 2
+status open
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+centering 
+\backslash
+input{img/filtered.pgf}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Shock trace using 
+\begin_inset Formula $3\,\mathrm{kSps}$
+\end_inset
+
+ data rate
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Two Row Two Column
+System Concepts
+\begin_inset Argument 2
+status open
+
+\begin_layout Plain Layout
+\begin_inset Flex Content
+status open
+
+\begin_layout Subsection*
+Beaglebone MCU - Integrated system
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $f_{data}=200\,\mathrm{kSps}$
+\end_inset
+
+, 
+\begin_inset Formula $T_{data}=5\,\mathrm{\mu s}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $t_{data\;frame}$
+\end_inset
+
+ is continuous
+\end_layout
+
+\begin_layout Itemize
+Requirements: 1 MCU, 1 battery, 1 power board, 1 filter
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+% Define block styles 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+tikzstyle{decision} = [diamond, draw,      
+\end_layout
+
+\begin_layout Plain Layout
+
+     text width=5em, minimum width=15em,text badly centered, minimum height=3em,
+node distance=0.1cm, inner sep=0pt] 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+tikzstyle{block} = [rectangle, draw,  node distance=0.5em,%   
+\end_layout
+
+\begin_layout Plain Layout
+
+    minimum width=4em, text width=3.5em, text centered,%
+\end_layout
+
+\begin_layout Plain Layout
+
+	rounded corners, minimum height=1.5em]%
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+tikzstyle{circlenode} = [circle, draw,%
+\end_layout
+
+\begin_layout Plain Layout
+
+	node distance=0.5em, text centered, minimum size=1.5em]
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+tikzstyle{line} = [draw, -latex'] 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+tikzstyle{cloud} = [draw, ellipse, node distance=3cm,     
+\end_layout
+
+\begin_layout Plain Layout
+
+    minimum height=2em]
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+tikzset{
+\end_layout
+
+\begin_layout Plain Layout
+
+    print/.style={ % requires library shapes.symbols         
+\end_layout
+
+\begin_layout Plain Layout
+
+        draw,
+\end_layout
+
+\begin_layout Plain Layout
+
+        tape,
+\end_layout
+
+\begin_layout Plain Layout
+
+        tape bend top=none,
+\end_layout
+
+\begin_layout Plain Layout
+
+        minimum height=15em,
+\end_layout
+
+\begin_layout Plain Layout
+
+        minimum width=15em,
+\end_layout
+
+\begin_layout Plain Layout
+
+        text width=10em
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}[node distance = 2cm, auto]     
+\end_layout
+
+\begin_layout Plain Layout
+
+    % Place nodes
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+node [block] (batt) {
+\end_layout
+
+\begin_layout Plain Layout
+
+		Battery
+\end_layout
+
+\begin_layout Plain Layout
+
+	};
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+node [block, left=0.5em of batt] (pwr) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        Pwr Filter
+\end_layout
+
+\begin_layout Plain Layout
+
+    };
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+node [block, above=0.5em of pwr] (mcu) {
+\end_layout
+
+\begin_layout Plain Layout
+
+		MCU
+\end_layout
+
+\begin_layout Plain Layout
+
+	};
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+node [block, minimum width=1.25in, minimum height=1.25in, text width=1.5in,%
+\end_layout
+
+\begin_layout Plain Layout
+
+		inner sep=0pt,above=0.5em of mcu] (filt) {
+\end_layout
+
+\begin_layout Plain Layout
+
+		
+\backslash
+centering 
+\backslash
+input{img/filter_frequency_response.pgf}
+\end_layout
+
+\begin_layout Plain Layout
+
+	};
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+node [circlenode, left=0.5em of filt] (pzt) {
+\end_layout
+
+\begin_layout Plain Layout
+
+		PZT
+\end_layout
+
+\begin_layout Plain Layout
+
+	};
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+path [line] (batt) -- (pwr);
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+path [line] (pwr) -- (mcu);
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+path [line] (pwr) -| (pzt);
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+path [line] (filt) -- (mcu);
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+path [line] (pzt) -- (filt);
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+path [line, dashed] (mcu) -- ($(mcu.east) + (2.0, 0.0)$) node [midway,fill=none]
+ {UDP};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Flowchart of integrated system concept
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Argument 4
+status open
+
+\begin_layout Plain Layout
+\begin_inset Flex Content
+status open
+
+\begin_layout Subsection*
+Tiva C Delphino MCU - Fast system
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $f_{data}=>1\,\mathrm{MSps}$
+\end_inset
+
+, 
+\begin_inset Formula $T_{data}=1\,\mathrm{\mu s}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $t_{data\;frame}=45\,\mathrm{ms}$
+\end_inset
+
+ (
+\begin_inset Formula $45\,\mathrm{kS}$
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Itemize
+Requirements: 1 MCU, 1 wireless connection board, 1 battery, 1 power board,
+ 1 filter
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Argument 3
+status open
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+% Define block styles 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+tikzstyle{decision} = [diamond, draw,      
+\end_layout
+
+\begin_layout Plain Layout
+
+     text width=5em, minimum width=15em,text badly centered, minimum height=3em,
+node distance=0.1cm, inner sep=0pt] 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+tikzstyle{block} = [rectangle, draw,  node distance=0.5em,%   
+\end_layout
+
+\begin_layout Plain Layout
+
+    minimum width=4em, text width=3.5em, text centered,%
+\end_layout
+
+\begin_layout Plain Layout
+
+	rounded corners, minimum height=1.5em]%
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+tikzstyle{circlenode} = [circle, draw,%
+\end_layout
+
+\begin_layout Plain Layout
+
+	node distance=0.5em, text centered, minimum size=1.5em]
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+tikzstyle{line} = [draw, -latex'] 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+tikzstyle{cloud} = [draw, ellipse, node distance=3cm,     
+\end_layout
+
+\begin_layout Plain Layout
+
+    minimum height=2em]
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+tikzset{
+\end_layout
+
+\begin_layout Plain Layout
+
+    print/.style={ % requires library shapes.symbols         
+\end_layout
+
+\begin_layout Plain Layout
+
+        draw,
+\end_layout
+
+\begin_layout Plain Layout
+
+        tape,
+\end_layout
+
+\begin_layout Plain Layout
+
+        tape bend top=none,
+\end_layout
+
+\begin_layout Plain Layout
+
+        minimum height=15em,
+\end_layout
+
+\begin_layout Plain Layout
+
+        minimum width=15em,
+\end_layout
+
+\begin_layout Plain Layout
+
+        text width=10em
+\end_layout
+
+\begin_layout Plain Layout
+
+    }
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tikzpicture}[node distance = 2cm, auto]     
+\end_layout
+
+\begin_layout Plain Layout
+
+    % Place nodes
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+node [block] (batt) {
+\end_layout
+
+\begin_layout Plain Layout
+
+		Battery
+\end_layout
+
+\begin_layout Plain Layout
+
+	};
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+node [block, left=0.5em of batt] (pwr) {
+\end_layout
+
+\begin_layout Plain Layout
+
+        Pwr Filter
+\end_layout
+
+\begin_layout Plain Layout
+
+    };
+\end_layout
+
+\begin_layout Plain Layout
+
+    
+\backslash
+node [block, above=0.5em of pwr] (mcu) {
+\end_layout
+
+\begin_layout Plain Layout
+
+		MCU
+\end_layout
+
+\begin_layout Plain Layout
+
+	};
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+node [block, right=0.5em of mcu] (wifi) {
+\end_layout
+
+\begin_layout Plain Layout
+
+		WiFi
+\end_layout
+
+\begin_layout Plain Layout
+
+	};
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+node [block, minimum width=1.25in, minimum height=1.25in, text width=1.5in,%
+\end_layout
+
+\begin_layout Plain Layout
+
+		inner sep=0pt,above=0.5em of mcu] (filt) {
+\end_layout
+
+\begin_layout Plain Layout
+
+		
+\backslash
+centering 
+\backslash
+input{img/filter_frequency_response.pgf}
+\end_layout
+
+\begin_layout Plain Layout
+
+	};
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+node [circlenode, left=0.5em of filt] (pzt) {
+\end_layout
+
+\begin_layout Plain Layout
+
+		PZT
+\end_layout
+
+\begin_layout Plain Layout
+
+	};
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+path [line] (batt) -- (pwr);
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+path [line] (pwr) -- (mcu);
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+path [line] (pwr) -| (pzt);
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+path [line] (filt) -- (mcu);
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+path [line] (pzt) -- (filt);
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+path [line] (mcu) -- (wifi);
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+path [line] (pwr.north) -- (wifi.south);
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+path [line, dashed] (wifi) -- ($(wifi.east) + (1.0, 0.0)$) node [midway,fill=none]
+ {UDP};
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tikzpicture}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Flowchart of fast system concept
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout One Column
+Achievements
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+\begin_inset Flex Content
+status open
+
+\begin_layout Subsection*
+What have we actually done?
+\end_layout
+
+\begin_layout Itemize
+Beaglebone MCU taking data at 
+\begin_inset Formula $200\,\mathrm{kSps}$
+\end_inset
+
+ and continuously sending to computer over WiFi
+\end_layout
+
+\begin_layout Itemize
+Delphino MCU taking data at 
+\begin_inset Formula $1\,\mathrm{MSps}$
+\end_inset
+
+ and sending to computer over USB (Tony)
+\end_layout
+
+\begin_layout Itemize
+Filter created with acceptable envelope
+\end_layout
+
+\begin_layout Itemize
+Power input filter created for BB MCU
+\end_layout
+
+\begin_layout Itemize
+Detection event comparisons using Bertholet tube (Tony)
+\end_layout
+
+\begin_layout Subsection*
+What do we still need to do?
+\end_layout
+
+\begin_layout Itemize
+Integrate BB MCU with power input filter, pzt input filter, and battery
+\end_layout
+
+\begin_layout Itemize
+Design and 3d print 
+\begin_inset Quotes eld
+\end_inset
+
+harness
+\begin_inset Quotes erd
+\end_inset
+
+ for Integrated system on board
+\end_layout
+
+\begin_layout Itemize
+Test BB MCU on LCTMFD
+\end_layout
+
+\begin_layout Itemize
+Program Delphino MCU to send data to a WiFi Board
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+dots
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+def
+\backslash
+nameofchapter{Paddle C/CH-CTMFD System}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Two Column
+Motivation and Concept
+\begin_inset Argument 2
+status open
+
+\begin_layout Plain Layout
+\begin_inset Flex Content
+status open
+
+\begin_layout Subsection*
+Methodology
+\end_layout
+
+\begin_layout Itemize
+Five 
+\begin_inset Formula $65\,\mathrm{cc}$
+\end_inset
+
+/
+\begin_inset Formula $100\,\mathrm{cc}$
+\end_inset
+
+ 
+\begin_inset Quotes eld
+\end_inset
+
+C
+\begin_inset Quotes erd
+\end_inset
+
+/
+\begin_inset Quotes erd
+\end_inset
+
+CH
+\begin_inset Quotes erd
+\end_inset
+
+-CTMFDs
+\end_layout
+
+\begin_layout Itemize
+Stacked with cap closure - hose across for continuous pressure
+\end_layout
+
+\begin_layout Itemize
+DC motor able to spin to 
+\begin_inset Formula $60\,\mathrm{rps}$
+\end_inset
+
+ (
+\begin_inset Formula $10\,\mathrm{bar}$
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Itemize
+Triple bearing assembly for alignment
+\end_layout
+
+\begin_layout Itemize
+Precision Balancing Inc.
+ for balancing
+\end_layout
+
+\begin_layout Itemize
+XBee or BB MCU for data transmission
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+\begin_inset Flex Content
+status open
+
+\begin_layout Subsection*
+Motivation
+\end_layout
+
+\begin_layout Itemize
+Achievement of 
+\begin_inset Formula $2.5\,\mathrm{\nicefrac{cps}{ng}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Competition against 
+\begin_inset Quotes eld
+\end_inset
+
+Paddle
+\begin_inset Quotes erd
+\end_inset
+
+ from Symmetrica (R)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Two Column Shift Left
+Accomplishments
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+\begin_inset Flex Content
+status open
+
+\begin_layout Itemize
+Machining out to machine shop
+\end_layout
+
+\begin_layout Itemize
+Glassblowing out to Superior Scientific Glass
+\end_layout
+
+\begin_layout Itemize
+Power supply identified (
+\begin_inset Formula $48\,\mathrm{V}$
+\end_inset
+
+, 
+\begin_inset Formula $10\,\mathrm{A}$
+\end_inset
+
+) - to be purchased
+\end_layout
+
+\begin_layout Itemize
+Instrumentation possible through BB MCU or XBee
+\end_layout
+
+\begin_layout Itemize
+Estimated delivery 3 - 5 weeks
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Argument 2
+status open
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Five_Stacked_Large_CTMFD_for_Column_Design.PNG
+	lyxscale 10
+	height 4.75in
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Design of Column C-CTMFD Revision 0
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+def
+\backslash
+nameofchapter{Lightweighting of M-CTMFD}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Two Column Shift Right
+Status of the Project
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename m_ctmfd_18_cc_assembly.PNG
+	lyxscale 10
+	height 4.75in
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Design of Lightweight M-CTMFD Revision 2
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Argument 2
+status open
+
+\begin_layout Plain Layout
+\begin_inset Flex Content
+status open
+
+\begin_layout Itemize
+Continuous current needed measured (
+\begin_inset Formula $<3\,\mathrm{A}$
+\end_inset
+
+ for 
+\begin_inset Formula $4\,\mathrm{bar}$
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Itemize
+Power supply purchased - able to run 2 systems (Brian)
+\end_layout
+
+\begin_layout Itemize
+Plate, Bearing and shaft out to machine shop
+\end_layout
+
+\begin_layout Itemize
+Shortened base received this week
+\end_layout
+
+\begin_layout Itemize
+Estimated delivery 1 - 2 weeks
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Part
+TENA
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+def
+\backslash
+nameofchapter{Threshold Energy Neutron Analysis}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout One Column
+Concept
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+centering 
+\backslash
+input{img/p_discrim.pgf}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Threshold Energy Fission Discrimination
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout One Column
+Accomplishments
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Accomplishments with different TMFD Detectors at using TENA to discriminate
+ fission neutrons
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="10" columns="5">
+<features rotate="0" tabularvalignment="middle">
+<column alignment="left" valignment="top" width="2.5cm">
+<column alignment="center" valignment="middle" width="2cm">
+<column alignment="center" valignment="middle" width="2.7cm">
+<column alignment="center" valignment="middle" width="2.7cm">
+<column alignment="center" valignment="middle" width="2.7cm">
+<row>
+<cell multirow="3" alignment="left" valignment="top" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Name
+\end_layout
+
+\end_inset
+</cell>
+<cell multirow="3" alignment="left" valignment="middle" topline="true" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Sensitive Volume
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+No Temperature Compensation
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Density/Meniscus Compensated
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Full Compensation
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell multirow="4" alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multirow="4" alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $r_{\eta}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $r_{\eta}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $r_{\eta}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+M(s)-CTMFD
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="middle" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $3\,\mathrm{cc}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $17$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="1" alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="1" alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+M-CTMFD
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="middle" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $15\,\mathrm{cc}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $132$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $<1.7\times10^{4}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="1" alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Planned for 3/16
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+L-CTMFD
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="middle" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $40\,\mathrm{cc}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $>1\times10^{4}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $<2.5\times10^{4}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="1" alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Planned for 4/16
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+C-CTMFD
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="middle" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $65\,\mathrm{cc}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $538$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="1" alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Planned for 3/16
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="1" alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Planned for 4/16
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+CH-CTMFD
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="middle" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $100\,\mathrm{cc}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="1" alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+-
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="1" alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Planned for 3/16
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="1" alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Planned for 4/16
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+EATMFD Acetone
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="middle" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $170\,\mathrm{cc}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $<1$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="1" alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="1" alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+TEATMFD DFP
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="middle" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\sim200\,\mathrm{cc}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="1" alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Planned for 9/16
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="1" alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="1" alignment="center" valignment="top" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="left" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+DATMFD Acetone
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="middle" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $35\,\mathrm{cc}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="1" alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Planned for 9/16
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="1" alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="1" alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Two Row Left Sidebar
+Temperature Compensation (1/2)
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+centering 
+\backslash
+input{img/rho_atm_dfp.pgf}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Currently used density correlation to adjust density and meniscus
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Argument 2
+status open
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+centering 
+\backslash
+input{img/max_pressure_analysis.pgf}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Analysis of waiting times at varying temperatures
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Argument 3
+status open
+
+\begin_layout Plain Layout
+\begin_inset Flex Content
+status open
+
+\begin_layout Itemize
+Currently adjust density using correlation shown at right
+\end_layout
+
+\begin_layout Itemize
+Adjust meniscus using experimental values for meniscus at different temperatures
+ (linear)
+\end_layout
+
+\begin_layout Itemize
+Apparent 
+\begin_inset Quotes eld
+\end_inset
+
+plateau
+\begin_inset Quotes erd
+\end_inset
+
+ of threshold pressure at 
+\begin_inset Formula $>25\mathrm{^{o}C}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Two Row Right Sidebar
+Temperature Compensation (2/2)
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+centering 
+\backslash
+input{img/evap_rate.pgf}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Evaporation rate of DFP with different constant temperatures
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Argument 2
+status open
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+centering 
+\backslash
+input{img/hvap_vs_t.pgf}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Calculated 
+\begin_inset Formula $\Delta h_{vap}$
+\end_inset
+
+ from Claussius-Clapyron equation and experimental or Antoine values for
+ boiling temperature and vapor pressure
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Argument 3
+status open
+
+\begin_layout Plain Layout
+\begin_inset Flex Content
+status open
+
+\begin_layout Itemize
+\begin_inset Formula $\Delta h_{vap}$
+\end_inset
+
+ correlations from several sources shown to left
+\end_layout
+
+\begin_layout Itemize
+No large change in values around 
+\begin_inset Formula $25\mathrm{^{o}C}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Other parameter must be the reason for threshold 
+\begin_inset Quotes eld
+\end_inset
+
+plateau
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout One Column
+Proposed Plan (2/16 - 5/16)
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+\begin_inset Flex Content
+status open
+
+\begin_layout Itemize
+Determine threshold pressure at 
+\begin_inset Formula $22\mathrm{^{o}C}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Adjust data for average instead of centerline negative pressure
+\end_layout
+
+\begin_layout Itemize
+Develop 
+\begin_inset Formula $p_{neg,\;stp\;equivalent}$
+\end_inset
+
+ relation
+\end_layout
+
+\begin_layout Itemize
+Validate TENA with this in M-CTMFD
+\end_layout
+
+\begin_layout Itemize
+Continue to characterize C-, CH- CTMFDs
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Part
+Photofission
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+def
+\backslash
+nameofchapter{Interdiction of SNM with photofission}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Two Row Top Two Column
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+\begin_inset Flex Content
+status open
+
+\begin_layout Itemize
+TMFDs are 
+\begin_inset Formula $\gamma$
+\end_inset
+
+ blind
+\end_layout
+
+\begin_layout Itemize
+Much 
+\begin_inset Formula $\gamma$
+\end_inset
+
+ interrogation infrastructure is already in place
+\end_layout
+
+\begin_layout Itemize
+Suffers background from 
+\begin_inset Formula $\ce{^{2}H}$
+\end_inset
+
+ and 
+\begin_inset Formula $\ce{^{13}C}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Argument 3
+status open
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+centering 
+\backslash
+input{img/detection.pgf}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Results from preliminary test with CLINAC
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Argument 2
+status open
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+centering 
+\backslash
+input{img/heu_xs.pgf}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Uranium 
+\begin_inset Formula $\left(\gamma,n\right)$
+\end_inset
+
+ and 
+\begin_inset Formula $\left(\gamma,f\right)$
+\end_inset
+
+ cross sections at 
+\begin_inset Formula $<7\,\mathrm{MeV}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout One Column
+Proposed Plan (5/16 - 7/16)
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+\begin_inset Flex Content
+status open
+
+\begin_layout Itemize
+Return to CLINAC for experiment (5/16 - 6/16) with
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+PFO
+\end_layout
+
+\begin_layout Itemize
+PFPE
+\end_layout
+
+\begin_layout Itemize
+Floor shielding
+\end_layout
+
+\begin_layout Itemize
+Detector shielding
+\end_layout
+
+\begin_layout Itemize
+Use of broken fission detector for HEU source
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Perform MCNP6 assessments of photoneutron production rates in ANSI standard
+ cargo
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Part
+DDAA
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+def
+\backslash
+nameofchapter{Differential Die Away Analysis}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout One Column
+Introduction
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+centering 
+\backslash
+input{img/atmfd_p.pgf}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Differential die away analysis schematic
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout One Column
+Proposed Plan (10/16 - 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+dots
+\end_layout
+
+\end_inset
+
+)
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+\begin_inset Flex Content
+status open
+
+\begin_layout Itemize
+Develop TEATMFD for use with DFP
+\end_layout
+
+\begin_layout Itemize
+Develop filter for 
+\begin_inset Quotes eld
+\end_inset
+
+directionality
+\begin_inset Quotes erd
+\end_inset
+
+ in TEATMFD with DFP
+\end_layout
+
+\begin_layout Itemize
+Perform temporal pressure analysis in TEATMFD with COMSOL
+\end_layout
+
+\begin_layout Itemize
+Pulse DT generator while TEATMFD is sensitive
+\end_layout
+
+\begin_layout Itemize
+Run DD generator contiuously while TEATMFD is sensitive and time-veto cavitation
+s after detection
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

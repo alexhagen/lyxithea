@@ -1,0 +1,331 @@
+Retrieved by E4-Web: 2015/06/22,10:06:42                             1 0  0    0
+ 9.223800+4 2.360058+2         -1          1          0          19237 1451    1
+ 0.000000+0 1.000000+0          0          0          0          69237 1451    2
+ 0.000000+0 2.000000+7          1          0          0          79237 1451    3
+ 0.000000+0 0.000000+0          0          0        266          29237 1451    4
+ 92-U -238 LANL       EVAL-AUG05 M.GIACRI,D.RIDIKAS,M.CHADWICK    9237 1451    5
+                      DIST-DEC06 REV1-                 20111222   9237 1451    6
+----ENDF/B-VII.1      MATERIAL 9237         REVISION 1            9237 1451    7
+-----PHOTONUCLEAR DATA                                            9237 1451    8
+------ENDF-6 FORMAT                                               9237 1451    9
+                                                                  9237 1451   10
+    *******************************************************       9237 1451   11
+    *                                                     *       9237 1451   12
+    *         LANL PHOTONUCLEAR FILE                      *       9237 1451   13
+    * M. GIACRI, D. RIDIKAS, M. B. CHADWICK, P. G. YOUNG  *       9237 1451   14
+    *     PRODUCED WITH GNASH/GSCAN/RECOIL CODES          *       9237 1451   15
+    *       LOS ALAMOS NATIONAL LABORATORY                *       9237 1451   16
+    *                                                     *       9237 1451   17
+    *******************************************************       9237 1451   18
+                                                                  9237 1451   19
+   EVALUATION OF GAMMA + 238U  CROSS SECTIONS FOR THE ENERGY      9237 1451   20
+                   RANGE 4 to 20 MeV                              9237 1451   21
+                                                                  9237 1451   22
+     M. Giacri, D. Ridikas, M. B. Chadwick, and P. G. Young       9237 1451   23
+                   23 June 2005                                   9237 1451   24
+                                                                  9237 1451   25
+  This evaluation is for photonuclear reactions up to 20 MeV and  9237 1451   26
+covers nonelastic reactions proceeding via photon absorption on   9237 1451   27
+the nucleus. Elastic photon scattering is not provided due to its 9237 1451   28
+very small cross section and small importance in most             9237 1451   29
+applications.                                                     9237 1451   30
+                                                                  9237 1451   31
+  The evaluation provides a complete representation of the        9237 1451   32
+nuclear data needed for transport, damage, heating,               9237 1451   33
+radioactivity, and shielding applications over the incident       9237 1451   34
+photon energy range from 1 to 20 MeV.  The ENDF sections are      9237 1451   35
+described below.                                                  9237 1451   36
+                                                                  9237 1451   37
+  We performed a complete theoretical analysis of the gamma +     9237 1451   38
+238U system out to an incident energy of 20 MeV. This analysis    9237 1451   39
+give good agreement with experimental data over most of the       9237 1451   40
+energy range.  However, we chose to adopt the cross sections,     9237 1451   41
+prompt nubar, and the fission neutron spectra from the evaluation 9237 1451   42
+of Blokin et al.(Bo98), because these quantities are based on     9237 1451   43
+direct evaluation of experimental data.  We use the theoretical   9237 1451   44
+analysis for energy-angle correlated neutron spectra from         9237 1451   45
+(gamma,n) and (gamma,2n) reactions.                               9237 1451   46
+                                                                  9237 1451   47
+  For the theoretical analysis, we use the GNASH code system      9237 1451   48
+(Yo92), which utilizes Hauser-Feshbach statistical,               9237 1451   49
+preequilibrium and direct- reaction theories. Optical model       9237 1451   50
+calculations are used to obtain particle transmission             9237 1451   51
+coefficients for the Hauser-Feshbach calculations. An exciton     9237 1451   52
+model (modified to account for photon projectiles - see below) of 9237 1451   53
+Kalbach is used, including cluster preequilibrium emission        9237 1451   54
+(Ka85,Ka77).                                                      9237 1451   55
+                                                                  9237 1451   56
+ The GNASH code was extended to calculate photonuclear reactions  9237 1451   57
+in the following way, described in detail in Ref.(Ch95b).         9237 1451   58
+Photoabsorption is modeled through the giant resonance at the     9237 1451   59
+lower energies and the quasideuteron (QD) mechanism (Ch91) at     9237 1451   60
+higher energies.  After the initial interaction, primary and      9237 1451   61
+multiple preequilibrium emission of fast particles can occur,     9237 1451   62
+followed by sequential Hauser-Feshbach decay. Preequilibrium      9237 1451   63
+decay is calculated with an exciton model, based on a 2p1h        9237 1451   64
+initial state to approximate correlation effects in the QD        9237 1451   65
+mechanism, as proposed by Blann. The equi-probability of neutron  9237 1451   66
+and proton excitons following photoabsorption (in contrast to     9237 1451   67
+nucleon-induced reactions) is accounted for in the primary and    9237 1451   68
+multiple preequilibrium calculations.  Full angular momentum and  9237 1451   69
+parity conservation is included in a Hauser-Feshbach treatment of 9237 1451   70
+equilibrium emission, accounting for the fact that an E1-photon   9237 1451   71
+brings in one unit of angular momentum                            9237 1451   72
+                                                                  9237 1451   73
+  While angle-integrated spectra are provided for the secondary   9237 1451   74
+ejectiles, we intend angular distributions of the light (A<5)     9237 1451   75
+particles to be determined by a data processing code such as      9237 1451   76
+NJOY. To do this, we provide preequilibrium fractions (MF=6) for  9237 1451   77
+light particles, to facilitate the calculation of angle-energy    9237 1451   78
+correlated double-differential spectra.  For preequilibrium       9237 1451   79
+emission of A<5 ejectiles, such a calculation could make use of   9237 1451   80
+the theory of Chadwick et al. (Ch95a), which modifies Kalbach's   9237 1451   81
+angular distribution systematics for incident photons. For the    9237 1451   82
+A<5 ejectiles emitted through mechanisms other than               9237 1451   83
+preequilibrium (equilibrium decay or direct emission), the NJOY   9237 1451   84
+code could assume isotropy, or account for the fact that          9237 1451   85
+experimental data often show emission in the GDR energy region to 9237 1451   86
+have a dipole shape, peaked at 90 degrees.                        9237 1451   87
+                                                                  9237 1451   88
+  The GNASH code's ability to model photonuclear reactions has    9237 1451   89
+been tested in a number of works (Ch91,Ch94,Ch95a,Ch95b), where   9237 1451   90
+comparisons against experimental data were shown (Al64,Be87,Br66, 9237 1451   91
+Bl73,Di88,Fu85,Le81,Le82,Ve70,Yo72).  This involved tests of      9237 1451   92
+calculated photoneutron reaction channels (g,1n), (g,2n), (g,3n), 9237 1451   93
+etc., as well as the photoneutron production (g,xn) cross         9237 1451   94
+section, photoneutron emission spectra, and photoneutron          9237 1451   95
+multiplicities (yields) up to 150 MeV.  The multiplicities are    9237 1451   96
+useful for indirectly validating our preequilibrium modeling,     9237 1451   97
+since they are strongly influenced by preequilibrium reactions.   9237 1451   98
+While experimental data often exist for total neutron production, 9237 1451   99
+they rarely exist for the emission spectra.  Thus a model code    9237 1451  100
+such as GNASH is essential for providing emission spectra data    9237 1451  101
+information, after it has been validated against measured cross   9237 1451  102
+section data.                                                     9237 1451  103
+                                                                  9237 1451  104
+   SPECIFIC INFORMATION ON THE g+238U EVALUATION                  9237 1451  105
+                                                                  9237 1451  106
+  For photonuclear reactions on 238U, there are systematical      9237 1451  107
+differences between some of the important measurements of neutron 9237 1451  108
+production. Specifically, the results of Veyssiere [Ve73] are     9237 1451  109
+systematically lower than the measurements of Caldwell [Ca80].    9237 1451  110
+Our analysis agrees best with the data of Caldwell.               9237 1451  111
+                                                                  9237 1451  112
+  The photo absorption cross section that we inputted into the    9237 1451  113
+GNASH analysis was optimized to agree with experimental data. Our 9237 1451  114
+fission barrier parameters were adjusted using the 238U(g,f)      9237 1451  115
+experimental data of Caldwell [Ca80] and Varlamov [Va87].  These  9237 1451  116
+two measurements agree reasonably well.  Our calculated (g,f)     9237 1451  117
+cross section agrees reasonably with the data of Caldwell and     9237 1451  118
+Varlamov [Va87] over most of the energy range but is higher than  9237 1451  119
+Veyssiere [Ve73] above 14 MeV. Our evaluation follows the data of 9237 1451  120
+Caldwell.                                                         9237 1451  121
+                                                                  9237 1451  122
+  Our calculated (g,n) and (g,2n) cross sections are consistent   9237 1451  123
+with the measurements of Caldwell [Ca80] but are above the data   9237 1451  124
+of Veyssiere [Ve73], particularly near 11 MeV and above 12 MeV.   9237 1451  125
+The shapes of our calculated (g,n), (g,2n) and (g,F) cross        9237 1451  126
+sections follow the structure of the measurements quite well.     9237 1451  127
+Again, the evaluated curves follow the data of Caldwell.          9237 1451  128
+                                                                  9237 1451  129
+FILE 1 (MF=1: NEUTRON YIELDS, DECAY DATA FROM FISSION)            9237 1451  130
+                                                                  9237 1451  131
+ MT=452 - Sum of MT=455 and MT=456.                               9237 1451  132
+                                                                  9237 1451  133
+ MT=455 - Delayed nubar taken from the ENDF/B-VI n+237U  eval.,   9237 1451  134
+appropriately shifted to account for the neutron binding energy.  9237 1451  135
+and renormalized to match exp. data of Caldwell et al. [Ca75].    9237 1451  136
+                                                                  9237 1451  137
+ MT=456 - Taken from the evaluation of Blokhin [Bl98].            9237 1451  138
+                                                                  9237 1451  139
+FILE 3 (MF=3: NEUTRON CROSS SECTIONS)                             9237 1451  140
+                                                                  9237 1451  141
+ MT=3 - Sum of MT=5,16,17,18.                                     9237 1451  142
+                                                                  9237 1451  143
+ MT=5 - (g,n) cross section, based on the Blokhin [Bl98]          9237 1451  144
+evaluation of experimental data, especially the measurements of   9237 1451  145
+Caldwell [Ca80].                                                  9237 1451  146
+                                                                  9237 1451  147
+ MT=16,17 - (g,xn) cross sections are taken from the evaluation   9237 1451  148
+of Blokhin [Bl98].                                                9237 1451  149
+                                                                  9237 1451  150
+ MT=18 - (g,f) cross sections obtained from the evaluation of     9237 1451  151
+Blokhin [Bl98], which were optimized to the experimental data     9237 1451  152
+evaluation of Varlamov [Va87].                                    9237 1451  153
+                                                                  9237 1451  154
+FILE 4 (MF=4: NEUTRON ANGULAR DISTRIBUTIONS)                      9237 1451  155
+                                                                  9237 1451  156
+ MT=5 - Neutrons from (g,n) reactions, assumed isotropic.         9237 1451  157
+                                                                  9237 1451  158
+ MT=16,17 - Neutrons from (n,2n) and (n,3n) reactions, assumed    9237 1451  159
+isotropic.                                                        9237 1451  160
+                                                                  9237 1451  161
+ MT=18 - Neutrons from fission, assumed isotropic.                9237 1451  162
+                                                                  9237 1451  163
+FILE 5 (MF=5: NEUTRON ENERGY DISTRIBUTIONS)                       9237 1451  164
+                                                                  9237 1451  165
+ MT=18 - Maxwell1an distributions taken from the evaluation of    9237 1451  166
+Blokhin [Bl92].                                                   9237 1451  167
+                                                                  9237 1451  168
+ MT=455 - Adopted the ENDF/B-VI n+237U evaluation.                9237 1451  169
+                                                                  9237 1451  170
+FILE 6 (MF=6: NEUTRON ENERGY-ANGLE DISTRIBUTIONS)                 9237 1451  171
+                                                                  9237 1451  172
+ MT=5 - Energy-angle correlated neutron continua from (g,n)       9237 1451  173
+reactions, taken from the GNASH calculations based on             9237 1451  174
+preequilibrium theory.                                            9237 1451  175
+                                                                  9237 1451  176
+ MT=16,17 - Energy-angle correlated neutron continua from(g,xn)   9237 1451  177
+reactions, taken from the GNASH calculations based on             9237 1451  178
+preequilibrium theory.                                            9237 1451  179
+                                                                  9237 1451  180
+                                                                  9237 1451  181
+****************************************************************  9237 1451  182
+                                                                  9237 1451  183
+                          REFERENCES                              9237 1451  184
+                                                                  9237 1451  185
+[Al64] R. G. Allas, S. S. Hanna, L. Meyer-Schutzmeister, R. E.    9237 1451  186
+Segel, Nucl. Phys. 58 (1964) 122.                                 9237 1451  187
+                                                                  9237 1451  188
+[Be87] B.L. Berman et. al., Phys. Rev. C 36 (1987) 1286.          9237 1451  189
+                                                                  9237 1451  190
+[Bl73] M. Blann, B. L.  Berman, and T. T. Komoto, Phys. Rev. C28, 9237 1451  191
+2286 (1983).                                                      9237 1451  192
+                                                                  9237 1451  193
+[Bl98] A. I. Blokhin, A. N. Storozhenko. N. N. Buleeva, and M. V. 9237 1451  194
+Mikhailyukova, Yk, 1998 (in press); ibid, Yk, 1992,V. 3, p. 3.    9237 1451  195
+                                                                  9237 1451  196
+[Br66] R. L. Bramblett, J. T. Caldwell, B. L. Berman, R. R.       9237 1451  197
+Harvey, and S. C. Fultz, Phys. Rev. 148 (1966) 1198.              9237 1451  198
+                                                                  9237 1451  199
+[Ca75] J. Caldwell and E. Dowdy, Nucl. Sci. Eng. 56 (1975) 179.   9237 1451  200
+                                                                  9237 1451  201
+[Ca80] J. Caldwell, E. Dowdy, R. Alvarez, B. Berman, and P.       9237 1451  202
+Meyer, Nucl. Sci. Eng. 73 (1980) 153.                             9237 1451  203
+                                                                  9237 1451  204
+[Ch91] M. B. Chadwick, P. Oblozinsky, G. Reffo, P. E. Hodgson,    9237 1451  205
+Phys. Rev. C 44 (1991) 814.                                       9237 1451  206
+                                                                  9237 1451  207
+[Ch94] M. B. Chadwick, P. G. Young,"Photonuclear Reactions in the 9237 1451  208
+GNASH Code: Benchmarking Model Calculations for Reactions on Lead 9237 1451  209
+up to 140 MeV", Lawrence Livermore National Laboratory report     9237 1451  210
+UCRL-ID-118721 (1994).                                            9237 1451  211
+                                                                  9237 1451  212
+[Ch95a] M. B. Chadwick, P. G. Young, S. Chiba, "Photonuclear      9237 1451  213
+angular distribution systematics in the quasideuteron regime",    9237 1451  214
+Journal of Nuclear Science and Technology 32, 1154 (1995).        9237 1451  215
+                                                                  9237 1451  216
+[Ch95b] M.B. Chadwick and P.G. Young, "Preequilibrium model for   9237 1451  217
+photonuclear reactions up to the pion threshold", Acta Physica    9237 1451  218
+Slovakia 45, 633 (1995), journal publication of invited paper to  9237 1451  219
+the International Symposium on Preequilibrium Reactions,          9237 1451  220
+Bratislava, October 23-27, 1995.                                  9237 1451  221
+                                                                  9237 1451  222
+[Ch96].  M. B. Chadwick, P. G. Young, R. E. MacFarlane, and A.J.  9237 1451  223
+Koning, "High-Energy Nuclear Data Libraries for Accelerator-      9237 1451  224
+Driven Technologies:  Calculational Method for Heavy Recoils,     9237 1451  225
+"Proc. of 2nd Int. Conf. on Accelerator Driven Transmutation      9237 1451  226
+Technology and Applications, Kalmar, Sweden, 3-7 June 1996.       9237 1451  227
+                                                                  9237 1451  228
+[Ch98].  M. B. Chadwick and P. G. Young, "Photonuclear GNASH      9237 1451  229
+Modeling for g+208Pb" in APT PROGRESS REPORT: 1 June - 1 July     9237 1451  230
+1998, internal Los Alamos National Laboratory memo T-2-98/M43,    9237 1451  231
+July 2 1998 from R.E. MacFarlane to L. Waters.                    9237 1451  232
+                                                                  9237 1451  233
+[Di88] S. S.  Dietrich, B. L. Berman, Atomic Data and Nuclear     9237 1451  234
+Data Tables 38 (1988) 199.                                        9237 1451  235
+                                                                  9237 1451  236
+[Fu85] E. G. Fuller, Phys. Rep.127 (1985) 185.                    9237 1451  237
+                                                                  9237 1451  238
+[Ha64] R. R. Harvey et al., Phys. Rev. 136, B126 (1964).          9237 1451  239
+                                                                  9237 1451  240
+[Ka77].  C. Kalbach, "The Griffin Model, Complex Particles and    9237 1451  241
+Direct Nuclear Reactions," Z.Phys.A  283, 401 (1977).             9237 1451  242
+                                                                  9237 1451  243
+[Ka85].  C. Kalbach, "PRECO-D2: Program for Calculating           9237 1451  244
+Preequilibrium and Direct Reaction Double Differential Cross      9237 1451  245
+Sections," Los Alamos National Laboratory report LA-10248-MS      9237 1451  246
+(1985).                                                           9237 1451  247
+                                                                  9237 1451  248
+[Le81] A. Lepretre,  H. Beil, R. Bergere, P. Carlos, J. Fagot, A. 9237 1451  249
+de Miniac, A. Veyssiere,  Nucl. Phys. A367 (1981) 237.            9237 1451  250
+                                                                  9237 1451  251
+[Le82] A. Lepretre, H. Beil, R. Bergere, P. Carlos, J. Fagot, A.  9237 1451  252
+Veyssiere, I. Halpern, Nucl. Phys. A390 (1982) 221.               9237 1451  253
+                                                                  9237 1451  254
+[Va87] V. V. Varlamov, N. G. Efimkin, V. V. Surgutanov, A. A.     9237 1451  255
+Khoronenko, and A. P. Chernyaev, "Photonuclear Data -             9237 1451  256
+Photofission of Uranium 235, 238," (Moscow State Univ., 1987).    9237 1451  257
+                                                                  9237 1451  258
+[Ve70] A. Veyssiere, H. Beil, R. Bergere, P. Carlos, A. Lepretre, 9237 1451  259
+Nucl. Phys. A159 (1970) 561.                                      9237 1451  260
+                                                                  9237 1451  261
+[Ve73] A. Veyssiere, H. Beil, R. Bergere, P. Carlos, K.Kernbath,  9237 1451  262
+Nucl. Phys. A199 (1973) 45.                                       9237 1451  263
+                                                                  9237 1451  264
+[Yo72] L. M. Young: Ph.D. thesis, University of Illinois, (1972). 9237 1451  265
+                                                                  9237 1451  266
+[Yo92].  P. G. Young, E. D. Arthur, and M. B. Chadwick,           9237 1451  267
+"Comprehensive Nuclear Model Calculations: Introduction to the    9237 1451  268
+Theory and Use of the GNASH Code," LA-12343-MS (1992).            9237 1451  269
+                                                                  9237 1451  270
+                                1        451        285          09237 1451  271
+                                3         18         52          19237 1451  272
+ 0.000000+0 0.000000+0          0          0          0          09237 1  099999
+ 0.000000+0 0.000000+0          0          0          0          09237 0  0    0
+ 9.223800+4 2.360060+2          0          0          0          09237 3 18    1
+ 1.800000+8 1.800000+8          0          0          1        1479237 3 18    2
+        147          4                                            9237 3 18    3
+ 3.420000+6 4.90000-11 3.620000+6 6.50000-10 3.770000+6 9.40000-119237 3 18    4
+ 3.900000+6 2.20000-10 4.000000+6 7.00000-10 4.100000+6 1.300000-99237 3 18    5
+ 4.310000+6 5.200000-9 4.510000+6 7.500000-8 4.580000+6 3.000000-79237 3 18    6
+ 4.650000+6 8.800000-7 4.760000+6 3.100000-6 4.860000+6 3.800000-69237 3 18    7
+ 5.000000+6 2.000000-5 5.100000+6 4.000000-5 5.200000+6 9.000000-59237 3 18    8
+ 5.300000+6 2.500000-4 5.400000+6 4.500000-4 5.500000+6 1.010000-39237 3 18    9
+ 5.600000+6 2.380000-3 5.700000+6 2.550000-3 5.800000+6 2.770000-39237 3 18   10
+ 5.900000+6 3.200000-3 6.000000+6 4.610000-3 6.100000+6 6.370000-39237 3 18   11
+ 6.200000+6 7.170000-3 6.300000+6 5.670000-3 6.400000+6 5.140000-39237 3 18   12
+ 6.500000+6 4.640000-3 6.600000+6 4.860000-3 6.700000+6 5.490000-39237 3 18   13
+ 6.800000+6 5.650000-3 6.900000+6 7.490000-3 7.000000+6 7.920000-39237 3 18   14
+ 7.100000+6 8.650000-3 7.200000+6 8.840000-3 7.300000+6 9.010000-39237 3 18   15
+ 7.400000+6 1.003000-2 7.500000+6 1.103000-2 7.600000+6 1.210000-29237 3 18   16
+ 7.700000+6 1.400000-2 7.800000+6 1.431000-2 7.900000+6 1.615000-29237 3 18   17
+ 8.000000+6 1.641000-2 8.100000+6 1.612000-2 8.200000+6 1.555000-29237 3 18   18
+ 8.300000+6 1.520000-2 8.400000+6 2.094000-2 8.500000+6 2.253000-29237 3 18   19
+ 8.600000+6 2.401000-2 8.700000+6 2.555000-2 8.800000+6 2.688000-29237 3 18   20
+ 8.900000+6 2.830000-2 9.000000+6 3.017000-2 9.100000+6 3.231000-29237 3 18   21
+ 9.200000+6 3.471000-2 9.300000+6 3.826000-2 9.400000+6 4.188000-29237 3 18   22
+ 9.500000+6 4.545000-2 9.600000+6 4.906000-2 9.700000+6 5.286000-29237 3 18   23
+ 9.800000+6 5.730000-2 9.900000+6 6.165000-2 1.000000+7 6.609000-29237 3 18   24
+ 1.010000+7 7.096000-2 1.020000+7 7.599000-2 1.030000+7 8.141000-29237 3 18   25
+ 1.040000+7 8.682000-2 1.050000+7 8.909000-2 1.060000+7 9.127000-29237 3 18   26
+ 1.070000+7 9.475000-2 1.080000+7 9.846000-2 1.090000+7 1.005700-19237 3 18   27
+ 1.100000+7 1.009200-1 1.110000+7 9.954000-2 1.120000+7 9.854000-29237 3 18   28
+ 1.130000+7 9.896000-2 1.140000+7 1.022700-1 1.150000+7 9.606000-29237 3 18   29
+ 1.160000+7 9.303000-2 1.170000+7 9.410000-2 1.180000+7 9.619000-29237 3 18   30
+ 1.190000+7 9.665000-2 1.200000+7 9.515000-2 1.210000+7 9.514000-29237 3 18   31
+ 1.220000+7 9.642000-2 1.230000+7 9.886000-2 1.240000+7 1.041400-19237 3 18   32
+ 1.250000+7 1.091600-1 1.260000+7 1.117000-1 1.270000+7 1.144000-19237 3 18   33
+ 1.280000+7 1.187100-1 1.290000+7 1.255300-1 1.300000+7 1.337000-19237 3 18   34
+ 1.310000+7 1.404900-1 1.320000+7 1.471800-1 1.330000+7 1.500100-19237 3 18   35
+ 1.340000+7 1.450100-1 1.350000+7 1.498300-1 1.360000+7 1.513800-19237 3 18   36
+ 1.370000+7 1.544000-1 1.380000+7 1.575100-1 1.390000+7 1.603000-19237 3 18   37
+ 1.400000+7 1.624000-1 1.410000+7 1.635500-1 1.420000+7 1.639600-19237 3 18   38
+ 1.430000+7 1.641600-1 1.440000+7 1.645500-1 1.450000+7 1.638600-19237 3 18   39
+ 1.460000+7 1.630600-1 1.470000+7 1.622300-1 1.480000+7 1.611800-19237 3 18   40
+ 1.490000+7 1.591500-1 1.500000+7 1.561000-1 1.510000+7 1.528000-19237 3 18   41
+ 1.520000+7 1.495000-1 1.530000+7 1.457000-1 1.540000+7 1.417900-19237 3 18   42
+ 1.550000+7 1.380600-1 1.560000+7 1.340500-1 1.570000+7 1.289100-19237 3 18   43
+ 1.580000+7 1.233000-1 1.590000+7 1.180800-1 1.600000+7 1.135000-19237 3 18   44
+ 1.610000+7 1.091500-1 1.620000+7 1.049500-1 1.630000+7 1.009400-19237 3 18   45
+ 1.640000+7 9.782000-2 1.650000+7 9.532000-2 1.660000+7 9.304000-29237 3 18   46
+ 1.670000+7 9.110000-2 1.680000+7 8.940000-2 1.690000+7 8.777000-29237 3 18   47
+ 1.700000+7 8.613000-2 1.710000+7 8.464000-2 1.720000+7 8.328000-29237 3 18   48
+ 1.730000+7 8.194000-2 1.740000+7 8.029000-2 1.750000+7 7.834000-29237 3 18   49
+ 1.760000+7 7.621000-2 1.770000+7 7.421000-2 1.780000+7 7.299000-29237 3 18   50
+ 1.790000+7 7.357000-2 1.800000+7 7.529000-2 1.810000+7 7.597000-29237 3 18   51
+ 1.820000+7 7.546000-2 1.830000+7 7.510000-2 2.000000+7 4.800000-29237 3 18   52
+ 0.000000+0 0.000000+0          0          0          0          09237 3  099999
+ 0.000000+0 0.000000+0          0          0          0          09237 0  0    0
+ 0.000000+0 0.000000+0          0          0          0          0   0 0  0    0
+ 0.000000+0 0.000000+0          0          0          0          0  -1 0  0    0

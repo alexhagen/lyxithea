@@ -1,0 +1,274 @@
+%% LyX 2.0.6 created this file.  For more info, see http://www.lyx.org/.
+%% Do not edit unless you really know what you are doing.
+\documentclass[english,5p]{elsarticle}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{geometry}
+\geometry{verbose,tmargin=2cm,bmargin=2cm,lmargin=2cm,rmargin=2cm,headsep=1cm}
+\usepackage{array}
+\usepackage{nomencl}
+% the following is useful when we have the old nomencl.sty package
+\providecommand{\printnomenclature}{\printglossary}
+\providecommand{\makenomenclature}{\makeglossary}
+\makenomenclature
+
+\makeatletter
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LyX specific LaTeX commands.
+%% Because html converters don't know tabularnewline
+\providecommand{\tabularnewline}{\\}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{minibox}
+\usepackage{lipsum}
+
+\makeatother
+
+\usepackage{babel}
+\begin{document}
+
+\title{Design and Optimization of a Neutron Sensor Utilizing Acoustic Fields
+- Experimentation and Simulation Using COMSOL and MCNP Physics Platforms}
+
+
+\author[mfarl]{A. Hagen}
+
+
+\ead{ahagen@purdue.edu}
+
+
+\author[mfarl]{K. Fischer}
+
+
+\author[salabs]{B. Archambault}
+
+
+\author[salabs]{S. Rogers}
+
+
+\author[mfarl,salabs]{R. Taleyarkhan}
+
+
+\address[mfarl]{Purdue Metastable Fluids and Advanced Research Laboratory, 3601
+Sagamore Parkway, Suite H., Lafayette, IN, 47905}
+
+
+\address[salabs]{Sagamore Adams Laboratory, LLC., 3601 Sagamore Parkway, , Lafayette,
+IN, 47905}
+\begin{abstract}
+\lipsum[1-2]
+\end{abstract}
+\maketitle
+
+\section{Introduction}
+
+The improvement of neutron detection is central to health physics,
+homeland security, and even fission power. The following will discuss
+Tension Metastable Fluid Detectors (TMFDs\nomenclature{TMFD}{Tension Metastable Fluid Detectors})
+as an alternative to state of the art detectors. It will then discuss
+a current optimization and design effort using multiphysics simulation
+as the core. Finally, it will discuss the accuracy the simulation
+is able to achieve and how that has been used to further the current
+system.
+
+
+\subsection{Motivation}
+
+The National Academy of Engineering has long posed prevention of nuclear
+terror as a top priority \citet{Engineering2012}. To prevent nuclear
+terror, one must monitor the transport and use of special nuclear
+material (SNM\nomenclature{SNM}{Special Nuclear Material}), which
+is defined by the Atomic Energy Act of 1954 \citet{UnitedStatesCongress1954}.
+This material gives off telltale neutron signatures, which makes neutron
+sensors an ideal way to track SNM. With this in mind, the United States
+has installed gamma and neutron detectors in many border portals,
+achieving a scanning rate of above 99\% \citet{Gowadia2012}. It is
+clear that there is a great demand for neutron detectors in this capacity.
+
+Another field which heavily relies on the use of neutron detectors
+is that of health physics. \hphantom{write stuff about health physics here, use a couple sources}
+
+Thus far, currently technology has been able to provide sensors to
+fulfill the requirements of both the Department of Homeland Security
+in terror prevention, and health physics in dose monitoring. The state
+of the art detectors that are used in the aforementioned applications
+are those of BF3 detectors and He3 detectors. He-3 or BF3 gas in placed
+under a high electrical bias in an evacuated chamber, and upon interaction
+in the chamber, ions are created, which are then measured as electrical
+pulses, indicating detection events \citet{Knoll2000}. Unfortunately,
+these detectors have many practical detriments for the applications
+proposed. First, these chambers also detect gamma events, and may
+even be saturated by these events. Second, they are extremely expensive,
+especially with no He3 being currently produced. Third, the detection
+systems are extremely complicated and require several expensive electrical
+components. Finally, in the case of He3 detectors, the NRC has stated
+that they will not consider any new neutron detection technology using
+He3 \hphantom{quote nrc}.
+
+The TMFD is a system that can alleviate most, if not all, of the shortcomings
+of state of the art neutron detectors. In short, the TMFD uses tensile
+pressures to convert neutron events within a working fluid into macroscopic,
+visible bubbles. The tensile pressure brings the fluid so close to
+the spinodal limit that a neutron event will cause violent cavitation.
+The visibility and audibility of these detection events removes the
+need for all but a modest electrical drive train. The small probability
+for interactions of gammas in the working fluid makes the TMFD gamma
+insensitive up to $10^{11}\,\frac{\gamma}{cm^{2}\cdot s}$ experimentally
+(equivalent to $1\, m$ from a spent fuel rack), and $10^{22}\,\frac{\gamma}{cm^{2}\cdot s}$
+theoretically (equivalent to the center of a research reactor). The
+sensitive fluids are generally organic solvents and are widely available
+on the market. Along with the readily available fluids, the entire
+system can be made for \$100-\$1000 of material cost, a vast decrease
+from state of the art detectors. A comparison of the TMFD system to
+state of the art systems is provided in the oft-published Table \ref{tab:Comparion between TMFD System and He-3 and BF-3 Systems}.
+
+\begin{table}
+
+
+\caption{Comparion between TMFD System and He-3 and BF-3 Systems\label{tab:Comparion between TMFD System and He-3 and BF-3 Systems}}
+
+
+\centering{}%
+\begin{tabular}{>{\centering}m{2.1cm}>{\centering}m{2.5cm}>{\centering}m{2.5cm}}
+\hline 
+Parameter & Conventional System & TMFD System\tabularnewline
+\hline 
+Intrinsic Efficiency & $~0\%$ ($MeV$ neutrons) 
+
+$~90\%$ ($0.01\, eV$ neutrons)
+
+{\tiny{($3\, cm$ x $30\, cm$ tube)}} & $~90\%$ ($MeV$ neutrons)
+
+$~90\%$ ($0.01\, eV$ neutrons)
+
+{\tiny{($10\, cm$ x $10\, cm$ tube)}}\tabularnewline
+On-Off times & Minutes; saturation during pulsed interrogation & Microseconds; adaptable for pulsed systems\tabularnewline
+Gamma Blindness? & Limited; saturation in high gamma fields & Completely\tabularnewline
+Neutron Directionality? & No with single systems; Yes if arrays are used & Yes (to within $10^{o}$) with single system\tabularnewline
+Cost & High ($\sim\$5k$-$\$10k$ for single tube systems) & Low-to-Modest ($\$50$-$\$1k+$)\tabularnewline
+\hline 
+\end{tabular}
+\end{table}
+
+
+The TMFD system requires the evoluation and sustainment of a tensile
+pressure field. This can be done in several different ways, two of
+which are the centrifugal method (the technology on which the Centrifugally
+Tensioned Metastable Fluid Detector - CTMFD\nomenclature{CTMFD}{Centrifugally Tensioned Metastable Fluid Detector}
+- is based) and the acoustic method (which drives the Acoustically
+Tensioned Metastable Fluid Detector - ATMFD\nomenclature{ATMFD}{Acoustically Tensioned Metastable Fluid Detector}).
+By using a diamond shaped glass piece with a bulb full of fluid at
+the bottom, the CTMFD is able to utilize centrifugal force into stretching
+the fluid from the center outwards. This provides a stable, quadratically
+varying pressure field from the center of rotation outwards. The ATMFD
+requires the ultrasonic vibration of the fluid cavity, which under
+resonant conditions, provides a temporally sinusoidal, spatially complex
+pressure field throughout the resonant cavity.
+
+Because of the method of tensioning, the ATMFD outperforms the CTMFD
+for the purposes of neutron detection. This is mainly because of three
+factors. First, the CTMFD is rendered completely insensitive following
+a detection event. The system must be shut down and brought back up
+to speed before being sensitive again ($\sim5-30\, s$). The ATMFD
+is oscilating at anywhere from $20\, kHz$ to $80\, kHz$, and thus
+is reset and sensitive again within microseconds. Second, the CTMFD
+is generally small in size, and thus has a smaller geometric probablity
+of interaction than the ATMFD. For comparison, the CTMFD has between
+$3\, cm^{3}$ and $23\, cm^{3}$, whereas a general approximation
+of the sensitive volume of the CTMFD is a $100\, cm^{3}$ volume.
+Lastly, the large sensitive volume compared to the event size in the
+ATMFD allows for ``multiplicity'' events, where two neutrons are
+detected in tandem. This can be an indicator of certain nuclear signatures
+and may be a way to ensure simulants have not been used to counteract
+security measures. The CTMFD is unable to do any multiplicity. It
+is for these important features that the ATMFD is an important technology
+to develop.
+
+In order to develop the ATMFD technology, optimization of the resonant
+chamber parameters to gain the highest sensitive volumes is needed.
+The parameter space of the chamber in enormous, with at least 15 geometric
+variables in the current iteration of the chamber, all varying in
+frequency space, and all sensitve to the working fluid and ambient
+temperature. Because of this enormous parameter space, a multiphysics
+simulation has been developed and validated for use in sensitive volume
+maximization, faster prototyping, and design leadership for future
+iterations.
+
+
+\subsection{Background}
+
+Although well known within the nuclear engineering literature, the
+concept of metastable fluid neutron and alpha detection may not be
+fully understood by those in the applied acoustics field. A cursory
+introduction to the detection mechanism will be provided. Following
+this introduction, a description of the current acoustically tensioned
+detection system will be provided, including the oscillator used.
+Finally, discussion on the simulation of this system will be introduced,
+providing the method and boundary values used to provide profilimetry.
+The discussion of profilimetry will also give insight into how a Monte
+Carlo based nuclear particle transport and energy deposition code
+could be further used to estimate detector efficiency.
+
+As stated earlier, the introduction of small amounts of energy to
+a tensed fluid can cause a macroscopic cavitation event. This energy
+may be imparted by neutron collisions, alpha collisions, or other
+similar energy deposition events. The initial energy deposition occurs
+on a femtometer scale, and through the collision mechanism is propagated
+to picometer or nanometer scales. If the cavitation reaches this size,
+called the critical radius
+
+\section{Methodology}
+
+\lipsum[21]
+
+
+\subsection{Validation}
+
+\lipsum[22-27]
+
+
+\subsection{Simulation}
+
+\lipsum[28-33]
+
+
+\subsection{Optimization}
+
+\lipsum[34-39]
+
+
+\section{Results}
+
+\lipsum[40]
+
+
+\subsection{Economical ATMFD Design}
+
+\lipsum[1-5]
+
+
+\subsection{Economical ATMFD Performance Characteristics and Comparison to Simulation}
+
+\lipsum[6-10]
+
+
+\subsection{Conical ATMFD Design}
+
+\lipsum[11-16]
+
+
+\subsection{Conical ATMFD Performance Characteristics and Comparison to Simulation}
+
+\lipsum[17-22]
+
+
+\section{Discussion}
+
+\lipsum[23-33]
+
+\bibliographystyle{elsarticle-num-names}
+\bibliography{X:/INOK_User_Files/ahagen/Papers/Bibliographies/Masters_Thesis,/media/lab/INOK_User_Files/ahagen/Papers/Bibliographies/Masters_Thesis}
+
+\end{document}

@@ -487,8 +487,8 @@ __dissertation_template__ = r"""
     \definecolor{405C}{RGB}{116,108,102}
 
     %Add header for confidentiality
-    \def\@@evenhead{\hfil\textrm{DRAFT - BUSINESS CONFIDENTIAL - NOT FOR DISSEMINATION}\hfil\textrm{\thepage}}
-    \def\@@oddhead{\hfil\textrm{DRAFT - BUSINESS CONFIDENTIAL - NOT FOR DISSEMINATION}\hfil\textrm{\thepage}}
+    %\def\@@evenhead{\hfil\textrm{DRAFT - BUSINESS CONFIDENTIAL - NOT FOR DISSEMINATION}\hfil\textrm{\thepage}}
+    %\def\@@oddhead{\hfil\textrm{DRAFT - BUSINESS CONFIDENTIAL - NOT FOR DISSEMINATION}\hfil\textrm{\thepage}}
 
     %Make list of symbols, etc.
     \renewcommand{\nomname}{}

@@ -1,0 +1,73 @@
+%% Creator: Inkscape 0.48.3.1, www.inkscape.org
+%% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
+%% Accompanies image file 'Latex_Flowchart.pdf' (pdf, eps, ps)
+%%
+%% To include the image in your LaTeX document, write
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics{<filename>.pdf}
+%% To scale the image, write
+%%   \def\svgwidth{<desired width>}
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics[width=<desired width>]{<filename>.pdf}
+%%
+%% Images with a different path to the parent latex file can
+%% be accessed with the `import' package (which may need to be
+%% installed) using
+%%   \usepackage{import}
+%% in the preamble, and then including the image with
+%%   \import{<path to file>}{<filename>.pdf_tex}
+%% Alternatively, one can specify
+%%   \graphicspath{{<path to file>/}}
+%% 
+%% For more information, please see info/svg-inkscape on CTAN:
+%%   http://tug.ctan.org/tex-archive/info/svg-inkscape
+%%
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{648bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,0.61111111)%
+    \put(0,0){\includegraphics[width=\unitlength]{img/Latex_Flowchart.pdf}}%
+    \put(0.29091227,0.40380279){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{yes}}}%
+    \put(0.28996652,0.49373419){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{yes}}}%
+    \put(0.32730694,0.06642092){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{yes}}}%
+    \put(0.71896879,0.18042742){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{yes}}}%
+    \put(0.72065777,0.08331078){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{no}}}%
+    \put(0.50815413,0.1285625){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{no}}}%
+    \put(0.50143005,0.36836633){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{\parbox[c][2em][c]{1.75 in}{\centering Do you need\\
+\textbf{\color{1675C} Track Changes} for it?}}}}%
+    \put(0.50243013,0.55586633){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{\parbox[c][2em][c]{1.75 in}{\centering Does it need\\
+to be done in an hour?}}}}%
+    \put(0.15563108,0.45443885){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{use \textbf{\color{652C} word}}}}%
+    \put(0.18055117,0.05166109){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{use \textbf{\color{oldgold} vector graphics}}}}%
+    \put(0.85007553,0.13499442){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{use \textbf{\color{newgold} LaTeX}}}}%
+    \put(0.5024428,0.21558855){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{\parbox[c][2em][c]{1.75 in}{\centering Is it\\
+multiple pages?}}}}%
+    \put(0.50143005,0.06281077){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{\parbox[c][2em][c]{1.75 in}{\centering Will you need\\
+precision position control?}}}}%
+    \put(0.50928103,0.27813157){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{no}}}%
+    \put(0.50759201,0.45040811){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{no}}}%
+  \end{picture}%
+\endgroup%

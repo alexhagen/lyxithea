@@ -1,0 +1,388 @@
+#% Do not delete the line below; configure depends on this
+#  \DeclareLaTeXClass{book}
+
+Format 11
+Input stdclass.inc
+
+Sides           1
+PageStyle       Headings
+
+NoStyle Quotation
+NoStyle Quote
+NoStyle Verbatim
+NoStyle Verse
+NoStyle Paragraph
+NoStyle Subparagraph
+NoStyle Section
+NoStyle Subsection
+NoStyle Chapter
+NoStyle Chapter*
+NoStyle Paragraph*
+NoStyle Subparagraph*
+NoStyle Date
+NoStyle Address
+
+Style "One Column"
+	Align		Left
+	AlignPossible	Left
+	LabelType	Centered
+	LatexType	Command
+	Category	Slides
+	Margin		Static
+	KeepEmpty	1
+	ParbreakIsNewline 1
+	LabelFont
+		Series Bold
+		Color  Blue
+	EndFont
+	Font
+		Series Bold
+	EndFont
+	LabelString	"One Column"
+	LatexName	onecolumnslide
+	Argument 1
+		Font
+			Series Medium
+		EndFont
+		Mandatory 1
+		LabelString "Content"
+		AutoInsert 1
+		Decoration Conglomerate
+	EndArgument
+End
+
+Style "Two Column"
+	CopyStyle "One Column"
+	LabelString	"Two Column"
+	LatexName	twocolumnslide
+  Argument 1
+    Mandatory 1
+    LabelString "Left Content"
+    AutoInsert 1
+    Requires 2
+    Decoration Conglomerate
+  EndArgument
+  Argument 2
+    Mandatory 1
+    LabelString "Right Content"
+    AutoInsert 1
+    Font
+			Series Medium
+	EndFont
+    Decoration Conglomerate
+  EndArgument
+End
+
+Style "Two Column Shift Right"
+	CopyStyle "One Column"
+	LabelString	"Two Column Shift Right"
+	LatexName	twocolumnshiftright
+  Argument 1
+    Mandatory 1
+    LabelString "Left Content"
+    AutoInsert 1
+    Font
+			Series Medium
+	EndFont
+    Decoration Conglomerate
+  EndArgument
+  Argument 2
+    Mandatory 1
+    LabelString "Right Content"
+    AutoInsert 1
+    Font
+			Series Medium
+	EndFont
+    Decoration Conglomerate
+  EndArgument
+End
+
+Style "Two Column Shift Left"
+	CopyStyle "One Column"
+	LabelString	"Two Column Shift Left"
+	LatexName	twocolumnshiftleft
+  Argument 1
+    Mandatory 1
+    LabelString "Left Content"
+    AutoInsert 1
+    Font
+			Series Medium
+	EndFont
+    Decoration Conglomerate
+  EndArgument
+  Argument 2
+    Mandatory 1
+    LabelString "Right Content"
+    AutoInsert 1
+    Font
+			Series Medium
+	EndFont
+    Decoration Conglomerate
+  EndArgument
+End
+
+Style "Two Row"
+	CopyStyle "One Column"
+	LabelString	"Two Row"
+	LatexName	tworow
+  Argument 1
+    Mandatory 1
+    LabelString "Top Content"
+    AutoInsert 1
+    Font
+			Series Medium
+	EndFont
+    Decoration Conglomerate
+  EndArgument
+  Argument 2
+    Mandatory 1
+    LabelString "Bottom Content"
+    AutoInsert 1
+    Font
+			Series Medium
+	EndFont
+    Decoration Conglomerate
+  EndArgument
+End
+
+Style "Two Row Left Sidebar"
+	CopyStyle "One Column"
+	LabelString	"Two Row Left Sidebar"
+	LatexName	tworowleftsidebar
+  Argument 1
+    Mandatory 1
+    LabelString "Top Row"
+    AutoInsert 1
+    Font
+			Series Medium
+	EndFont
+    Decoration Conglomerate
+  EndArgument
+  Argument 2
+    Mandatory 1
+    LabelString "Bottom Row"
+    AutoInsert 1
+    Font
+			Series Medium
+	EndFont
+    Decoration Conglomerate
+  EndArgument
+  Argument 3
+  	Mandatory 1
+  	LabelString "Left Sidebar"
+  	AutoInsert 1
+    Font
+			Series Medium
+	EndFont
+    Decoration Conglomerate
+  EndArgument
+End
+
+Style "Two Row Right Sidebar"
+	CopyStyle "One Column"
+	LabelString	"Two Row Right Sidebar"
+	LatexName	tworowrightsidebar
+  Argument 1
+    Mandatory 1
+    LabelString "Top Row"
+    AutoInsert 1
+    Font
+			Series Medium
+	EndFont
+    Decoration Conglomerate
+  EndArgument
+  Argument 2
+    Mandatory 1
+    LabelString "Bottom Row"
+    AutoInsert 1
+    Font
+			Series Medium
+	EndFont
+    Decoration Conglomerate
+  EndArgument
+  Argument 3
+  	Mandatory 1
+  	LabelString "Right Sidebar"
+  	AutoInsert 1
+    Font
+			Series Medium
+	EndFont
+    Decoration Conglomerate
+  EndArgument
+End
+
+Style "Two Row Top Two Column"
+	CopyStyle "One Column"
+	LabelString	"Two Row Top Two Column"
+	LatexName	tworowtoptwocolumn
+  Argument 1
+    Mandatory 1
+    LabelString "Top Left"
+    AutoInsert 1
+    Font
+			Series Medium
+	EndFont
+    Decoration Conglomerate
+  EndArgument
+  Argument 2
+    Mandatory 1
+    LabelString "Top Right"
+    AutoInsert 1
+    Font
+			Series Medium
+	EndFont
+    Decoration Conglomerate
+  EndArgument
+  Argument 3
+  	Mandatory 1
+  	LabelString "Bottom"
+  	AutoInsert 1
+    Font
+			Series Medium
+	EndFont
+    Decoration Conglomerate
+  EndArgument
+End
+
+Style "Two Row Two Column"
+	CopyStyle "One Column"
+	LabelString	"Two Row Two Column"
+	LatexName	tworowtwocolumn
+  Argument 1
+    Mandatory 1
+    LabelString "Top Left"
+    AutoInsert 1
+    Font
+			Series Medium
+	EndFont
+    Decoration Conglomerate
+  EndArgument
+  Argument 2
+    Mandatory 1
+    LabelString "Bottom Left"
+    AutoInsert 1
+    Font
+			Series Medium
+	EndFont
+    Decoration Conglomerate
+  EndArgument
+  Argument 3
+  	Mandatory 1
+  	LabelString "Top Right"
+  	AutoInsert 1
+    Font
+			Series Medium
+	EndFont
+    Decoration Conglomerate
+  EndArgument
+  Argument 4
+  	Mandatory 1
+  	LabelString "Bottom Right"
+  	AutoInsert 1
+    Font
+			Series Medium
+	EndFont
+    Decoration Conglomerate
+  EndArgument
+End
+
+Style "Subtitle"
+	Align		Center
+	AlignPossible	Center
+	LabelType	Static
+	LatexType	Command
+	Category	Footer
+	Margin		Dynamic
+	KeepEmpty	1
+	InPreamble  1
+	LabelFont
+		Series Bold
+	EndFont
+	Labelsep "  "
+	LabelString	"Subtitle:"
+	LatexName	subtitle
+End
+
+Style "Venue"
+	CopyStyle	"Subtitle"
+	LabelString	"Venue:"
+	ParbreakIsNewline 1
+	LatexName	venue
+End
+
+Style "City"
+	CopyStyle	"Subtitle"
+	LabelString	"City:"
+	ParbreakIsNewline 1
+	LatexName	city
+End
+
+Style "Shade Quote"
+    Category   Content
+    LatexType  command
+    LatexName  squote
+
+End
+
+InsetLayout "Shade Quote"
+	Decoration Classic
+	LyxType charstyle
+	CustomPars 0
+	LatexType Command
+	LatexName squote
+	LabelString Quote
+	ParbreakIsNewline 1
+	KeepEmpty 1
+  Argument 1
+    Mandatory 1
+    LabelString "Author"
+  EndArgument
+End
+
+InsetLayout "Content"
+	Decoration Classic
+	LyxType charstyle
+	CustomPars 1
+	FreeSpacing 1
+	MultiPar 1
+	LatexType Environment
+	LatexName content
+	LabelString content
+	KeepEmpty 1
+End
+
+Style "Milestone"
+	CopyStyle Paragraph
+	LatexType Item_Environment
+	LatexName milestone
+	Font
+		Series Bold
+		Color Green
+	EndFont
+	Argument 1
+		Mandatory 0
+		LabelString "start number less 1"
+	EndArgument
+End
+
+Style "Heading"
+	CopyStyle Paragraph
+	LatexType Command
+	LatexName heading
+	Font
+		Series Bold
+	EndFont
+End
+
+Style "Chapter"
+	CopyStyle Section
+	LatexType Command
+	LatexName chapter
+	Font
+		Series Bold
+	EndFont
+	Argument 1
+		Mandatory 1
+		LabelString "Long Chapter"
+	EndArgument
+End

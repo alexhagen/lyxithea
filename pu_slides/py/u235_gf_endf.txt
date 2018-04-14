@@ -1,0 +1,317 @@
+Retrieved by E4-Web: 2015/04/28,12:36:04                             1 0  0    0
+ 9.223500+4 2.330248+2         -1          1          0          19228 1451    1
+ 0.000000+0 1.000000+0          0          0          0          69228 1451    2
+ 0.000000+0 2.000000+7          1          0          0          79228 1451    3
+ 0.000000+0 0.000000+0          0          0        254          29228 1451    4
+ 92-U -235 LANL       EVAL-AUG05 M.GIACRI,D.RIDIKAS,M.CHADWICK    9228 1451    5
+                      DIST-DEC06 REV1-                 20111222   9228 1451    6
+----ENDF/B-VII.1      MATERIAL 9228         REVISION 1            9228 1451    7
+-----PHOTONUCLEAR DATA                                            9228 1451    8
+------ENDF-6 FORMAT                                               9228 1451    9
+                                                                  9228 1451   10
+    *******************************************************       9228 1451   11
+    *                                                     *       9228 1451   12
+    *         LANL PHOTONUCLEAR FILE                      *       9228 1451   13
+    * M. GIACRI, D. RIDIKAS, M. B. CHADWICK, P. G. YOUNG  *       9228 1451   14
+    *     PRODUCED WITH GNASH/GSCAN/RECOIL CODES          *       9228 1451   15
+    *       LOS ALAMOS NATIONAL LABORATORY                *       9228 1451   16
+    *                                                     *       9228 1451   17
+    *******************************************************       9228 1451   18
+                                                                  9228 1451   19
+   EVALUATION OF GAMMA + 235U CROSS SECTIONS FOR THE ENERGY       9228 1451   20
+                   RANGE 5 to 20 MeV                              9228 1451   21
+                                                                  9228 1451   22
+     M. Giacri, D. Ridikas, M. B. Chadwick, and P. G. Young       9228 1451   23
+                   30 June 2005                                   9228 1451   24
+                                                                  9228 1451   25
+                GENERAL DESCRIPTION                               9228 1451   26
+                                                                  9228 1451   27
+  This evaluation is for photonuclear reactions up to 20 MeV and  9228 1451   28
+covers nonelastic reactions proceeding via photon absorption on   9228 1451   29
+the nucleus. Elastic photon scattering is not provided due to its 9228 1451   30
+very small cross section and small importance in most             9228 1451   31
+applications.                                                     9228 1451   32
+                                                                  9228 1451   33
+  The evaluation provides a complete representation of the        9228 1451   34
+nuclear data needed for transport, damage, heating,               9228 1451   35
+radioactivity, and shielding applications over the incident       9228 1451   36
+photon energy range from 1 to 20 MeV.  The ENDF sections are      9228 1451   37
+described below.                                                  9228 1451   38
+                                                                  9228 1451   39
+  We performed a complete theoretical analysis of the gamma +     9228 1451   40
+235U system out to an incident energy of 20 MeV. This analysis    9228 1451   41
+give good agreement with experimental data over most of the       9228 1451   42
+energy range.  However, we chose to adopt the cross sections,     9228 1451   43
+prompt nubar, and the fission neutron spectra from the evaluation 9228 1451   44
+of Blokhin et al.(Bl92), because these quantities are based on    9228 1451   45
+direct evaluation of experimental data.  We use the theoretical   9228 1451   46
+analysis for energy-angle correlated neutron spectra from         9228 1451   47
+(gamma,n) and (gamma,2n) reactions.                               9228 1451   48
+                                                                  9228 1451   49
+  For the theoretical analysis, we use the GNASH code system      9228 1451   50
+(Yo92), which utilizes Hauser-Feshbach statistical,               9228 1451   51
+preequilibrium and direct- reaction theories. Optical model       9228 1451   52
+calculations are used to obtain particle transmission             9228 1451   53
+coefficients for the Hauser-Feshbach calculations. An exciton     9228 1451   54
+model (modified to account for photon projectiles - see below) of 9228 1451   55
+Kalbach is used, including cluster preequilibrium emission        9228 1451   56
+[Ka85,Ka77].                                                      9228 1451   57
+                                                                  9228 1451   58
+ The GNASH code was extended to calculate photonuclear reactions  9228 1451   59
+in the following way, described in detail in Ref.(Ch95b).         9228 1451   60
+Photoabsorption is modeled through the giant resonance at the     9228 1451   61
+lower energies and the quasideuteron (QD) mechanism (Ch91) at     9228 1451   62
+higher energies.  After the initial interaction, primary and      9228 1451   63
+multiple preequilibrium emission of fast particles can occur,     9228 1451   64
+followed by sequential Hauser-Feshbach decay. Preequilibrium      9228 1451   65
+decay is calculated with an exciton model, based on a 2p1h        9228 1451   66
+initial state to approximate correlation effects in the QD        9228 1451   67
+mechanism, as proposed by Blann. The equi-probability of neutron  9228 1451   68
+and proton excitons following photoabsorption (in contrast to     9228 1451   69
+nucleon-induced reactions) is accounted for in the primary and    9228 1451   70
+multiple preequilibrium calculations.  Full angular momentum and  9228 1451   71
+parity conservation is included in a Hauser-Feshbach treatment of 9228 1451   72
+equilibrium emission, accounting for the fact that an E1-photon   9228 1451   73
+brings in one unit of angular momentum                            9228 1451   74
+                                                                  9228 1451   75
+  While angle-integrated spectra are provided for the secondary   9228 1451   76
+ejectiles, we intend angular distributions of the light (A<5)     9228 1451   77
+particles to be determined by a data processing code such as      9228 1451   78
+NJOY. To do this, we provide preequilibrium fractions (MF=6) for  9228 1451   79
+light particles, to facilitate the calculation of angle-energy    9228 1451   80
+correlated double-differential spectra.  For preequilibrium       9228 1451   81
+emission of A<5 ejectiles, such a calculation could make use of   9228 1451   82
+the theory of Chadwick et al. (Ch95a), which modifies Kalbach's   9228 1451   83
+angular distribution systematics for incident photons. For the    9228 1451   84
+A<5 ejectiles emitted through mechanisms other than               9228 1451   85
+preequilibrium (equilibrium decay or direct emission), the NJOY   9228 1451   86
+code could assume isotropy, or account for the fact that          9228 1451   87
+experimental data often show emission in the GDR energy region to 9228 1451   88
+have a dipole shape, peaked at 90 degrees.                        9228 1451   89
+                                                                  9228 1451   90
+  The GNASH code's ability to model photonuclear reactions has    9228 1451   91
+been tested in a number of works (Ch91,Ch94,Ch95a,Ch95b), where   9228 1451   92
+comparisons against experimental data were shown (Al64,Be87,Br66, 9228 1451   93
+Bl73,Di88,Fu85,Le81,Le82,Ve70,Yo72).  This involved tests of      9228 1451   94
+calculated photoneutron reaction channels (g,1n), (g,2n), (g,3n), 9228 1451   95
+etc., as well as the photoneutron production (g,xn) cross         9228 1451   96
+section, photoneutron emission spectra, and photoneutron          9228 1451   97
+multiplicities (yields) up to 150 MeV.  The multiplicities are    9228 1451   98
+useful for indirectly validating our preequilibrium modeling,     9228 1451   99
+since they are strongly influenced by preequilibrium reactions.   9228 1451  100
+While experimental data often exist for total neutron production, 9228 1451  101
+they rarely exist for the emission spectra.  Thus a model code    9228 1451  102
+such as GNASH is essential for providing emission spectra data    9228 1451  103
+information, after it has been validated against measured cross   9228 1451  104
+section data.                                                     9228 1451  105
+                                                                  9228 1451  106
+   SPECIFIC INFORMATION ON THE g+235U EVALUATION                  9228 1451  107
+                                                                  9228 1451  108
+  The photo absorption cross section that we inputted into the    9228 1451  109
+GNASH analysis was optimized to agree with experimental data.     9228 1451  110
+Our fission barrier parameters were adjusted using the 235U(g,f)  9228 1451  111
+evaluated data of Varlamov [Va87] (based on experimental data).   9228 1451  112
+Our calculated (g,n) and (g,2n) cross sections are consistent     9228 1451  113
+with the measurements of Caldwell [Ca80], and our calculated      9228 1451  114
+(g,n), (g,2n) and (g,F) shapes follow the structure in the        9228 1451  115
+measurements quite well.  Caldwell also measured the (g,f) cross  9228 1451  116
+section, but his results near the peak at 14 MeV are roughly 20%  9228 1451  117
+higher than Varlamov's results.  Our evaluation, taken from the   9228 1451  118
+evaluation of Blokhin [Bl92], follows the experimental data       9228 1451  119
+evaluation of Varlamov.                                           9228 1451  120
+                                                                  9228 1451  121
+FILE 1 (MF=1: NEUTRON YIELDS, DECAY DATA FROM FISSION)            9228 1451  122
+                                                                  9228 1451  123
+ MT=452 - Sum of MT=455 and MT=456.                               9228 1451  124
+                                                                  9228 1451  125
+ MT=455 - Delayed nubar taken from the ENDF/B-VI n+234U eval.,    9228 1451  126
+appropriately shifted to account for the neutron binding energy.  9228 1451  127
+and renormalized to match exp. data of Caldwell et al. [Ca75].    9228 1451  128
+                                                                  9228 1451  129
+ MT=456 - Taken from the evaluation of Blokhin [Bl92], which is   9228 1451  130
+based on the measurements of Caldwell et al. [Ca80].              9228 1451  131
+                                                                  9228 1451  132
+FILE 3 (MF=3: NEUTRON CROSS SECTIONS)                             9228 1451  133
+                                                                  9228 1451  134
+ MT=3 - Sum of MT=5,16,18.                                        9228 1451  135
+                                                                  9228 1451  136
+ MT=5 - (g,n) cross section from evaluation of Blokhin [Bl92],    9228 1451  137
+based on experimental data, especially data of Caldwell [Ca80].   9228 1451  138
+                                                                  9228 1451  139
+ MT=16 - (g,2n) cross sections are taken from the evaluation of   9228 1451  140
+Blokhin [Bl92].                                                   9228 1451  141
+                                                                  9228 1451  142
+ MT=18 - (g,f) cross sections obtained from the evaluation of     9228 1451  143
+Blokhin [Bl92], which were optimized to the experimental data of  9228 1451  144
+Caldwell [Ca80] and Varlamov [Va87].                              9228 1451  145
+                                                                  9228 1451  146
+FILE 4 (MF=4: NEUTRON ANGULAR DISTRIBUTIONS)                      9228 1451  147
+                                                                  9228 1451  148
+ MT=5 - Neutrons from (g,n) reactions, assumed isotropic.         9228 1451  149
+                                                                  9228 1451  150
+ MT=16 - Neutrons from (n,2n) reaction, assumed isotropic.        9228 1451  151
+                                                                  9228 1451  152
+ MT=18 - Neutrons from fission, assumed isotropic.                9228 1451  153
+                                                                  9228 1451  154
+FILE 5 (MF=5: NEUTRON ENERGY DISTRIBUTIONS)                       9228 1451  155
+                                                                  9228 1451  156
+ MT=18 - Maxwell1an distributions taken from the evaluation of    9228 1451  157
+Blokhin [Bl92].                                                   9228 1451  158
+                                                                  9228 1451  159
+ MT=455 - Adopted the ENDF/B-VI n+234U evaluation.                9228 1451  160
+                                                                  9228 1451  161
+FILE 6 (MF=6: NEUTRON ENERGY-ANGLE DISTRIBUTIONS)                 9228 1451  162
+                                                                  9228 1451  163
+ MT=5 - Energy-angle correlated neutron continua from (g,n)       9228 1451  164
+reactions, taken from the GNASH calculations based on             9228 1451  165
+preequilibrium theory.                                            9228 1451  166
+                                                                  9228 1451  167
+ MT=16 - Energy-angle correlated neutron continua from (g,2n)     9228 1451  168
+reactions, taken from the GNASH calculations based on             9228 1451  169
+preequilibrium theory.                                            9228 1451  170
+                                                                  9228 1451  171
+                                                                  9228 1451  172
+****************************************************************  9228 1451  173
+                                                                  9228 1451  174
+                          REFERENCES                              9228 1451  175
+                                                                  9228 1451  176
+[Al64] R. G. Allas, S. S. Hanna, L. Meyer-Schutzmeister, R. E.    9228 1451  177
+Segel, Nucl. Phys. 58 (1964) 122.                                 9228 1451  178
+                                                                  9228 1451  179
+[Be87] B.L. Berman et. al., Phys. Rev. C 36 (1987) 1286.          9228 1451  180
+                                                                  9228 1451  181
+[Bl73] M. Blann, B. L.  Berman, and T. T. Komoto, Phys. Rev. C28, 9228 1451  182
+2286 (1983).                                                      9228 1451  183
+                                                                  9228 1451  184
+[Bl92] A. I. Blokhin, N. N. Buleeva, N. Nasyrova, and O.          9228 1451  185
+Pakhomoya, Yk, 1992,V. 3, p. 3.                                   9228 1451  186
+                                                                  9228 1451  187
+[Br66] R. L. Bramblett, J. T. Caldwell, B. L. Berman, R. R.       9228 1451  188
+Harvey, and S. C. Fultz, Phys. Rev. 148 (1966) 1198.              9228 1451  189
+                                                                  9228 1451  190
+[Ca75] J. Caldwell and E. Dowdy, Nucl. Sci. Eng. 56 (1975) 179.   9228 1451  191
+                                                                  9228 1451  192
+[Ca80] J. Caldwell, E. Dowdy, R. Alvarez, B. Berman, and P.       9228 1451  193
+Meyer, Phys. Rev. C 21 (1980) 1215.                               9228 1451  194
+                                                                  9228 1451  195
+[Ch91] M. B. Chadwick, P. Oblozinsky, G. Reffo, P. E. Hodgson,    9228 1451  196
+Phys. Rev. C 44 (1991) 814.                                       9228 1451  197
+                                                                  9228 1451  198
+[Ch94] M. B. Chadwick, P. G. Young,"Photonuclear Reactions in the 9228 1451  199
+GNASH Code: Benchmarking Model Calculations for Reactions on Lead 9228 1451  200
+up to 140 MeV", Lawrence Livermore National Laboratory report     9228 1451  201
+UCRL-ID-118721 (1994).                                            9228 1451  202
+                                                                  9228 1451  203
+[Ch95a] M. B. Chadwick, P. G. Young, S. Chiba, "Photonuclear      9228 1451  204
+angular distribution systematics in the quasideuteron regime",    9228 1451  205
+Journal of Nuclear Science and Technology 32, 1154 (1995).        9228 1451  206
+                                                                  9228 1451  207
+[Ch95b] M.B. Chadwick and P.G. Young, "Preequilibrium model for   9228 1451  208
+photonuclear reactions up to the pion threshold", Acta Physica    9228 1451  209
+Slovakia 45, 633 (1995), journal publication of invited paper to  9228 1451  210
+the International Symposium on Preequilibrium Reactions,          9228 1451  211
+Bratislava, October 23-27, 1995.                                  9228 1451  212
+                                                                  9228 1451  213
+[Ch96].  M. B. Chadwick, P. G. Young, R. E. MacFarlane, and A.J.  9228 1451  214
+Koning, "High-Energy Nuclear Data Libraries for Accelerator-      9228 1451  215
+Driven Technologies:  Calculational Method for Heavy Recoils,     9228 1451  216
+"Proc. of 2nd Int. Conf. on Accelerator Driven Transmutation      9228 1451  217
+Technology and Applications, Kalmar, Sweden, 3-7 June 1996.       9228 1451  218
+                                                                  9228 1451  219
+[Ch98].  M. B. Chadwick and P. G. Young, "Photonuclear GNASH      9228 1451  220
+Modeling for g+208Pb" in APT PROGRESS REPORT: 1 June - 1 July     9228 1451  221
+1998, internal Los Alamos National Laboratory memo T-2-98/M43,    9228 1451  222
+July 2 1998 from R.E. MacFarlane to L. Waters.                    9228 1451  223
+                                                                  9228 1451  224
+[Di88] S. S.  Dietrich, B. L. Berman, Atomic Data and Nuclear     9228 1451  225
+Data Tables 38 (1988) 199.                                        9228 1451  226
+                                                                  9228 1451  227
+[Fu85] E. G. Fuller, Phys. Rep.127 (1985) 185.                    9228 1451  228
+                                                                  9228 1451  229
+[Ha64] R. R. Harvey et al., Phys. Rev. 136, B126 (1964).          9228 1451  230
+                                                                  9228 1451  231
+[Ka77].  C. Kalbach, "The Griffin Model, Complex Particles and    9228 1451  232
+Direct Nuclear Reactions," Z.Phys.A  283, 401 (1977).             9228 1451  233
+                                                                  9228 1451  234
+[Ka85].  C. Kalbach, "PRECO-D2: Program for Calculating           9228 1451  235
+Preequilibrium and Direct Reaction Double Differential Cross      9228 1451  236
+Sections," Los Alamos National Laboratory report LA-10248-MS      9228 1451  237
+(1985).                                                           9228 1451  238
+                                                                  9228 1451  239
+[Le81] A. Lepretre,  H. Beil, R. Bergere, P. Carlos, J. Fagot, A. 9228 1451  240
+de Miniac, A. Veyssiere,  Nucl. Phys. A367 (1981) 237.            9228 1451  241
+                                                                  9228 1451  242
+[Le82] A. Lepretre, H. Beil, R. Bergere, P. Carlos, J. Fagot, A.  9228 1451  243
+Veyssiere, I. Halpern, Nucl. Phys. A390 (1982) 221.               9228 1451  244
+                                                                  9228 1451  245
+[Va87] V. V. Varlamov, N. G. Efimkin, V. V. Surgutanov, A. A.     9228 1451  246
+Khoronenko, and A. P. Chernyaev, "Photonuclear Data -             9228 1451  247
+Photofission of Uranium 235, 238," (Moscow State Univ., 1987).    9228 1451  248
+                                                                  9228 1451  249
+[Ve70] A. Veyssiere, H. Beil, R. Bergere, P. Carlos, A. Lepretre, 9228 1451  250
+Nucl. Phys. A159 (1970) 561.                                      9228 1451  251
+                                                                  9228 1451  252
+[Yo72] L. M. Young: Ph.D. thesis, University of Illinois, (1972). 9228 1451  253
+                                                                  9228 1451  254
+[Yo92].  P. G. Young, E. D. Arthur, and M. B. Chadwick,           9228 1451  255
+"Comprehensive Nuclear Model Calculations: Introduction to the    9228 1451  256
+Theory and Use of the GNASH Code," LA-12343-MS (1992).            9228 1451  257
+                                                                  9228 1451  258
+                                1        451        272          09228 1451  259
+                                3         18         50          19228 1451  260
+ 0.000000+0 0.000000+0          0          0          0          09228 1  099999
+ 0.000000+0 0.000000+0          0          0          0          09228 0  0    0
+ 9.223500+4 2.330250+2          0          0          0          09228 3 18    1
+ 1.903000+8 1.903000+8          0          0          1        1399228 3 18    2
+        139          2                                            9228 3 18    3
+ 3.250000+6 0.000000+0 3.750000+6 1.700000-9 4.250000+6 4.90000-119228 3 18    4
+ 4.750000+6 6.300000-8 5.000000+6 1.000000-6 5.100000+6 5.000000-69228 3 18    5
+ 5.200000+6 1.500000-5 5.300000+6 6.300000-5 5.400000+6 1.300000-49228 3 18    6
+ 5.500000+6 2.300000-4 5.600000+6 3.400000-4 5.700000+6 4.300000-49228 3 18    7
+ 5.800000+6 1.500000-3 5.900000+6 2.480000-3 6.000000+6 3.730000-39228 3 18    8
+ 6.100000+6 4.960000-3 6.200000+6 6.090000-3 6.300000+6 6.660000-39228 3 18    9
+ 6.400000+6 6.570000-3 6.500000+6 7.140000-3 6.600000+6 8.520000-39228 3 18   10
+ 6.700000+6 9.230000-3 6.800000+6 8.610000-3 6.900000+6 8.850000-39228 3 18   11
+ 7.000000+6 1.193000-2 7.100000+6 1.243000-2 7.200000+6 1.320000-29228 3 18   12
+ 7.300000+6 1.618000-2 7.400000+6 1.957000-2 7.500000+6 2.128000-29228 3 18   13
+ 7.600000+6 2.171000-2 7.700000+6 1.957000-2 7.800000+6 1.969000-29228 3 18   14
+ 7.900000+6 2.260000-2 8.000000+6 1.861000-2 8.100000+6 2.339000-29228 3 18   15
+ 8.200000+6 2.611000-2 8.300000+6 3.049000-2 8.400000+6 3.414000-29228 3 18   16
+ 8.500000+6 3.599000-2 8.600000+6 3.886000-2 8.700000+6 4.171000-29228 3 18   17
+ 8.800000+6 4.415000-2 8.900000+6 4.646000-2 9.000000+6 5.012000-29228 3 18   18
+ 9.100000+6 5.500000-2 9.200000+6 5.973000-2 9.300000+6 6.438000-29228 3 18   19
+ 9.400000+6 6.921000-2 9.500000+6 7.538000-2 9.600000+6 8.331000-29228 3 18   20
+ 9.700000+6 9.124000-2 9.800000+6 9.942000-2 9.900000+6 1.080500-19228 3 18   21
+ 1.000000+7 1.165400-1 1.010000+7 1.244700-1 1.020000+7 1.324500-19228 3 18   22
+ 1.030000+7 1.404300-1 1.040000+7 1.483100-1 1.050000+7 1.560400-19228 3 18   23
+ 1.060000+7 1.636700-1 1.070000+7 1.714000-1 1.080000+7 1.793400-19228 3 18   24
+ 1.090000+7 1.873700-1 1.100000+7 1.941400-1 1.110000+7 1.997200-19228 3 18   25
+ 1.120000+7 2.057400-1 1.130000+7 2.115900-1 1.140000+7 2.166800-19228 3 18   26
+ 1.150000+7 2.212500-1 1.160000+7 2.256700-1 1.170000+7 2.298200-19228 3 18   27
+ 1.180000+7 2.332700-1 1.190000+7 2.368300-1 1.200000+7 2.415500-19228 3 18   28
+ 1.210000+7 2.461200-1 1.220000+7 2.506500-1 1.230000+7 2.552900-19228 3 18   29
+ 1.240000+7 2.603500-1 1.250000+7 2.654100-1 1.260000+7 2.713400-19228 3 18   30
+ 1.270000+7 2.774600-1 1.280000+7 2.836700-1 1.290000+7 2.907000-19228 3 18   31
+ 1.300000+7 2.979300-1 1.310000+7 3.056600-1 1.320000+7 3.138500-19228 3 18   32
+ 1.330000+7 3.213900-1 1.340000+7 3.243900-1 1.350000+7 3.276300-19228 3 18   33
+ 1.360000+7 3.299700-1 1.370000+7 3.307000-1 1.380000+7 3.307900-19228 3 18   34
+ 1.390000+7 3.310400-1 1.400000+7 3.306400-1 1.410000+7 3.294700-19228 3 18   35
+ 1.420000+7 3.281300-1 1.430000+7 3.267000-1 1.440000+7 3.243500-19228 3 18   36
+ 1.450000+7 3.188600-1 1.460000+7 3.106700-1 1.470000+7 3.009500-19228 3 18   37
+ 1.480000+7 2.905700-1 1.490000+7 2.809100-1 1.500000+7 2.727500-19228 3 18   38
+ 1.510000+7 2.646400-1 1.520000+7 2.567200-1 1.530000+7 2.494000-19228 3 18   39
+ 1.540000+7 2.418800-1 1.550000+7 2.323800-1 1.560000+7 2.227200-19228 3 18   40
+ 1.570000+7 2.136500-1 1.580000+7 2.051100-1 1.590000+7 1.968700-19228 3 18   41
+ 1.600000+7 1.901300-1 1.610000+7 1.845200-1 1.620000+7 1.794600-19228 3 18   42
+ 1.630000+7 1.749100-1 1.640000+7 1.705500-1 1.650000+7 1.655700-19228 3 18   43
+ 1.660000+7 1.599000-1 1.670000+7 1.536400-1 1.680000+7 1.471500-19228 3 18   44
+ 1.690000+7 1.409600-1 1.700000+7 1.346100-1 1.710000+7 1.299200-19228 3 18   45
+ 1.720000+7 1.278200-1 1.730000+7 1.260500-1 1.740000+7 1.239600-19228 3 18   46
+ 1.750000+7 1.216200-1 1.760000+7 1.191100-1 1.770000+7 1.164400-19228 3 18   47
+ 1.780000+7 1.136600-1 1.790000+7 1.109000-1 1.800000+7 1.085500-19228 3 18   48
+ 1.810000+7 1.062300-1 1.820000+7 1.033500-1 1.830000+7 9.334000-29228 3 18   49
+ 2.000000+7 3.100000-2                                            9228 3 18   50
+ 0.000000+0 0.000000+0          0          0          0          09228 3  099999
+ 0.000000+0 0.000000+0          0          0          0          09228 0  0    0
+ 0.000000+0 0.000000+0          0          0          0          0   0 0  0    0
+ 0.000000+0 0.000000+0          0          0          0          0  -1 0  0    0

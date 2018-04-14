@@ -1,0 +1,2705 @@
+#LyX 2.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 474
+\begin_document
+\begin_header
+\textclass puslides
+\begin_preamble
+\usepackage{pgf}
+\usepackage{xcolor}
+\usepackage{color}
+\usepackage{xparse}
+\usepackage{soul}
+\definecolor{green}{HTML}{5C8727}
+\definecolor{yellow}{HTML}{E3AE24}
+\makeatletter
+\NewDocumentCommand{\sotwo}{O{red}O{black}+m}
+    {%
+        \begingroup
+        \setulcolor{#1}%
+        \setul{-.6ex}{2pt}%
+        \def\SOUL@uleverysyllable{%
+            \rlap{%
+                \color{#2}\the\SOUL@syllable
+                \SOUL@setkern\SOUL@charkern}%
+            \SOUL@ulunderline{%
+                \phantom{\the\SOUL@syllable}}%
+        }%
+        \ul{#3}%
+        \endgroup
+    }
+\makeatother
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows,calc,positioning}
+\vfuzz = 500pt
+
+\usepackage{pdfpages}
+\definecolor{grey20}{RGB}{209,211,212}
+\definecolor{grey40}{RGB}{167,169,172}
+\definecolor{grey60}{RGB}{116,108,102}
+\definecolor{oldgold}{RGB}{163,121,44}
+\definecolor{newgold}{RGB}{227,174,36}
+\definecolor{652C}{RGB}{114,153,198}
+\definecolor{1675C}{RGB}{185,89,21}
+\definecolor{puteal}{RGB}{46,175,164}
+
+\usepackage{float}
+\floatname{algorithm}{Source Code}
+\newcommand{\algorithmname}{Source Code}
+\end_preamble
+\options 20pt
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_math auto
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\float_placement H
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\pdf_bookmarks true
+\pdf_bookmarksnumbered false
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks false
+\pdf_pdfborder false
+\pdf_colorlinks false
+\pdf_backref false
+\pdf_pdfusetitle false
+\papersize custom
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 0
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 0
+\use_package mhchem 1
+\use_package stackrel 0
+\use_package stmaryrd 0
+\use_package undertilde 0
+\cite_engine natbib
+\cite_engine_type authoryear
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation landscape
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\paperwidth 7in
+\paperheight 9in
+\leftmargin 0cm
+\topmargin 0cm
+\rightmargin 0cm
+\bottommargin 0cm
+\headheight 0cm
+\headsep 0cm
+\footskip 0cm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\bullet 0 0 34 -1
+\bullet 1 0 30 -1
+\bullet 2 0 30 -1
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Introduction to 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+LaTeX{}
+\end_layout
+
+\end_inset
+
+ and Its Use in Thesis and Assignment Preparation
+\end_layout
+
+\begin_layout Author
+Alex Hagen
+\begin_inset script superscript
+
+\begin_layout Plain Layout
+(1)*
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subtitle
+(1) Purdue University
+\end_layout
+
+\begin_layout Venue
+GRIS 103
+\end_layout
+
+\begin_layout City
+Lafayette, IN
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+def
+\backslash
+theauthorsforbottom{A.
+ Hagen}
+\end_layout
+
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\end_layout
+
+\begin_layout Part
+Introduction
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+def
+\backslash
+nameofchapter{Introduction}
+\end_layout
+
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\end_layout
+
+\begin_layout One Column
+Outline
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+\begin_inset Flex Content
+status collapsed
+
+\begin_layout Itemize
+What is TeX?
+\end_layout
+
+\begin_layout Itemize
+TeX Examples
+\end_layout
+
+\begin_layout Itemize
+When to use TeX
+\end_layout
+
+\begin_layout Itemize
+Demos
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Hello World
+\end_layout
+
+\begin_layout Itemize
+Assignments
+\end_layout
+
+\begin_layout Itemize
+PUThesis
+\end_layout
+
+\begin_layout Itemize
+Publishing
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Features
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Floats
+\end_layout
+
+\begin_layout Itemize
+Mathematics
+\end_layout
+
+\begin_layout Itemize
+Table of Conents
+\end_layout
+
+\begin_layout Itemize
+Bibliographies
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Advanced TeX
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Two Column
+What 
+is 
+\lang english
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+LaTeX{}
+\end_layout
+
+\end_inset
+
+?
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+\begin_inset Flex Content
+status open
+
+\begin_layout Subsection*
+What LaTeX IS
+\end_layout
+
+\begin_layout Itemize
+Powerful for scripting
+\end_layout
+
+\begin_layout Itemize
+Hassle free formatting
+\end_layout
+
+\begin_layout Itemize
+Important for publishers
+\end_layout
+
+\begin_layout Itemize
+Important for mathematicians
+\end_layout
+
+\begin_layout Itemize
+Creates high quality figures
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Argument 2
+status open
+
+\begin_layout Plain Layout
+\begin_inset Flex Content
+status open
+
+\begin_layout Subsection*
+What LaTeX ISN'T
+\end_layout
+
+\begin_layout Itemize
+Quick
+\end_layout
+
+\begin_layout Itemize
+User Friendly
+\end_layout
+
+\begin_layout Itemize
+What You See is What You Get Editor
+\end_layout
+
+\begin_layout Itemize
+Useful for Art
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+def
+\backslash
+nameofchapter{Examples}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+includepdf[pages={2},fitpaper=true]{pdf/CS_501_HMWK_5.pdf} 
+\backslash
+newpage
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+includepdf[pages={6},fitpaper=true]{pdf/CS_530_HMWK_4.pdf} 
+\backslash
+newpage
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+includepdf[pages={1},fitpaper=true]{pdf/NUCL_575_HMWK_2.pdf} 
+\backslash
+newpage
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+includepdf[pages={23},fitpaper=true]{pdf/NUCL_612_Final_Project_Report_(ahagen).p
+df}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout One Column
+When to Use 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+LaTeX{}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+centering 
+\backslash
+def
+\backslash
+svgwidth{7.5 in} 
+\backslash
+large{
+\backslash
+input{img/Latex_Flowchart.pdf_tex}}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+LaTeX Decision Flowchart
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Part
+Demos
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+def
+\backslash
+nameofchapter{
+\backslash
+LaTeX{} Demo}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Two Column
+Hello World
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+\begin_inset Flex Content
+status open
+
+\begin_layout Subsection*
+To Compile
+\end_layout
+
+\begin_layout Itemize
+Create a file 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{helloworld.tex}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Open in tex editor (such as Texlive)
+\end_layout
+
+\begin_layout Itemize
+Compile this into a pdf using command or play button
+\end_layout
+
+\begin_layout LyX-Code
+$latex -output-format=pdf
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+
+\backslash
+
+\end_layout
+
+\end_inset
+
+  helloworld.tex
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Hello World LaTeX Code 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{helloworld.tex}
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "alg:Hello-World-Latex-Code"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout LyX-Code
+\begin_inset VSpace 0.5cm
+\end_inset
+
+
+\end_layout
+
+\begin_layout LyX-Code
+
+\size small
+
+\backslash
+documentclass{article}
+\end_layout
+
+\begin_layout LyX-Code
+
+\size small
+
+\backslash
+title{Hello World Program}
+\end_layout
+
+\begin_layout LyX-Code
+
+\size small
+
+\backslash
+author{Alex Hagen}
+\end_layout
+
+\begin_layout LyX-Code
+
+\size small
+
+\backslash
+date{November 2013}
+\end_layout
+
+\begin_layout LyX-Code
+
+\size small
+
+\backslash
+usepackage{lipsum}
+\end_layout
+
+\begin_layout LyX-Code
+
+\size small
+
+\backslash
+begin{document}
+\end_layout
+
+\begin_layout LyX-Code
+
+\size small
+  
+\backslash
+maketitle
+\end_layout
+
+\begin_layout LyX-Code
+
+\size small
+  
+\backslash
+section{Hello World!}
+\end_layout
+
+\begin_layout LyX-Code
+
+\size small
+  
+\backslash
+lipsum[1-5]
+\end_layout
+
+\begin_layout LyX-Code
+
+\size small
+
+\backslash
+end{document}
+\end_layout
+
+\begin_layout LyX-Code
+\begin_inset VSpace 0.5cm
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Argument 2
+status open
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+centering 
+\backslash
+framebox[
+\backslash
+width]{
+\backslash
+includegraphics[width=3 in]{sandbox/helloworld/helloworld.pdf}}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Output of LaTeX on 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{helloworld.tex}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Two Column
+Purdue Thesis
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+\begin_inset Flex Content
+status collapsed
+
+\begin_layout Subsection*
+To Compile
+\end_layout
+
+\begin_layout Itemize
+Download 
+\family typewriter
+puthesis.cls
+\end_layout
+
+\begin_layout Itemize
+Download template files and 
+\family typewriter
+pulongtable.sty
+\end_layout
+
+\begin_layout Itemize
+Put into one directory
+\end_layout
+
+\begin_layout Itemize
+Compile this into a pdf using command or play button
+\end_layout
+
+\begin_layout LyX-Code
+$latex -output-format=pdf
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+
+\backslash
+
+\end_layout
+
+\end_inset
+
+  thesis.tex
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Argument 2
+status open
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+centering 
+\backslash
+framebox[
+\backslash
+width]{
+\backslash
+includegraphics[width=3 in,page=1]{img/thesis.pdf}}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Output of Latex on Purdue Thesis Formatted Paper with 
+\family typewriter
+puthesis.cls
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Two Column
+Elsevier and Other Journal Templates
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+\begin_inset Flex Content
+status collapsed
+
+\begin_layout Subsection*
+To Compile
+\end_layout
+
+\begin_layout Itemize
+Download 
+\family typewriter
+elsarticle.cls
+\end_layout
+
+\begin_layout Itemize
+Follow directions for adding authors, etc.
+\end_layout
+
+\begin_layout Itemize
+Put into one directory
+\end_layout
+
+\begin_layout Itemize
+Compile this into a pdf using command or play button
+\end_layout
+
+\begin_layout LyX-Code
+$latex -output-format=pdf
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+
+\backslash
+
+\end_layout
+
+\end_inset
+
+  elspaper.tex
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Argument 2
+status open
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+centering 
+\backslash
+framebox[
+\backslash
+width]{
+\backslash
+includegraphics[width=3 in,page=1]{img/elspaper_float.pdf}}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Output of Latex on Elsevier Formatted Paper with 
+\family typewriter
+elsarticle.cls
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Part
+Features
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+def
+\backslash
+nameofchapter{Typesetting}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Two Column
+Floats
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+\begin_inset Flex Content
+status collapsed
+
+\begin_layout Itemize
+Inserting of Figures, Tables, and Algorithms done through 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+textbf{
+\backslash
+color{newgold}floats}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Creates a caption environment and a separate 
+\begin_inset Quotes eld
+\end_inset
+
+box
+\begin_inset Quotes erd
+\end_inset
+
+ for the content
+\end_layout
+
+\begin_layout Itemize
+In papers/theses, TeX decides where to place floats - options are:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Top of Page
+\end_layout
+
+\begin_layout Itemize
+Bottom of Page
+\end_layout
+
+\begin_layout Itemize
+Page of Floats
+\end_layout
+
+\begin_layout Itemize
+Here Definitely
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Are enumerated in the List of Tables, etc.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Argument 2
+status open
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+centering 
+\backslash
+framebox[
+\backslash
+width]{
+\backslash
+includegraphics[width=3 in,page=2,clip=true,trim=0 6in 0 0in]{img/elspaper_float.
+pdf}}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset VSpace bigskip
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+centering 
+\backslash
+framebox[
+\backslash
+width]{
+\backslash
+includegraphics[width=3 in,page=3,clip=true,trim=0 6.5in 0 0in]{img/elspaper_floa
+t.pdf}}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Placement of Several Different Floats
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Two Column Shift Left
+Mathematics
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+\begin_inset Flex Content
+status collapsed
+
+\begin_layout Subsection*
+Math Features
+\end_layout
+
+\begin_layout Itemize
+Fractions
+\end_layout
+
+\begin_layout Itemize
+Symbols
+\end_layout
+
+\begin_layout Itemize
+Arrays
+\end_layout
+
+\begin_layout Itemize
+Cases
+\end_layout
+
+\begin_layout Itemize
+Numbering
+\end_layout
+
+\begin_layout Itemize
+Integration and sums
+\end_layout
+
+\begin_layout Itemize
+Limits
+\end_layout
+
+\begin_layout Itemize
+Super- and sub- scripts
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Argument 2
+status open
+
+\begin_layout Plain Layout
+\begin_inset Float table
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Latex Code to Generate Helmholtz and Slowing Down Equations
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout LyX-Code
+
+\size small
+The 
+\backslash
+textbf{Scalar-Helmholtz Equation} is given in 
+\end_layout
+
+\begin_layout LyX-Code
+
+\size small
+  Equation 
+\backslash
+ref{eq:Scalar-Helmholtz-Equation}:
+\end_layout
+
+\begin_layout LyX-Code
+
+\size small
+$D
+\backslash
+nabla^{2}
+\backslash
+phi-
+\backslash
+Sigma_{a}
+\backslash
+phi+s=0$ 
+\end_layout
+
+\begin_layout LyX-Code
+
+\size small
+  
+\backslash
+label{eq:Scalar-Helmholtz-Equation}
+\end_layout
+
+\begin_layout LyX-Code
+
+\size small
+The 
+\backslash
+textbf{Neutron Slowing Down} equation is given
+\end_layout
+
+\begin_layout LyX-Code
+
+\size small
+  in Equation 
+\backslash
+ref{eq:Neutron-Slowing-Down-Equation}:
+\end_layout
+
+\begin_layout LyX-Code
+
+\size small
+$
+\backslash
+left[D(E)B^{2}+
+\backslash
+Sigma_{t}(E)
+\backslash
+right]
+\end_layout
+
+\begin_layout LyX-Code
+
+\size small
+  
+\backslash
+varphi(E)-
+\backslash
+int
+\backslash
+Sigma_{s}(E'
+\backslash
+rightarrow E)
+\end_layout
+
+\begin_layout LyX-Code
+
+\size small
+  
+\backslash
+varphi(E')dE' =
+\backslash
+lambda
+\backslash
+chi(E)
+\backslash
+int
+\backslash
+nu
+\backslash
+Sigma_{f}(E')
+\end_layout
+
+\begin_layout LyX-Code
+
+\size small
+  
+\backslash
+varphi(E')dE'$ 
+\end_layout
+
+\begin_layout LyX-Code
+
+\size small
+  
+\backslash
+label{eq:Neutron-Slowing-Down-Equation}
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+The 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+textbf{
+\end_layout
+
+\end_inset
+
+Scalar-Helmholtz Equation
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+ is given in Equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:Scalar-Helmholtz-Equation"
+
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Formula 
+\begin{equation}
+D\nabla^{2}\phi-\Sigma_{a}\phi+s=0\label{eq:Scalar-Helmholtz-Equation}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+The 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+textbf{
+\end_layout
+
+\end_inset
+
+Neutron Slowing Down
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+ equation is given in Equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:Slowing Down Equation"
+
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset Formula 
+\begin{multline}
+\left[D(E)B^{2}+\Sigma_{t}(E)\right]\varphi(E)-\int\Sigma_{s}(E'\rightarrow E)\varphi(E')dE'\\
+=\lambda\chi(E)\int\nu\Sigma_{f}(E')\varphi(E')dE'\label{eq:Slowing Down Equation}
+\end{multline}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Mathematics Output
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+def
+\backslash
+nameofchapter{Document Organization}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Two Column Shift Right
+Sectioning
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+\begin_inset Float table
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Latex Code to Generate Sectioning
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout LyX-Code
+
+\size small
+
+\backslash
+tableofcontents{}
+\end_layout
+
+\begin_layout LyX-Code
+
+\size small
+
+\backslash
+section{Section}
+\end_layout
+
+\begin_layout LyX-Code
+
+\size small
+First Line of the Section
+\end_layout
+
+\begin_layout LyX-Code
+
+\size small
+
+\backslash
+subsection{Subsection}
+\end_layout
+
+\begin_layout LyX-Code
+
+\size small
+First Line of the Subsection
+\end_layout
+
+\begin_layout LyX-Code
+
+\size small
+
+\backslash
+paragraph{Paragraph}
+\end_layout
+
+\begin_layout LyX-Code
+
+\size small
+First Line of the Paragraph
+\end_layout
+
+\begin_layout LyX-Code
+
+\size small
+
+\backslash
+subparagraph{Subparagraph}
+\end_layout
+
+\begin_layout LyX-Code
+
+\size small
+First Line of the Subparagraph
+\end_layout
+
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+centering 
+\backslash
+includegraphics[width=3.5 in]{img/sectioning.pdf}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Sectioning Examples
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Argument 2
+status open
+
+\begin_layout Plain Layout
+\begin_inset Flex Content
+status collapsed
+
+\begin_layout Subsection*
+Sectioning Commands
+\end_layout
+
+\begin_layout Itemize
+Can section each document to help with organization
+\end_layout
+
+\begin_layout Itemize
+Outline Type
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Part
+\end_layout
+
+\begin_layout Itemize
+Chapter
+\end_layout
+
+\begin_layout Itemize
+Section
+\end_layout
+
+\begin_layout Itemize
+Subsection
+\end_layout
+
+\begin_layout Itemize
+Subsubsection
+\end_layout
+
+\begin_layout Itemize
+...
+\end_layout
+
+\begin_layout Itemize
+Paragraph
+\end_layout
+
+\begin_layout Itemize
+Subparagraph
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Automatically included in Table of Contents
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Two Column Shift Left
+Bibliographies
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+\begin_inset Flex Content
+status collapsed
+
+\begin_layout Subsection*
+Bibliography Features
+\end_layout
+
+\begin_layout Itemize
+Use 
+\begin_inset Quotes eld
+\end_inset
+
+bibtex
+\begin_inset Quotes erd
+\end_inset
+
+ files
+\end_layout
+
+\begin_layout Itemize
+Can be updated through text files
+\end_layout
+
+\begin_layout Itemize
+Mendeley supports bibtex output
+\end_layout
+
+\begin_layout Itemize
+Only lists cited articles
+\end_layout
+
+\begin_layout Itemize
+Can add page numbers to citations
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Argument 2
+status open
+
+\begin_layout Plain Layout
+\begin_inset Float table
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Latex Code to Cite and Generate a Bibliography
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout LyX-Code
+
+\size small
+Some text here with a citation 
+\backslash
+cite{Knoll2000}, a 
+\end_layout
+
+\begin_layout LyX-Code
+
+\size small
+  multiple citation 
+\backslash
+cite{Engineering2012,Fried...
+\end_layout
+
+\begin_layout LyX-Code
+
+\size small
+  , and a page after citation 
+\backslash
+cite[p.
+ 1]{UnitedStates...
+\end_layout
+
+\begin_layout LyX-Code
+
+\size small
+
+\backslash
+bibliographystyle{plain} 
+\end_layout
+
+\begin_layout LyX-Code
+
+\size small
+
+\backslash
+bibliography{Masters_Thesis}
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Float table
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Contents of BiBTeX Bibliography
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout LyX-Code
+
+\size small
+@book{Knoll2000, author = {Knoll, G.
+ F.},...
+\end_layout
+
+\begin_layout LyX-Code
+
+\size small
+...
+\end_layout
+
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+centering 
+\backslash
+includegraphics[width=3.5 in]{img/bibliography.pdf}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Bibliography Example
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Part
+Advanced 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+LaTeX{}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+def
+\backslash
+nameofchapter{Graphical Interface}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Two Column
+LyX High Level LaTeX Interface
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+\begin_inset Flex Content
+status collapsed
+
+\begin_layout Subsection*
+LyX Editing and Features
+\end_layout
+
+\begin_layout Itemize
+Easy visible math editing
+\end_layout
+
+\begin_layout Itemize
+Table creation
+\end_layout
+
+\begin_layout Itemize
+Float insertion
+\end_layout
+
+\begin_layout Itemize
+Font support
+\end_layout
+
+\begin_layout Itemize
+Page Size and Layout Support
+\end_layout
+
+\begin_layout Itemize
+Some figure support
+\end_layout
+
+\begin_layout Itemize
+Labeling and Cross Referencing
+\end_layout
+
+\begin_layout Itemize
+Bibliographies
+\end_layout
+
+\begin_layout Itemize
+Support for any and all TeX Code
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Argument 2
+status open
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename img/lyx.png
+	width 3.5in
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+LyX Editing Environment
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+def
+\backslash
+nameofchapter{Advanced Figures}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Two Column
+PDF_TeX Figures
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+\begin_inset Flex Content
+status collapsed
+
+\begin_layout Subsection*
+Workflow
+\end_layout
+
+\begin_layout Itemize
+Vector Graphic Editing in Inkscape
+\end_layout
+
+\begin_layout Itemize
+Inclusion of TeX tags such as 
+\backslash
+textbf{}, $$, etc.
+\end_layout
+
+\begin_layout Itemize
+Save to pdf_tex through Inkscape interface
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename img/inkscape.png
+	width 3.25in
+	BoundingBox 0bp 300bp 660bp 550bp
+	clip
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+pdf_tex Editing in Inkscape
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Argument 2
+status open
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+centering 
+\backslash
+def
+\backslash
+svgwidth{3.25 in} 
+\backslash
+scriptsize 
+\backslash
+input{img/SARMCTMFDPicture.pdf_tex}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+pdf_tex Figure Output
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Two Column
+PGF Figures
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+\begin_inset Flex Content
+status collapsed
+
+\begin_layout Subsection*
+Workflow
+\end_layout
+
+\begin_layout Itemize
+Data analysis and calculation using Python
+\end_layout
+
+\begin_layout Itemize
+Plotting using inclusion of TeX tags
+\end_layout
+
+\begin_layout Itemize
+savefig using 
+\family typewriter
+.pgf 
+\family default
+extension and backend
+\end_layout
+
+\begin_layout Itemize
+inclusion in latex document with 
+\family typewriter
+
+\backslash
+input
+\family default
+ tag
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Argument 2
+status open
+
+\begin_layout Plain Layout
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Source code for sin wave plotting with python to pgf
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size footnotesize
+import matplotlib as mpl
+\end_layout
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size footnotesize
+mpl.use('pgf')
+\end_layout
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size footnotesize
+import matplotlib.pyplot as plt
+\end_layout
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size footnotesize
+import numpy as np
+\end_layout
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size footnotesize
+x = np.linspace(0, 6.5)
+\end_layout
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size footnotesize
+y1 = np.sin(x)
+\end_layout
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size footnotesize
+y2 = np.cos(x)
+\end_layout
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size footnotesize
+plt.plot(x, y1, 'r-', x, y2, 'b--')
+\end_layout
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size footnotesize
+plt.xlabel('x-coordinate ($x$) [$cm$]')
+\end_layout
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size footnotesize
+plt.ylabel('y-coordinate ($y$) [$cm$]')
+\end_layout
+
+\begin_layout Plain Layout
+
+\family typewriter
+\size footnotesize
+plt.savefig('img/figure.pgf')
+\end_layout
+
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+centering 
+\backslash
+input{img/figure.pgf}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Example of pgf figure included in 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+LaTeX{}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+def
+\backslash
+nameofchapter{Advanced Document Tracking}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Two Column
+Git Document Revision
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+\begin_inset Flex Content
+status collapsed
+
+\begin_layout Subsection*
+Features
+\end_layout
+
+\begin_layout Itemize
+Can use content revision management software
+\end_layout
+
+\begin_layout Itemize
+ASCII files give meaning to diff
+\end_layout
+
+\begin_layout Itemize
+Decreases Space
+\end_layout
+
+\begin_layout Itemize
+.doc files will be copied every time they are committed
+\end_layout
+
+\begin_layout Itemize
+First add file, then commit with some comment
+\end_layout
+
+\begin_layout Itemize
+Put every line (even if not a new paragraph) on a new line
+\end_layout
+
+\begin_layout Itemize
+Will allow for rolling back of the content
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Argument 2
+status open
+
+\begin_layout Plain Layout
+\begin_inset Flex Content
+status collapsed
+
+\begin_layout LyX-Code
+
+\size small
+$ git commit -am 'added a line 
+\backslash
+
+\end_layout
+
+\begin_layout LyX-Code
+
+\size small
+  to the file'
+\end_layout
+
+\begin_layout LyX-Code
+
+\size small
+$ git show 
+\end_layout
+
+\begin_layout LyX-Code
+
+\size small
+commit d...
+\end_layout
+
+\begin_layout LyX-Code
+
+\size small
+Author: Alex Hagen <ahagen@pur...
+ 
+\end_layout
+
+\begin_layout LyX-Code
+
+\size small
+Date:   Sun Nov 24 22:58:10 20...
+\end_layout
+
+\begin_layout LyX-Code
+
+\size small
+    added a line to the file
+\end_layout
+
+\begin_layout LyX-Code
+
+\size small
+diff --git a/helloworld.tex b/...
+\end_layout
+
+\begin_layout LyX-Code
+
+\size small
+index ec6251c..7c91797 100644 
+\end_layout
+
+\begin_layout LyX-Code
+
+\size small
+--- a/helloworld.tex 
+\end_layout
+
+\begin_layout LyX-Code
+
+\size small
++++ b/helloworld.tex 
+\end_layout
+
+\begin_layout LyX-Code
+
+\size small
+@@ -6,5 +6,6 @@
+\end_layout
+
+\begin_layout LyX-Code
+
+\size small
+ 
+\backslash
+begin{document}
+\end_layout
+
+\begin_layout LyX-Code
+
+\size small
+   
+\backslash
+maketitle
+\end_layout
+
+\begin_layout LyX-Code
+
+\size small
+   
+\backslash
+section{Hello World!} 
+\end_layout
+
+\begin_layout LyX-Code
+
+\size small
++  I wrote this about git!
+\end_layout
+
+\begin_layout LyX-Code
+
+\size small
+   
+\backslash
+lipsum[1-5]
+\end_layout
+
+\begin_layout LyX-Code
+
+\size small
+ 
+\backslash
+end{document} 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

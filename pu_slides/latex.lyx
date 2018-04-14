@@ -1,0 +1,294 @@
+#LyX 2.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 474
+\begin_document
+\begin_header
+\textclass puslides
+\begin_preamble
+\usepackage{pgf}
+\usepackage{xcolor}
+\usepackage{color}
+\usepackage{xparse}
+\usepackage{soul}
+\definecolor{green}{HTML}{5C8727}
+\definecolor{yellow}{HTML}{E3AE24}
+\makeatletter
+\NewDocumentCommand{\sotwo}{O{red}O{black}+m}
+    {%
+        \begingroup
+        \setulcolor{#1}%
+        \setul{-.6ex}{2pt}%
+        \def\SOUL@uleverysyllable{%
+            \rlap{%
+                \color{#2}\the\SOUL@syllable
+                \SOUL@setkern\SOUL@charkern}%
+            \SOUL@ulunderline{%
+                \phantom{\the\SOUL@syllable}}%
+        }%
+        \ul{#3}%
+        \endgroup
+    }
+\makeatother
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows,calc,positioning}
+\vfuzz = 500pt
+\end_preamble
+\options 20pt
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_math auto
+\font_default_family default
+\use_non_tex_fonts true
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\float_placement H
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\pdf_bookmarks true
+\pdf_bookmarksnumbered false
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks false
+\pdf_pdfborder false
+\pdf_colorlinks false
+\pdf_backref false
+\pdf_pdfusetitle false
+\papersize custom
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 0
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 0
+\use_package mhchem 1
+\use_package stackrel 0
+\use_package stmaryrd 0
+\use_package undertilde 0
+\cite_engine natbib
+\cite_engine_type authoryear
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation landscape
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\paperwidth 7in
+\paperheight 9in
+\leftmargin 0cm
+\topmargin 0cm
+\rightmargin 0cm
+\bottommargin 0cm
+\headheight 0cm
+\headsep 0cm
+\footskip 0cm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\bullet 0 0 34 -1
+\bullet 1 0 30 -1
+\bullet 2 0 30 -1
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Introduction to 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+LaTeX{}
+\end_layout
+
+\end_inset
+
+ and Its Use in Thesis and Assignment Preparation
+\end_layout
+
+\begin_layout Author
+Alex Hagen
+\begin_inset script superscript
+
+\begin_layout Plain Layout
+(1)*
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subtitle
+(1) Purdue University
+\end_layout
+
+\begin_layout Venue
+GRIS 103
+\end_layout
+
+\begin_layout City
+Lafayette, IN
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+def
+\backslash
+theauthorsforbottom{A.
+ Hagen}
+\end_layout
+
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\end_layout
+
+\begin_layout Part
+Introduction
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+def
+\backslash
+nameofchapter{Introduction}
+\end_layout
+
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\end_layout
+
+\begin_layout One Column
+\begin_inset Argument 1
+status open
+
+\begin_layout Plain Layout
+\begin_inset Flex Content
+status open
+
+\begin_layout Itemize
+What is TeX?
+\end_layout
+
+\begin_layout Itemize
+TeX Examples
+\end_layout
+
+\begin_layout Itemize
+When to use TeX
+\end_layout
+
+\begin_layout Itemize
+Demos
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Hello World
+\end_layout
+
+\begin_layout Itemize
+Assignments
+\end_layout
+
+\begin_layout Itemize
+PUThesis
+\end_layout
+
+\begin_layout Itemize
+Publishing
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Features
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Floats
+\end_layout
+
+\begin_layout Itemize
+Mathematics
+\end_layout
+
+\begin_layout Itemize
+Table of Conents
+\end_layout
+
+\begin_layout Itemize
+Bibliographies
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Advanced TeX
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
