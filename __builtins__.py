@@ -432,6 +432,8 @@ __dissertation_template__ = r"""
     \usepackage{adjustbox}
     \usepackage{rotfloat}
     \usepackage{pdfpages}
+    \usepackage{array}
+    \usepackage{makecell}
     %\usepackage{pdfx}
     \makeatletter
     \newcommand{\invis}[1]{%
