@@ -26,9 +26,9 @@ def cdoc():
 
 class article2(lyxdoc.document):
     """ A two column article class """
-    def __init__(self, bib=None):
+    def __init__(self, bib=None, **kwargs):
         self.modulepath = osp.dirname(__file__)
-        super(article2, self).__init__(bib=bib)
+        super(article2, self).__init__(bib=bib, **kwargs)
         self._affiliation = ''
         self._author = ''
         bi.__cdoc__ = self
@@ -51,10 +51,10 @@ class article2(lyxdoc.document):
         """
         self._affiliation += '\n' + r'\affil{%s}' % affiliation
 
-    def export(self, filename, engine='pdflatex'):
+    def export(self, filename, engine='pdflatex', fmt='latex'):
         metadata = {"author": self._author, "title": self._title,
                     "affiliation": self._affiliation}
-        super(article2, self).export(filename=filename, fmt='latex',
+        super(article2, self).export(filename=filename, fmt=fmt,
                                      engine=engine, template='article2',
                                      metadata=metadata)
 

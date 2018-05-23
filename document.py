@@ -24,6 +24,7 @@ import re
 from pyg import twod as pyg2d
 import __builtins__ as bi
 import __init__ as init
+import logging
 
 if lyx.run_from_ipython():
     ip = get_ipython()
@@ -78,7 +79,8 @@ class document(object):
         generalized journal article-like template.
 
         :param lyx.bib bib: A ``lyx.bib`` object for the bibliography """
-    def __init__(self, bib=None):
+    def __init__(self, bib=None, level=logging.WARNING):
+        logging.basicConfig(level=level)
         if bib is None:
             self._bib = lyx.bib('bibs/dissertation.bib')
         else:
@@ -89,6 +91,8 @@ class document(object):
         self._chapter_paths = []
         self._data_paths = []
         bi.__cdoc__ = self
+        self.cwd = os.path.abspath(os.getcwd())
+        self.chapter_paths([self.cwd])
 
     def title(self, title):
         """ Adds a title to the document that will be printed in the
@@ -299,6 +303,8 @@ class document(object):
             :param list cells: the cells that we'll append to
             :param bool child: if the notebook we're appending is the child
         """
+        logging.debug(filename)
+        logging.debug(self.find_first(filename))
         _nb = nbformat.read(self.find_first(filename), 4)
         fpath = os.path.abspath(os.path.dirname(self.find_first(filename)))
         cells.extend([nbformat.v4.new_code_cell("import os; os.chdir(\'%s\')" % fpath)])
@@ -464,7 +470,7 @@ class document(object):
         #os.remove(filename + '.aux')
         #os.remove(filename + '.blg')
 
-    def export_html(self):
+    def export_html(self, filename, **kwargs):
         r""" exports to html """
         self.c.HTMLExporter.preprocessors = \
             ['nbconvert.preprocessors.ExecutePreprocessor']
