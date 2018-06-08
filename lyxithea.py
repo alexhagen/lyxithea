@@ -19,6 +19,8 @@ import tempfile
 import psgv.psgv as psgv
 import re
 import numpy as np
+from pytexit import pytexit
+import inspect
 
 todos = psgv.psgv('__todos__')
 todos.val = []
@@ -711,3 +713,56 @@ def video(path, replace=None, width='7.5in', height='5.0in',
         \caption{%s\label{fig:%s}}
     \end{figure}''' % (width, resource, path, width, replace, caption, label)
     return latexstr
+
+def find_between( s, first, last ):
+    try:
+        start = s.index( first ) + len( first )
+        end = s.index( last, start )
+        return s[start:end]
+    except ValueError:
+        return ""
+
+def pyf2tex(func, deps=False, f_syntax=False, show=False, rename=False):
+    string = inspect.getsource(func)
+    # remove any decorators
+    x = find_between(string, '@', '\n')
+    string = string.replace('@' + x, '')
+    _deps = ','.join([pytexit.py2tex(_dep, print_latex=False, print_formula=False).replace('$$', '') for _dep in string.split('(')[1].split(')')[0].replace('self, ', '').split(',')])
+    if f_syntax:
+        if not deps:
+            _name = 'f12345'
+            _replace = 'f({})'.format(_deps)
+            deps = True
+        else:
+            _name = string.split('(')[0].replace('def ', '')
+            texname = pytexit.py2tex(_name, print_latex=False, print_formula=False).replace('$$', '')
+            _replace = '{}({})'.format(texname, _deps)
+            _name = 'f12345'
+    elif rename:
+        if not deps:
+            _name = string.split('(')[0].replace('def ', '')
+            _replace = '{}'.format(rename)
+            _name = 'f12345'
+        else:
+            _name = string.split('(')[0].replace('def ', '')
+            _replace = '{}({})'.format(rename, _deps)
+            _name = 'f12345'
+    else:
+        _name = string.split('(')[0].replace('def ', '')
+        _replace = r'{}({})'.format(_name, _deps)
+    _return = string.split('return')[-1]
+    string = '{variable} = {function}'.format(variable=_name, function=_return)
+    string = pytexit.py2tex(string, print_latex=False, print_formula=False)
+    if deps or rename:
+        string = string.replace(_name, _replace)
+    if show:
+        display(Latex(string))
+    return string
+
+def equation(**kwargs):
+    def real_equation(function):
+        function.__latex__ = pyf2tex(function, **kwargs)
+        def wrapper(*args, **kwargs):
+            pass
+        return function
+    return real_equation
