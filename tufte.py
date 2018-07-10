@@ -23,3 +23,4 @@ def cdoc():
 class tufte(lyxdoc.document):
     """ A tufte document class """
     def __init__(self, bib=None):
+        pass

@@ -15,7 +15,7 @@
    id="svg3003"
    version="1.1"
    inkscape:version="0.91 r13725"
-   sodipodi:docname="Formal_Title_Page.svg">
+   sodipodi:docname="pnnl_title_page.svg">
   <defs
      id="defs3005">
     <pattern
@@ -533,9 +533,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.3412698"
-     inkscape:cx="596.23669"
-     inkscape:cy="217.33136"
+     inkscape:zoom="0.6706349"
+     inkscape:cx="429.97633"
+     inkscape:cy="316.49112"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -553,7 +553,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>

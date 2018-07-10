@@ -23,11 +23,11 @@ def cslides():
     if bi.__cslides__ is not None:
         return bi.__cslides__
     else:
-        return puslides()
+        return pnnlslides()
 
 
-class puslides(lyxdoc.document):
-    """ A purdue slides class """
+class pnnlslides(lyxdoc.document):
+    """ A PNNL slides class """
     slidetypes = {'onecolumnslide': {'size': [(7.5, 5.25)], 'number': 1},
                   'twocolumnslide': {'size': [(3.375, 5.25), (3.375, 5.25)],
                                      'number': 2},
@@ -60,12 +60,12 @@ class puslides(lyxdoc.document):
         self._city = None
         self._confidential = confidential
         self._slidetype = None
-        super(puslides, self).__init__(bib=bib)
+        super(pnnlslides, self).__init__(bib=bib)
         bi.__cslides__ = self
 
     def export(self, filename, engine='lualatex'):
         # copy the classfile over
-        shutil.copy(osp.join(self.modulepath, 'puslides.cls'), './')
+        shutil.copy(osp.join(self.modulepath, 'pnnlslides.cls'), './')
         # copy the css files over
         shutil.rmtree('fonts/', ignore_errors=True)
         shutil.rmtree('css/', ignore_errors=True)
@@ -78,8 +78,8 @@ class puslides(lyxdoc.document):
                     "venue": self._venue,
                     "city": self._city,
                     "confidential": self._confidential}
-        super(puslides, self).export(filename=filename, fmt='latex',
-                                     engine=engine, template='puslides',
+        super(pnnlslides, self).export(filename=filename, fmt='latex',
+                                     engine=engine, template='pnnlslides',
                                      metadata=metadata)
         shutil.rmtree('fonts/')
         shutil.rmtree('css/')
@@ -129,7 +129,7 @@ class puslides(lyxdoc.document):
 
 
     def bibliography(self):
-        return super(puslides, self).bibliography(header_level=3, force_string=True)
+        return super(pnnlslides, self).bibliography(header_level=3, force_string=True)
 
     def process_content(self, content, index, filename=None, latex=False,
                         **kwargs):
@@ -502,7 +502,7 @@ class puslides(lyxdoc.document):
                 preamble_str = '\def\\theauthorsforbottom{%s}\n' % self._author
                 preamble_str += '\\providecommand{\\tightlist}{\\renewcommand{\\\\}{\\vspace{0pt}}}\n'
                 # copy the classfile over
-                shutil.copy(osp.join(self.modulepath, 'puslides.cls'), './')
+                shutil.copy(osp.join(self.modulepath, 'pnnlslides.cls'), './')
                 prelatex_str = '\\title{%s}\n' % self._title
                 prelatex_str += '\subtitle{%s}\n' % self._subtitle
                 prelatex_str += '\\author{%s}\n' % self._author
@@ -515,12 +515,13 @@ class puslides(lyxdoc.document):
                 shutil.copytree(osp.join(self.modulepath, 'css/'), 'css/')
                 # copy the fonts over
                 shutil.copytree(osp.join(self.modulepath, 'fonts/'), 'fonts/')
-                thisslide = mwe.mwe(prelatex_str, texcls='puslides',
+                thisslide = mwe.mwe(prelatex_str, texcls='pnnlslides',
                                     texclsopts={'english': None, '20pt': None},
                                     preamble=preamble_str)
                 try:
                     thisslide.show(alone=True, filename='slide_%d' % self.slide,
-                                   engine='lualatex')
+                                   engine='lualatex',
+                                   interaction='-interaction batchmode')
                 except IOError:
                     display(HTML('<h2>Latex Error</h2>'))
                 self.slide += 1
@@ -543,7 +544,7 @@ class puslides(lyxdoc.document):
                 preamble_str = '\def\\theauthorsforbottom{%s}\n' % self._author
                 preamble_str += '\\providecommand{\\tightlist}{\\renewcommand{\\\\}{\\vspace{0pt}}}\n'
                 # copy the classfile over
-                shutil.copy(osp.join(self.modulepath, 'puslides.cls'), './')
+                shutil.copy(osp.join(self.modulepath, 'pnnlslides.cls'), './')
                 prelatex_str = '\\title{%s}\n' % self._title
                 prelatex_str += '\subtitle{%s}\n' % self._subtitle
                 prelatex_str += '\\author{%s}\n' % self._author
@@ -557,7 +558,7 @@ class puslides(lyxdoc.document):
                 shutil.copytree(osp.join(self.modulepath, 'css/'), 'css/')
                 # copy the fonts over
                 shutil.copytree(osp.join(self.modulepath, 'fonts/'), 'fonts/')
-                thisslide = mwe.mwe(prelatex_str + latex_str, texcls='puslides',
+                thisslide = mwe.mwe(prelatex_str + latex_str, texcls='pnnlslides',
                                     texclsopts={'english': None, '20pt': None},
                                     preamble=preamble_str)
                 try:
@@ -570,11 +571,11 @@ class puslides(lyxdoc.document):
                 shutil.rmtree('css/')
 
 @magics_class
-class puslides_magics(Magics):
+class pnnlslides_magics(Magics):
 
     @line_cell_magic
     def slides(self, line, cell):
-        """ call function of puslides from a line magic """
+        """ call function of pnnlslides from a line magic """
         cslides = bi.__cslides__
         # sanitize the inputs
         arg = re.sub(u"(\u2018|\u2019)", "'", cell)
@@ -583,4 +584,4 @@ class puslides_magics(Magics):
             .format(method=line, arg=arg)
         exec(cmd_str)
 
-ip.register_magics(puslides_magics)
+ip.register_magics(pnnlslides_magics)

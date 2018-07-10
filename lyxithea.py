@@ -14,7 +14,8 @@ import os.path
 import subprocess
 import bibtexparser
 from bibtexparser.bibdatabase import BibDatabase
-import __builtins__ as bi
+#import __builtins__ as bi
+import builtins as bi
 import tempfile
 import psgv.psgv as psgv
 import re
