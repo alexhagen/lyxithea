@@ -332,7 +332,7 @@
 
 \renewcommand{\chapter}[2]{\def\nameofchapter{#2} \def\nameoflongchapter{#1}
   \newpage
-  \ThisCenterWallPaper{1}{css/Formal_Chapter_Slide_Outer_Data.pdf}
+  \ThisCenterWallPaper{1}{css/pnnl_chapter_outer.pdf}
   \thispagestyle{fancy}
   \renewcommand{\headrulewidth}{0pt}
   \fancyhf{}
@@ -353,7 +353,7 @@
 
 \newcommand{\chapterslide}[3]{\def\nameofchapter{#3} \def\nameoflongchapter{#1}
   \newpage
-  \ThisCenterWallPaper{1}{css/Formal_Chapter_Slide_Outer_Data.pdf}
+  \ThisCenterWallPaper{1}{css/pnnl_chapter_outer.pdf}
   \thispagestyle{fancy}
   \renewcommand{\headrulewidth}{0pt}
   \fancyhf{}
@@ -382,28 +382,28 @@
 
 \newcommand{\putitle}{
     % Subtitle
-    \begin{textblock}{6}(1.5,4.35)
+    \begin{textblock}{6}(1.5,5.35)
       \begin{minipage}[c][0.5 in][s]{6 in}\centering
         \large{\myriad\emph{\nameofsubtitle}}
       \end{minipage}
     \end{textblock}
     % Venue and Date
-    \begin{textblock}{6}(1.5,5.15)
+    \begin{textblock}{6}(1.5,5.6)
       \fontsize{20}{20}
       \begin{minipage}[c][0.5 in][s]{6 in}\centering
-        \large{\today\hspace{0.1em}at \nameofvenue}\\ \normalsize{\nameofcity}
+        \large{\today\hspace{0.2em}at \nameofvenue}\\ \normalsize{\nameofcity}
       \end{minipage}
     \end{textblock}%
     % Author
-    \begin{textblock}{6}(1.5,3.45)
+    \begin{textblock}{6}(1.5,4.75)
       \begin{minipage}[c][0.5 in][s]{6 in}\centering
-        \champion \color{grey60} \Large{\nameofauthor}
+        \chaparral \color{grey60} \Large{\nameofauthor}
       \end{minipage}
     \end{textblock}%
     % Title
-    \begin{textblock}{7}(1,1.5)
+    \begin{textblock}{7}(1,2.0)
       \begin{minipage}[c][1.5 in][c]{7 in}\centering
-        \chaparral \Huge{\nameoftitle}
+        {\champion \color{copper} \fontsize{60}{54}\selectfont \nameoftitle}
       \end{minipage}
     \end{textblock}%
 }
