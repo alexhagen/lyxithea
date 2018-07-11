@@ -823,7 +823,102 @@ __puslides_template__ = r"""((*- extends 'article.tplx' -*))
 ((* endblock data_markdown *))
 """
 
+__pnnlslides_template__ = r"""((*- extends 'article.tplx' -*))
+
+((* block input_group *))
+    ((*- if cell.metadata.get('nbconvert', {}).get('show_code', False) -*))
+        ((( super() )))
+    ((*- endif -*))
+((* endblock input_group *))
+
+((* block data_latex -*))
+    ((( output.data['text/latex'] | strip_files_prefix )))
+((* endblock data_latex *))
+
+((* set cell_style = 'style_bw_python.tplx' *))
+
+((* block docclass *))
+
+((*- if nb.metadata["confidential"]: -*))
+    \documentclass[confidential,american,20pt]{pnnlslides}
+((*- else -*))
+    \documentclass[american,20pt]{pnnlslides}
+((*- endif -*))
+((* endblock docclass *))
+
+((* block margins *))
+((* endblock margins *))
+
+
+((* block packages *))
+((* endblock packages *))
+
+((* block definitions *))
+((* endblock definitions *))
+
+((* block commands *))
+((* endblock commands *))
+
+((* block maketitle *))
+((*- if nb.metadata["title"]: -*))
+    \title{((( nb.metadata["title"] )))}
+((*- else -*))
+    \title{((( resources.metadata.name )))}
+((*- endif -*))
+
+((*- if nb.metadata["author"]: -*))
+    \author{((( nb.metadata["author"] )))}
+((*- else -*))
+    \author{Alex Hagen}
+((*- endif *))
+
+\date{\today}
+
+((*- if nb.metadata["affiliation"] and nb.metadata["subtitle"]: -*))
+    \subtitle{((( nb.metadata["affiliation"] ))) \\ ((( nb.metadata["subtitle"])))}
+((*- else -*))
+    \subtitle{}
+((*- endif *))
+
+((*- if nb.metadata["venue"]: -*))
+    \venue{((( nb.metadata["venue"] )))}
+((*- else -*))
+    \venue{}
+((*- endif *))
+
+((*- if nb.metadata["city"]: -*))
+    \city{((( nb.metadata["city"] )))}
+((*- else -*))
+    \city{}
+((*- endif *))
+
+\maketitle
+
+
+((*- if nb.metadata["author"]: -*))
+    \def\theauthorsforbottom{((( nb.metadata["author"] )))}
+((*- else -*))
+    \def\theauthorsforbottom{A. Hagen}
+((*- endif *))
+((* endblock maketitle *))
+
+((* block error *))
+((* endblock error *))
+
+((* block stream *))
+((* endblock stream *))
+
+((* block markdowncell scoped *))
+    ((( cell.source | citation2latex | strip_files_prefix | convert_pandoc('markdown', 'json', extra_args=['--chapters']) | resolve_references | convert_pandoc('json', 'latex', extra_args=['--chapters']) )))
+((* endblock markdowncell *))
+
+((* block data_markdown *))
+    ((( output.data['text/markdown'] | citation2latex | strip_files_prefix | convert_pandoc('markdown', 'json', extra_args=['--chapters']) | resolve_references | convert_pandoc('json', 'latex', extra_args=['--chapters']) )))
+((* endblock data_markdown *))
+"""
+
 __templates__ = {'dissertation': __dissertation_template__,
                  'article': __article_template__,
                  'puslides': __puslides_template__,
-                 'article2': __article2_template__}
+                 'article2': __article2_template__,
+                 'pnnlslides': __pnnlslides_template__}

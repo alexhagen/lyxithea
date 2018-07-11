@@ -6,7 +6,7 @@ from IPython.core.magic import (Magics, magics_class, line_magic,
                                 cell_magic, line_cell_magic)
 import nbformat
 import re
-import __builtins__ as bi
+import builtins as bi
 import __init__ as init
 import document as lyxdoc
 import os.path as osp
@@ -80,7 +80,8 @@ class pnnlslides(lyxdoc.document):
                     "confidential": self._confidential}
         super(pnnlslides, self).export(filename=filename, fmt='latex',
                                      engine=engine, template='pnnlslides',
-                                     metadata=metadata)
+                                     metadata=metadata,
+                                     interaction='-interaction batchmode')
         shutil.rmtree('fonts/')
         shutil.rmtree('css/')
 

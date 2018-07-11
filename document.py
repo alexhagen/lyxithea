@@ -22,7 +22,7 @@ import lyxithea as lyx
 import nbformat
 import re
 from pyg import twod as pyg2d
-import __builtins__ as bi
+import builtins as bi
 import __init__ as init
 import logging
 
@@ -413,7 +413,7 @@ class document(object):
         display(Latex('\\appendicestext\n'))
 
     def export(self, filename, fmt='latex', engine='pdflatex',
-               template="article", metadata={}):
+               template="article", metadata={}, **kwargs):
         r""" exports the current document - into latex for now """
         lyx.exporting(True)
         # open the notebook as version four, get its path and all its cells
@@ -431,12 +431,12 @@ class document(object):
         self.c.ExecutePreprocessor.timeout = 600
         self.template = bi.__templates__[template]
         if fmt == 'latex':
-            self.export_latex(filename, engine=engine)
+            self.export_latex(filename, engine=engine, **kwargs)
         elif fmt == 'html':
             self.export_html(filename)
         lyx.exporting(False)
 
-    def export_latex(self, filename, engine='pdflatex'):
+    def export_latex(self, filename, engine='pdflatex', interaction=''):
         r""" exports to latex """
         lyx.latex()
         lyx.markdown(False)
@@ -450,8 +450,8 @@ class document(object):
         (body, resources) = latex_exporter.from_notebook_node(self.nb)
         with open('./' + filename + '.tex', 'w') as f:
             f.write(body)
-        interaction = '-interaction batchmode'
-        interaction = ''
+        #interaction = '-interaction batchmode'
+        #interaction = ''
         os.system('{engine} {int} ./'.format(engine=engine, int=interaction) + filename + '.tex')
         os.system('bibtex ./' + filename)
         os.system('bibtex ./' + filename + '.aux')
