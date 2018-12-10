@@ -46,7 +46,7 @@ class pnnlslides(lyxdoc.document):
                   'threecolumn': {'size': 3*[(2.333, 5.25)], 'number': 3},
                   'twocolumnrighttworow': {'size': [(3.375, 5.25), (3.375, 2.375), (3.375, 2.375)], 'number': 3}
                  }
-    def __init__(self, bib=None, confidential=False):
+    def __init__(self, bib=None, confidential=False, title_slide=True):
         self.modulepath = osp.dirname(__file__)
         self.content_one = None
         self.content_two = None
@@ -60,10 +60,15 @@ class pnnlslides(lyxdoc.document):
         self._city = None
         self._confidential = confidential
         self._slidetype = None
+        self._title_slide = title_slide
         super(pnnlslides, self).__init__(bib=bib)
         bi.__cslides__ = self
 
-    def export(self, filename, engine='lualatex'):
+    def export(self, filename, engine='lualatex', batchmode=True):
+        if batchmode:
+            interaction = '-interaction batchmode'
+        else:
+            interaction = ''
         # copy the classfile over
         shutil.copy(osp.join(self.modulepath, 'pnnlslides.cls'), './')
         # copy the css files over
@@ -79,9 +84,9 @@ class pnnlslides(lyxdoc.document):
                     "city": self._city,
                     "confidential": self._confidential}
         super(pnnlslides, self).export(filename=filename, fmt='latex',
-                                     engine=engine, template='pnnlslides',
-                                     metadata=metadata,
-                                     interaction='-interaction batchmode')
+                                       engine=engine, template='pnnlslides',
+                                       metadata=metadata,
+                                       interaction=interaction)
         shutil.rmtree('fonts/')
         shutil.rmtree('css/')
 

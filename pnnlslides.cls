@@ -89,7 +89,6 @@
 {\setcounter{cenumsaved}{\value{cenum}}%
 \end{list}}
 
-
 \vfuzz = 500pt
 
 \definecolor{grey20}{RGB}{225, 225, 225}
@@ -419,6 +418,7 @@
 
   \hspace{1in}
   \putitle
+
   \setcounter{numberpart}{0}
   \newpage
 }

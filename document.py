@@ -304,12 +304,13 @@ class document(object):
             :param bool child: if the notebook we're appending is the child
         """
         logging.debug(filename)
-        logging.debug(self.find_first(filename))
+        #logging.debug(self.find_first(filename))
         _nb = nbformat.read(self.find_first(filename), 4)
         fpath = os.path.abspath(os.path.dirname(self.find_first(filename)))
         cells.extend([nbformat.v4.new_code_cell("import os; os.chdir(\'%s\')" % fpath)])
         for cell in _nb.cells:
             if cell['cell_type'] == 'code':
+                logging.debug(cell['source'])
                 if re.match('dis\.chapter\([\'\"](.*)[\'\"]\)', cell['source']) is None \
                     and re.match('dis\.appendix\([\'\"](.*)[\'\"]\)', cell['source']) is None \
                     and cell['source'] is not '' \
@@ -366,12 +367,16 @@ class document(object):
             a document on the path
         """
         for path in self._chapter_paths:
-            for root, dirs, files in os.walk(path):
-                for extension in ["ipynb", "lyx"]:
-                    _fname = "{fname}.{ext}".format(fname=filename,
-                                                    ext=extension)
-                    if _fname in files:
-                        return os.path.join(root, _fname)
+            logging.debug(self._chapter_paths)
+            if path != '/':
+                for root, dirs, files in os.walk(path):
+                    logging.debug('%s, %s, %s' % (root, dirs, files))
+                    for extension in ["ipynb", "lyx"]:
+                        _fname = "{fname}.{ext}".format(fname=filename,
+                                                        ext=extension)
+                        if _fname in files:
+                            logging.debug(os.path.join(root, _fname))
+                            return os.path.join(root, _fname)
 
     def bibliography(self, header_level=3, force_string=True, **kwargs):
         r""" writes the bibliography to the document
@@ -419,7 +424,9 @@ class document(object):
         # open the notebook as version four, get its path and all its cells
         self.nb = nbformat.v4.new_notebook()
         self.cwd = os.path.abspath(os.getcwd())
+        logging.debug(filename)
         cells = self.append_notebook(filename, [], child=False)
+        logging.debug('after cells')
         self.nb['cells'] = cells
         # write it to a temp file
         nbformat.write(self.nb, 'temp_notebook.ipynb', 4)
@@ -436,7 +443,7 @@ class document(object):
             self.export_html(filename)
         lyx.exporting(False)
 
-    def export_latex(self, filename, engine='pdflatex', interaction=''):
+    def export_latex(self, filename, engine='pdflatex', interaction='-interaction batchmode'):
         r""" exports to latex """
         lyx.latex()
         lyx.markdown(False)

@@ -20,7 +20,7 @@ import tempfile
 import psgv.psgv as psgv
 import re
 import numpy as np
-from pytexit import pytexit
+#from pytexit import pytexit
 import inspect
 
 todos = psgv.psgv('__todos__')

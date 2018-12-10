@@ -504,7 +504,7 @@ class puslides(lyxdoc.document):
                 # copy the classfile over
                 shutil.copy(osp.join(self.modulepath, 'puslides.cls'), './')
                 prelatex_str = '\\title{%s}\n' % self._title
-                prelatex_str += '\subtitle{%s}\n' % self._subtitle
+                prelatex_str += '\\subtitle{%s}\n' % self._subtitle
                 prelatex_str += '\\author{%s}\n' % self._author
                 prelatex_str += '\\venue{%s}\n' % self._venue
                 prelatex_str += '\\city{%s}\n' % self._city
@@ -545,7 +545,7 @@ class puslides(lyxdoc.document):
                 # copy the classfile over
                 shutil.copy(osp.join(self.modulepath, 'puslides.cls'), './')
                 prelatex_str = '\\title{%s}\n' % self._title
-                prelatex_str += '\subtitle{%s}\n' % self._subtitle
+                prelatex_str += '\\subtitle{%s}\n' % self._subtitle
                 prelatex_str += '\\author{%s}\n' % self._author
                 prelatex_str += '\\venue{%s}\n' % self._venue
                 prelatex_str += '\\city{%s}\n' % self._city
