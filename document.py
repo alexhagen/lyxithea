@@ -9,7 +9,10 @@ import os.path
 import os
 import re
 import sys
-import StringIO
+try:
+    from StringIO import StringIO
+except ImportError:
+    from io import StringIO
 import contextlib
 import inspect
 import nbformat
@@ -18,7 +21,7 @@ from IPython.display import display, HTML
 from traitlets.config import Config
 from jinja2 import DictLoader
 from IPython.core.magics.code import CodeMagics
-import lyxithea as lyx
+from . import lyxithea as lyx
 import nbformat
 import re
 from pyg import twod as pyg2d

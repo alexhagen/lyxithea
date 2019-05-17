@@ -1,6 +1,6 @@
 from __future__ import division
 #from __future__ import print_function
-import lyxithea as lyx
+from . import lyxithea as lyx
 from IPython.display import display, Latex, HTML
 from IPython.core.magic import (Magics, magics_class, line_magic,
                                 cell_magic, line_cell_magic)
@@ -8,7 +8,7 @@ import nbformat
 import re
 import builtins as bi
 import __init__ as init
-import document as lyxdoc
+from . import document as lyxdoc
 import os.path as osp
 import shutil
 from pyg import twod as pyg2d
