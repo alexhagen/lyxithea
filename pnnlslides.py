@@ -6,7 +6,7 @@ from IPython.core.magic import (Magics, magics_class, line_magic,
                                 cell_magic, line_cell_magic)
 import nbformat
 import re
-import builtins as bi
+from . import utils as bi
 import __init__ as init
 from . import document as lyxdoc
 import os.path as osp

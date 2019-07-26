@@ -25,7 +25,7 @@ from . import lyxithea as lyx
 import nbformat
 import re
 from pyg import twod as pyg2d
-import builtins as bi
+from . import utils as bi
 import __init__ as init
 import logging
 
