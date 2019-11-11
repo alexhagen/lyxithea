@@ -53,7 +53,10 @@ def cdoc():
 def stdoutIO(stdout=None):
     old = sys.stdout
     if stdout is None:
-        stdout = StringIO.StringIO()
+        try:
+            stdout = StringIO.StringIO()
+        except AttributeError:
+            stdout = StringIO()
     sys.stdout = stdout
     yield stdout
     sys.stdout = old
