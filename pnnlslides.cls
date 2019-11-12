@@ -66,6 +66,7 @@
 \nobibliography*
 \usepackage{makecell}
 \usepackage{outlines}
+\usepackage{adjustbox}
 
 \renewcommand{\theenumi}{\Roman{enumi}. }
 \renewcommand{\labelenumi}{\theenumi}
