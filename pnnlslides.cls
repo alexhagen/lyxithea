@@ -56,6 +56,9 @@
 \usepackage{soul}
 \usepackage{tikz}
 \usetikzlibrary{shapes,arrows,calc,positioning,automata}
+\usetikzlibrary{shapes.geometric}   % For trapezium
+\usetikzlibrary{patterns, snakes}%
+\usetikzlibrary{backgrounds,scopes}%
 \usepackage{pdfpages}
 \usepackage{float}
 \usepackage{ifthen}
