@@ -28,6 +28,7 @@
 \RequirePackage{algorithmic}
 \RequirePackage{multicol}
 \RequirePackage{url}
+\RequirePackage{import}
 \usepackage[absolute,overlay]{textpos}
 \RequirePackage{anyfontsize}
 \usepackage{amstext}
@@ -973,3 +974,4 @@
 \renewcommand{\subsection}[1]{\heading{#1}}
 \renewcommand{\subsubsection}[1]{\Large{\champion #1}}
 \endinput
+%\let\pgfimage\includegraphics

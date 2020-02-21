@@ -138,7 +138,7 @@ class pnnlslides(lyxdoc.document):
         return super(pnnlslides, self).bibliography(header_level=3, force_string=True)
 
     def process_content(self, content, index, filename=None, latex=False,
-                        **kwargs):
+                        force_pdf=False, custom_size=None, **kwargs):
         if latex:
             self.content[index] = content
             return content
@@ -150,9 +150,16 @@ class pnnlslides(lyxdoc.document):
             return latex_str
         elif isinstance(content, pyg2d.pyg2d):
             lyx.latex()
-            content.export(filename, force=True, sizes=['cs'],
-                           customsize=(self.width, self.height - 0.125))
+            if force_pdf:
+                formats = ['pdf']
+            else:
+                formats = None
+            if custom_size is None:
+                custom_size = (self.width, self.height - 0.125)
+            content.export(filename, formats=formats, force=True, sizes=['cs'],
+                           customsize=custom_size)
             string = content.show(need_string=True, **kwargs)
+            string = string.replace('pgfimage', 'includegraphics')
             self.content[index] = string
             return string
         elif isinstance(content, pyg2d.svg):
