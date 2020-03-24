@@ -969,9 +969,9 @@
  {\end{enumerate}
  \renewcommand{\theenumi}{\Arabic{enumi}}}
 
-\newcommand{\heading}[1]{\LARGE{\champion #1}}
+\newcommand{\heading}[1]{\LARGE{\color{copper}\champion #1}}
 
 \renewcommand{\subsection}[1]{\heading{#1}}
-\renewcommand{\subsubsection}[1]{\Large{\champion #1}}
+\renewcommand{\subsubsection}[1]{\Large{\color{copper}\champion #1}}
 \endinput
 %\let\pgfimage\includegraphics
